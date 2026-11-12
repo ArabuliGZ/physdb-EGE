@@ -1,0 +1,9 @@
+tmp/
+__pycache__/
+*.py[cod]
+.venv/
+.env
+
+# Not used by the current database or import pipeline.
+Материалы/ЕГЭ физика 2027 ФИПИ.pdf
+Материалы/ЕГЭ от Демидовой/От Демидовой до 2023 года/

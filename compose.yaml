@@ -1,0 +1,19 @@
+name: phyege
+services:
+  web:
+    build:
+      context: .
+      dockerfile: web/Dockerfile
+    container_name: phyege-web
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8001:8001"
+    volumes:
+      - ./data/phyege.sqlite3:/data/phyege.sqlite3:ro
+      - ./assets/objects:/assets/objects:ro
+      - ./Материалы:/materials:ro
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8001/api/health')"]
+      interval: 5s
+      timeout: 3s
+      retries: 8

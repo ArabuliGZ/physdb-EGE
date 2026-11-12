@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>PhysEGE — варианты и задачи</title>
+  <link rel="icon" href="/static/brand-mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/physdb.css">
+  <link rel="stylesheet" href="/static/katex.min.css">
+  <link rel="stylesheet" href="/static/site.css">
+  <script defer src="/static/katex.min.js"></script>
+  <script defer src="/static/app.js"></script>
+</head>
+<body>
+  <header class="topbar site-topbar">
+    <a class="brand" href="/" aria-label="PhysEGE — главная">
+      <img class="brand-mark" src="/static/brand-mark.svg" width="38" height="38" alt="">
+      <span class="brand-copy"><strong>PhysEGE</strong><span>Подготовка к ЕГЭ по физике</span></span>
+    </a>
+    <div class="topbar-summary"><span class="database-dot" aria-hidden="true"></span><span id="database-summary">Локальная база задач</span></div>
+  </header>
+
+  <main class="site-shell">
+    <div class="intro">
+      <div><span class="eyebrow">Каталог задач</span><h1>Варианты и задания</h1></div>
+      <span class="draft-badge">ФИПИ 2027 · проект</span>
+    </div>
+
+    <nav class="view-tabs" aria-label="Разделы сайта">
+      <button type="button" id="tab-variants" class="view-tab is-active" aria-current="page">Цельные варианты</button>
+      <button type="button" id="tab-numbers" class="view-tab">Задачи по номеру</button>
+    </nav>
+
+    <div class="catalog-layout">
+      <aside class="catalog-sidebar panel" aria-label="Выбор">
+        <div class="sidebar-header"><span class="eyebrow" id="sidebar-eyebrow">Варианты</span><h2 id="sidebar-title">Выберите вариант</h2></div>
+        <div id="variant-list" class="variant-list"></div>
+        <div id="number-list" class="number-list" hidden></div>
+        <div class="legend">
+          <div><span class="status-dot yes"></span> Подходит для 2027</div>
+          <div><span class="status-dot partial"></span> Частично подходит</div>
+          <div><span class="status-dot no"></span> Не подходит для 2027</div>
+        </div>
+      </aside>
+
+      <section class="catalog-main" aria-live="polite">
+        <div class="section-head panel">
+          <div><span class="eyebrow" id="content-eyebrow">Вариант</span><h2 id="content-title">Загрузка…</h2><a id="source-download" class="source-download" hidden>Скачать исходный вариант</a><div id="companion-downloads" class="companion-downloads"></div></div>
+          <span id="problem-count" class="count-pill"></span>
+        </div>
+        <div id="error-box" class="error-box" hidden></div>
+        <div id="problem-list" class="problem-list"></div>
+      </section>
+    </div>
+  </main>
+
+  <dialog id="image-dialog" class="image-dialog"><form method="dialog"><button class="dialog-close" aria-label="Закрыть изображение">×</button></form><img alt="Фрагмент оригинала"><p></p></dialog>
+</body>
+</html>
