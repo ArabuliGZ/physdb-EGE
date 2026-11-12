@@ -1,6 +1,7 @@
-"""Check every TeX expression in solutions with the site's bundled KaTeX."""
+"""Check TeX expressions in solutions or criteria with the site's bundled KaTeX."""
 from __future__ import annotations
 
+import argparse
 import json
 import re
 import shutil
@@ -30,25 +31,28 @@ process.stdout.write(JSON.stringify(errors));
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--field", choices=("solution", "criteria"), default="solution")
+    field = parser.parse_args().field
     node = shutil.which("node")
     if not node:
         print("Node.js is required to check TeX with the site's KaTeX")
         return 2
 
     con = sqlite3.connect(ROOT / "data" / "phyege.sqlite3")
-    rows = con.execute("""SELECT v.exam_year, v.variant_number, p.problem_number, p.solution
+    rows = con.execute(f"""SELECT v.exam_year, v.variant_number, p.problem_number, p.{field}
         FROM problems AS p JOIN variants AS v ON v.id = p.variant_id
-        WHERE p.solution IS NOT NULL ORDER BY v.exam_year, v.variant_number, p.problem_number""")
+        WHERE p.{field} IS NOT NULL ORDER BY v.exam_year, v.variant_number, p.problem_number""")
     expressions = []
     delimiters = []
-    for year, variant, number, solution in rows:
+    for year, variant, number, content in rows:
         label = f"{year}-{variant} №{number}"
         for opening, closing in DELIMITERS:
-            starts = len(re.findall(opening, solution))
-            ends = len(re.findall(closing, solution))
+            starts = len(re.findall(opening, content))
+            ends = len(re.findall(closing, content))
             if starts != ends:
                 delimiters.append(f"{label}: {starts} openings, {ends} closings")
-        for match in EXPRESSION.finditer(solution):
+        for match in EXPRESSION.finditer(content):
             expressions.append({"task": label, "tex": match.group(1) or match.group(2)})
 
     result = subprocess.run(

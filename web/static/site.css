@@ -90,6 +90,17 @@ body { min-width: 0; }
 .detail-panel-header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; margin: 0 -16px 8px 0; }
 .detail-panel-header h4 { margin: 0; font-size: 12px; }
 .detail-content { max-width: 100%; }
+.criteria-content { display: grid; gap: 10px; font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 14px; line-height: 1.6; overflow-wrap: break-word; }
+.criteria-content p { margin: 0; }
+.criteria-note { color: var(--gray-500); font-size: 12px; }
+.criteria-heading { margin: 13px 0 0; padding-top: 11px; border-top: 1px solid var(--gray-200); font-size: 14px; line-height: 1.45; }
+.criteria-item { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 15px; align-items: start; padding: 12px 14px; border: 1px solid var(--gray-200); border-radius: 9px; background: #fff; }
+.criteria-points { display: block; padding: 5px 7px; border-radius: 7px; background: var(--orange-50); color: var(--orange-800); text-align: center; font: 700 12px/1.3 Inter, system-ui, sans-serif; white-space: nowrap; }
+.criteria-description { min-width: 0; }
+.criteria-description p + p { margin-top: 9px; }
+.criteria-alternative { padding-left: 13px; border-left: 2px solid var(--gray-200); }
+.criteria-alternative strong { color: var(--gray-600); font-size: 11px; }
+.criteria-maximum { padding: 7px 0 0; color: var(--gray-600); font-weight: 700; }
 .figure-grid { display: flex; flex-wrap: wrap; gap: 8px; }
 .source-pages { display: grid; gap: 16px; }
 .source-solution-page { display: grid; gap: 5px; width: 100%; max-width: 900px; padding: 6px; border: 1px solid var(--gray-200); border-radius: 9px; background: white; cursor: zoom-in; }
@@ -112,3 +123,4 @@ body { min-width: 0; }
 @media (max-width: 680px) { .copy-button { width: auto; padding: 5px 9px; } .copy-button span { display: inline; } }
 @media (max-width: 760px) { .site-topbar { margin: 8px 8px 0; } .topbar-summary { display: none; } .site-shell { padding: 22px 10px 40px; } .intro { align-items: flex-start; flex-direction: column; } .catalog-layout { grid-template-columns: 1fr; } .catalog-sidebar { position: static; } .number-list { grid-template-columns: repeat(7, 1fr); } .section-head, .problem-card { padding: 15px; } }
 @media (max-width: 430px) { .number-list { grid-template-columns: repeat(5, 1fr); } .view-tab { padding-left: 12px; padding-right: 12px; font-size: 12px; } .problem-card-header { flex-direction: column; } .task-figure { height: 260px; } }
+@media (max-width: 430px) { .criteria-item { grid-template-columns: 1fr; gap: 8px; } .criteria-points { width: max-content; min-width: 76px; } }
