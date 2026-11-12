@@ -69,7 +69,8 @@ def list_problems(query: dict[str, list[str]]) -> list[dict]:
     if items:
         assets = rows("""SELECT pa.problem_id,a.id,a.media_type,a.storage_path,a.size_bytes,
             pa.role,pa.source_locator
-            FROM problem_assets pa JOIN assets a ON a.id=pa.asset_id""")
+            FROM problem_assets pa JOIN assets a ON a.id=pa.asset_id
+            ORDER BY pa.rowid""")
         by_problem: dict[str, list[dict]] = {}
         for asset in assets:
             asset["url"] = "/assets/" + Path(asset["storage_path"]).name[:2] + "/" + Path(asset["storage_path"]).name
@@ -91,7 +92,7 @@ def get_problem(problem_id: str) -> dict | None:
     item = result[0]
     item["assets"] = rows("""SELECT a.id,a.media_type,a.storage_path,pa.role,pa.source_locator
         FROM problem_assets pa JOIN assets a ON a.id=pa.asset_id
-        WHERE pa.problem_id=? ORDER BY pa.role,a.storage_path""", (problem_id,))
+        WHERE pa.problem_id=? ORDER BY pa.role,pa.rowid""", (problem_id,))
     for asset in item["assets"]:
         asset["url"] = "/assets/" + Path(asset["storage_path"]).name[:2] + "/" + Path(asset["storage_path"]).name
     return item

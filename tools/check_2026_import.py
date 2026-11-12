@@ -5,6 +5,7 @@ import hashlib
 import re
 import sqlite3
 from pathlib import Path
+from import_2026_remaining import NON_FIGURE_PNG_SHA
 
 ROOT = Path(__file__).resolve().parents[1]
 con = sqlite3.connect(ROOT / "data" / "phyege.sqlite3")
@@ -43,4 +44,14 @@ assert "Ученик выполнял лабораторную работу" in 
 missing_assets = [path for (path,) in con.execute("SELECT storage_path FROM assets") if not (ROOT / path).is_file()]
 assert not missing_assets, missing_assets
 assert not con.execute("SELECT 1 FROM assets WHERE id NOT IN (SELECT asset_id FROM problem_assets)").fetchone()
+for variant_number, number in [(2, 24), (4, 11)]:
+    count = con.execute("""SELECT count(*) FROM problem_assets pa JOIN problems p ON p.id=pa.problem_id
+        JOIN variants v ON v.id=p.variant_id WHERE v.exam_year=2026 AND v.variant_number=?
+        AND p.problem_number=? AND pa.role='statement_figure'
+        AND pa.source_locator LIKE 'DOCX preheading figure%'""",
+        (str(variant_number), number)).fetchone()[0]
+    assert count == 1, (variant_number, number)
+assert not con.execute("SELECT 1 FROM assets WHERE sha256 IN (" +
+                       ",".join("?" * len(NON_FIGURE_PNG_SHA)) + ")",
+                       tuple(NON_FIGURE_PNG_SHA)).fetchone()
 print("All linked image files present; no orphan assets")

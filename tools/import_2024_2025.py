@@ -12,14 +12,52 @@ from pathlib import Path
 
 from docx import Document
 
-from import_examples import DB, ROOT, TOPICS, upsert_problem, upsert_variant
+from import_examples import DB, ROOT, TOPICS, link_asset, store_asset, upsert_problem, upsert_variant
 from import_2026_remaining import (add_figures, answer_key, extract_blocks,
-                                    normalize_statement, numbered_paragraphs,
+                                    move_preheading_figure, normalize_statement, numbered_paragraphs,
                                     review_sections)
 
 
 SOURCE_ROOT = ROOT / "Материалы" / "ЕГЭ от Демидовой"
 NORMALIZED = ROOT / "tmp" / "normalized-doc"
+CURATED_FIGURES = ROOT / "assets" / "curated" / "figure_repairs"
+# Vector Word shapes are absent from OOXML image relationships. These crops
+# were checked on pages rendered from the original source documents.
+RENDERED_FIGURES = {
+    ("2024-1-3", 21): "2024-1-3-21.png",
+    ("2024-1-3", 22): "2024-1-3-22.png",
+    ("2024-1-4", 22): "2024-1-4-22.png",
+    ("2024-2-1", 22): "2024-2-1-22.png",
+    ("2024-2-2", 21): "2024-2-2-21.png",
+    ("2024-2-2", 22): "2024-2-2-22.png",
+    ("2024-2-3", 9): "2024-2-3-9.png",
+    ("2025-1-1", 22): "2025-1-1-22.png",
+    ("2025-2-1", 22): "2025-1-1-22.png",  # Same printed problem.
+}
+
+
+def repair_statement_for_rendered_figure(label: str, number: int, statement: str) -> str:
+    if (label, number) == ("2024-1-3", 22):
+        statement = statement.replace("силы нормальной реакции [формула в исходном DOCX — требуется сверка]",
+                                      r"силы нормальной реакции \(\vec N\)")
+    elif (label, number) == ("2024-1-4", 22):
+        statement = statement.replace("\\begin{tabular}{l}\n[формула в исходном DOCX — требуется сверка]\n\\end{tabular}\n", "")
+        statement = statement.replace("горизонтальной силы [формула в исходном DOCX — требуется сверка]",
+                                      r"горизонтальной силы \(\vec F\)")
+    elif (label, number) == ("2024-2-2", 21):
+        statement = statement.replace("\\begin{tabular}{l}\n[формула в исходном DOCX — требуется сверка][формула в исходном DOCX — требуется сверка]\n\\end{tabular}\n", "")
+    elif (label, number) == ("2024-2-2", 22):
+        statement = statement.replace("\\begin{tabular}{l}\nρ1ρ2ρ1ρ2\n\\end{tabular}\n", "")
+        statement = statement.replace("плотности [формула в исходном DOCX — требуется сверка] кг/м3 и [формула в исходном DOCX — требуется сверка]",
+                                      r"плотности \(\rho_1=400\,\text{кг}/\text{м}^3\) и \(\rho_2=2\rho_1\)")
+        statement = statement.replace("плотность шарика ,", r"плотность шарика \(\rho\),")
+    elif (label, number) == ("2024-2-3", 9):
+        statement = statement[statement.index("На pV-диаграмме"):]
+    elif (label, number) in {("2025-1-1", 22), ("2025-2-1", 22)}:
+        statement = statement.removeprefix("[формула в исходном DOCX — требуется сверка]")
+        statement = statement.replace("горизонтальной силы [формула в исходном DOCX — требуется сверка]",
+                                      r"горизонтальной силы \(\vec F\)")
+    return statement
 # The narrow topic changes between editions and even between variants.
 EXTENDED_TOPICS = {
     "2024-1-1": {21: "electrodynamics", 22: "mechanics", 23: "molecular"},
@@ -138,7 +176,7 @@ def import_one(con, year: int, set_number: int, number: int,
         start = starts[n]
         stop = starts[n + 1] if n < 26 else end
         raw, statement_figures = extract_blocks(doc, start, stop)
-        statement = normalize_statement(raw)
+        statement = repair_statement_for_rendered_figure(label, n, normalize_statement(raw))
         if not statement:
             raise ValueError(f"Empty statement: {label} task {n}")
         solution = criteria = None
@@ -160,7 +198,20 @@ def import_one(con, year: int, set_number: int, number: int,
         if (year, set_number, number, n) == (2024, 2, 1, 22):
             con.execute("UPDATE problems SET answer_format='qualitative' WHERE id=?", (pid,))
         add_figures(con, pid, statement_figures, "statement_figure", locator)
+        rendered = RENDERED_FIGURES.get((label, n))
+        if rendered:
+            aid = store_asset(con, (CURATED_FIGURES / rendered).read_bytes(), ".png", "image/png")
+            link_asset(con, pid, aid, "statement_figure", f"visually checked source-page crop: {rendered}")
         add_figures(con, pid, solution_figures, "solution_figure", f"{label} criteria for {n}")
+    figure_moves = {
+        "2024-2-1": [(24, 1)],
+        "2024-2-3": [(22, 1), (24, 1)],
+        "2024-2-4": [(10, 1)],
+        "2025-1-1": [(14, 4)],
+        "2025-2-1": [(14, 4)],
+    }
+    for target, gap in figure_moves.get(label, []):
+        move_preheading_figure(con, doc, starts, vid, target, gap)
     print(f"{label}: 26 tasks, 20 key answers, 6 solutions and rubrics")
 
 
@@ -171,6 +222,12 @@ def main() -> None:
     with con:
         for spec in sources():
             import_one(con, *spec)
+        orphaned = [ROOT / path for (path,) in con.execute("""SELECT storage_path FROM assets
+            WHERE id NOT IN (SELECT asset_id FROM problem_assets)""")]
+        con.execute("DELETE FROM assets WHERE id NOT IN (SELECT asset_id FROM problem_assets)")
+    for path in orphaned:
+        if path.resolve().is_relative_to((ROOT / "assets" / "objects").resolve()) and path.is_file():
+            path.unlink()
     print("total tasks", con.execute("SELECT COUNT(*) FROM problems").fetchone()[0])
     con.close()
 

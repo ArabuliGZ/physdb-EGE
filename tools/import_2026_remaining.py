@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import re
 import sqlite3
+import hashlib
 from io import BytesIO
 from pathlib import Path
 
@@ -14,12 +15,31 @@ from docx import Document
 from PIL import Image
 
 from import_examples import (ASSETS, DB, ROOT, FORMATS, POINTS, TOPICS,
-                             link_asset, store_asset, upsert_problem,
+                             key, link_asset, store_asset, upsert_problem,
                              upsert_variant)
 from tex_format import format_quantities
 
 
 SOURCE_DIR = ROOT / "Материалы" / "ЕГЭ от Демидовой" / "2026"
+# Source decorations, broken Word/OLE previews, and equation images that
+# must be transcribed as TeX rather than displayed as task diagrams.
+NON_FIGURE_PNG_SHA = {
+    "6cbc340c9e59623ce9822fe2d3286c105a0017e356ebaeb2d15ac0a5b70b0162",
+    "d21e55e0009e99101ea903eae386f861ebf16d3ccc1d0cb45f450ef4160e0c77",
+    "e9ef87984372178e0c6ced32bdf3aedaa967006232a8ea7cc7ccf070713561ec",
+    "81d4624133ea90aaef1a9fbe398a2f30b002c06e367277f005c01c7283dc760a",
+    "683caffaf619d6b84f2c7afe1652ae22ae141ab2e742072a49ed79f461381dd8",
+    "ed554e1ca92c02fb8e81dffe7ff3ca06b1be421401f3e115a8f80e0136c1ec27",
+    "dce35d55aad3baadb6cccfe1026902bae8b0cf25aef813ba4e0095995e1ac35c",
+    "0887b216a4c506a918934b63961472ca3ae615d136f5d29bf66df20533d6174c",
+    "27664dddbc01681fcf997e357d6ee413c8760833c056e0bffa87e488d49e12ea",
+    "5678efd4462af8d28cec0a09b1956e6b752acecd8f4e0e7e5c9c5a48cb92a252",
+    "679e4b465f1af0dbe6e5bf499d243b94832e4a12da13ff3985a965244556c0c3",
+    "72b181555f3a6e1e8371dd9ccdf5b3ae9974341547a87e785116f4c7e1fbbadd",
+    "80b5d1a444b2bae00cb2a8f67db21fa4848a0c5de4bc453120a8b9588eda8849",
+    "9214c0a201cd05a182324cb16a3ef374c40cd3d607db8b4e93093d55145e62f9",
+    "b8ac65a4093d06a45a2992bd0b58da410139b35a93784a3f632d149b1e706f45",
+}
 R_NS = "{http://schemas.openxmlformats.org/officeDocument/2006/relationships}"
 MISSING_FORMULA = "[формула в исходном DOCX — требуется сверка]"
 GENERAL_END = ("Полное правильное решение каждой из задач 22–26",
@@ -252,21 +272,52 @@ def review_sections(doc, first: int, last_exclusive: int) -> tuple[str | None, s
     return solution, criteria, figures
 
 
+def normalized_figure_png(data: bytes) -> bytes:
+    with Image.open(BytesIO(data)) as image:
+        try:
+            image.load(dpi=240)
+        except TypeError:
+            image.load()
+        output = BytesIO()
+        image.convert("RGB").save(output, format="PNG")
+    return output.getvalue()
+
+
 def add_figures(con, pid: str, figures: list[bytes], role: str, locator: str) -> None:
     seen = set()
     for order, data in enumerate(figures, 1):
         if data in seen:
             continue
         seen.add(data)
-        with Image.open(BytesIO(data)) as image:
-            try:
-                image.load(dpi=240)
-            except TypeError:
-                image.load()
-            output = BytesIO()
-            image.convert("RGB").save(output, format="PNG")
-        aid = store_asset(con, output.getvalue(), ".png", "image/png")
+        png = normalized_figure_png(data)
+        if hashlib.sha256(png).hexdigest() in NON_FIGURE_PNG_SHA:
+            continue
+        aid = store_asset(con, png, ".png", "image/png")
         link_asset(con, pid, aid, role, f"{locator}, figure {order}")
+
+
+def move_preheading_figure(con, doc, starts: dict[int, int], vid: str,
+                           target_number: int, gap: int) -> None:
+    """Move a visually checked figure anchored before the next task label."""
+    body = list(doc.element.body)
+    paragraph = doc.paragraphs[starts[target_number]]._element
+    element = body[body.index(paragraph) - gap]
+    figures: list[bytes] = []
+    if element.tag.endswith("}tbl"):
+        table_text(element, doc, figures)
+    else:
+        element_text(element, doc, figures)
+    if not figures:
+        raise ValueError(f"Expected preheading figure for task {target_number}")
+    previous_id = key("problem", vid, target_number - 1, 1)
+    target_id = key("problem", vid, target_number, 1)
+    for data in figures:
+        aid = key("asset", hashlib.sha256(normalized_figure_png(data)).hexdigest())
+        updated = con.execute("""UPDATE problem_assets SET problem_id=?,source_locator=?
+            WHERE problem_id=? AND asset_id=? AND role='statement_figure'""",
+            (target_id, f"DOCX preheading figure before task {target_number}", previous_id, aid))
+        if updated.rowcount != 1:
+            raise ValueError(f"Cannot move figure before task {target_number}: {aid}")
 
 
 def import_variant(con: sqlite3.Connection, number: int) -> None:
@@ -326,6 +377,8 @@ def import_variant(con: sqlite3.Connection, number: int) -> None:
                              criteria, topic, locator, notes, "needs_review")
         add_figures(con, pid, statement_figures, "statement_figure", locator)
         add_figures(con, pid, solution_figures, "solution_figure", f"DOCX review for {n}")
+    for target, gap in {2: [(24, 1)], 4: [(11, 1)]}.get(number, []):
+        move_preheading_figure(con, doc, tasks, vid, target, gap)
     print(f"variant {number}: 26 tasks, {len(answers)} key answers")
 
 
