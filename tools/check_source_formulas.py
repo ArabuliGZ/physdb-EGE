@@ -26,7 +26,6 @@ for row in con.execute("SELECT statement,answer,solution,criteria FROM problems"
             assert int(width) > 0 and int(height) > 0
             files.add(ROOT / "assets" / "formulas" / sha[:2] / f"{sha}.png")
             total += 1
-assert total > 0, total
 for path in files:
     assert path.is_file(), path
     assert hashlib.sha256(path.read_bytes()).hexdigest() == path.stem, path

@@ -12,6 +12,8 @@ import json
 from io import BytesIO
 from pathlib import Path
 
+from verified_solutions import VERIFIED_SOLUTIONS
+
 from docx import Document
 from PIL import Image
 
@@ -447,7 +449,8 @@ def import_variant(con: sqlite3.Connection, number: int) -> None:
             solution, criteria, solution_figures = review_sections(
                 doc, reviews[n], reviews[n + 1] if n < 26 else len(doc.paragraphs),
                 review_formulas)
-            solution = show_source_formulas(solution, review_formulas)
+            override = VERIFIED_SOLUTIONS.get((f"2026-{number}", n))
+            solution = override[1] if override else show_source_formulas(solution, review_formulas)
             criteria = show_source_formulas(criteria, review_formulas)
         locator = f"DOCX paragraphs {start}–{end - 1}"
         notes = "Автоматическая расшифровка OOXML; требуется визуальная сверка формул, таблиц и рисунков."
