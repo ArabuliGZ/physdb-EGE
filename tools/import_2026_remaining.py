@@ -21,8 +21,9 @@ from tex_format import format_quantities
 
 
 SOURCE_DIR = ROOT / "Материалы" / "ЕГЭ от Демидовой" / "2026"
+FORMULA_ASSETS = ROOT / "assets" / "formulas"
 # Source decorations, broken Word/OLE previews, and equation images that
-# must be transcribed as TeX rather than displayed as task diagrams.
+# must not be displayed as task diagrams.
 NON_FIGURE_PNG_SHA = {
     "6cbc340c9e59623ce9822fe2d3286c105a0017e356ebaeb2d15ac0a5b70b0162",
     "d21e55e0009e99101ea903eae386f861ebf16d3ccc1d0cb45f450ef4160e0c77",
@@ -129,7 +130,17 @@ def image_for_blip(doc, blip):
         return part.blob, False, (0, 0)
 
 
-def element_text(element, doc, figures: list[bytes]) -> str:
+def formula_marker(index: int) -> str:
+    letters = ""
+    while True:
+        letters = chr(65 + index % 26) + letters
+        index = index // 26 - 1
+        if index < 0:
+            return f"[[SRCFORMULA{letters}]]"
+
+
+def element_text(element, doc, figures: list[bytes],
+                 formulas: list[tuple[bytes, tuple[int, int]]] | None = None) -> str:
     out = []
     for node in element.iter():
         if node.tag.endswith("}t") and node.text:
@@ -143,15 +154,20 @@ def element_text(element, doc, figures: list[bytes]) -> str:
                 if is_figure:
                     figures.append(data)
                 else:
-                    out.append(MISSING_FORMULA)
+                    if formulas is None:
+                        out.append(MISSING_FORMULA)
+                    else:
+                        formulas.append((data, found[2]))
+                        out.append(formula_marker(len(formulas) - 1))
     return "".join(out).strip()
 
 
-def table_text(table, doc, figures: list[bytes]) -> str:
+def table_text(table, doc, figures: list[bytes],
+               formulas: list[tuple[bytes, tuple[int, int]]] | None = None) -> str:
     rows = []
     choice_lines = []
     for row in table.findall("{http://schemas.openxmlformats.org/wordprocessingml/2006/main}tr"):
-        cells = [element_text(cell, doc, figures).replace("\n", " ").strip()
+        cells = [element_text(cell, doc, figures, formulas).replace("\n", " ").strip()
                  for cell in row.findall("{http://schemas.openxmlformats.org/wordprocessingml/2006/main}tc")]
         for i, cell in enumerate(cells):
             if len(re.findall(r"[1-5]\)", cell)) >= 2:
@@ -178,14 +194,15 @@ def table_text(table, doc, figures: list[bytes]) -> str:
     return table_latex + ("\n" + "\n".join(choice_lines) if choice_lines else "")
 
 
-def extract_blocks(doc, first: int, last_exclusive: int) -> tuple[str, list[bytes]]:
+def extract_blocks(doc, first: int, last_exclusive: int,
+                   formulas: list[tuple[bytes, tuple[int, int]]] | None = None) -> tuple[str, list[bytes]]:
     figures: list[bytes] = []
     lines = []
     for element in paragraph_interval(doc, first, last_exclusive):
         if element.tag.endswith("}tbl"):
-            value = table_text(element, doc, figures)
+            value = table_text(element, doc, figures, formulas)
         else:
-            value = element_text(element, doc, figures)
+            value = element_text(element, doc, figures, formulas)
         if value and not re.fullmatch(r"\d{1,2}", value):
             lines.append(value)
     return "\n".join(lines), figures
@@ -232,8 +249,9 @@ def answer_key(doc) -> dict[int, str]:
     return answers
 
 
-def review_sections(doc, first: int, last_exclusive: int) -> tuple[str | None, str | None, list[bytes]]:
-    """Keep solution and point rubric distinct, retaining missing-math flags."""
+def review_sections(doc, first: int, last_exclusive: int,
+                    formulas: list[tuple[bytes, tuple[int, int]]] | None = None) -> tuple[str | None, str | None, list[bytes]]:
+    """Keep solution and point rubric distinct, retaining embedded equations."""
     figures: list[bytes] = []
     solution_lines = []
     criteria_lines = []
@@ -244,7 +262,7 @@ def review_sections(doc, first: int, last_exclusive: int) -> tuple[str | None, s
         section = ""
         for row in rows:
             row_figures: list[bytes] = []
-            cells = [element_text(cell, doc, row_figures).strip() for cell in row.findall("{http://schemas.openxmlformats.org/wordprocessingml/2006/main}tc")]
+            cells = [element_text(cell, doc, row_figures, formulas).strip() for cell in row.findall("{http://schemas.openxmlformats.org/wordprocessingml/2006/main}tc")]
             if not any(cells):
                 continue
             value = " ".join(c for c in cells if c).strip()
@@ -281,6 +299,27 @@ def normalized_figure_png(data: bytes) -> bytes:
         output = BytesIO()
         image.convert("RGB").save(output, format="PNG")
     return output.getvalue()
+
+
+def show_source_formulas(text: str | None,
+                         formulas: list[tuple[bytes, tuple[int, int]]]) -> str | None:
+    """Replace surviving OOXML equation markers with exact source images."""
+    if text is None:
+        return None
+    for index, (data, (width, height)) in enumerate(formulas):
+        marker = formula_marker(index)
+        if marker not in text:
+            continue
+        png = normalized_figure_png(data)
+        sha = hashlib.sha256(png).hexdigest()
+        path = FORMULA_ASSETS / sha[:2] / (sha + ".png")
+        path.parent.mkdir(parents=True, exist_ok=True)
+        if not path.exists():
+            path.write_bytes(png)
+        text = text.replace(marker, f"[[formula:{sha}:{width}:{height}]]")
+    if "[[SRCFORMULA" in text or MISSING_FORMULA in text:
+        raise ValueError("Unresolved source equation image")
+    return text
 
 
 def add_figures(con, pid: str, figures: list[bytes], role: str, locator: str) -> None:
@@ -364,8 +403,12 @@ def import_variant(con: sqlite3.Connection, number: int) -> None:
         solution = criteria = None
         solution_figures = []
         if n >= 21:
+            review_formulas: list[tuple[bytes, tuple[int, int]]] = []
             solution, criteria, solution_figures = review_sections(
-                doc, reviews[n], reviews[n + 1] if n < 26 else len(doc.paragraphs))
+                doc, reviews[n], reviews[n + 1] if n < 26 else len(doc.paragraphs),
+                review_formulas)
+            solution = show_source_formulas(solution, review_formulas)
+            criteria = show_source_formulas(criteria, review_formulas)
         locator = f"DOCX paragraphs {start}–{end - 1}"
         notes = "Автоматическая расшифровка OOXML; требуется визуальная сверка формул, таблиц и рисунков."
         if n == 19:

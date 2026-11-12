@@ -11,6 +11,7 @@ services:
     volumes:
       - ./data/phyege.sqlite3:/data/phyege.sqlite3:ro
       - ./assets/objects:/assets/objects:ro
+      - ./assets/formulas:/formulas:ro
       - ./Материалы:/materials:ro
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8001/api/health')"]

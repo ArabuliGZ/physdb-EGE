@@ -29,6 +29,8 @@ function copyIcon() {
 }
 
 async function copyText(value) {
+  value = value.replace(/\[\[formula:([0-9a-f]{64}):\d+:\d+\]\]/g,
+    (_, sha) => `![Формула из исходного документа](${location.origin}/formulas/${sha.slice(0, 2)}/${sha}.png)`);
   if (navigator.clipboard?.writeText) {
     try {
       await navigator.clipboard.writeText(value);
@@ -125,10 +127,20 @@ function cleanLatex(value) {
 }
 
 function renderMathInto(container, value) {
-  const rx = /\\\(([\s\S]*?)\\\)|\\\[([\s\S]*?)\\\]/g;
+  const rx = /\\\(([\s\S]*?)\\\)|\\\[([\s\S]*?)\\\]|\[\[formula:([0-9a-f]{64}):(\d+):(\d+)\]\]/g;
   let cursor = 0;
   for (const match of value.matchAll(rx)) {
     if (match.index > cursor) container.append(document.createTextNode(value.slice(cursor, match.index)));
+    if (match[3]) {
+      const img = node('img', 'inline-formula');
+      img.src = `/formulas/${match[3].slice(0, 2)}/${match[3]}.png`;
+      img.alt = 'Формула из исходного документа';
+      img.loading = 'lazy';
+      img.width = Math.min(600, Math.max(20, Math.round(Number(match[4]) * 1.5)));
+      container.append(img);
+      cursor = match.index + match[0].length;
+      continue;
+    }
     const display = match[2] !== undefined;
     const math = node(display ? 'div' : 'span', display ? 'math-expression math-display' : 'math-expression');
     if (window.katex) {
@@ -216,7 +228,7 @@ function addDisclosure(card, label, content, figures = null) {
   const copySubject = ({ Ответ: 'ответа', Решение: 'решения', Критерии: 'критериев' })[label];
   header.append(
     node('h4', '', label),
-    copyButton(`Скопировать LaTeX ${copySubject}`, 'Копировать TeX', content || 'В источнике не указан.')
+    copyButton(`Скопировать текст ${copySubject}`, content?.includes('[[formula:') ? 'Копировать текст' : 'Копировать TeX', content || 'В источнике не указан.')
   );
   const body = node('div', 'detail-content');
   renderStatement(body, content || 'В источнике не указан.');
@@ -280,7 +292,7 @@ function renderCard(problem, showSource) {
   card.append(header);
 
   const statementToolbar = node('div', 'statement-toolbar');
-  statementToolbar.append(copyButton('Скопировать LaTeX условия', 'Копировать TeX', problem.statement || 'Условие не извлечено.'));
+  statementToolbar.append(copyButton('Скопировать текст условия', problem.statement?.includes('[[formula:') ? 'Копировать текст' : 'Копировать TeX', problem.statement || 'Условие не извлечено.'));
   card.append(statementToolbar);
 
   const statement = node('div', 'statement');

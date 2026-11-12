@@ -4,6 +4,7 @@ WORKDIR /app
 COPY web ./web
 ENV PHYSEGE_HOST=0.0.0.0 PHYSEGE_PORT=8001 \
     PHYSEGE_DB=/data/phyege.sqlite3 PHYSEGE_ASSETS=/assets/objects \
+    PHYSEGE_FORMULAS=/formulas \
     PHYSEGE_MATERIALS=/materials
 EXPOSE 8001
 CMD ["python", "web/server.py"]

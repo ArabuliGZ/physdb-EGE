@@ -7,6 +7,7 @@ Every extracted task remains needs_review until a visual source comparison.
 from __future__ import annotations
 
 import hashlib
+import re
 import sqlite3
 from pathlib import Path
 
@@ -15,12 +16,13 @@ from docx import Document
 from import_examples import DB, ROOT, TOPICS, link_asset, store_asset, upsert_problem, upsert_variant
 from import_2026_remaining import (add_figures, answer_key, extract_blocks,
                                     move_preheading_figure, normalize_statement, numbered_paragraphs,
-                                    review_sections)
+                                    review_sections, show_source_formulas)
 
 
 SOURCE_ROOT = ROOT / "Материалы" / "ЕГЭ от Демидовой"
 NORMALIZED = ROOT / "tmp" / "normalized-doc"
 CURATED_FIGURES = ROOT / "assets" / "curated" / "figure_repairs"
+FORMULA_MARKER = r"\[\[SRCFORMULA[A-Z]+\]\]"
 # Vector Word shapes are absent from OOXML image relationships. These crops
 # were checked on pages rendered from the original source documents.
 RENDERED_FIGURES = {
@@ -38,25 +40,28 @@ RENDERED_FIGURES = {
 
 def repair_statement_for_rendered_figure(label: str, number: int, statement: str) -> str:
     if (label, number) == ("2024-1-3", 22):
-        statement = statement.replace("силы нормальной реакции [формула в исходном DOCX — требуется сверка]",
-                                      r"силы нормальной реакции \(\vec N\)")
+        statement = re.sub("силы нормальной реакции " + FORMULA_MARKER,
+                           lambda _: r"силы нормальной реакции \(\vec N\)", statement, count=1)
     elif (label, number) == ("2024-1-4", 22):
-        statement = statement.replace("\\begin{tabular}{l}\n[формула в исходном DOCX — требуется сверка]\n\\end{tabular}\n", "")
-        statement = statement.replace("горизонтальной силы [формула в исходном DOCX — требуется сверка]",
-                                      r"горизонтальной силы \(\vec F\)")
+        statement = re.sub(r"\\begin\{tabular\}\{l\}\n" + FORMULA_MARKER + r"\n\\end\{tabular\}\n",
+                           "", statement, count=1)
+        statement = re.sub("горизонтальной силы " + FORMULA_MARKER,
+                           lambda _: r"горизонтальной силы \(\vec F\)", statement, count=1)
     elif (label, number) == ("2024-2-2", 21):
-        statement = statement.replace("\\begin{tabular}{l}\n[формула в исходном DOCX — требуется сверка][формула в исходном DOCX — требуется сверка]\n\\end{tabular}\n", "")
+        statement = re.sub(r"\\begin\{tabular\}\{l\}\n" + FORMULA_MARKER * 2 +
+                           r"\n\\end\{tabular\}\n", "", statement, count=1)
     elif (label, number) == ("2024-2-2", 22):
         statement = statement.replace("\\begin{tabular}{l}\nρ1ρ2ρ1ρ2\n\\end{tabular}\n", "")
-        statement = statement.replace("плотности [формула в исходном DOCX — требуется сверка] кг/м3 и [формула в исходном DOCX — требуется сверка]",
-                                      r"плотности \(\rho_1=400\,\text{кг}/\text{м}^3\) и \(\rho_2=2\rho_1\)")
+        statement = re.sub("плотности " + FORMULA_MARKER + " кг/м3 и " + FORMULA_MARKER,
+                           lambda _: r"плотности \(\rho_1=400\,\text{кг}/\text{м}^3\) и \(\rho_2=2\rho_1\)",
+                           statement, count=1)
         statement = statement.replace("плотность шарика ,", r"плотность шарика \(\rho\),")
     elif (label, number) == ("2024-2-3", 9):
         statement = statement[statement.index("На pV-диаграмме"):]
     elif (label, number) in {("2025-1-1", 22), ("2025-2-1", 22)}:
-        statement = statement.removeprefix("[формула в исходном DOCX — требуется сверка]")
-        statement = statement.replace("горизонтальной силы [формула в исходном DOCX — требуется сверка]",
-                                      r"горизонтальной силы \(\vec F\)")
+        statement = re.sub("^" + FORMULA_MARKER, "", statement, count=1)
+        statement = re.sub("горизонтальной силы " + FORMULA_MARKER,
+                           lambda _: r"горизонтальной силы \(\vec F\)", statement, count=1)
     return statement
 # The narrow topic changes between editions and even between variants.
 EXTENDED_TOPICS = {
@@ -175,15 +180,20 @@ def import_one(con, year: int, set_number: int, number: int,
     for n in range(1, 27):
         start = starts[n]
         stop = starts[n + 1] if n < 26 else end
-        raw, statement_figures = extract_blocks(doc, start, stop)
+        statement_formulas: list[tuple[bytes, tuple[int, int]]] = []
+        raw, statement_figures = extract_blocks(doc, start, stop, statement_formulas)
         statement = repair_statement_for_rendered_figure(label, n, normalize_statement(raw))
+        statement = show_source_formulas(statement, statement_formulas)
         if not statement:
             raise ValueError(f"Empty statement: {label} task {n}")
         solution = criteria = None
         solution_figures = []
         if n >= 21:
             rstop = review[n + 1] if n < 26 else len(criteria_doc.paragraphs)
-            solution, criteria, solution_figures = review_sections(criteria_doc, review[n], rstop)
+            review_formulas: list[tuple[bytes, tuple[int, int]]] = []
+            solution, criteria, solution_figures = review_sections(criteria_doc, review[n], rstop, review_formulas)
+            solution = show_source_formulas(solution, review_formulas)
+            criteria = show_source_formulas(criteria, review_formulas)
             if not solution or not criteria:
                 raise ValueError(f"Missing solution/criteria: {label} task {n}")
         topic = EXTENDED_TOPICS[label].get(n, TOPICS[n])

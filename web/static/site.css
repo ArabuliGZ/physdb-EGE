@@ -61,6 +61,7 @@ body { min-width: 0; }
 .statement-list li { position: relative; margin: 4px 0; padding-left: 0.2em; }
 .statement-list li::before { content: attr(value) ")"; position: absolute; left: -2em; width: 1.5em; color: var(--black); text-align: right; white-space: nowrap; }
 .math-expression { white-space: nowrap; }
+.inline-formula { display: inline-block; height: auto; max-width: 100%; vertical-align: middle; }
 .math-display { white-space: normal; margin: 12px 0; overflow-x: auto; }
 .task-figures { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 12px; margin-top: 15px; }
 .task-figure-item { width: 100%; min-width: 0; margin: 0; }

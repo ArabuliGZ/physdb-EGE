@@ -60,7 +60,7 @@ def assess_row(con, row) -> None:
             assert "обосн" in row["statement"].lower(), (year, variant, n)
         excerpt = re.sub(r"\s+", " ", row["statement"])
         excerpt = re.sub(r"\\\([^)]*\\\)", "…", excerpt)
-        excerpt = excerpt.replace("[формула в исходном DOCX — требуется сверка]", "…")[:95].rstrip(" ,.;")
+        excerpt = re.sub(r"\[\[formula:[0-9a-f]{64}:\d+:\d+\]\]", "…", excerpt)[:95].rstrip(" ,.;")
         reason = (f"По условию и ключу: {TOPIC_NAME[topic]}, {FORMAT_NAME[answer_format]}, "
                   f"{row['max_points']} балл(а); соответствует позиции {n} проекта 2027. "
                   f"Сюжет: {excerpt}.")

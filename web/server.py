@@ -14,6 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 STATIC = Path(__file__).resolve().parent / "static"
 DB = Path(os.environ.get("PHYSEGE_DB", ROOT / "data" / "phyege.sqlite3"))
 ASSETS = Path(os.environ.get("PHYSEGE_ASSETS", ROOT / "assets" / "objects"))
+FORMULAS = Path(os.environ.get("PHYSEGE_FORMULAS", ROOT / "assets" / "formulas"))
 MATERIALS = Path(os.environ.get("PHYSEGE_MATERIALS", ROOT / "Материалы"))
 
 
@@ -167,6 +168,12 @@ class Handler(BaseHTTPRequestHandler):
         elif route.startswith("/api/problems/"):
             item = get_problem(route.removeprefix("/api/problems/"))
             self.send_json(item, 200) if item else self.send_json({"error": "not found"}, 404)
+        elif route.startswith("/formulas/"):
+            path = (FORMULAS / route.removeprefix("/formulas/")).resolve()
+            if path.is_relative_to(FORMULAS.resolve()):
+                self.send_file(path, cache=True)
+            else:
+                self.send_error(403)
         elif route.startswith("/assets/"):
             path = (ASSETS / route.removeprefix("/assets/")).resolve()
             if path.is_relative_to(ASSETS.resolve()):
