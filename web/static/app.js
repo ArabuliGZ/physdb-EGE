@@ -121,6 +121,11 @@ function topicLabel(topic) {
     cross_topic: 'Общие вопросы и эксперимент' })[topic] || topic;
 }
 
+function variantDisplayTitle(variant) {
+  return variant.is_official_demo ? variant.title :
+    `Демидова ${variant.exam_year}-${variant.variant_number}`;
+}
+
 function cleanLatex(value) {
   return value.replaceAll('\\&', '&').replaceAll('\\%', '%')
     .replaceAll('\\_', '_').replaceAll('\\#', '#').trim();
@@ -351,15 +356,16 @@ function renderSidebar() {
   byId('variant-list').hidden = state.view !== 'variants';
   byId('number-list').hidden = state.view !== 'numbers';
   const variants = byId('variant-list');
+  const variantScrollTop = variants.scrollTop;
   variants.replaceChildren();
   for (const variant of state.variants) {
     const button = node('button', `variant-option ${variant.id === state.variantId ? 'is-active' : ''}`);
     button.type = 'button';
-    button.append(node('strong', '', variant.title));
-    button.append(node('small', '', `${variant.position_count} заданий · ${variant.problem_count} записей`));
+    button.append(node('strong', '', variantDisplayTitle(variant)));
     button.addEventListener('click', () => { state.variantId = variant.id; writeLocation(); update(); });
     variants.append(button);
   }
+  variants.scrollTop = variantScrollTop;
   const numbers = byId('number-list');
   numbers.replaceChildren();
   for (let n = 1; n <= 26; n++) {
@@ -375,7 +381,7 @@ async function update() {
   renderSidebar();
   const variant = state.variants.find(v => v.id === state.variantId);
   byId('content-eyebrow').textContent = state.view === 'variants' ? 'Цельный вариант' : 'Все варианты';
-  byId('content-title').textContent = state.view === 'variants' ? (variant?.title || 'Вариант не найден') : `Задание №${state.number}`;
+  byId('content-title').textContent = state.view === 'variants' ? (variant ? variantDisplayTitle(variant) : 'Вариант не найден') : `Задание №${state.number}`;
   const sourceDownload = byId('source-download');
   sourceDownload.hidden = state.view !== 'variants' || !variant?.download_url;
   if (!sourceDownload.hidden) sourceDownload.href = variant.download_url;
