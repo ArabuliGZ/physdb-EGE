@@ -31,7 +31,11 @@ for path in files:
     assert path.is_file(), path
     assert hashlib.sha256(path.read_bytes()).hexdigest() == path.stem, path
 verified = json.loads((ROOT / "tools" / "verified_formulas.json").read_text(encoding="utf-8"))
-verified_files = {ROOT / "assets" / "formulas" / sha[:2] / f"{sha}.png" for sha in verified}
+source_mathml = json.loads((ROOT / "tools" / "source_mathml_formulas.json").read_text(encoding="utf-8"))
+assert not set(verified) & set(source_mathml)
+assert all((ROOT / value["source"]).is_file() and value["ole"] for value in source_mathml.values())
+verified_files = {ROOT / "assets" / "formulas" / sha[:2] / f"{sha}.png"
+                  for sha in set(verified) | set(source_mathml)}
 assert all(path.is_file() for path in verified_files)
 orphaned = set((ROOT / "assets" / "formulas").rglob("*.png")) - (files | verified_files)
 assert not orphaned, sorted(orphaned)

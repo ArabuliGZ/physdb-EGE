@@ -24,6 +24,7 @@ from tex_format import format_quantities
 SOURCE_DIR = ROOT / "Материалы" / "ЕГЭ от Демидовой" / "2026"
 FORMULA_ASSETS = ROOT / "assets" / "formulas"
 VERIFIED_FORMULAS = json.loads((ROOT / "tools" / "verified_formulas.json").read_text(encoding="utf-8"))
+SOURCE_MATHML_FORMULAS = json.loads((ROOT / "tools" / "source_mathml_formulas.json").read_text(encoding="utf-8"))
 # Source decorations, broken Word/OLE previews, and equation images that
 # must not be displayed as task diagrams.
 NON_FIGURE_PNG_SHA = {
@@ -352,8 +353,9 @@ def show_source_formulas(text: str | None,
         path.parent.mkdir(parents=True, exist_ok=True)
         if not path.exists():
             path.write_bytes(png)
-        replacement = (r"\(" + VERIFIED_FORMULAS[sha]["tex"] + r"\)"
-                       if sha in VERIFIED_FORMULAS else f"[[formula:{sha}:{width}:{height}]]")
+        formula = VERIFIED_FORMULAS.get(sha) or SOURCE_MATHML_FORMULAS.get(sha)
+        replacement = (r"\(" + formula["tex"] + r"\)"
+                       if formula else f"[[formula:{sha}:{width}:{height}]]")
         text = text.replace(marker, replacement)
     if "[[SRCFORMULA" in text or MISSING_FORMULA in text:
         raise ValueError("Unresolved source equation image")

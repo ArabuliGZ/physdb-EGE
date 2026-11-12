@@ -1,0 +1,861 @@
+{
+  "7cf1f3b9e436bbae62f1b3f0b8e77deced43724d37169ef4155db62f1ece5b71": {
+    "tex": "| {Q}_{\\text{отд}} | = | {Q}_{\\text{пол}} |",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\1_крит.doc",
+    "ole": "embeddings/oleObject19.bin"
+  },
+  "824c65aa3cac56153e27c39c325ced79aa088b12c66411ec1009937854fb324a": {
+    "tex": "{I}_{1} = \\frac{\\mathcal{E}}{{R}_{1} + r} ,",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\1_крит.doc",
+    "ole": "embeddings/oleObject47.bin"
+  },
+  "0cba26786d398b39e1430eb852bbcc0bba88f405ae423b150cbaf58874712ed3": {
+    "tex": "{I}_{2} = \\frac{\\mathcal{E}}{{R}_{2} + r} .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\1_крит.doc",
+    "ole": "embeddings/oleObject48.bin"
+  },
+  "11db826d53d706fb630de2afb49d2f0051489d7a6531d05a3bcd2d15e1ab5fd5": {
+    "tex": "{N}_{1} = {I}_{1}^{2} {R}_{1} ,",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\1_крит.doc",
+    "ole": "embeddings/oleObject49.bin"
+  },
+  "997fc82026baf0eb642c7c925d957f9dbcf7a125fc68b488b40957ae448f5f8d": {
+    "tex": "{N}_{2} = {I}_{2}^{2} {R}_{2} .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\1_крит.doc",
+    "ole": "embeddings/oleObject50.bin"
+  },
+  "04b6f149777a94fd8042ce14e53491b118c08d2c3318964d119a0541751c5745": {
+    "tex": "\\mathcal{E} = \\frac{{I}_{1} {I}_{2}}{{I}_{2} - {I}_{1}} ( \\frac{{N}_{1}}{{I}_{1}^{2}} - \\frac{{N}_{2}}{{I}_{2}^{2}} ) = \\frac{1 \\cdot 5}{5 - 1} ( \\frac{4}{1} - \\frac{10}{25} ) = 4{,}5",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\1_крит.doc",
+    "ole": "embeddings/oleObject51.bin"
+  },
+  "add68642a61eec023816ff5d9448b8de6d23dd216ba9b43a7f636d3b80b0e5c0": {
+    "tex": "\\mathcal{E} = 4{,}5",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\1_крит.doc",
+    "ole": "embeddings/oleObject52.bin"
+  },
+  "bb46c52932cc26cf3521ebd903bb1ac7b16937dc28c025a32f17986a1ab0547a": {
+    "tex": "| {\\vec{a}}_{1} | = | {\\vec{a}}_{2} | = a , \\, {\\vec{a}}_{1} = - {\\vec{a}}_{2}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\1_крит.doc",
+    "ole": "embeddings/oleObject53.bin"
+  },
+  "4c8ea2aaa0e51c6f0c4beb685942bfba0ae079804dabccedb37e18f7cab52491": {
+    "tex": "{\\vec{T}}_{1} = {\\vec{T}}_{2} = \\vec{T} .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\1_крит.doc",
+    "ole": "embeddings/oleObject54.bin"
+  },
+  "8d12cd4ffdf298e8b245c9876bc175455cfa92bc864898636e9ea7ec40035702": {
+    "tex": "\\vec{N}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\1_крит.doc",
+    "ole": "embeddings/oleObject55.bin"
+  },
+  "0f02dde08bb6f8d4c8c56de2e344b380d93f86a4943adda2f72b0d12adaf4378": {
+    "tex": "\\vec{F} ,",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\1_крит.doc",
+    "ole": "embeddings/oleObject56.bin"
+  },
+  "4da044f39af9ece70736227af2f6667c0ec67d3114f19481b113d14d810a042a": {
+    "tex": "( M + m ) a = ( M + m ) g - T",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\1_крит.doc",
+    "ole": "embeddings/oleObject57.bin"
+  },
+  "d3772f08ab8d119ce8c55e9f6bafb1e610f60302da520f19a9f5b8521e7bbc2b": {
+    "tex": "- M a = M g - T",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\1_крит.doc",
+    "ole": "embeddings/oleObject58.bin"
+  },
+  "4aff53ca7bd8c6a94f6d751c411d719c3a048ab4c9b994816844e1448b69bf89": {
+    "tex": "a = \\frac{m g}{2 M + m} .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\1_крит.doc",
+    "ole": "embeddings/oleObject59.bin"
+  },
+  "3a9c5baa1784222bcf62ee77eb422e87569cfcc66646c4f1482a3468681f78eb": {
+    "tex": "m a = m g - N .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\1_крит.doc",
+    "ole": "embeddings/oleObject60.bin"
+  },
+  "7d531f62fcc214a6f5f80c736529c38bad4d975d194c794b690eefb2c388a208": {
+    "tex": "N = m ( g - a ) = \\frac{2 M m g}{2 M + m}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\1_крит.doc",
+    "ole": "embeddings/oleObject61.bin"
+  },
+  "933d557479e9297734fbf45b48acb28e6cdbabf83630707c11e945acfd6585a0": {
+    "tex": "F = N = \\frac{2 M m g}{2 M + m} = \\frac{2 \\cdot 0{,}5 \\cdot 0{,}1 \\cdot 10}{2 \\cdot 0{,}5 + 0{,}1} \\approx 0{,}9",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\1_крит.doc",
+    "ole": "embeddings/oleObject62.bin"
+  },
+  "9529961fc4f0bd5a24fec9031f9d354e7c434a450705aaad104cd09da9d19a04": {
+    "tex": "U = \\frac{3}{2} \\nu R T",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\2_крит.doc",
+    "ole": "embeddings/oleObject1.bin"
+  },
+  "9e22b468023c2f4a2f0ddf93c1d687ea8ca54ca0bc275f7daf20da0ff33d4f79": {
+    "tex": "( {p}_{1} {V}_{1} = {p}_{2} {V}_{2} )",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\2_крит.doc",
+    "ole": "embeddings/oleObject2.bin"
+  },
+  "dc9eb6cde15b329b0d60d77d7f29d367da1233e163454e97f700139309b14206": {
+    "tex": "( p V = \\nu R T )",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\2_крит.doc",
+    "ole": "embeddings/oleObject3.bin"
+  },
+  "a7eb0e436e886268ba2f99abe2b02d81b962240a87e527293db11c35b1920149": {
+    "tex": "{Q}_{1}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\2_крит.doc",
+    "ole": "embeddings/oleObject14.bin"
+  },
+  "cec91fcf0a296334b149af396d117adb983933952cb8952e54de90bdd797069c": {
+    "tex": "| {Q}_{2} |",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\2_крит.doc",
+    "ole": "embeddings/oleObject15.bin"
+  },
+  "5e5131ba89cf6193082220cdf6739c66337245d4c673ce22bd870fbec019fad0": {
+    "tex": "{Q}_{2 - 3}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\2_крит.doc",
+    "ole": "embeddings/oleObject16.bin"
+  },
+  "34bc0ccd534c7b4b1d11b3c3f35877081ff503a1bbfeefa2113184e094ca6d87": {
+    "tex": "{Q}_{1} = {Q}_{1 - 2}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\2_крит.doc",
+    "ole": "embeddings/oleObject17.bin"
+  },
+  "a4ce7d5e114f8c0225ae364e833cf77917f01f76d040fc475c8ed0e59809f6e4": {
+    "tex": "{Q}_{2} = {Q}_{3 - 1}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\2_крит.doc",
+    "ole": "embeddings/oleObject18.bin"
+  },
+  "3ef904c5ea02c099cf8f10b3b597986bb399e8fd34106b4abda261c0e1c7a804": {
+    "tex": "{Q}_{1} = {Q}_{1 - 2} = \\Delta {U}_{1 - 2} = \\frac{3}{2} \\nu R ( {T}_{2} - {T}_{1} )",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\2_крит.doc",
+    "ole": "embeddings/oleObject20.bin"
+  },
+  "b84b50d2eca80935d07aa587e03d5f49cac40c10569e9de758b2bd2f7bbaf046": {
+    "tex": "{Q}_{2} = {Q}_{3 - 1} = \\Delta {U}_{3 - 1} + {A}_{3 - 1} = \\frac{3}{2} \\nu R ( {T}_{1} - {T}_{3} ) + {p}_{1} ( {V}_{1} - {V}_{3} ) < 0",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\2_крит.doc",
+    "ole": "embeddings/oleObject21.bin"
+  },
+  "863e165069115bef42971df1427c477c3135ee90f1c74beb7a8825c0335681d1": {
+    "tex": "( p V = \\nu R T )",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\2_крит.doc",
+    "ole": "embeddings/oleObject22.bin"
+  },
+  "5ef8a59563195b5231ba679ddf24290cc795ab1012c2be99e7f410f5900fa619": {
+    "tex": "| {Q}_{2} | = | {Q}_{3 - 1} | = \\frac{5}{2} \\nu R ( {T}_{3} - {T}_{1} )",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\2_крит.doc",
+    "ole": "embeddings/oleObject23.bin"
+  },
+  "a4aa371d8855ff68192c970be128777a3b480c083a475c65c82c8ae1dab90e03": {
+    "tex": "\\eta \\approx 8{,}3\\%",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\2_крит.doc",
+    "ole": "embeddings/oleObject25.bin"
+  },
+  "80f5cc2bf3609d289157bee29e2d657b04c77ed0b1ce1f38912bf1b4633ff452": {
+    "tex": "{\\upsilon}_{2}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\2_крит.doc",
+    "ole": "embeddings/oleObject40.bin"
+  },
+  "2e20813001b562b84e1b89531860aaeffd6834a0bc1d06fad01cc1ef3962df40": {
+    "tex": "\\vec{N}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\3_крит.doc",
+    "ole": "embeddings/oleObject1.bin"
+  },
+  "aa5005de6075d44d44ecc3b0a79ed03eeb4e08534663fa06613bbec034002666": {
+    "tex": "{N}_{2} - N = 0",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\3_крит.doc",
+    "ole": "embeddings/oleObject2.bin"
+  },
+  "5484653bac4918e78b21956cbca3bc174d7e8cf4ef6bdf1b97dc4de3e1932025": {
+    "tex": "m g - {N}_{1} = 0",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\3_крит.doc",
+    "ole": "embeddings/oleObject3.bin"
+  },
+  "9d9dad57949469e988758f754d0d937e131e1e2e4f343fb6148468c43b015e8e": {
+    "tex": "{m}_{\\text{лёд}} = \\frac{c {m}_{\\text{вод}} ( {t}_{\\text{гор}} - {t}_{\\text{хол}} )}{\\lambda}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\3_крит.doc",
+    "ole": "embeddings/oleObject7.bin"
+  },
+  "e97fb3b2ad2f75c0cf919177e93cb5a31e55684eecacdb1f649383ebf5519a87": {
+    "tex": "{m}_{\\text{лёд}} =",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\3_крит.doc",
+    "ole": "embeddings/oleObject9.bin"
+  },
+  "b91de24bb46423d016e0299a121f1133b65d09652e5b3f374c2d890228b2363e": {
+    "tex": "{F}_{\\text{Арх}} \\ge M g + {m}_{\\text{Г}} g",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\3_крит.doc",
+    "ole": "embeddings/oleObject10.bin"
+  },
+  "a7d47a53ced81a9b873beb22019c978b891eca775630ec669060a2860fb33f27": {
+    "tex": "{F}_{\\text{Арх}} = {\\rho}_{\\text{В}} N {V}_{0} g = {m}_{\\text{В}} g",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\3_крит.doc",
+    "ole": "embeddings/oleObject11.bin"
+  },
+  "aaa4706c482c97f3f90f0e7fd4599d8166c81aef99e6a5f1f8a833c6bb67d0fa": {
+    "tex": "N",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\3_крит.doc",
+    "ole": "embeddings/oleObject12.bin"
+  },
+  "003736b979626a7ab6c0cdf1ed8865c4626360dfc213819b9b8067c197221838": {
+    "tex": "{V}_{0}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\3_крит.doc",
+    "ole": "embeddings/oleObject13.bin"
+  },
+  "8210e0052891bbd4fdecef905c85e32cbb0aba50088faee79b0c53c01dcf7502": {
+    "tex": "{\\rho}_{\\text{В}} \\text{и} {m}_{\\text{В}}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\3_крит.doc",
+    "ole": "embeddings/oleObject14.bin"
+  },
+  "ef8bef59954334ff6e674eb131824c2dea56e74b8b537f27b5f67c1df57c2fdc": {
+    "tex": "{m}_{\\text{Г}}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\3_крит.doc",
+    "ole": "embeddings/oleObject15.bin"
+  },
+  "6c8065e27050b40797afb503743e781b42d07a0c9d10ca5148ddd8e37e7716b0": {
+    "tex": "{p}_{0} N {V}_{0} = \\frac{{m}_{\\text{В}}}{{\\mu}_{\\text{В}}} R T",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\3_крит.doc",
+    "ole": "embeddings/oleObject16.bin"
+  },
+  "1f1f332ebe3d072663db54d4d4b5c1149f0cefcc01f3d4f3dd841769a9a9bcea": {
+    "tex": "{p}_{0} N {V}_{0} = \\frac{{m}_{\\text{Г}}}{{\\mu}_{\\text{Г}}} R T",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\3_крит.doc",
+    "ole": "embeddings/oleObject17.bin"
+  },
+  "0bdd79ccc1626eef0baba522b90b17896ef750638427203a210ac844fa7deeb5": {
+    "tex": "{p}_{0}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\3_крит.doc",
+    "ole": "embeddings/oleObject18.bin"
+  },
+  "03a2e47fc97ac7f5ec9ef5a6e965ba759920ca363aac7c47e602130a25f2ad93": {
+    "tex": "{\\mu}_{\\text{В}} \\text{и} {\\mu}_{\\text{Г}}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\3_крит.doc",
+    "ole": "embeddings/oleObject19.bin"
+  },
+  "54950802017271bb78080a8dff46d222561dd1919741c8288bc5fe8f2a7642bb": {
+    "tex": "{V}_{0} \\approx 12",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\3_крит.doc",
+    "ole": "embeddings/oleObject21.bin"
+  },
+  "1845af68f7dc84faf1525068fcc45a2982c3106af2ec06353f396aca6d5ef32e": {
+    "tex": "U = {U}_{R} + {U}_{L} .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\3_крит.doc",
+    "ole": "embeddings/oleObject22.bin"
+  },
+  "7bc30403417f1ed87e23a9ae41b76a8b30672e8b2d52ed74fe096e03e8660c74": {
+    "tex": "{U}_{R} = I R",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\3_крит.doc",
+    "ole": "embeddings/oleObject23.bin"
+  },
+  "7b772fea1df77d3a5e996492c26e62e7a681d3d9adae5525cf832a3e083308d3": {
+    "tex": "{U}_{L} = 140",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\3_крит.doc",
+    "ole": "embeddings/oleObject24.bin"
+  },
+  "6be6d814b81f68dfbab68dd8060a228c0d4499da414b8c8e0f5803346554a6bb": {
+    "tex": "I = 0{,}4",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\3_крит.doc",
+    "ole": "embeddings/oleObject25.bin"
+  },
+  "35339ae0c534ac4691167ba2aaf135b31bc197408a97fadf0ab8fb563a3fd97e": {
+    "tex": "{P}_{R} = {U}_{R} I = ( U - {U}_{L} ) I = 80 \\cdot 0{,}4 = 32",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\3_крит.doc",
+    "ole": "embeddings/oleObject26.bin"
+  },
+  "de0f8107c884369d2cfa0552db9834eff2b6b9b7e7e8d795210e4c6a1033cc25": {
+    "tex": "{P}_{R} = 32",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\3_крит.doc",
+    "ole": "embeddings/oleObject27.bin"
+  },
+  "adedda8889ecfba1ebb5b1c532db5a33e0c44e586333ffc5c38f975e9f4b2e52": {
+    "tex": "{m}_{1} \\vec{g}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\3_крит.doc",
+    "ole": "embeddings/oleObject31.bin"
+  },
+  "a7b25171013c5e081c6a35416c54e541bb8a7c8932a8cce347541338dfe3ed4b": {
+    "tex": "{m}_{2} \\vec{g} ,",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\3_крит.doc",
+    "ole": "embeddings/oleObject32.bin"
+  },
+  "31673113ed0566599ba272578947d8d166fc4903853f16fd3bebcd6bd269041b": {
+    "tex": "{\\vec{N}}_{1}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\3_крит.doc",
+    "ole": "embeddings/oleObject33.bin"
+  },
+  "af743cf6deae415121675f9f12e6da5b9eae3b8bf3ed5ca4785aeabe87c9785e": {
+    "tex": "{\\vec{N}}_{2} .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\3_крит.doc",
+    "ole": "embeddings/oleObject34.bin"
+  },
+  "19ae811530b65a012de2e25b9748ffb7a9df08125a830d37b4ba114ff71efd4d": {
+    "tex": "{N}_{2} = 2 {N}_{1}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\3_крит.doc",
+    "ole": "embeddings/oleObject35.bin"
+  },
+  "63298edb206a14b809e35e83c26a643f90a6190749d62035a95d87d73d2a406d": {
+    "tex": "( x = A C ) .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\3_крит.doc",
+    "ole": "embeddings/oleObject37.bin"
+  },
+  "3e3a0d104c29ecc41d9b1e34e074bc1e5d34e351e5278e0949094d413131674c": {
+    "tex": "x + \\frac{2}{3} l = \\frac{{m}_{2}}{{m}_{1} + {m}_{2}} L ,",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\3_крит.doc",
+    "ole": "embeddings/oleObject40.bin"
+  },
+  "255a2ff76732f6e26d05b10226dd82bf29d222e8994398cd98168a20e6c315dc": {
+    "tex": "l = \\frac{3}{2} ( \\frac{{m}_{2}}{{m}_{1} + {m}_{2}} L - x ) .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\3_крит.doc",
+    "ole": "embeddings/oleObject41.bin"
+  },
+  "8f151cbe5c062939bae229c76bc07a5f7b50c8ae8c30bc2ee98b943982c207c6": {
+    "tex": "l = \\frac{3}{2} ( \\frac{0{,}3}{0{,}2 + 0{,}3} \\cdot 1 - 0{,}2 ) = 0{,}6 \\, \\, \\text{м} .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\3_крит.doc",
+    "ole": "embeddings/oleObject42.bin"
+  },
+  "36a3da5144238520f1d60aaef52bbba54ccbdfa30df4f529ba97c25c86f6d9e1": {
+    "tex": "l = 0{,}6",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\3_крит.doc",
+    "ole": "embeddings/oleObject43.bin"
+  },
+  "231a854ecf0aab6653ec6bad8963cc19254adffd24ba339abb47a7599ea0be3b": {
+    "tex": "R = \\frac{{R}_{1} {R}_{2}}{{R}_{1} + {R}_{2}} .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\4_крит.doc",
+    "ole": "embeddings/oleObject1.bin"
+  },
+  "9f487316fd0a31d394a37649fda7d67979a7d5aba5a921cc655e1a929354159d": {
+    "tex": "I = \\frac{\\mathcal{E}}{r + R}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\4_крит.doc",
+    "ole": "embeddings/oleObject2.bin"
+  },
+  "124f6245284be69c6b88cf47af2ad19488b87566a0e34a7483a1d2358bda398a": {
+    "tex": "U = I R = \\mathcal{E} - I r .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\4_крит.doc",
+    "ole": "embeddings/oleObject3.bin"
+  },
+  "82bc5ed3407382e2867c4bdda95263e3e3c0140bf661da55383328ac0df9f420": {
+    "tex": "| {\\vec{a}}_{1} | \\, = \\, | {\\vec{a}}_{2} | \\, = \\, a , \\, \\, \\, | {\\vec{T}}_{1} | \\, = \\, | {\\vec{T}}_{2} | \\, = \\, T .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\4_крит.doc",
+    "ole": "embeddings/oleObject5.bin"
+  },
+  "72817eaf528e9b8c03b834bc4d537600ca6ffdc7de4c0c503b2858ca36d5f0c1": {
+    "tex": "{M}_{2} = \\frac{T}{a} = \\frac{{M}_{1} T}{F - T} = \\frac{2 \\cdot 10}{18 - 10} = 2{,}5",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\4_крит.doc",
+    "ole": "embeddings/oleObject6.bin"
+  },
+  "28d58c62e2bccfb110bca9bc56cce01e78227d17f123f17f2137d5175b9796a9": {
+    "tex": "{M}_{2} = 2{,}5",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\4_крит.doc",
+    "ole": "embeddings/oleObject7.bin"
+  },
+  "e215f2484da1aa4d07a2e5b83232a09d9e301d7011e26ac5e7e7c9b96d7a716d": {
+    "tex": "{m}_{\\text{лёд}} = \\frac{c {m}_{\\text{вод}} ( {t}_{\\text{гор}} - {t}_{\\text{хол}} )}{\\lambda + c ( {t}_{\\text{хол}} - {t}_{\\text{плав}} )}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\4_крит.doc",
+    "ole": "embeddings/oleObject9.bin"
+  },
+  "db15bf1a6557d640649f80c633edde1065b260280c3ac95ee8b6618e89a8e968": {
+    "tex": "{m}_{\\text{лёд}} \\approx",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\4_крит.doc",
+    "ole": "embeddings/oleObject11.bin"
+  },
+  "79b58931ca389c702c5a6da278b71f2e8c18a21b4d09467e6d058c5bbcf2cfd7": {
+    "tex": "{\\rho}_{1} {V}_{1} + {\\rho}_{2} {V}_{2} = \\rho ( {V}_{1} + {V}_{2} )",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\4_крит.doc",
+    "ole": "embeddings/oleObject14.bin"
+  },
+  "8bddbef42ab9d49127134b0938c6f2b49f05f05e649741b25ed720425f22a00d": {
+    "tex": "\\frac{{\\rho}_{1}}{{\\rho}_{\\text{н}}} {V}_{1} + \\frac{{\\rho}_{2}}{{\\rho}_{\\text{н}}} {V}_{2} = \\frac{\\rho}{{\\rho}_{\\text{н}}} ( {V}_{1} + {V}_{2} )",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\4_крит.doc",
+    "ole": "embeddings/oleObject15.bin"
+  },
+  "052b89bac028cf92a52ff01c9662a7db51c8c4ace8f52586f3be005d136895f9": {
+    "tex": "{\\varphi}_{1} = \\frac{{\\rho}_{1}}{{\\rho}_{\\text{н}}} ,",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\4_крит.doc",
+    "ole": "embeddings/oleObject16.bin"
+  },
+  "4a4474579e7a9e1ed74abec6ba6760d67706295c46bd475634d7d924516d4b20": {
+    "tex": "{\\varphi}_{2} = \\frac{{\\rho}_{2}}{{\\rho}_{\\text{н}}} ,",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\4_крит.doc",
+    "ole": "embeddings/oleObject17.bin"
+  },
+  "8bdb318b692abb857773dc513a1bb2c3a21e49a92f6f64cf92ba5dcb2e6cb8f2": {
+    "tex": "\\varphi = \\frac{\\rho}{{\\rho}_{\\text{н}}} ,",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\4_крит.doc",
+    "ole": "embeddings/oleObject18.bin"
+  },
+  "0b1101da319a2206d5ed40a03e058137bc158a51caf088367f2246f49a53d15c": {
+    "tex": "{\\varphi}_{1} {V}_{1} + {\\varphi}_{2} {V}_{2} = \\varphi ( {V}_{1} + {V}_{2} )",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\4_крит.doc",
+    "ole": "embeddings/oleObject19.bin"
+  },
+  "63fae7a3035a3bc745628690c95a94ea4b0b066c13a9a6b44704eb6c1b5c5e42": {
+    "tex": "{\\varphi}_{2} = 40\\%",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\4_крит.doc",
+    "ole": "embeddings/oleObject21.bin"
+  },
+  "6d5826b7c200586130c51c098b24947c20e5d6e1b364d3a20272123a2fb6a037": {
+    "tex": "m \\vec{g}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\4_крит.doc",
+    "ole": "embeddings/oleObject22.bin"
+  },
+  "426f57d9c79ef4c7d9f40b4c7231438f25ca5e82e5e1799865e272e3101f5ba7": {
+    "tex": "\\vec{N} ,",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\4_крит.doc",
+    "ole": "embeddings/oleObject23.bin"
+  },
+  "ea3ac27e52e3752a74e78e3b82c33f26a19e063c16b008dba297a04be7a8066f": {
+    "tex": "{\\vec{F}}_{\\text{тр}}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\4_крит.doc",
+    "ole": "embeddings/oleObject24.bin"
+  },
+  "d50ef13b349206fb7cc2c30f77b6f3a4a7b23dddf49b95bad3aa161693584e69": {
+    "tex": "{\\vec{F}}_{\\text{A}}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\4_крит.doc",
+    "ole": "embeddings/oleObject25.bin"
+  },
+  "a5c93ef6d018b4d594cb07dd5dea4e0451a5ef804a09591072f4ffc91d83c40a": {
+    "tex": "{F}_{\\text{А}} = I B L ,",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\4_крит.doc",
+    "ole": "embeddings/oleObject27.bin"
+  },
+  "d33b3a01b6b1031e2449376f35ee4a8f235082fb5187ae4b97afab49dbdbf025": {
+    "tex": "{F}_{\\text{тр}} = \\mu N .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\4_крит.doc",
+    "ole": "embeddings/oleObject29.bin"
+  },
+  "90e9c1b95511999952ae78df8a0bba52e65228c1ed3cfdfca2e5a9a7ebc78306": {
+    "tex": "\\vec{a} = 0 ,",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\4_крит.doc",
+    "ole": "embeddings/oleObject30.bin"
+  },
+  "99a8da7eeb72c44206513e3236c96ed76c2c25b44c3dfd02c573f517036c36d9": {
+    "tex": "B = \\frac{\\mu m g}{I L} .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\4_крит.doc",
+    "ole": "embeddings/oleObject32.bin"
+  },
+  "8d6357bb9f6d91021b13208a159fffc3ce2100ce9db315a2825ba408d2425317": {
+    "tex": "B = 0{,}02",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\4_крит.doc",
+    "ole": "embeddings/oleObject34.bin"
+  },
+  "594ed4eeb483ebc19bcfeca518700ab9f62c576ace8d5ab32ac7ace1ad2f5051": {
+    "tex": "M g H = \\frac{M {u}^{2}}{2} ,",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\4_крит.doc",
+    "ole": "embeddings/oleObject36.bin"
+  },
+  "9843f087d0523570917f33ffbc26d8b3cdbb759debe9e62b158c346db7730997": {
+    "tex": "M u - m {\\upsilon}_{1} = M u ' - m {\\upsilon}_{2} ,",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\4_крит.doc",
+    "ole": "embeddings/oleObject39.bin"
+  },
+  "46432f569c6e7f65e1910c07757be60e3f9b2db251694076d3f85a9598618c73": {
+    "tex": "\\Delta  p = m {\\upsilon}_{2} - m {\\upsilon}_{1} = M ( u ' - u ) .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\4_крит.doc",
+    "ole": "embeddings/oleObject40.bin"
+  },
+  "72568daa18c621c34a7ea6767c84aa197317d70d6d771d8f37b321da3055c2f9": {
+    "tex": "\\frac{M u {'}^{2}}{2} = M g h ,",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\4_крит.doc",
+    "ole": "embeddings/oleObject41.bin"
+  },
+  "833d16cb1051ad976138d8904ecaa58dff5d9f678baba9c69ada1a7db6378ee2": {
+    "tex": "{\\vec{F}}_{A 1}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 1.docx",
+    "ole": "embeddings/oleObject14.bin"
+  },
+  "817bf02bc32f9a7dcd59b7a7dd839b94dadbff473bea9affef90adbe5cbf0b5c": {
+    "tex": "{\\vec{F}}_{A 2}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 1.docx",
+    "ole": "embeddings/oleObject15.bin"
+  },
+  "03709dbd0a6f56323da265452fc31f03b1a6243b14839a9239accb2e168dd019": {
+    "tex": "Q = {Q}_{\\text{1}} + {Q}_{\\text{2}}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 1.docx",
+    "ole": "embeddings/oleObject18.bin"
+  },
+  "0c5ea198c938f48f5bd860018a5100fd22db19f17ec6b712b586fa9e4c9c7605": {
+    "tex": "{Q}_{\\text{1}} = c m ( {t}_{K} - t )",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 1.docx",
+    "ole": "embeddings/oleObject19.bin"
+  },
+  "238647f9b9b8caa571d8947ab17fa9a9c295b8e79e2d0d6e49b234bc5ca09582": {
+    "tex": "c",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 1.docx",
+    "ole": "embeddings/oleObject20.bin"
+  },
+  "7fca2f2f7f0d29ee79a51b61a2c6973fc1ce5a9fcdd9b147c3463da621697234": {
+    "tex": "m",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 1.docx",
+    "ole": "embeddings/oleObject21.bin"
+  },
+  "84ebf14f95b8a1afa2f4249ff789e081349b799e3231cc07d485371504c1e4eb": {
+    "tex": "{t}_{K}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 1.docx",
+    "ole": "embeddings/oleObject23.bin"
+  },
+  "8b27a61842a69c676885f920d5c953c10750daef3b890d8780f5de550eef3cde": {
+    "tex": "{Q}_{\\text{2}} = n \\cdot m \\cdot r",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 1.docx",
+    "ole": "embeddings/oleObject24.bin"
+  },
+  "74b9758b048ef0198d4f2a3c3348a94e8d011b862fc4219dc8a1c346243cc2a0": {
+    "tex": "N = \\frac{A}{T} = \\frac{Q}{T}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 1.docx",
+    "ole": "embeddings/oleObject25.bin"
+  },
+  "bf895935cd1edb49e1f118e83a9901dec665a8a59bd3c549d2e439165922c758": {
+    "tex": "T \\approx 15",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 1.docx",
+    "ole": "embeddings/oleObject27.bin"
+  },
+  "0affc9b7d031df0fea404a3d7af9a9a586c313a01c0e13b6c8cb2fe6908dbd2c": {
+    "tex": "{Q}_{12} ,",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 1.docx",
+    "ole": "embeddings/oleObject31.bin"
+  },
+  "0909e933bd38c2d1522bcd11e6e3c86fd1bb9cb27de56372fe5c2eab5d6eee6b": {
+    "tex": "{Q}_{34} .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 1.docx",
+    "ole": "embeddings/oleObject32.bin"
+  },
+  "c136ac029ddaa7c33ada294ea23c36e647595ff2f0a2b97ccd6d65850f83b848": {
+    "tex": "A = {Q}_{12} - {Q}_{34} .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 1.docx",
+    "ole": "embeddings/oleObject33.bin"
+  },
+  "72a083cf5cd4bcda9f8f9417c3d17b74a54160a8873b02d2a25795ba0975ec10": {
+    "tex": "\\eta = \\frac{A}{{Q}_{12}} = 1 - \\frac{{Q}_{34}}{{Q}_{12}}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 1.docx",
+    "ole": "embeddings/oleObject34.bin"
+  },
+  "a21edd2fdb3f1a8ebaa4ba1e711f41d84f384533b0c948cde0da2bbf60ba053d": {
+    "tex": "{Q}_{12} = \\frac{{Q}_{34}}{1 - \\eta}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 1.docx",
+    "ole": "embeddings/oleObject35.bin"
+  },
+  "5e2b3eb75db20798e605296861bd7f61977d7a83883179351c1d6da03683908d": {
+    "tex": "{Q}_{34} ,",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 1.docx",
+    "ole": "embeddings/oleObject37.bin"
+  },
+  "c43006eb08c0810644e84704a8e7bcf2b98270cc6ac8b4392c77fb5e1843815b": {
+    "tex": "{Q}_{34} = | \\Delta {U}_{34} |",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 1.docx",
+    "ole": "embeddings/oleObject38.bin"
+  },
+  "140bea2d2f64c4f3db45766a1ea850781c9ac4f0fa31025cfc4c2d247921c195": {
+    "tex": "{Q}_{12} = \\frac{3}{2} \\cdot \\frac{8{,}31 \\cdot 265}{0{,}85} \\approx 3886",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 1.docx",
+    "ole": "embeddings/oleObject39.bin"
+  },
+  "9bbd01f4f19e9f638f8997ce66685800ba9c4263bd3d44110033dc784e7661f6": {
+    "tex": "{Q}_{12} \\approx 3886",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 1.docx",
+    "ole": "embeddings/oleObject40.bin"
+  },
+  "f1b56d2fce3a1ef80a57cdca12d9b41d4fa8c785f4d6a8d20d26af9b79b84661": {
+    "tex": "{\\varphi}_{A} > {\\varphi}_{B}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 1.docx",
+    "ole": "embeddings/oleObject41.bin"
+  },
+  "9137a2e8e2aa5906fbf91cc07eb74d5920fa582b6aac9fa3f3301340b0bdb0c0": {
+    "tex": "{P}_{1} = \\frac{{\\mathcal{E}}^{2}}{{R}_{2}}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 1.docx",
+    "ole": "embeddings/oleObject42.bin"
+  },
+  "8686d8ffd865cb182797a0bec6912e191dd863d71b937447ca2fd0c8ff9ba342": {
+    "tex": "{\\varphi}_{A} < {\\varphi}_{B}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 1.docx",
+    "ole": "embeddings/oleObject43.bin"
+  },
+  "e6b7c59a70c3abcf84646e3839334b44f3b58db99fa9fab4ea874fadc41877c3": {
+    "tex": "{P}_{2} = \\frac{{\\mathcal{E}}^{2}}{{R}_{1}} + \\frac{{\\mathcal{E}}^{2}}{{R}_{2}} > {P}_{1}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 1.docx",
+    "ole": "embeddings/oleObject44.bin"
+  },
+  "3a97eee082a4de87bd1f70a53fc86cb7d303090824cd5b453235df18bd1edacf": {
+    "tex": "{R}_{2} = \\frac{{\\mathcal{E}}^{2}}{{P}_{1}} , \\, {R}_{1} = \\frac{{\\mathcal{E}}^{2}}{{P}_{2} - {P}_{1}}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 1.docx",
+    "ole": "embeddings/oleObject45.bin"
+  },
+  "3cba7e4747209fc85b1342fc2591f34a084ec4e7f3bcb4df182f98b1df50c57b": {
+    "tex": "{\\upsilon}_{2 y} ( t ) = - g t .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 1.docx",
+    "ole": "embeddings/oleObject50.bin"
+  },
+  "a925ab9f67aead2e859b62fa1ede1395ddd9f427817dd23affff62f2e33e656c": {
+    "tex": "m {\\vec{\\upsilon}}_{1} + m {\\vec{\\upsilon}}_{2} = 2 m {\\vec{u}}_{0}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 1.docx",
+    "ole": "embeddings/oleObject59.bin"
+  },
+  "b59f86ab2d3a3cadb67364864d38c1fc1c9d65544f045730d0167375f7a2bf30": {
+    "tex": "{\\vec{u}}_{0}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 1.docx",
+    "ole": "embeddings/oleObject60.bin"
+  },
+  "13a20355b4bc613e7573f580a35fdc29671d812eda40f7fdf1e8d033a5067d50": {
+    "tex": "{\\upsilon}_{1 y} ( {t}_{1} ) + {\\upsilon}_{2 y} ( {t}_{1} ) = 0",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 1.docx",
+    "ole": "embeddings/oleObject61.bin"
+  },
+  "2d73b0b0b0b8ce9709736f72078fa48490c354b2d335496bb86fad67c9519674": {
+    "tex": "h = \\frac{g {t}_{2}^{2}}{2}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 1.docx",
+    "ole": "embeddings/oleObject66.bin"
+  },
+  "523f77627dff64555f5c432d724583b33b1f6a1db0e05410d5b0c8ca5bd560d1": {
+    "tex": "x ( t )",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 3.docx",
+    "ole": "embeddings/oleObject15.bin"
+  },
+  "76a1d8e9214250bafd726faae1974afddb59d781021dd63367e7eb08ba5d1099": {
+    "tex": "| \\mathcal{E} | = \\frac{\\Delta  \\text{Ф}}{\\Delta  t} .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 3.docx",
+    "ole": "embeddings/oleObject20.bin"
+  },
+  "516bd6bff16014df550c861b1a4ae7f233afba55610c483b2946aacae4f18d8e": {
+    "tex": "Q = \\frac{{| \\mathcal{E} |}^{2} \\Delta  t}{R} = \\frac{\\Delta  {\\text{Ф}}^{2}}{R \\Delta  t} . \\,",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 3.docx",
+    "ole": "embeddings/oleObject21.bin"
+  },
+  "a7456c25084cb6d39e431bb8d5219f5f31293517ca1e693578c4105e711e9028": {
+    "tex": "R = 2 \\, \\text{О} \\text{м}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 3.docx",
+    "ole": "embeddings/oleObject23.bin"
+  },
+  "c7b13eeaae92896be1998e9c0b6241f9e1078ffa951a1758abc85729dbbd5e06": {
+    "tex": "{Q}_{123}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 3.docx",
+    "ole": "embeddings/oleObject24.bin"
+  },
+  "4a7177c354e200bab492de06424f0d1f7753f60d804313b7dbf99aeffe12d542": {
+    "tex": "{Q}_{123} = {Q}_{12} + {Q}_{23} .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 3.docx",
+    "ole": "embeddings/oleObject25.bin"
+  },
+  "8973e630e0e380e430487fce80e272367b6f43be8c2ce55aafbc30414c9dd543": {
+    "tex": "\\frac{{p}_{1}}{{T}_{1}} = \\frac{{p}_{2}}{{T}_{2}}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 3.docx",
+    "ole": "embeddings/oleObject26.bin"
+  },
+  "4032536809d5096373c1d4b6f1c01b017021fc32bce5f12f50b611ea70ec80b9": {
+    "tex": "\\frac{{p}_{2}}{{p}_{1}} = \\frac{{T}_{2}}{{T}_{1}} = 2",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 3.docx",
+    "ole": "embeddings/oleObject27.bin"
+  },
+  "a1aba3193a497257440fee278bebaa1b4f174d25f7ce9fce246f5a6c174dd1c2": {
+    "tex": "{T}_{2} = {T}_{1} \\frac{{p}_{2}}{{p}_{1}} = 2 {T}_{1} = 300 \\cdot 2 = 600",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 3.docx",
+    "ole": "embeddings/oleObject28.bin"
+  },
+  "271feb8d236b19cf1b634ce7fbe5d2f3830eaa9e92afc6f1f47c2e501ef85eb7": {
+    "tex": "{Q}_{12} = \\Delta {U}_{12} = \\frac{3}{2} \\nu R ( {T}_{2} - {T}_{1} ) = \\frac{3}{2} \\nu R {T}_{1} \\approx 3{,}74",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 3.docx",
+    "ole": "embeddings/oleObject29.bin"
+  },
+  "d11dafa7c99bb2517f9c35a5df2b83844562b5f5dca7f4726f161e260920fc83": {
+    "tex": "{Q}_{23} = \\Delta {U}_{23} + {A}_{23}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 3.docx",
+    "ole": "embeddings/oleObject31.bin"
+  },
+  "23fb623b32d70b99684f486bb12b6c464da2a7d5a09e0804cc21a75909d9e512": {
+    "tex": "\\Delta {U}_{23} = \\frac{3}{2} \\nu R ( {T}_{3} - {T}_{2} )",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 3.docx",
+    "ole": "embeddings/oleObject32.bin"
+  },
+  "50333d092ae36d4aeaa3528044898c5d01d40713e85fa547a06cfe979cc6fc2e": {
+    "tex": "{A}_{23} = {p}_{2} ( {V}_{3} - {V}_{2} )",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 3.docx",
+    "ole": "embeddings/oleObject33.bin"
+  },
+  "2b52c10b2ccc82bb3460b2f485b1473ccce1c15c3dd19a72cf007cf04986e531": {
+    "tex": "p V = \\nu R T",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 3.docx",
+    "ole": "embeddings/oleObject34.bin"
+  },
+  "43539c791db8b89c952d3b0e18ebe86750e4720a9243b266e749096f18fe9f21": {
+    "tex": "{Q}_{23} = \\frac{3}{2} \\nu R ( {T}_{3} - {T}_{2} ) + \\nu R ( {T}_{3} - {T}_{2} ) = \\frac{5}{2} \\nu R ( {T}_{3} - {T}_{2} )",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 3.docx",
+    "ole": "embeddings/oleObject35.bin"
+  },
+  "edd4daf20fad5a9d4ca3bfdc42f3696eea60048aee3c2ee8b35ab3b03bd53525": {
+    "tex": "{Q}_{23} = \\frac{5}{2} \\nu R ( {T}_{3} - 2 {T}_{1} ) \\approx 6{,}23",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 3.docx",
+    "ole": "embeddings/oleObject36.bin"
+  },
+  "33e7ab2515eb869d351455c5fa1c97196af6a5ef7a18d4d67a2606f4c9aa9c13": {
+    "tex": "{Q}_{123} = \\frac{3}{2} \\nu R {T}_{1} + \\frac{5}{2} \\nu R ( {T}_{3} - 2 {T}_{1} ) \\approx 10",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 3.docx",
+    "ole": "embeddings/oleObject37.bin"
+  },
+  "d30b7dfee544b50ac164f0c6001a30d8f82b9ca3003229f30f307964de406351": {
+    "tex": "Q \\approx 10",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 3.docx",
+    "ole": "embeddings/oleObject38.bin"
+  },
+  "b97e1c3fbbcab284d0b2cd3400be73843f5fa8f03852de21f08c563b28debe9f": {
+    "tex": "{\\vec{T}}_{1}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 3.docx",
+    "ole": "embeddings/oleObject40.bin"
+  },
+  "e68d2a7afaff9d07de08b95bb15769c4c1649b76c62ad61b1483331b6765976e": {
+    "tex": "{\\vec{T}}_{1}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 3.docx",
+    "ole": "embeddings/oleObject43.bin"
+  },
+  "b398251de25337cc45bd2ad54652a2e61358ea9364bb11969222848e6004dafb": {
+    "tex": "{\\bar{E}}_{k} = \\frac{3}{2} k T",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 4.docx",
+    "ole": "embeddings/oleObject17.bin"
+  },
+  "b1b522f7282db5664ffe69d9641d5f38b497d911c7dc2e402e42548921049a3c": {
+    "tex": "V = \\frac{\\nu R T}{p} = \\frac{2 \\nu {N}_{\\text{A}} {\\bar{E}}_{k}}{3 p} ,",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 4.docx",
+    "ole": "embeddings/oleObject18.bin"
+  },
+  "b7dc5f07523f0e0f45124f6c08e66e0118630ec3cca8a31d5dfc377c63f0328a": {
+    "tex": "{N}_{\\text{A}}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 4.docx",
+    "ole": "embeddings/oleObject19.bin"
+  },
+  "15d6b5067c013d7e81a8e78c09ae28eb8f9250d298995c02454a8224f764a3ec": {
+    "tex": "a = \\frac{{\\upsilon}^{2}}{2 s} ,",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 4.docx",
+    "ole": "embeddings/oleObject20.bin"
+  },
+  "75597be9d9d44f37d3ea4ffe7ea649f6803b5655abe28671caf70885797f488e": {
+    "tex": "s = 1",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 4.docx",
+    "ole": "embeddings/oleObject22.bin"
+  },
+  "d8facc881a34cd70713616d3363af5a5d2004cc72e4f6e242a74ebb9bec17e12": {
+    "tex": "\\Delta \\upsilon = \\upsilon = a t .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 4.docx",
+    "ole": "embeddings/oleObject23.bin"
+  },
+  "8729f5df1f71255afd901c8a0aabb59aac0bb6d010223274a88a13929c3c98b4": {
+    "tex": "t = \\frac{2 s}{\\upsilon} = \\frac{2 \\cdot 1000}{10} = 200",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 4.docx",
+    "ole": "embeddings/oleObject24.bin"
+  },
+  "afac82fe8231344691646c3d8d3406f6617314a1422e73907a830611cb2aecb8": {
+    "tex": "t = 200",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 4.docx",
+    "ole": "embeddings/oleObject25.bin"
+  },
+  "b15498424e3ee926d39a8dcf6cc0b9164937740ee67b4a3a7ed3ff26bf7ac5a0": {
+    "tex": "n {p}_{1} = k ( {p}_{1} - \\varphi {p}_{0} ) + {p}_{0}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 4.docx",
+    "ole": "embeddings/oleObject31.bin"
+  },
+  "5db4c2a85795663f52c71b4670dd04f115ebe0db7e9f92f42a478974d9d4dcb9": {
+    "tex": "mgl\\sin\\alpha+NL\\cos\\alpha-N_1L\\sin\\alpha=0",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\3_крит.doc",
+    "ole": "embeddings/oleObject4.bin",
+    "review": "manual correction against source equation"
+  },
+  "b625d4a53629ad38ff330587a53e9648e6d64e2e916583d16aabc800264d4242": {
+    "tex": "m_{\\text{лёд}}=\\frac{4{,}2\\cdot10^3\\cdot1{,}1\\cdot(15-0)}{330\\cdot10^3}=0{,}21",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\3_крит.doc",
+    "ole": "embeddings/oleObject8.bin",
+    "review": "manual correction against source equation"
+  },
+  "0dff262af25146dbc4912b6d9a0abb9636c3c54ae7b7be52e87c0b739eb46896": {
+    "tex": "V_0\\ge\\frac{MRT}{Np_0(\\mu_{\\text{В}}-\\mu_{\\text{Г}})}=\\frac{60\\cdot8{,}31\\cdot300}{5000\\cdot10^5\\cdot(0{,}029-0{,}004)}\\approx12\\,\\text{л}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\3_крит.doc",
+    "ole": "embeddings/oleObject20.bin",
+    "review": "manual correction against source equation"
+  },
+  "3b9a27de25ff3405c21ed5e6b53789309a1e58cbf9e378f902d956fe5629d05c": {
+    "tex": "\\begin{aligned}N_1+N_2-m_1g-m_2g&=0;\\\\N_1x+N_2(l+x)-m_2gL&=0.\\end{aligned}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\3_крит.doc",
+    "ole": "embeddings/oleObject36.bin",
+    "review": "manual correction against source equation"
+  },
+  "c572e388c6c6f7eb45ef0a31ff09fdec5c75ca64595025d5bdd60bca04a10458": {
+    "tex": "\\begin{aligned}3N_1&=(m_1+m_2)g;\\\\(3x+2l)N_1&=m_2gL.\\end{aligned}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\3_крит.doc",
+    "ole": "embeddings/oleObject39.bin",
+    "review": "manual correction against source equation"
+  },
+  "34c80265bcfd0a6fab04947980d3abf18b01c5c5c199935756293ec3e742a0d2": {
+    "tex": "m_{\\text{лёд}}=\\frac{4200\\cdot0{,}45\\cdot(45-5)}{3{,}3\\cdot10^5+4200\\cdot(5-0)}\\approx0{,}215",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\4_крит.doc",
+    "ole": "embeddings/oleObject10.bin",
+    "review": "manual correction against source equation"
+  },
+  "ddd2dce44745d9e53e63fb14e989072d135002294b9af4d31be14d1538b7761b": {
+    "tex": "\\begin{aligned}IBL-\\mu N&=0;\\\\N-mg&=0.\\end{aligned}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\4_крит.doc",
+    "ole": "embeddings/oleObject31.bin",
+    "review": "manual correction against source equation"
+  },
+  "5d27d2238c4d1675a95b2194e3411e64d31d0dcb7f4d1f26f2a2a59932148d68": {
+    "tex": "B=\\frac{0{,}3\\cdot40\\cdot10^{-3}\\cdot10}{10\\cdot0{,}6}=0{,}02",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\4_крит.doc",
+    "ole": "embeddings/oleObject33.bin",
+    "review": "manual correction against source equation"
+  },
+  "87de3c12b0574db27d9c33c78a2332c99d4ccf75a8dfc743d163ae9e41ec7e35": {
+    "tex": "\\cos\\alpha=\\frac{l-H}{l}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\4_крит.doc",
+    "ole": "embeddings/oleObject37.bin",
+    "review": "manual correction against source equation"
+  },
+  "543fd13cd44b426fa7d4091928e9ec8e0006960bbdc728d6229dd22c70bdc0ab": {
+    "tex": "u=\\sqrt{2gl(1-\\cos\\alpha)}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\4_крит.doc",
+    "ole": "embeddings/oleObject38.bin",
+    "review": "manual correction against source equation"
+  },
+  "cfc18685424dff776a4016462b1b8ddf6f866d5320749948abb2c1d2204d395d": {
+    "tex": "\\cos\\beta=\\frac{l-h}{l}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\4_крит.doc",
+    "ole": "embeddings/oleObject42.bin",
+    "review": "manual correction against source equation"
+  },
+  "43346476b6d615e0ca3c3d93954ad0cb0204ddd5511df325842f1a1053dd4a26": {
+    "tex": "u'=\\sqrt{2gl(1-\\cos\\beta)}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\4_крит.doc",
+    "ole": "embeddings/oleObject43.bin",
+    "review": "manual correction against source equation"
+  },
+  "61af8ceeb4588e6c63ce285e6463ee3fd1e9bc42d78c50455e1562e86dd9f3b2": {
+    "tex": "|\\Delta p|=M\\left|\\sqrt{2gl(1-\\cos\\alpha)}-\\sqrt{2gl(1-\\cos\\beta)}\\right|=1\\,\\text{кг}\\cdot\\text{м}/\\text{с}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\4_крит.doc",
+    "ole": "embeddings/oleObject44.bin",
+    "review": "manual correction against source equation"
+  },
+  "edc4c484b1be871dd5a1197c460e34ee2f71e43c1bfbb2c466f5743b449a9ccb": {
+    "tex": "|\\Delta p|=1\\,\\text{кг}\\cdot\\text{м}/\\text{с}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 1\\4_крит.doc",
+    "ole": "embeddings/oleObject45.bin",
+    "review": "manual correction against source equation"
+  },
+  "f2b7a547b0abeb4dc65be0ddc63d2f94208593b2326606e9662f56f4bbea5b65": {
+    "tex": "T=\\frac{m[c(t_K-t)+nr]}{N}=\\frac{0{,}5[4200(100-10)+0{,}15\\cdot2{,}3\\cdot10^6]}{400}\\approx904\\,\\text{с}\\approx15\\,\\text{мин}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 1.docx",
+    "ole": "embeddings/oleObject26.bin",
+    "review": "manual correction against source equation"
+  },
+  "fb213b7a5c3e27f6257f1c16b42049c849609800039e2a096e05a5a79462b5db": {
+    "tex": "R_1=20\\,\\text{Ом},\\quad R_2=10\\,\\text{Ом}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 1.docx",
+    "ole": "embeddings/oleObject46.bin",
+    "review": "manual correction against source equation"
+  },
+  "1b77e89c6b4c1720a8f7f0b128c120bcc020de49bafe0454495a173b81f3fd31": {
+    "tex": "R_1=20\\,\\text{Ом},\\quad R_2=10\\,\\text{Ом}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 1.docx",
+    "ole": "embeddings/oleObject47.bin",
+    "review": "manual correction against source equation"
+  },
+  "0270277c8d589859ed366adca11362b09923bee3d12d706dd3e280a303fb1a9b": {
+    "tex": "\\begin{aligned}p_1&=p_{1\\text{сух}}+\\varphi p_0;\\\\p_2&=np_1=kp_{1\\text{сух}}+p_0.\\end{aligned}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 4.docx",
+    "ole": "embeddings/oleObject30.bin",
+    "review": "manual correction against source equation"
+  },
+  "48e0456aa2fb23db6a7317ad6a0049e3922fdf4d2758d511e27cf1adbd2e5e91": {
+    "tex": "\\varphi=\\frac{(k-n)p_1+p_0}{kp_0}=\\frac{(4-3)\\cdot1{,}8\\cdot10^5+10^5}{4\\cdot10^5}=0{,}7",
+    "source": "Материалы\\ЕГЭ от Демидовой\\2024 - 2\\вариант 4.docx",
+    "ole": "embeddings/oleObject32.bin",
+    "review": "manual correction against source equation"
+  }
+}
