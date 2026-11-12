@@ -47,6 +47,7 @@ R_NS = "{http://schemas.openxmlformats.org/officeDocument/2006/relationships}"
 MISSING_FORMULA = "[формула в исходном DOCX — требуется сверка]"
 GENERAL_END = ("Полное правильное решение каждой из задач 22–26",
                "Проверьте, чтобы каждый ответ был записан рядом",
+               "Не забудьте перенести все ответы",
                "Система оценивания экзаменационной работы")
 # Transcribed from the embedded WMF pictures and checked against temporary
 # Word-rendered PDFs. Order follows the images in each source task.
@@ -191,6 +192,31 @@ def table_text(table, doc, figures: list[bytes],
         return ""  # Blank answer grid, not part of the question.
     if not rows:
         return "\n".join(choice_lines)
+    def with_choices(value: str) -> str:
+        return value + ("\n" + "\n".join(choice_lines) if choice_lines else "")
+    # Word also uses tables to position a paragraph beside a figure. A row
+    # with one text cell is prose, not a two-column data table.
+    if len(rows) == 1 and sum(bool(cell) for cell in rows[0]) == 1:
+        return with_choices(next(cell for cell in rows[0] if cell))
+    # Matching tasks place the two columns and two lettered prompts in a
+    # three-column layout table, leaving the middle and right cells empty.
+    # Keep the prompts as prose; the answer options follow this block.
+    if (len(rows) == 2 and len(rows[0]) == 3 and not rows[0][1]
+            and not rows[1][1] and not rows[1][2]):
+        prompts = rows[1][0].strip()
+        if re.fullmatch(r"А\)\s*Б\)", prompts):
+            return with_choices("Графики А и Б показаны на рисунках.")
+        parts = re.split(r"(?=Б\))", prompts, maxsplit=1)
+        if len(parts) == 2 and parts[0].startswith("А)"):
+            return with_choices("\n\n".join(
+                re.sub(r"^([АБ]\))\s*", r"\1 ", part).strip() for part in parts))
+    # The five statements of 2026-3 task 18 are laid out in a Word table.
+    # Its second row carries a stray fragment of the preceding word before 2).
+    if (len(rows) >= 3 and all(len(row) == 2 and row[1] for row in rows)
+            and all(re.search(r"[1-5]\)$", row[0]) for row in rows)):
+        return with_choices("\n".join(
+            re.search(r"([1-5]\))$", row[0]).group(1) + " " + row[1]
+            for row in rows))
     # Word often lays out answer choices as a two-column table. These are
     # semantic lists on the site, not mathematical tables.
     if len(rows) >= 2 and all(re.fullmatch(r"\d+\)", row[0]) for row in rows):

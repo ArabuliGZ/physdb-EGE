@@ -12,7 +12,7 @@ con = sqlite3.connect(ROOT / "data" / "phyege.sqlite3")
 con.row_factory = sqlite3.Row
 expected_lists = {
     2: {5: 5, 6: 3, 9: 5, 10: 3, 14: 5, 15: 3, 17: 3, 18: 5},
-    3: {5: 5, 6: 3, 9: 5, 10: 3, 14: 5, 15: 3, 17: 3, 18: 4},
+    3: {5: 5, 6: 3, 9: 5, 10: 3, 14: 5, 15: 3, 17: 3, 18: 5},
     4: {5: 5, 6: 4, 9: 5, 10: 3, 14: 5, 15: 3, 17: 4, 18: 5},
 }
 for variant_number, list_counts in expected_lists.items():

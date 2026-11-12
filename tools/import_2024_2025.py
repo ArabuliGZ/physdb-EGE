@@ -44,11 +44,13 @@ def repair_statement_for_rendered_figure(label: str, number: int, statement: str
         statement = re.sub("силы нормальной реакции " + FORMULA_MARKER,
                            lambda _: r"силы нормальной реакции \(\vec N\)", statement, count=1)
     elif (label, number) == ("2024-1-4", 22):
+        statement = re.sub("^" + FORMULA_MARKER + r"\n", "", statement, count=1)
         statement = re.sub(r"\\begin\{tabular\}\{l\}\n" + FORMULA_MARKER + r"\n\\end\{tabular\}\n",
                            "", statement, count=1)
         statement = re.sub("горизонтальной силы " + FORMULA_MARKER,
                            lambda _: r"горизонтальной силы \(\vec F\)", statement, count=1)
     elif (label, number) == ("2024-2-2", 21):
+        statement = re.sub("^" + FORMULA_MARKER + r"\n", "", statement, count=1)
         statement = re.sub(r"\\begin\{tabular\}\{l\}\n(?:" + FORMULA_MARKER + r"){1,2}" +
                            r"\n\\end\{tabular\}\n", "", statement, count=1)
     elif (label, number) == ("2024-2-2", 22):
@@ -63,6 +65,23 @@ def repair_statement_for_rendered_figure(label: str, number: int, statement: str
         statement = re.sub("^" + FORMULA_MARKER, "", statement, count=1)
         statement = re.sub("горизонтальной силы " + FORMULA_MARKER,
                            lambda _: r"горизонтальной силы \(\vec F\)", statement, count=1)
+    return statement
+
+
+def repair_table_transcription(label: str, number: int, statement: str) -> str:
+    """Restore superscripts and units lost in Word's text layer (source pages checked)."""
+    if (label, number) in {("2025-1-2", 7), ("2025-2-2", 7)}:
+        statement = statement.replace(r"р, \(105\,\text{Па}\)",
+                                      r"\(p,\ 10^5\,\text{Па}\)")
+        statement = statement.replace(r"V, \(10-3\,\text{м}^{3}\)",
+                                      r"\(V,\ 10^{-3}\,\text{м}^3\)")
+    if (label, number) in {("2025-1-3", 14), ("2025-2-3", 14)}:
+        statement = statement.replace(r"t, \(10-6\) c", r"\(t,\ 10^{-6}\,\text{с}\)")
+        statement = statement.replace(r"q, \(10-9\,\text{Кл}\)",
+                                      r"\(q,\ 10^{-9}\,\text{Кл}\)")
+    statement = statement.replace("Температура газав сосуде", "Температура газа в сосуде")
+    statement = statement.replace("Глубина погруженияшарика", "Глубина погружения шарика")
+    statement = statement.replace("Дальность полеташарика", "Дальность полета шарика")
     return statement
 # The narrow topic changes between editions and even between variants.
 EXTENDED_TOPICS = {
@@ -185,6 +204,7 @@ def import_one(con, year: int, set_number: int, number: int,
         raw, statement_figures = extract_blocks(doc, start, stop, statement_formulas)
         statement = repair_statement_for_rendered_figure(label, n, normalize_statement(raw))
         statement = show_source_formulas(statement, statement_formulas)
+        statement = repair_table_transcription(label, n, statement)
         if not statement:
             raise ValueError(f"Empty statement: {label} task {n}")
         solution = criteria = None

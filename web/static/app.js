@@ -168,7 +168,11 @@ function renderStatement(container, text) {
     }
     const wrap = node('div', 'latex-table-wrap');
     const table = node('table', 'latex-table');
-    for (const row of match[1].split(/\\\\\s*\n/)) {
+    const rows = match[1].split(/\\\\\s*\n/).filter(row => row.trim());
+    if (rows.length === 1 && rows[0].split(/(?<!\\)&/).length === 2) {
+      table.classList.add('answer-grid');
+    }
+    for (const row of rows) {
       if (!row.trim()) continue;
       const tr = node('tr');
       for (const cell of row.split(/(?<!\\)&/)) {
