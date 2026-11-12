@@ -1,0 +1,24 @@
+[Unit]
+Description=PhysEGE exam variant browser
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/phys-ege
+Environment=PHYSEGE_HOST=127.0.0.1
+Environment=PHYSEGE_PORT=8002
+Environment=PYTHONDONTWRITEBYTECODE=1
+ExecStart=/usr/bin/python3 /var/www/phys-ege/web/server.py
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=20
+PrivateTmp=true
+NoNewPrivileges=true
+ProtectHome=true
+ProtectSystem=full
+
+[Install]
+WantedBy=multi-user.target

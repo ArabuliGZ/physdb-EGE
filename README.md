@@ -8,6 +8,8 @@
 
 Для запуска через Docker Desktop используйте `start-site.cmd`, для остановки — `stop-site.cmd`. Контейнер слушает только `127.0.0.1:8001`; база и изображения подключены в режиме чтения. Запуск без Docker — `start-site-local.cmd` с bundled Python. Исходный код сайта находится в `web/`; стиль PhysDB скопирован в `web/static/physdb.css`, поверх него применён `web/static/site.css`.
 
+Конфигурация публикации на `ege.physdb.ru` находится в [deploy/README.md](deploy/README.md): отдельный systemd-сервис на порту 8002 и отдельный хост nginx.
+
 ## Данные
 
 - `data/phyege.sqlite3` — локальная SQLite-база, доступная без запущенного Docker.
