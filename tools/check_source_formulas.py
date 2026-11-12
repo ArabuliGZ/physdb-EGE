@@ -2,9 +2,12 @@
 from __future__ import annotations
 
 import hashlib
+import json
 import re
 import sqlite3
 from pathlib import Path
+
+from verified_solutions import VERIFIED_SOLUTIONS
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -13,6 +16,7 @@ con = sqlite3.connect(ROOT / "data" / "phyege.sqlite3")
 files: set[Path] = set()
 total = 0
 for row in con.execute("SELECT statement,answer,solution,criteria FROM problems"):
+    assert not TOKEN.search(row[0] or ""), "Untranscribed formula in a problem statement"
     for value in row:
         if not value:
             continue
@@ -22,9 +26,16 @@ for row in con.execute("SELECT statement,answer,solution,criteria FROM problems"
             assert int(width) > 0 and int(height) > 0
             files.add(ROOT / "assets" / "formulas" / sha[:2] / f"{sha}.png")
             total += 1
-assert total >= 900, total
+assert total > 0, total
 for path in files:
     assert path.is_file(), path
     assert hashlib.sha256(path.read_bytes()).hexdigest() == path.stem, path
-assert files == set((ROOT / "assets" / "formulas").rglob("*.png"))
+verified = json.loads((ROOT / "tools" / "verified_formulas.json").read_text(encoding="utf-8"))
+verified_files = {ROOT / "assets" / "formulas" / sha[:2] / f"{sha}.png" for sha in verified}
+assert all(path.is_file() for path in verified_files)
+orphaned = set((ROOT / "assets" / "formulas").rglob("*.png")) - (files | verified_files)
+assert not orphaned, sorted(orphaned)
+for (variant, number), (source, solution) in VERIFIED_SOLUTIONS.items():
+    assert source and solution and not TOKEN.search(solution), (variant, number)
+    assert solution.count(r"\(") == solution.count(r"\)"), (variant, number)
 print(f"{total} inline source formulas; {len(files)} distinct PNGs; no placeholders or missing files")

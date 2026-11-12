@@ -1,0 +1,470 @@
+{
+  "eef896cfdc287c72124a1925de94c203df7781905c0dbbfdc6c12bdbbac31045": {
+    "tex": "v_x",
+    "source": "2024 - 1/1.doc, page 4"
+  },
+  "72c12b64b60acdea1f2cc85af74d962a1c83ee022bab5f7ffd81ae5d30f9f475": {
+    "tex": "\\vec a.",
+    "source": "2024 - 1/1.doc, page 4"
+  },
+  "9b82d403a86f9eba54f833f6af52c65b5712afaa4f046060694f804b6a7bdd79": {
+    "tex": "\\frac{m}{2}",
+    "source": "2024 - 1/1.doc, page 4"
+  },
+  "9ed47bacff5f8e0893d94258f7182253c1631a9e805568cbc44f6fdc6c63d779": {
+    "tex": "\\frac{\\vec a}{4}?",
+    "source": "2024 - 1/1.doc, page 4"
+  },
+  "45ca1515b5bdcf9ef2187916cf1c5e86ddea9b629801949c9e5c23ba98b43571": {
+    "tex": "\\vec F_2",
+    "source": "2024 - 1/1.doc, page 5"
+  },
+  "bc4b2892bfd43099051164a70b2721f5e7773b5f8af732ed756a566111452a4a": {
+    "tex": "\\vec v_0,",
+    "source": "2024 - 1/1.doc, page 6"
+  },
+  "08e515bc8dffbca4d1a373a2bf3c1d9528ac2c8079d431c4667c39d54b8151f7": {
+    "tex": "v_y",
+    "source": "2024 - 1/1.doc, page 6"
+  },
+  "71ede60af96fb8cd8005fd008e1a6ef42529fbd6a73b50beb7041881601c52ae": {
+    "tex": "{}^1_0n+{}^{238}_{92}\\mathrm U\\to{}^A_Z\\mathrm X+2\\,{}^1_0n",
+    "source": "2024 - 1/1.doc, page 10"
+  },
+  "3d84f5f5a80b5074178dbffa0df318105fdea6440349d71fcf78638223dc5307": {
+    "tex": "{}^A_Z\\mathrm X",
+    "source": "2024 - 1/1.doc, page 10"
+  },
+  "798dedb157f7a32c112df77a312fea13e320e4afba9e93b2ea727fee9d574371": {
+    "tex": "\\mathcal E,",
+    "source": "2024 - 1/1.doc, page 11"
+  },
+  "467fb2f951cdadcd8c3e03befec723f208692b90ac64aaf36c66639e37155944": {
+    "tex": "\\vec E",
+    "source": "2024 - 1/1.doc, page 12"
+  },
+  "cb91a302626a62fda81cf1f6dab119e943325021d86ec4a35e65e3504a1911e0": {
+    "tex": "\\vec B.",
+    "source": "2024 - 1/1.doc, page 12"
+  },
+  "5cae628e9a5596d86381d773865956125e4ecc4db84a93235871ce0803315940": {
+    "tex": "\\vec E\\perp\\vec B.",
+    "source": "2024 - 1/1.doc, page 12"
+  },
+  "9d8ecd5289ac19cde49a2b2c994ddeda31461cd948f259ffb9501b835efbde3f": {
+    "tex": "\\vec B,",
+    "source": "2024 - 1/1.doc, page 12"
+  },
+  "d763a4e89edfd9a350aa5e486f6f813c2f59164233bba28d4f69511046c1d439": {
+    "tex": "\\nu=1",
+    "source": "2024 - 1/1.doc, page 13"
+  },
+  "1d2cdf3040040dc9ee1d1487c206e42330b8576413efcfc38f6efcdb9b07b5d9": {
+    "tex": "\\Delta\\nu",
+    "source": "2024 - 1/1.doc, page 13"
+  },
+  "7515efb81a828cec1ab92e83beae4d556c02ea5ac6ede42d7d5f42a8e0c386e1": {
+    "tex": "\\vec a",
+    "source": "2024 - 1/2.doc, page 4"
+  },
+  "b97dad1bbec3de1f167c134f7180e4a22c008076f3c07deb9587bd938c2fe51d": {
+    "tex": "\\frac{\\vec a}{2}",
+    "source": "2024 - 1/2.doc, page 4"
+  },
+  "159664e81e5ad28a574eaf1a8d367eb18f0dd12fb9b64dc46551cb1799543a02": {
+    "tex": "\\frac{\\nu_1}{\\nu_2}",
+    "source": "2024 - 1/2.doc, page 5"
+  },
+  "66904a79dc3370ad1911d5de21a14b7425022b8f8e42de14b4ec96ec4aa940c8": {
+    "tex": "\\frac{F_1}{F_2}",
+    "source": "2024 - 1/2.doc, page 7"
+  },
+  "73bd009c2ea22b9ca891ea0f3d9da1f5584def2ea9350950c6919acb473446c0": {
+    "tex": "\\vec B.",
+    "source": "2024 - 1/2.doc, page 8"
+  },
+  "853be92055f8856b580ba6e8268a33b1e2436c94538d0baeb0d78f1310baa79b": {
+    "tex": "m=8",
+    "source": "2024 - 1/2.doc, page 12"
+  },
+  "3160684780b23aa5f0b642018e637f0917debfd0e3c9c41432d9eba5cb775978": {
+    "tex": "W=100",
+    "source": "2024 - 1/2.doc, page 12"
+  },
+  "d34d4d45300f48efab91008981909d26dca1611f0c63890a9f0faf717c4121ea": {
+    "tex": "M=0{,}99",
+    "source": "2024 - 1/2.doc, page 13"
+  },
+  "054c86dbe38e61a8de90c4b17e6443d2cd9a023982e8c9960c92d244bfcb147a": {
+    "tex": "R=1",
+    "source": "2024 - 1/2.doc, page 13"
+  },
+  "1ab6efa9f6b9be86a346ce8dc22c5fc8516348ecc5a112300f5cfe3229b28c99": {
+    "tex": "m=0{,}01",
+    "source": "2024 - 1/2.doc, page 13"
+  },
+  "0cfbe5c076da6835590f3905dce5e17cdd1a564c3f74f8923df2acb3d1c171a9": {
+    "tex": "v_0=200",
+    "source": "2024 - 1/2.doc, page 13"
+  },
+  "f5739bb95037b44fb4162cf4092e8bcdb64a21050eced012c51d4c2d97c767f5": {
+    "tex": "v_0",
+    "source": "2024 - 1/3.doc, page 5"
+  },
+  "8747b617eba17b5dcd57fced646afe2fd6a5ee36ef5da5fb970a6edb9bc7e20f": {
+    "tex": "\\frac{A_{12}}{A_{23}}",
+    "source": "2024 - 1/3.doc, page 6"
+  },
+  "1edf32925b639a15711728f2cd680f39ed2f8cb1e4b3593ead9db7acf6bb721f": {
+    "tex": "\\vec B.",
+    "source": "2024 - 1/3.doc, page 7"
+  },
+  "89dd0a1aa1e103ae5e9ca042a50f05ee3b2ad59ade3c87b8d7d8dc74c2f780d1": {
+    "tex": "{}^{174}_{78}\\mathrm{Pt}",
+    "source": "2024 - 1/3.doc, page 9"
+  },
+  "f991476e3026c05fbc608d1da439d281b6431defb3bb91610243ac2d873bb075": {
+    "tex": "{}^A_Z\\mathrm X",
+    "source": "2024 - 1/3.doc, page 9"
+  },
+  "03d9da812af9e8195fbef35c3aef0189633af0ddb8c15412289f1f6717642d3a": {
+    "tex": "m_1=0{,}2",
+    "source": "2024 - 1/3.doc, page 13"
+  },
+  "894d13ff03a1f5a4a5a05062cee0c189fa071afc0bd489bdfe872f36ae375124": {
+    "tex": "m_2=0{,}3",
+    "source": "2024 - 1/3.doc, page 13"
+  },
+  "cf7a1b64ea70aaa5e90ec0eecf9cf6285df627a3ebfd39c03dcadaae2674eda0": {
+    "tex": "L=1",
+    "source": "2024 - 1/3.doc, page 13"
+  },
+  "85d10dbfd0e153a5a84b279619e81f39d8ccc8a60dbc53de1d6e42aa0938f157": {
+    "tex": "\\frac{a_{\\mathrm I}}{a_{\\mathrm{II}}}.",
+    "source": "2024 - 1/4.doc, page 4"
+  },
+  "b06f46d5c79165474ecf41076bbb220f927f4708439a98fd1bf13b38f1b954df": {
+    "tex": "\\frac{v_1}{v_2}",
+    "source": "2024 - 1/4.doc, page 4"
+  },
+  "a71c5fcf9bb592c7d96ee10073f0dd79646cf4b14b3f08e9f3fa1d1e2646fb51": {
+    "tex": "\\frac{m_1}{m_2}",
+    "source": "2024 - 1/4.doc, page 4"
+  },
+  "16b08a771bb42a2e578486916018f6be38a3644c67c3f9cf9feba3074bd54af8": {
+    "tex": "\\vec v_0",
+    "source": "2024 - 1/4.doc, page 5"
+  },
+  "44bac0f72d350d372d5edfd880fea7b42884f65ff48cb1cac9bb7c25dc16642d": {
+    "tex": "\\alpha",
+    "source": "2024 - 1/4.doc, page 5"
+  },
+  "001c85b810359bfb75c5402f16ecebb9b4dd0be2c9e038dfabe275fc4a6f28d0": {
+    "tex": "\\vec E",
+    "source": "2024 - 1/4.doc, page 8"
+  },
+  "836909423df0906b27ea3cebdd2560a3d9163ed98de1bd6a5f8210908105bcf3": {
+    "tex": "{}^{229}_{88}\\mathrm{Ra}",
+    "source": "2024 - 1/4.doc, page 8"
+  },
+  "bbde042a1a2b75a9fca1940cf114eafbfd7e6c98e97e1b5a89049a5b347d1985": {
+    "tex": "{}^A_Z\\mathrm X",
+    "source": "2024 - 1/4.doc, page 8"
+  },
+  "29799ce86707966d39425b4686ddedb1469728707ae04c5ba0234b81ee3cd4f9": {
+    "tex": "\\frac{V_2}{V_1}=3.",
+    "source": "2024 - 1/4.doc, page 12"
+  },
+  "6d78d146c0f3a08af0e9d28e58814124b5d7a95f7bda5d7be9a1b1ddf98d584a": {
+    "tex": "\\varphi_1=80\\%.",
+    "source": "2024 - 1/4.doc, page 12"
+  },
+  "033334826b10c766f299afcca4caa5986c86f307c6c1dfd37c608f0a4f092b4d": {
+    "tex": "\\cos 39^\\circ=\\frac79.",
+    "source": "2024 - 1/4.doc, page 12"
+  },
+  "559c5c99aedc8dffcb733df314ece30e3a38f817f7dc002c59add9d96939ec97": {
+    "tex": "v_x",
+    "source": "2024 - 2/вариант 1.docx, page 4"
+  },
+  "3fe8baf3e74513b598889c4a0180d263969b1a135c8733871f3777d1bec21f57": {
+    "tex": "t",
+    "source": "2024 - 2/вариант 1.docx, page 4"
+  },
+  "99b2e7c11c93ecbca8a304eb3869ca8355b989bf0083164d6f9e88468f797d97": {
+    "tex": "{}^{208}_{83}\\mathrm{Bi}",
+    "source": "2024 - 2/вариант 1.docx, page 9"
+  },
+  "acb7b78287d554f4574a6b35f40bc99c1cb80b323574fc0f02b17ef538004fc5": {
+    "tex": "\\eta=15\\%",
+    "source": "2024 - 2/вариант 1.docx, page 12"
+  },
+  "4bd1275e00d5b7ac552921cbdf9ee83c8adf1927dd64256502613c08275ce32f": {
+    "tex": "t_{\\min}=37",
+    "source": "2024 - 2/вариант 1.docx, page 12"
+  },
+  "9c5c5f4add5a5facc0387033e86e08a5125bfe4685c4d22a45775775683f527b": {
+    "tex": "t_{\\max}=302",
+    "source": "2024 - 2/вариант 1.docx, page 12"
+  },
+  "9ffcd3839593b807aa95f536d641567f09b4af3306e8ef389f5d8ff8fa152272": {
+    "tex": "\\vec v_0",
+    "source": "2024 - 2/вариант 1.docx, page 12"
+  },
+  "c062be0a72ca6c217eef8486e5c3c847d0fca04009d4321d47166a2185d1d0bd": {
+    "tex": "\\frac{p_1}{p_2}=2{,}8",
+    "source": "2024 - 2/вариант 2.docx, page 5"
+  },
+  "cdaab0f42c087d09deec9d1571967c7cb90259045c6bfd0fd217a8cf44b80118": {
+    "tex": "\\frac{m_1}{m_2}",
+    "source": "2024 - 2/вариант 2.docx, page 5"
+  },
+  "a542e1b59aa6229852fd31afe5edd5a8603ed1bc0cfc5ceaec9ae5104e1af0dc": {
+    "tex": "\\frac{v_1}{v_2}=2",
+    "source": "2024 - 2/вариант 2.docx, page 5"
+  },
+  "f6ec743bed6c0db756cce91ec52734e758452b0cecb266ad07632a5095bb8f8f": {
+    "tex": "\\vec F_1",
+    "source": "2024 - 2/вариант 2.docx, page 5"
+  },
+  "82996acf4d49b151a311530e81d0d8df84dc5d2d1d9e12d83c4f31ec84db8ab1": {
+    "tex": "\\vec F_2",
+    "source": "2024 - 2/вариант 2.docx, page 5"
+  },
+  "f6f991b7e46e15fb501e60ea4a0046c71cf4ae9cbde6b54d1401cedbb28c3b6e": {
+    "tex": "\\vec F_2",
+    "source": "2024 - 2/вариант 2.docx, page 5"
+  },
+  "afe56e7ca2d48cd706eba6ca1811021ec27f2324ea42a7c5d8503dd71b51ce0e": {
+    "tex": "\\vec B",
+    "source": "2024 - 2/вариант 2.docx, page 8"
+  },
+  "721364740405f0fe607fad977f1d0190425113587addee4063b45c113470f891": {
+    "tex": "v=1",
+    "source": "2024 - 2/вариант 2.docx, page 12"
+  },
+  "539a44b1ec721e0fcc976bf717fc46751c29d7d886038e9176db4dd72257a718": {
+    "tex": "C_1=1",
+    "source": "2024 - 2/вариант 2.docx, page 13"
+  },
+  "5b2457e94610c846b5b2a3031fe162bffec0dc4845f169dcb4ef01dc70d77068": {
+    "tex": "R=300",
+    "source": "2024 - 2/вариант 2.docx, page 13"
+  },
+  "ee30d679005e11683477453b1fd87ef6fed2262d3a0d85f5000d98da5281c9e9": {
+    "tex": "C_2=2",
+    "source": "2024 - 2/вариант 2.docx, page 13"
+  },
+  "1c428296709c8a7b9340a28ddc8a58332e56af624a64e43448d6f029b7c88abb": {
+    "tex": "Q=30",
+    "source": "2024 - 2/вариант 2.docx, page 13"
+  },
+  "e6305cefa3bd9b68b8855f9aa40fbe82f6d5143b1abd8df471132d1ae3744d8b": {
+    "tex": "p_x",
+    "source": "2024 - 2/вариант 3.docx, page 6"
+  },
+  "8379094f4e2398c2e090cd413d1946a14f9fb84bfa4b3af7e2c1b0a70aa556b8": {
+    "tex": "E_{\\mathrm k}",
+    "source": "2024 - 2/вариант 3.docx, page 6"
+  },
+  "4468d3666b0002c2eea317d8a490c6adefc133fd581531f55db83a0c090c8396": {
+    "tex": "a",
+    "source": "2024 - 2/вариант 3.docx, page 6"
+  },
+  "a5505f1a78af60e3c2245aa9ed63a431443668b7d9f613819f703e79627d8723": {
+    "tex": "\\frac{F_1}{F_2}",
+    "source": "2024 - 2/вариант 3.docx, page 8"
+  },
+  "35ecd228a244bf8b2df1170988ef0866a720758e24879cdf8a9eeaa0ecbab6e9": {
+    "tex": "\\Delta\\Phi=10",
+    "source": "2024 - 2/вариант 3.docx, page 13"
+  },
+  "a756afaf667d351a736f003498b1e0194a020bc458ce83db85022eac923c1a47": {
+    "tex": "\\vec F_{\\text{тр}}",
+    "source": "2024 - 2/вариант 4.docx, page 4"
+  },
+  "02d0734ca2479685fcb8962d4946e90e79ce92d6662dd02580a88e375d53a53d": {
+    "tex": "\\vec N",
+    "source": "2024 - 2/вариант 4.docx, page 4"
+  },
+  "a089ba7fc9e2adb8b16e8a97096ae454c60fd0b618f411ca2665fbd4a3f58652": {
+    "tex": "t=0",
+    "source": "2024 - 2/вариант 4.docx, page 6"
+  },
+  "7667f0920f35695a23b887b35f849a331dc03b024ee7efc412d72e82a7222541": {
+    "tex": "y=0",
+    "source": "2024 - 2/вариант 4.docx, page 6"
+  },
+  "eacbef3d0d1a1a5844d835ed1271a9486cdf5a54b8d331ffffb2b1bf0394d7dd": {
+    "tex": "{}^{39}_{18}\\mathrm{Ar}",
+    "source": "2024 - 2/вариант 4.docx, page 10"
+  },
+  "fdea9a99a43a66bf66c9cd6dcdc687ff1924fc2da5cbdcf78c1dd7c8e42f6326": {
+    "tex": "t=100",
+    "source": "2024 - 2/вариант 4.docx, page 12"
+  },
+  "29b984d72bed4e2cf2cdd43b093399bae064f967117639e1079d7b7940662ce6": {
+    "tex": "p_1=1{,}8\\cdot10^5",
+    "source": "2024 - 2/вариант 4.docx, page 12"
+  },
+  "6fe462fa49536c8e1506d954ca519dee72c8fb04b62344d1d9ca9f47963342e8": {
+    "tex": "k=4",
+    "source": "2024 - 2/вариант 4.docx, page 12"
+  },
+  "28c4027cea7acfe937a41df6c9868169e337f964f9ad6d3486c88e4f8e69a803": {
+    "tex": "n=3",
+    "source": "2024 - 2/вариант 4.docx, page 12"
+  },
+  "6949e7bf17b1a8585d56121c9e55595b7f85a7b91e0f4ee7ede50175604d109a": {
+    "tex": "M=1",
+    "source": "2024 - 2/вариант 4.docx, page 13"
+  },
+  "3bacc8e9b6e2c92efce3fddfcc9232fdc3df5cc5d14c5ffe7943446795a278e3": {
+    "tex": "\\alpha=30^\\circ",
+    "source": "2024 - 2/вариант 4.docx, page 13"
+  },
+  "8e47f34cadf8d176cd315f76acb173bde223de9088028ff59037539c87698f21": {
+    "tex": "\\mu=0{,}3",
+    "source": "2024 - 2/вариант 4.docx, page 13"
+  },
+  "6624533957bbc04068ce7304fcf884c5f485ac6f598c054199ed2c892325d830": {
+    "tex": "E_1-E_0",
+    "source": "2025 - 1/éáÓ¿á¡Ô 1.doc, page 8"
+  },
+  "107773419d63492d48039b267bba790b969844cfa4b624f7d8c4f03070ac1cff": {
+    "tex": "E_2-E_0",
+    "source": "2025 - 1/éáÓ¿á¡Ô 1.doc, page 8"
+  },
+  "c1befafdf288d9a926226c92a52136319ce4b99a829f52437cb95043cb33a67a": {
+    "tex": "E_3-E_0",
+    "source": "2025 - 1/éáÓ¿á¡Ô 1.doc, page 8"
+  },
+  "120e3f5d6806cb3fdecc3adef8c9449c4273fa6c2ce2beaad7bfc6d491020e6e": {
+    "tex": "E_4-E_0",
+    "source": "2025 - 1/éáÓ¿á¡Ô 1.doc, page 8"
+  },
+  "9dc0b5bce7d16a3a84e923173a48822a9e645928d086cf553ea2cdd86f3d066b": {
+    "tex": "a_x",
+    "source": "2025 - 1/éáÓ¿á¡Ô 2.doc, page 4"
+  },
+  "b053c5677e6244f3b5edae4638883faa59359f6b53bf92afcaf1c8c2b3b0f08b": {
+    "tex": "\\Phi=2\\cdot10^{-7}\\cos 20\\pi t",
+    "source": "2025 - 1/éáÓ¿á¡Ô 2.doc, page 7"
+  },
+  "52248772de592a92eca6a044e222318c0de31563fed4dbc7a33c084bb4ebe7bf": {
+    "tex": "{}^{56}_{24}\\mathrm{Cr}",
+    "source": "2025 - 1/éáÓ¿á¡Ô 2.doc, page 9"
+  },
+  "239a918fea95430001181c05138393d0c85edc2d506121457790cfe3ae250109": {
+    "tex": "m=0{,}3",
+    "source": "2025 - 1/éáÓ¿á¡Ô 2.doc, page 13"
+  },
+  "aca0c955f0fc837ecf8b126055877b035fc9e4dfaa8616e8c4690bec9d8a1f47": {
+    "tex": "\\vec F.",
+    "source": "2025 - 1/éáÓ¿á¡Ô 2.doc, page 13"
+  },
+  "11f936c9f774f8ec826b237fa879d3318fc6b5359c4598e7cf992ff564a6b4d1": {
+    "tex": "\\alpha=30^\\circ",
+    "source": "2025 - 1/éáÓ¿á¡Ô 2.doc, page 13"
+  },
+  "098df76b3bcfdffe16c3ff79c1a33c1a7c939002c87f1916bf03067a127359a3": {
+    "tex": "0\\le F\\le10",
+    "source": "2025 - 1/éáÓ¿á¡Ô 2.doc, page 13"
+  },
+  "fddb2e2ac4f32136616022046e8a56a46342a333b27b62af076f50d58ec7d1a6": {
+    "tex": "q=3{,}2\\cdot10^{-19}",
+    "source": "2025 - 1/éáÓ¿á¡Ô 2.doc, page 14"
+  },
+  "209efb4e5758ad0f2aa76a153f6933320aedd85b6052e5c18b1dda2f8ef03b4b": {
+    "tex": "m=1{,}5\\cdot10^{-25}",
+    "source": "2025 - 1/éáÓ¿á¡Ô 2.doc, page 14"
+  },
+  "561dd2d308564e476f5e9afd1d673c837f8fe47d97f05b073ffc7f3bd94b2ef2": {
+    "tex": "U=10^3",
+    "source": "2025 - 1/éáÓ¿á¡Ô 2.doc, page 14"
+  },
+  "5248981d004e904f7a09498e60c8f296cf6e5426535d70cd718c3daa21b1f858": {
+    "tex": "R=0{,}3",
+    "source": "2025 - 1/éáÓ¿á¡Ô 2.doc, page 14"
+  },
+  "e9101f5ed6861a3989366001d428a2e4e4a018751931322d8b53ecec2e510569": {
+    "tex": "\\vec F",
+    "source": "2025 - 1/éáÓ¿á¡Ô 3.doc, page 4"
+  },
+  "9a407c6bbd98fed754163e7514038fe18259f109b4565b9e86ebf62d8c5f3d0b": {
+    "tex": "\\vec a.",
+    "source": "2025 - 1/éáÓ¿á¡Ô 3.doc, page 4"
+  },
+  "453dacce6125e1c428db2f630456ea2f54872562f489dcda719df3718fc971b8": {
+    "tex": "4\\cdot10^{-9}",
+    "source": "2025 - 1/éáÓ¿á¡Ô 3.doc, page 8"
+  },
+  "90a84423c9c10e3858b64933481896889653769f78623756a821b12698692d32": {
+    "tex": "16\\cdot10^{-6}",
+    "source": "2025 - 1/éáÓ¿á¡Ô 3.doc, page 8"
+  },
+  "7553c65d5649d8971990082890afe124cf5d910593d7afb999622c02fa18b89c": {
+    "tex": "t=2\\cdot10^{-6}",
+    "source": "2025 - 1/éáÓ¿á¡Ô 3.doc, page 8"
+  },
+  "2c9c0df8d78cba9bf54cce0b26ecc6f35e2690dd417ddfad605a7d499fded13d": {
+    "tex": "t=4\\cdot10^{-6}",
+    "source": "2025 - 1/éáÓ¿á¡Ô 3.doc, page 8"
+  },
+  "da997449b6efe4b9a028729634aa65ae5b18344167703e214e844be2ec7387f6": {
+    "tex": "t=6\\cdot10^{-6}",
+    "source": "2025 - 1/éáÓ¿á¡Ô 3.doc, page 8"
+  },
+  "45312617debe040d1b1cb3c944720da9294c77d6649bc672f17b8252667edeb4": {
+    "tex": "t=80^\\circ\\mathrm C",
+    "source": "2025 - 1/éáÓ¿á¡Ô 3.doc, page 12"
+  },
+  "60daad50ffb09db5dee881975e755b596e5076b067d3bcfd021eb38269a53027": {
+    "tex": "L=396\\cdot10^3",
+    "source": "2025 - 1/éáÓ¿á¡Ô 3.doc, page 12"
+  },
+  "f71dc0526d188be7e7e8d53297b057d90a7c2eccab1ee862c9c67fc284a67534": {
+    "tex": "78\\cdot10^{-3}",
+    "source": "2025 - 1/éáÓ¿á¡Ô 3.doc, page 12"
+  },
+  "36145a1000198837b45f749b78b3909cfcfa6427bd9f089eb343f838f7c17017": {
+    "tex": "E=6\\cdot10^5",
+    "source": "2025 - 1/éáÓ¿á¡Ô 3.doc, page 12"
+  },
+  "79d42df8e436aeebc0d7e27be4f43ffe17035dc953c36f05cf60b01a243591dc": {
+    "tex": "Q=5\\cdot10^{-11}",
+    "source": "2025 - 1/éáÓ¿á¡Ô 3.doc, page 12"
+  },
+  "3e55ed1f45d17c439cfd56442f38df8289dd54e38e70fce270802a51dac6fde9": {
+    "tex": "M=3\\cdot10^{-3}",
+    "source": "2025 - 1/éáÓ¿á¡Ô 3.doc, page 12"
+  },
+  "79d80f404b00e6b195490d634217e11b1d9a2aeab5b36ddc9845d395e2c8ffc4": {
+    "tex": "\\alpha=30^\\circ",
+    "source": "2025 - 1/éáÓ¿á¡Ô 3.doc, page 12"
+  },
+  "4b02038677ae420afb2663dd2e177d091c4d980cceca610be809f9669cfb49d5": {
+    "tex": "F=2",
+    "source": "2025 - 1/éáÓ¿á¡Ô 3.doc, page 12"
+  },
+  "9767acabf84d17915d38fa179cb036afd4dac1a27cb881d45435bef0abd48148": {
+    "tex": "\\mu=0{,}2",
+    "source": "2025 - 1/éáÓ¿á¡Ô 3.doc, page 12"
+  },
+  "6c6e08936d1e99c4c268e1e99af0284527132b5855b1b625e12fde1d58864b38": {
+    "tex": "v",
+    "source": "2024 - 2/вариант 4.docx, page 4"
+  },
+  "82030680ede4e3c1b547f10e619382a11d0cf7429ce794d523c54af9909ce56b": {
+    "tex": "p_{\\text{нас}}",
+    "source": "2025 - 1/éáÓ¿á¡Ô 1.doc, page 11"
+  },
+  "a71d37fa2f40545172fbcc2394a705f7057d98acca80cd7f486e07f06462d2ca": {
+    "tex": "\\approx",
+    "source": "2025 - 1/éáÓ¿á¡Ô 2.doc, page 13"
+  },
+  "87c8ab3bfdb9a24ff1bd0f75b5d968b89016c4d98e738d343768b7de3b033312": {
+    "tex": "\\vec F",
+    "source": "2025 - 1/éáÓ¿á¡Ô 3.doc, page 12"
+  }
+}

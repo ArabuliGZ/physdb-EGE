@@ -17,6 +17,7 @@ from import_examples import DB, ROOT, TOPICS, link_asset, store_asset, upsert_pr
 from import_2026_remaining import (add_figures, answer_key, extract_blocks,
                                     move_preheading_figure, normalize_statement, numbered_paragraphs,
                                     review_sections, show_source_formulas)
+from verified_solutions import VERIFIED_SOLUTIONS
 
 
 SOURCE_ROOT = ROOT / "Материалы" / "ЕГЭ от Демидовой"
@@ -48,7 +49,7 @@ def repair_statement_for_rendered_figure(label: str, number: int, statement: str
         statement = re.sub("горизонтальной силы " + FORMULA_MARKER,
                            lambda _: r"горизонтальной силы \(\vec F\)", statement, count=1)
     elif (label, number) == ("2024-2-2", 21):
-        statement = re.sub(r"\\begin\{tabular\}\{l\}\n" + FORMULA_MARKER * 2 +
+        statement = re.sub(r"\\begin\{tabular\}\{l\}\n(?:" + FORMULA_MARKER + r"){1,2}" +
                            r"\n\\end\{tabular\}\n", "", statement, count=1)
     elif (label, number) == ("2024-2-2", 22):
         statement = statement.replace("\\begin{tabular}{l}\nρ1ρ2ρ1ρ2\n\\end{tabular}\n", "")
@@ -192,7 +193,11 @@ def import_one(con, year: int, set_number: int, number: int,
             rstop = review[n + 1] if n < 26 else len(criteria_doc.paragraphs)
             review_formulas: list[tuple[bytes, tuple[int, int]]] = []
             solution, criteria, solution_figures = review_sections(criteria_doc, review[n], rstop, review_formulas)
-            solution = show_source_formulas(solution, review_formulas)
+            checked_solution = VERIFIED_SOLUTIONS.get((label, n))
+            if checked_solution:
+                solution = checked_solution[1]
+            else:
+                solution = show_source_formulas(solution, review_formulas)
             criteria = show_source_formulas(criteria, review_formulas)
             if not solution or not criteria:
                 raise ValueError(f"Missing solution/criteria: {label} task {n}")
@@ -202,7 +207,10 @@ def import_one(con, year: int, set_number: int, number: int,
         if parsed != original:
             notes += " Абзацы указаны по временной DOCX-копии исходного DOC."
         if n >= 21:
-            notes += " Решение и критерии — черновая расшифровка; отдельно проверьте по авторскому документу."
+            if (label, n) in VERIFIED_SOLUTIONS:
+                notes += f" Решение визуально сверено: {VERIFIED_SOLUTIONS[(label, n)][0]}. Критерии требуют отдельной проверки."
+            else:
+                notes += " Решение и критерии — черновая расшифровка; отдельно проверьте по авторскому документу."
         pid = upsert_problem(con, vid, n, 1, statement, answers.get(n), solution,
                              criteria, topic, locator, notes, "needs_review")
         if (year, set_number, number, n) == (2024, 2, 1, 22):

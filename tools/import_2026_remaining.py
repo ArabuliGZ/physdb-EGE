@@ -8,6 +8,7 @@ from __future__ import annotations
 import re
 import sqlite3
 import hashlib
+import json
 from io import BytesIO
 from pathlib import Path
 
@@ -22,6 +23,7 @@ from tex_format import format_quantities
 
 SOURCE_DIR = ROOT / "Материалы" / "ЕГЭ от Демидовой" / "2026"
 FORMULA_ASSETS = ROOT / "assets" / "formulas"
+VERIFIED_FORMULAS = json.loads((ROOT / "tools" / "verified_formulas.json").read_text(encoding="utf-8"))
 # Source decorations, broken Word/OLE previews, and equation images that
 # must not be displayed as task diagrams.
 NON_FIGURE_PNG_SHA = {
@@ -142,15 +144,23 @@ def formula_marker(index: int) -> str:
 def element_text(element, doc, figures: list[bytes],
                  formulas: list[tuple[bytes, tuple[int, int]]] | None = None) -> str:
     out = []
+    previous_image: bytes | None = None
     for node in element.iter():
         if node.tag.endswith("}t") and node.text:
             out.append(node.text)
+            previous_image = None
         elif node.tag.endswith("}tab"):
             out.append(" ")
+            previous_image = None
         elif node.tag.endswith("}blip") or node.tag.endswith("}imagedata"):
             found = image_for_blip(doc, node)
             if found:
                 data, is_figure, _ = found
+                # Word can include both modern and VML fallback previews of
+                # one equation, with no text between them.
+                if data == previous_image:
+                    continue
+                previous_image = data
                 if is_figure:
                     figures.append(data)
                 else:
@@ -316,7 +326,9 @@ def show_source_formulas(text: str | None,
         path.parent.mkdir(parents=True, exist_ok=True)
         if not path.exists():
             path.write_bytes(png)
-        text = text.replace(marker, f"[[formula:{sha}:{width}:{height}]]")
+        replacement = (r"\(" + VERIFIED_FORMULAS[sha]["tex"] + r"\)"
+                       if sha in VERIFIED_FORMULAS else f"[[formula:{sha}:{width}:{height}]]")
+        text = text.replace(marker, replacement)
     if "[[SRCFORMULA" in text or MISSING_FORMULA in text:
         raise ValueError("Unresolved source equation image")
     return text
