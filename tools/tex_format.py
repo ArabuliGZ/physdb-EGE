@@ -66,3 +66,20 @@ def format_quantities(text: str) -> str:
     result = re.sub(r"([−-])\\\((\d[^\n]*?)\\\)",
                     lambda m: r"\(" + ("-" if m.group(1) == "−" else m.group(1)) + m.group(2) + r"\)", result)
     return result
+
+
+def layout_criteria(text: str) -> str:
+    """Keep score rows, Roman elements, and alternative cases on separate lines."""
+    blocks = []
+    for raw in text.splitlines():
+        line = raw.strip()
+        if not line:
+            continue
+        # Word tables often concatenate their enumerated requirements.
+        line = re.sub(r"(?<=[;:])\s*(?=(?:IV|III|II|I|V)\))", "\n", line)
+        # The source uses ИЛИ as a separator, sometimes without any spaces.
+        line = re.sub(r"([.)])\s*(?=(?:И\s*\(ИЛИ\)|ИЛИ)(?:\s|[А-ЯЁ]))", r"\1\n", line)
+        line = re.sub(r"(?<=\S)\s+(?=(?:И\s*\(ИЛИ\)|ИЛИ)\s+[А-ЯЁ])", "\n", line)
+        line = re.sub(r"(И\s*\(ИЛИ\)|ИЛИ)\s*(?=[А-ЯЁ])", r"\1 ", line)
+        blocks.append(line)
+    return "\n\n".join(blocks)

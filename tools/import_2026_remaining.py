@@ -294,11 +294,11 @@ def review_sections(doc, first: int, last_exclusive: int,
     figures: list[bytes] = []
     solution_lines = []
     criteria_lines = []
+    section = ""
     for block in paragraph_interval(doc, first, last_exclusive):
         if not block.tag.endswith("}tbl"):
             continue
         rows = block.findall("{http://schemas.openxmlformats.org/wordprocessingml/2006/main}tr")
-        section = ""
         for row in rows:
             row_figures: list[bytes] = []
             cells = [element_text(cell, doc, row_figures, formulas).strip() for cell in row.findall("{http://schemas.openxmlformats.org/wordprocessingml/2006/main}tc")]

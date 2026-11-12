@@ -22,7 +22,7 @@ from demidova_2026_1_transcription import SOLUTION_FIGURE_INDICES, STATEMENTS as
 from curated_solutions import FIPI as FIPI_SOLUTIONS, DEMIDOVA as DEMIDOVA_SOLUTIONS
 from curated_solutions import FIPI_ANSWERS, DEMIDOVA_ANSWERS
 from curated_criteria import FIPI as FIPI_CRITERIA, DEMIDOVA as DEMIDOVA_CRITERIA_TEXT
-from tex_format import format_quantities
+from tex_format import format_quantities, layout_criteria
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -144,7 +144,7 @@ def upsert_problem(con: sqlite3.Connection, vid: str, number: int, alternative: 
         criteria=excluded.criteria,topic=excluded.topic,extraction_status=excluded.extraction_status,
         review_notes=excluded.review_notes,source_locator=excluded.source_locator""",
         (pid, vid, number, alternative, statement.strip(), format_quantities(answer) if answer else None,
-         solution, criteria,
+         solution, layout_criteria(criteria) if criteria else None,
          POINTS[number], FORMATS[number], topic, status, notes, locator))
     con.execute("DELETE FROM problem_assets WHERE problem_id=?", (pid,))
     return pid

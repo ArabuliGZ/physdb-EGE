@@ -45,6 +45,16 @@ for variant in variants:
     assert all(task["extraction_status"] == "needs_review" for task in tasks)
     assert all(task["statement"].strip() and "&%" not in task["statement"] for task in tasks)
     assert all(task["statement"].count(r"\begin{tabular}") == task["statement"].count(r"\end{tabular}") for task in tasks)
+    for task in tasks[20:]:
+        rubric = task["criteria"]
+        scores = re.findall(r"(?m)^\\\((\d+)\\\) балл", rubric)
+        if task["problem_number"] == 26:
+            # The 2024-1-1 rubric continues in a second Word table.
+            assert scores == list("1032104"), (variant["exam_year"], variant["variant_number"], scores)
+            assert rubric.count("Критерий ") == 2
+        else:
+            assert set(map(str, range(task["max_points"] + 1))).issubset(scores)
+        assert "\n\n" in rubric
     for task in tasks:
         if re.search(r"рисун|\bрис\.|график", task["statement"], re.I):
             linked = con.execute("""SELECT count(*) FROM problem_assets

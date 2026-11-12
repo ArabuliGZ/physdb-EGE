@@ -227,19 +227,46 @@ function renderProse(container, text) {
   flushParagraph();
 }
 
+function appendCriteriaText(description, value) {
+  const line = value.trim();
+  if (!line) return;
+  const roman = line.match(/^(IV|III|II|I|V)\)\s*(.*)$/);
+  if (roman) {
+    const item = node('p', 'criteria-element');
+    item.append(node('strong', '', `${roman[1]})`), document.createTextNode(' '));
+    renderMathInto(item, roman[2]);
+    description.append(item);
+    return;
+  }
+  const alternative = line.match(/^(И\s*\(ИЛИ\)|ИЛИ)\s*(.*)$/);
+  if (alternative) {
+    const item = node('p', 'criteria-alternative');
+    item.append(node('strong', '', alternative[1]), document.createTextNode(' '));
+    renderMathInto(item, alternative[2]);
+    description.append(item);
+    return;
+  }
+  const paragraph = node('p');
+  renderMathInto(paragraph, line);
+  description.append(paragraph);
+}
+
 function renderCriteria(container, text) {
   const scoreLine = /^\\\((\d+)\\\)\s+балл[аов]*[.:]\s*(.*)$/;
   const scoreWord = value => value === 1 ? 'балл' : value >= 2 && value <= 4 ? 'балла' : 'баллов';
+  let description = null;
   for (const raw of text.split(/\r?\n/)) {
     const line = raw.trim();
     if (!line) continue;
     if (line.startsWith('Кратк')) {
+      description = null;
       const note = node('p', 'criteria-note');
       renderMathInto(note, line);
       container.append(note);
       continue;
     }
     if (line.startsWith('Критерий')) {
+      description = null;
       const heading = node('h5', 'criteria-heading');
       renderMathInto(heading, line);
       container.append(heading);
@@ -249,29 +276,21 @@ function renderCriteria(container, text) {
     if (score) {
       const points = Number(score[1]);
       if (/^Максимальный балл\.?$/.test(score[2].trim())) {
+        description = null;
         container.append(node('p', 'criteria-maximum', `Максимум: ${points} ${scoreWord(points)}`));
         continue;
       }
       const item = node('div', 'criteria-item');
       item.append(node('span', 'criteria-points', `${points} ${scoreWord(points)}`));
-      const description = node('div', 'criteria-description');
-      const normalized = score[2]
-        .replace(/([.!?])(?=[А-ЯЁ])/g, '$1 ')
-        .replace(/([.;)])(?=(?:I|II|III|IV)\))/g, '$1 ')
-        .replace(/([.)])\s*(И\s*\(ИЛИ\)|ИЛИ)\s*(?=[А-ЯЁ])/g, '$1 $2 ');
-      const parts = normalized.split(/\s+(И\s*\(ИЛИ\)|ИЛИ)\s+(?=[А-ЯЁ])/g);
-      const first = node('p');
-      renderMathInto(first, parts[0]);
-      description.append(first);
-      for (let i = 1; i < parts.length; i += 2) {
-        const alternative = node('p', 'criteria-alternative');
-        const marker = node('strong', '', parts[i]);
-        alternative.append(marker, document.createTextNode(' '));
-        renderMathInto(alternative, parts[i + 1] || '');
-        description.append(alternative);
-      }
+      description = node('div', 'criteria-description');
+      appendCriteriaText(description, score[2]);
       item.append(description);
       container.append(item);
+      continue;
+    }
+    if (line.startsWith('Максимум')) description = null;
+    if (description) {
+      appendCriteriaText(description, line);
       continue;
     }
     const paragraph = node('p', 'criteria-maximum');
