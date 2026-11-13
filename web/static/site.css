@@ -14,7 +14,16 @@ body { min-width: 0; }
 .catalog-sidebar { position: sticky; top: 86px; padding: 18px; }
 .sidebar-header { margin-bottom: 17px; }
 .sidebar-header h2 { margin: 3px 0 0; font-size: 16px; }
-.variant-list { display: grid; gap: 5px; max-height: min(62vh, 520px); overflow-y: auto; overscroll-behavior: contain; padding: 2px 5px 2px 2px; }
+.variant-list { display: grid; gap: 7px; max-height: min(62vh, 520px); overflow-y: auto; overscroll-behavior: contain; padding: 2px 5px 2px 2px; }
+.variant-year { min-width: 0; border: 1px solid var(--gray-200); border-radius: 9px; background: #fff; overflow: hidden; }
+.variant-year-heading { display: flex; align-items: center; justify-content: space-between; padding: 9px 11px; color: var(--black); font-size: 13px; font-weight: 750; cursor: pointer; list-style: none; }
+.variant-year-heading::-webkit-details-marker { display: none; }
+.variant-year-heading::after { content: ''; width: 7px; height: 7px; margin-right: 3px; border-right: 2px solid var(--gray-500); border-bottom: 2px solid var(--gray-500); transform: rotate(45deg); transition: transform .15s ease; }
+.variant-year[open] .variant-year-heading::after { transform: rotate(225deg); }
+.variant-year-heading:hover { background: var(--orange-50); color: var(--orange-800); }
+.variant-year-heading:focus-visible { outline: 2px solid var(--orange-500); outline-offset: -2px; }
+.variant-year-options { display: grid; gap: 5px; padding: 0 7px 7px; }
+.variant-year:not([open]) .variant-year-options { display: none; }
 .variant-option { width: 100%; padding: 8px 10px; border: 1px solid var(--gray-200); border-radius: 9px; background: #fff; text-align: left; }
 .variant-option:hover, .number-option:hover { border-color: var(--orange-500); background: var(--orange-50); }
 .variant-option.is-active, .number-option.is-active { border-color: var(--orange-500); background: var(--orange-50); box-shadow: 0 0 0 2px rgba(233,138,58,.09); }

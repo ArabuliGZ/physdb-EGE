@@ -440,13 +440,43 @@ function renderSidebar() {
   byId('builder-sidebar').hidden = state.view !== 'builder';
   const variants = byId('variant-list');
   const variantScrollTop = variants.scrollTop;
+  const expandedYears = new Set([...variants.querySelectorAll('.variant-year[open]')].map(group => group.dataset.year));
+  const selectedVariant = state.variants.find(variant => variant.id === state.variantId);
+  if (!variants.children.length || variants.dataset.selectedId !== state.variantId) {
+    expandedYears.clear();
+    if (selectedVariant) expandedYears.add(String(selectedVariant.exam_year));
+  }
   variants.replaceChildren();
+  variants.dataset.selectedId = state.variantId || '';
+  const byYear = new Map();
   for (const variant of state.variants) {
-    const button = node('button', `variant-option ${variant.id === state.variantId ? 'is-active' : ''}`);
-    button.type = 'button';
-    button.append(node('strong', '', variantDisplayTitle(variant)));
-    button.addEventListener('click', () => { state.variantId = variant.id; writeLocation(); update(); });
-    variants.append(button);
+    if (!byYear.has(variant.exam_year)) byYear.set(variant.exam_year, []);
+    byYear.get(variant.exam_year).push(variant);
+  }
+  for (const [year, yearVariants] of byYear) {
+    const group = node('details', 'variant-year');
+    group.dataset.year = String(year);
+    group.open = expandedYears.has(String(year));
+    const heading = node('summary', 'variant-year-heading', String(year));
+    heading.setAttribute('aria-label', `Варианты ${year} года`);
+    heading.addEventListener('click', () => {
+      if (!group.open) {
+        for (const other of variants.querySelectorAll('.variant-year')) {
+          if (other !== group) other.open = false;
+        }
+      }
+    });
+    const options = node('div', 'variant-year-options');
+    for (const variant of yearVariants) {
+      const button = node('button', `variant-option ${variant.id === state.variantId ? 'is-active' : ''}`);
+      button.type = 'button';
+      if (variant.id === state.variantId) button.setAttribute('aria-current', 'true');
+      button.append(node('strong', '', variantDisplayTitle(variant)));
+      button.addEventListener('click', () => { state.variantId = variant.id; writeLocation(); update(); });
+      options.append(button);
+    }
+    group.append(heading, options);
+    variants.append(group);
   }
   variants.scrollTop = variantScrollTop;
   const numbers = byId('number-list');
