@@ -101,13 +101,14 @@ def answer_macro(problem: dict) -> str:
 def render_problem(problem: dict, figures: dict[str, Path]) -> str:
     number = int(problem["problem_number"])
     body = re.sub(r"(?im)^\s*Ответ\s*:\s*[_ .]*$", "", problem["statement"] or "").strip()
-    parts = [r"\TaskStart{" + str(number) + "}", statement_tex(body, figures)]
+    parts = [r"\begin{ExamTask}", r"\TaskStart{" + str(number) + "}", statement_tex(body, figures)]
     for asset in problem.get("assets", []):
         if asset["role"] == "statement_figure" and asset["media_type"].startswith("image/"):
             source = figures.get(asset["id"])
             if source and source.is_file():
                 parts.append(r"\TaskFigure{figures/" + source.name + "}")
     parts.append(answer_macro(problem))
+    parts.append(r"\end{ExamTask}")
     return "\n".join(part for part in parts if part)
 
 
@@ -133,11 +134,12 @@ def compose(problems: list[dict], title: str, year: int, assets_root: Path,
     template = (TEX_DIR / "variant.tex").read_text(encoding="utf-8")
     reference = (TEX_DIR / "reference.tex").read_text(encoding="utf-8")
     rendered = [render_problem(problem, figures) for problem in problems]
-    content = (template.replace("%%VARIANT_TITLE%%", escape(title))
-               .replace("%%YEAR%%", str(year))
-               .replace("%%REFERENCE%%", reference)
-               .replace("%%PART_ONE%%", "\n".join(rendered[:20]))
-               .replace("%%PART_TWO%%", "\n".join(rendered[20:])))
+    content = (template.replace("%<PHYS_EGE_META>",
+                                r"\renewcommand{\VariantTitle}{" + escape(title) + "}\n" +
+                                r"\renewcommand{\VariantYear}{" + str(year) + "}")
+               .replace(r"\input{reference.tex}", reference)
+               .replace("%<PHYS_EGE_PART_ONE>", "\n".join(rendered[:20]))
+               .replace("%<PHYS_EGE_PART_TWO>", "\n".join(rendered[20:])))
     return content, figures
 
 
