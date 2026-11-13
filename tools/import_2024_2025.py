@@ -195,6 +195,15 @@ def import_one(con, year: int, set_number: int, number: int,
         starts[8] = 157
     vid = upsert_variant(con, original, year, f"{set_number}-{number}",
                          f"Демидова {year}, серия {set_number}, вариант {number}", False)
+    if year == 2024 and set_number == 1:
+        # Keep the stable variant ID derived from the original DOC, while the
+        # public download contains its key and worked criteria on later pages.
+        merged = SOURCE_ROOT / "2024 - 1" / f"{number}_полный.docx"
+        if not merged.is_file():
+            raise FileNotFoundError(f"Run merge_split_sources.ps1 first: {merged}")
+        con.execute("""UPDATE variants SET source_path=?,source_sha256=?,source_kind=?
+            WHERE id=?""", (str(merged.relative_to(ROOT)), hashlib.sha256(merged.read_bytes()).hexdigest(),
+                           "docx", vid))
     for role, companion in companions:
         register_companion(con, vid, role, companion)
     for n in range(1, 27):

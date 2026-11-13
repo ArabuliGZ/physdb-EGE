@@ -542,21 +542,7 @@ async function update() {
   sourceDownloads.hidden = state.view !== 'variants' || !variant?.download_url;
   if (!sourceDownloads.hidden) {
     sourceDownload.href = variant.download_url;
-    const separateFiles = variant.companions?.some(item => item.role === 'answer_key' || item.role === 'criteria');
-    sourceDownload.textContent = separateFiles
-      ? 'Скачать цельный вариант'
-      : 'Скачать исходный вариант с ответами и решениями';
-  }
-  const companions = byId('companion-downloads');
-  companions.replaceChildren();
-  if (state.view === 'variants' && variant?.companions) {
-    const names = { answer_key: 'Скачать ключи', criteria: 'Скачать решения и критерии' };
-    for (const item of variant.companions) {
-      if (!names[item.role]) continue;
-      const link = node('a', 'source-download', names[item.role]);
-      link.href = item.download_url;
-      companions.append(link);
-    }
+    sourceDownload.textContent = 'Скачать исходник';
   }
   const list = byId('problem-list');
   list.replaceChildren();

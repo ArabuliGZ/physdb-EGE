@@ -114,7 +114,6 @@ body { min-width: 0; }
 .review-note { margin-top: 12px; color: var(--gray-500); font-size: 11px; }
 .source-downloads { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 11px; }
 .source-downloads[hidden] { display: none; }
-.companion-downloads { display: contents; }
 .generated-downloads { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
 .generated-downloads .source-download { margin-top: 0; }
 .builder-sidebar { color: var(--gray-600); font-size: 13px; line-height: 1.5; }
