@@ -144,7 +144,8 @@ class Handler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(payload)
 
-    def send_exam(self, variant_id: str | None, query: dict[str, list[str]], kind: str) -> None:
+    def send_exam(self, variant_id: str | None, query: dict[str, list[str]],
+                  kind: str, document: str = "conditions") -> None:
         if variant_id:
             variant = rows("SELECT title,exam_year FROM variants WHERE id=?", (variant_id,))
             if not variant:
@@ -162,11 +163,13 @@ class Handler(BaseHTTPRequestHandler):
             self.send_json({"error": "Выберите по одной задаче для каждого номера 1–26"}, 400)
             return
         try:
-            content, figures = compose(problems, title, year, ASSETS, FORMULAS)
+            content, figures = compose(problems, title, year, ASSETS, FORMULAS, document)
+            if document != "conditions":
+                filename += "-" + document
             if kind == "tex":
                 self.send_bytes(content.encode("utf-8"), "application/x-tex; charset=utf-8", filename + ".tex")
             elif kind == "zip":
-                self.send_bytes(project_zip(content, figures), "application/zip", filename + ".zip")
+                self.send_bytes(project_zip(content, figures, filename + ".tex"), "application/zip", filename + ".zip")
             else:
                 self.send_bytes(compile_pdf(content, figures), "application/pdf", filename + ".pdf", False)
         except (ValueError, RuntimeError) as exc:
@@ -205,11 +208,23 @@ class Handler(BaseHTTPRequestHandler):
         elif route == "/api/variant-options":
             self.send_json(variant_options())
         elif route.startswith("/api/variants/") and route.rsplit("/", 1)[-1] in ("tex", "pdf", "zip"):
-            variant_id, kind = route.removeprefix("/api/variants/").rsplit("/", 1)
-            self.send_exam(variant_id, {}, kind)
+            parts = route.removeprefix("/api/variants/").split("/")
+            if len(parts) == 2:
+                variant_id, kind = parts
+                document = "conditions"
+            elif len(parts) == 3 and parts[1] in ("answers", "solutions", "criteria"):
+                variant_id, document, kind = parts
+            else:
+                self.send_error(404)
+                return
+            self.send_exam(variant_id, {}, kind, document)
         elif route == "/api/assemble" and parse_qs(url.query).get("format", [""])[0] in ("tex", "pdf", "zip"):
             query = parse_qs(url.query)
-            self.send_exam(None, query, query["format"][0])
+            document = query.get("document", ["conditions"])[0]
+            if document not in ("conditions", "answers", "solutions", "criteria"):
+                self.send_error(400)
+                return
+            self.send_exam(None, query, query["format"][0], document)
         elif route.startswith("/api/variants/") and route.endswith("/source"):
             variant_id = route.removeprefix("/api/variants/").removesuffix("/source")
             found = rows("SELECT source_path FROM variants WHERE id=?", (variant_id,))

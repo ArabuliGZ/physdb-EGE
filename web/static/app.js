@@ -508,7 +508,7 @@ function renderBuilder() {
     const show = node('button', 'builder-preview-button', 'Показать условие');
     show.type = 'button';
     const actions = node('div', 'builder-actions');
-    actions.append(status, show);
+    actions.append(show, status);
     async function loadPreview() {
       preview.replaceChildren(node('p', '', 'Загрузка…'));
       try {
@@ -538,12 +538,24 @@ function renderBuilderLinks() {
   const links = byId('generated-downloads');
   links.replaceChildren();
   if (state.view === 'numbers') return;
-  const prefix = state.view === 'builder'
-    ? `/api/assemble?ids=${encodeURIComponent(Array.from({ length: 26 }, (_, i) => state.picks[i + 1]).join(','))}&format=`
-    : `/api/variants/${encodeURIComponent(state.variantId)}/`;
-  links.append(generatedLink('Скачать TeX', prefix + 'tex'),
-    generatedLink('Скачать TeX с рисунками (.zip)', prefix + 'zip'),
-    generatedLink('Смотреть PDF', prefix + 'pdf', true));
+  const ids = state.view === 'builder'
+    ? encodeURIComponent(Array.from({ length: 26 }, (_, i) => state.picks[i + 1]).join(',')) : '';
+  const href = (document, format) => state.view === 'builder'
+    ? `/api/assemble?ids=${ids}&document=${document}&format=${format}`
+    : `/api/variants/${encodeURIComponent(state.variantId)}/${document === 'conditions' ? '' : document + '/'}${format}`;
+  for (const [document, title] of [
+    ['conditions', 'Условия'], ['answers', 'Ответы'],
+    ['solutions', 'Решения'], ['criteria', 'Критерии']
+  ]) {
+    const group = node('div', 'generated-download-group');
+    group.append(node('span', 'generated-download-label', title),
+      generatedLink('Скачать TeX', href(document, 'tex')),
+      generatedLink('Смотреть PDF', href(document, 'pdf'), true));
+    if (document === 'conditions' || document === 'solutions') {
+      group.append(generatedLink('TeX с рисунками (.zip)', href(document, 'zip')));
+    }
+    links.append(group);
+  }
 }
 
 async function update() {

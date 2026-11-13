@@ -1,4 +1,4 @@
-"""Compose exam condition sheets from database problems and one XeLaTeX template."""
+"""Compose exam sheets and companion materials from reusable XeLaTeX templates."""
 from __future__ import annotations
 
 import io
@@ -14,6 +14,9 @@ TEX_DIR = Path(__file__).with_name("tex")
 MATH = re.compile(r"(\\\([\s\S]*?\\\)|\\\[[\s\S]*?\\\]|\[\[formula:[0-9a-f]{64}:\d+:\d+\]\])")
 TABLE = re.compile(r"\\begin\{tabular\}\{[^}]*\}([\s\S]*?)\\end\{tabular\}")
 FORMULA = re.compile(r"\[\[formula:([0-9a-f]{64}):\d+:\d+\]\]")
+SCORE = re.compile(r"^\\\((\d+)\\\)\s+балл[аов]*[.:]\s*(.*)$")
+ROMAN = re.compile(r"^(IV|III|II|I|V)\)\s*(.*)$")
+ALTERNATIVE = re.compile(r"^(И\s*\(ИЛИ\)|ИЛИ)\s*(.*)$")
 SPECIAL = {"&": r"\&", "%": r"\%", "$": r"\$", "#": r"\#", "_": r"\_",
            "{": r"\{", "}": r"\}", "~": r"\textasciitilde{}", "^": r"\textasciicircum{}"}
 
@@ -112,41 +115,111 @@ def render_problem(problem: dict, figures: dict[str, Path]) -> str:
     return "\n".join(part for part in parts if part)
 
 
+def criteria_tex(value: str, figures: dict[str, Path]) -> str:
+    """Keep each score and criterion heading on its own line."""
+    output = []
+    for raw in value.splitlines():
+        line = raw.strip()
+        if not line:
+            continue
+        score = SCORE.match(line)
+        if score:
+            points, description = score.groups()
+            if re.fullmatch(r"Максимальный балл\.?", description):
+                output.append(r"\CriterionMaximum{Максимум: " + points + " " +
+                              ("балл" if points == "1" else "балла" if points in ("2", "3", "4") else "баллов") + "}")
+            else:
+                output.append(r"\CriterionScore{" + points + " " +
+                              ("балл" if points == "1" else "балла" if points in ("2", "3", "4") else "баллов") + "}")
+                if description:
+                    output.append(r"\CriterionText{" + statement_tex(description, figures) + "}")
+            continue
+        if line.startswith("Критерий"):
+            output.append(r"\CriterionHeading{" + hybrid(line, figures) + "}")
+            continue
+        if line.startswith("Максимум"):
+            output.append(r"\CriterionMaximum{" + hybrid(line, figures) + "}")
+            continue
+        roman = ROMAN.match(line)
+        alternative = ALTERNATIVE.match(line)
+        if roman or alternative:
+            marker, description = (roman or alternative).groups()
+            output.append(r"\CriterionElement{" + escape(marker) + "}{" +
+                          statement_tex(description, figures) + "}")
+        else:
+            output.append(r"\CriterionText{" + statement_tex(line, figures) + "}")
+    return "\n".join(output)
+
+
+def render_material_problem(problem: dict, document: str, figures: dict[str, Path]) -> str:
+    number = str(problem["problem_number"])
+    value = (problem[{"answers": "answer", "solutions": "solution", "criteria": "criteria"}[document]] or "").strip()
+    if not value and document != "answers":
+        return ""
+    parts = ([r"\MaterialTask{" + number + "}"] if document == "answers" else
+             [r"\begin{MaterialTaskBlock}", r"\MaterialTaskStart{" + number + "}"])
+    if document == "criteria":
+        parts.append(r"\par" + "\n" + criteria_tex(value, figures))
+    else:
+        parts.append(statement_tex(value, figures) if value else r"\emph{Ответ в базе не указан.}\par")
+    if document == "solutions":
+        for asset in problem.get("assets", []):
+            if asset["role"] == "solution_figure" and asset["media_type"].startswith("image/"):
+                source = figures.get(asset["id"])
+                if source and source.is_file():
+                    parts.append(r"\MaterialFigure{figures/" + source.name + "}")
+    parts.append(r"\par" if document == "answers" else r"\end{MaterialTaskBlock}")
+    return "\n".join(parts)
+
+
 def compose(problems: list[dict], title: str, year: int, assets_root: Path,
-            formulas_root: Path) -> tuple[str, dict[str, Path]]:
+            formulas_root: Path, document: str = "conditions") -> tuple[str, dict[str, Path]]:
     numbers = [int(problem["problem_number"]) for problem in problems]
     if numbers != list(range(1, 27)):
         raise ValueError("Нужны ровно 26 заданий: по одному на каждый номер от 1 до 26")
+    if document not in ("conditions", "answers", "solutions", "criteria"):
+        raise ValueError("Неизвестный вид печатного материала")
+    field = {"conditions": "statement", "answers": "answer", "solutions": "solution",
+             "criteria": "criteria"}[document]
+    figure_role = "statement_figure" if document == "conditions" else "solution_figure" if document == "solutions" else None
     figures: dict[str, Path] = {}
     for problem in problems:
         for asset in problem.get("assets", []):
-            if asset["role"] != "statement_figure" or not asset["media_type"].startswith("image/"):
+            if asset["role"] != figure_role or not asset["media_type"].startswith("image/"):
                 continue
             relative = Path(asset["storage_path"].replace("\\", "/"))
             if len(relative.parts) >= 4 and relative.parts[:2] == ("assets", "objects"):
                 source = assets_root / Path(*relative.parts[2:])
                 if source.is_file():
                     figures[asset["id"]] = source
-        for sha in re.findall(r"\[\[formula:([0-9a-f]{64}):\d+:\d+\]\]", problem["statement"]):
+        for sha in re.findall(r"\[\[formula:([0-9a-f]{64}):\d+:\d+\]\]", problem[field] or ""):
             source = formulas_root / sha[:2] / (sha + ".png")
             if source.is_file():
                 figures[f"formula/{sha}"] = source
-    template = (TEX_DIR / "variant.tex").read_text(encoding="utf-8")
-    reference = (TEX_DIR / "reference.tex").read_text(encoding="utf-8")
-    rendered = [render_problem(problem, figures) for problem in problems]
-    content = (template.replace("%<PHYS_EGE_META>",
-                                r"\renewcommand{\VariantTitle}{" + escape(title) + "}\n" +
-                                r"\renewcommand{\VariantYear}{" + str(year) + "}")
-               .replace(r"\input{reference.tex}", reference)
-               .replace("%<PHYS_EGE_PART_ONE>", "\n".join(rendered[:20]))
-               .replace("%<PHYS_EGE_PART_TWO>", "\n".join(rendered[20:])))
+    if document == "conditions":
+        template = (TEX_DIR / "variant.tex").read_text(encoding="utf-8")
+        reference = (TEX_DIR / "reference.tex").read_text(encoding="utf-8")
+        rendered = [render_problem(problem, figures) for problem in problems]
+        content = (template.replace("%<PHYS_EGE_META>",
+                                    r"\renewcommand{\VariantTitle}{" + escape(title) + "}\n" +
+                                    r"\renewcommand{\VariantYear}{" + str(year) + "}")
+                   .replace(r"\input{reference.tex}", reference)
+                   .replace("%<PHYS_EGE_PART_ONE>", "\n".join(rendered[:20]))
+                   .replace("%<PHYS_EGE_PART_TWO>", "\n".join(rendered[20:])))
+    else:
+        template = (TEX_DIR / (document + ".tex")).read_text(encoding="utf-8")
+        base = (TEX_DIR / "materials_base.tex").read_text(encoding="utf-8")
+        rendered = [render_material_problem(problem, document, figures) for problem in problems]
+        content = (template.replace(r"\input{materials_base.tex}", base)
+                   .replace("%<PHYS_EGE_META>", r"\renewcommand{\VariantTitle}{" + escape(title) + "}")
+                   .replace("%<PHYS_EGE_CONTENT>", "\n".join(part for part in rendered if part)))
     return content, figures
 
 
-def project_zip(content: str, figures: dict[str, Path]) -> bytes:
+def project_zip(content: str, figures: dict[str, Path], filename: str = "variant.tex") -> bytes:
     memory = io.BytesIO()
     with zipfile.ZipFile(memory, "w", zipfile.ZIP_DEFLATED) as archive:
-        archive.writestr("variant.tex", content)
+        archive.writestr(filename, content)
         for source in set(figures.values()):
             archive.write(source, "figures/" + source.name)
     return memory.getvalue()

@@ -1,0 +1,42 @@
+% Общий стиль ответов, решений и критериев PhysEGE.
+\documentclass[11pt,a4paper,twoside]{article}
+\usepackage{fontspec}
+\IfFontExistsTF{Times New Roman}{\setmainfont{Times New Roman}}{\setmainfont{Liberation Serif}}
+\usepackage{polyglossia}
+\setdefaultlanguage{russian}
+\usepackage{amsmath,amssymb,graphicx,tabularx,array,needspace}
+\usepackage{geometry,fancyhdr,adjustbox}
+\geometry{left=16mm,right=16mm,top=14mm,bottom=16mm,footskip=8mm}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\linespread{1.08}
+\raggedbottom
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[LE,RO]{\small\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\newcommand{\VariantTitle}{Тренировочный вариант по физике}
+\newcommand{\MaterialTitle}{Ответы}
+\newcommand{\MaterialHeader}{%
+  \begin{center}{\large\bfseries\MaterialTitle}\par\smallskip
+  {\normalsize\bfseries\VariantTitle}\end{center}\medskip}
+\newcommand{\MaterialNumber}[1]{\fbox{\makebox[9mm][c]{\bfseries #1}}}
+\newcommand{\MaterialTask}[1]{\par\medskip\Needspace{40mm}%
+  \noindent\MaterialNumber{#1}\hspace{3mm}}
+\newcommand{\MaterialTaskStart}[1]{\noindent\MaterialNumber{#1}\hspace{3mm}}
+\newsavebox{\MaterialTaskBox}
+\newenvironment{MaterialTaskBlock}{\par\medskip\noindent\begin{lrbox}{\MaterialTaskBox}%
+  \begin{minipage}{\linewidth}}{\end{minipage}\end{lrbox}%
+  \adjustbox{max height=\dimexpr\textheight-12mm\relax}{\usebox{\MaterialTaskBox}}\par\medskip}
+\newcommand{\MaterialFigure}[1]{\par\smallskip\begin{center}%
+  \includegraphics[width=.72\linewidth,height=65mm,keepaspectratio]{#1}%
+  \end{center}\smallskip}
+\newcommand{\CriterionHeading}[1]{\par\medskip\noindent\textbf{#1}\par\smallskip}
+\newcommand{\CriterionScore}[1]{\par\medskip\Needspace{25mm}%
+  \noindent\fbox{\strut\textbf{#1}}\par\smallskip}
+\newcommand{\CriterionText}[1]{\par\noindent\hspace*{4mm}%
+  \begin{minipage}{\dimexpr\linewidth-4mm\relax}#1\end{minipage}\par\smallskip}
+\newcommand{\CriterionElement}[2]{\par\noindent\hspace*{4mm}%
+  \begin{minipage}{\dimexpr\linewidth-4mm\relax}\textbf{#1}\quad #2\end{minipage}\par\smallskip}
+\newcommand{\CriterionMaximum}[1]{\par\medskip\noindent\textbf{#1}\par}
