@@ -6,6 +6,7 @@ It reads the versioned SQLite database and source files from
 
 1. Add an `A` record for `ege.physdb.ru` pointing to the VDS address.
 2. Clone this public repository to `/var/www/phys-ege`.
+   Install the PDF engine: `apt-get install --no-install-recommends texlive-xetex texlive-lang-cyrillic fonts-liberation`.
 3. Install `deploy/phys-ege.service` as `/etc/systemd/system/phys-ege.service`
    and `deploy/nginx-phys-ege.conf` as
    `/etc/nginx/sites-available/phys-ege`; link it from `sites-enabled`.

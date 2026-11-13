@@ -1,4 +1,4 @@
-const state = { view: 'variants', variantId: null, number: 1, variants: [] };
+const state = { view: 'variants', variantId: null, number: 1, variants: [], options: [], picks: {} };
 const byId = id => document.getElementById(id);
 const plural = (count, one, few, many) => {
   const last = count % 10, lastTwo = count % 100;
@@ -404,7 +404,7 @@ function renderCard(problem, showSource) {
 
 function readLocation() {
   const url = new URL(location.href);
-  state.view = url.searchParams.get('view') === 'numbers' ? 'numbers' : 'variants';
+  state.view = ['numbers', 'builder'].includes(url.searchParams.get('view')) ? url.searchParams.get('view') : 'variants';
   state.variantId = url.searchParams.get('variant') || state.variants[0]?.id || null;
   const n = Number(url.searchParams.get('number'));
   state.number = Number.isInteger(n) && n >= 1 && n <= 26 ? n : 1;
@@ -413,7 +413,7 @@ function readLocation() {
 function writeLocation() {
   const url = new URL(location.href);
   url.searchParams.set('view', state.view);
-  if (state.view === 'variants') {
+  if (state.view !== 'numbers') {
     url.searchParams.set('variant', state.variantId);
     url.searchParams.delete('number');
   } else {
@@ -426,12 +426,15 @@ function writeLocation() {
 function renderSidebar() {
   byId('tab-variants').classList.toggle('is-active', state.view === 'variants');
   byId('tab-numbers').classList.toggle('is-active', state.view === 'numbers');
+  byId('tab-builder').classList.toggle('is-active', state.view === 'builder');
   byId('tab-variants').setAttribute('aria-current', state.view === 'variants' ? 'page' : 'false');
   byId('tab-numbers').setAttribute('aria-current', state.view === 'numbers' ? 'page' : 'false');
-  byId('sidebar-eyebrow').textContent = state.view === 'variants' ? 'Варианты' : 'Позиции ЕГЭ';
-  byId('sidebar-title').textContent = state.view === 'variants' ? 'Выберите вариант' : 'Выберите номер';
+  byId('tab-builder').setAttribute('aria-current', state.view === 'builder' ? 'page' : 'false');
+  byId('sidebar-eyebrow').textContent = state.view === 'variants' ? 'Варианты' : state.view === 'numbers' ? 'Позиции ЕГЭ' : 'Сборка';
+  byId('sidebar-title').textContent = state.view === 'variants' ? 'Выберите вариант' : state.view === 'numbers' ? 'Выберите номер' : 'Выберите задачи';
   byId('variant-list').hidden = state.view !== 'variants';
   byId('number-list').hidden = state.view !== 'numbers';
+  byId('builder-sidebar').hidden = state.view !== 'builder';
   const variants = byId('variant-list');
   const variantScrollTop = variants.scrollTop;
   variants.replaceChildren();
@@ -454,11 +457,86 @@ function renderSidebar() {
   }
 }
 
+function generatedLink(label, href, newTab = false) {
+  const link = node('a', 'source-download', label);
+  link.href = href;
+  if (newTab) { link.target = '_blank'; link.rel = 'noopener'; }
+  return link;
+}
+
+function renderBuilder() {
+  const list = byId('builder-list');
+  list.replaceChildren();
+  if (!state.options.length) {
+    list.append(node('p', 'panel problem-card', 'Загрузка списка задач…'));
+    fetch('/api/variant-options').then(response => {
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      return response.json();
+    }).then(options => { state.options = options; if (state.view === 'builder') renderBuilder(); })
+      .catch(error => { list.replaceChildren(node('p', 'error-box', `Не удалось загрузить выбор задач: ${error.message}`)); });
+    return;
+  }
+  const base = state.options.filter(item => item.variant_id === state.variantId && item.alternative_number === 1);
+  for (let number = 1; number <= 26; number++) {
+    const candidates = state.options.filter(item => item.problem_number === number);
+    if (!state.picks[number]) state.picks[number] = base.find(item => item.problem_number === number)?.id || candidates[0]?.id;
+    const row = node('div', 'builder-row panel');
+    row.append(node('strong', '', `Задание ${number}`));
+    const controls = node('div', 'builder-controls');
+    const select = node('select', 'builder-select');
+    select.setAttribute('aria-label', `Задание ${number}: исходный вариант`);
+    for (const option of candidates) {
+      const entry = node('option', '', `${option.is_official_demo ? option.variant_title : `Демидова ${option.exam_year}-${option.variant_number}`}${option.alternative_number > 1 ? ` · пример ${option.alternative_number}` : ''}`);
+      entry.value = option.id;
+      select.append(entry);
+    }
+    select.value = state.picks[number];
+    const preview = node('div', 'builder-preview statement');
+    preview.hidden = true;
+    const show = node('button', 'builder-preview-button', 'Показать условие');
+    show.type = 'button';
+    async function loadPreview() {
+      preview.replaceChildren(node('p', '', 'Загрузка…'));
+      try {
+        const response = await fetch(`/api/problems/${encodeURIComponent(select.value)}`);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const problem = await response.json();
+        preview.replaceChildren();
+        renderStatement(preview, problem.statement || 'Условие не извлечено.');
+        const figures = renderFigureGrid(problem, 'statement_figure');
+        if (figures) preview.append(figures);
+      } catch (error) { preview.replaceChildren(node('p', '', `Не удалось загрузить условие: ${error.message}`)); }
+    }
+    select.addEventListener('change', () => { state.picks[number] = select.value; renderBuilderLinks(); if (!preview.hidden) loadPreview(); });
+    show.addEventListener('click', () => {
+      preview.hidden = !preview.hidden;
+      show.textContent = preview.hidden ? 'Показать условие' : 'Скрыть условие';
+      if (!preview.hidden) loadPreview();
+    });
+    controls.append(select, show, preview);
+    row.append(controls);
+    list.append(row);
+  }
+  renderBuilderLinks();
+}
+
+function renderBuilderLinks() {
+  const links = byId('generated-downloads');
+  links.replaceChildren();
+  if (state.view === 'numbers') return;
+  const prefix = state.view === 'builder'
+    ? `/api/assemble?ids=${encodeURIComponent(Array.from({ length: 26 }, (_, i) => state.picks[i + 1]).join(','))}&format=`
+    : `/api/variants/${encodeURIComponent(state.variantId)}/`;
+  links.append(generatedLink('Скачать TeX', prefix + 'tex'),
+    generatedLink('Скачать TeX с рисунками (.zip)', prefix + 'zip'),
+    generatedLink('Смотреть PDF', prefix + 'pdf', true));
+}
+
 async function update() {
   renderSidebar();
   const variant = state.variants.find(v => v.id === state.variantId);
-  byId('content-eyebrow').textContent = state.view === 'variants' ? 'Цельный вариант' : 'Все варианты';
-  byId('content-title').textContent = state.view === 'variants' ? (variant ? variantDisplayTitle(variant) : 'Вариант не найден') : `Задание №${state.number}`;
+  byId('content-eyebrow').textContent = state.view === 'variants' ? 'Цельный вариант' : state.view === 'numbers' ? 'Все варианты' : 'Новый вариант';
+  byId('content-title').textContent = state.view === 'variants' ? (variant ? variantDisplayTitle(variant) : 'Вариант не найден') : state.view === 'numbers' ? `Задание №${state.number}` : 'Собрать из выбранных задач';
   const sourceDownload = byId('source-download');
   sourceDownload.hidden = state.view !== 'variants' || !variant?.download_url;
   if (!sourceDownload.hidden) sourceDownload.href = variant.download_url;
@@ -474,6 +552,15 @@ async function update() {
   }
   const list = byId('problem-list');
   list.replaceChildren();
+  list.hidden = state.view === 'builder';
+  byId('builder-list').hidden = state.view !== 'builder';
+  if (state.view === 'builder') {
+    byId('problem-count').textContent = '26 заданий';
+    byId('error-box').hidden = true;
+    renderBuilder();
+    return;
+  }
+  renderBuilderLinks();
   byId('problem-count').textContent = 'Загрузка…';
   byId('error-box').hidden = true;
   try {
@@ -509,6 +596,7 @@ async function init() {
 
 byId('tab-variants').addEventListener('click', () => { state.view = 'variants'; writeLocation(); update(); });
 byId('tab-numbers').addEventListener('click', () => { state.view = 'numbers'; writeLocation(); update(); });
+byId('tab-builder').addEventListener('click', () => { state.view = 'builder'; writeLocation(); update(); });
 window.addEventListener('popstate', () => { readLocation(); update(); });
 byId('image-dialog').addEventListener('click', event => { if (event.target === event.currentTarget) event.currentTarget.close(); });
 init();

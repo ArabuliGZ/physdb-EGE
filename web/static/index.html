@@ -30,6 +30,7 @@
     <nav class="view-tabs" aria-label="Разделы сайта">
       <button type="button" id="tab-variants" class="view-tab is-active" aria-current="page">Цельные варианты</button>
       <button type="button" id="tab-numbers" class="view-tab">Задачи по номеру</button>
+      <button type="button" id="tab-builder" class="view-tab">Собрать вариант</button>
     </nav>
 
     <div class="catalog-layout">
@@ -37,6 +38,7 @@
         <div class="sidebar-header"><span class="eyebrow" id="sidebar-eyebrow">Варианты</span><h2 id="sidebar-title">Выберите вариант</h2></div>
         <div id="variant-list" class="variant-list"></div>
         <div id="number-list" class="number-list" hidden></div>
+        <div id="builder-sidebar" class="builder-sidebar" hidden>Для каждого номера выберите задачу из любого варианта. В печатный файл войдут условия и пустые поля для ответов.</div>
         <div class="legend">
           <div><span class="status-dot yes"></span> Подходит для 2027</div>
           <div><span class="status-dot partial"></span> Частично подходит</div>
@@ -46,11 +48,12 @@
 
       <section class="catalog-main" aria-live="polite">
         <div class="section-head panel">
-          <div><span class="eyebrow" id="content-eyebrow">Вариант</span><h2 id="content-title">Загрузка…</h2><a id="source-download" class="source-download" hidden>Скачать исходный вариант</a><div id="companion-downloads" class="companion-downloads"></div></div>
+          <div><span class="eyebrow" id="content-eyebrow">Вариант</span><h2 id="content-title">Загрузка…</h2><a id="source-download" class="source-download" hidden>Скачать исходный вариант</a><div id="companion-downloads" class="companion-downloads"></div><div id="generated-downloads" class="generated-downloads"></div></div>
           <span id="problem-count" class="count-pill"></span>
         </div>
         <div id="error-box" class="error-box" hidden></div>
         <div id="problem-list" class="problem-list"></div>
+        <div id="builder-list" class="builder-list" hidden></div>
       </section>
     </div>
   </main>

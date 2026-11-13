@@ -1,0 +1,52 @@
+% Общий шаблон тренировочного варианта PhysEGE. Только условия заданий.
+\documentclass[12pt,a4paper]{article}
+\usepackage{fontspec}
+\IfFontExistsTF{Times New Roman}{\setmainfont{Times New Roman}}{\setmainfont{Liberation Serif}}
+\usepackage{polyglossia}
+\setdefaultlanguage{russian}
+\usepackage{amsmath,amssymb,graphicx,tabularx,array}
+\usepackage{geometry,fancyhdr,needspace}
+\geometry{left=22mm,right=19mm,top=22mm,bottom=21mm,headheight=15pt}
+\setlength{\parindent}{9mm}
+\setlength{\parskip}{0pt}
+\linespread{1.08}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{\small Физика. %%VARIANT_TITLE%% --- \thepage}
+\fancyfoot[C]{\small %%YEAR%% г.}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\newcommand{\TaskStart}[1]{\par\medskip\needspace{45mm}\noindent\llap{\fbox{\makebox[9mm][c]{\bfseries #1}}\hspace{3mm}}}
+\newcommand{\AnswerLine}{\par\smallskip\noindent Ответ:~\rule{68mm}{0.4pt}.\par\smallskip}
+\newcommand{\AnswerBoxes}[1]{\par\smallskip\noindent Ответ:~\begingroup\count0=0\loop\ifnum\count0<#1\fbox{\rule{0pt}{5mm}\makebox[6mm]{}}\advance\count0 by1\repeat\endgroup\par\smallskip}
+\newcommand{\PairAnswer}{\par\smallskip\noindent Ответ:~(\rule{26mm}{0.4pt}\,$\pm$\,\rule{22mm}{0.4pt}).\par\smallskip}
+\newcommand{\MatchingAnswer}{\par\smallskip\noindent Ответ:~\begin{tabular}{|c|c|}\hline А & Б\\\hline\rule{0pt}{7mm}\hspace{7mm} & \hspace{7mm}\\\hline\end{tabular}\par\smallskip}
+\newcommand{\TaskFigure}[1]{\par\smallskip\begin{center}\includegraphics[width=.78\linewidth,height=63mm,keepaspectratio]{#1}\end{center}\smallskip}
+\newcommand{\ExamNotice}[1]{\par\medskip\noindent\fbox{\begin{minipage}{.965\linewidth}\textbf{\itshape #1}\end{minipage}}\par\medskip}
+\begin{document}
+\begin{center}
+{\large\bfseries %%VARIANT_TITLE%%}\par\bigskip
+{\large\bfseries Инструкция по выполнению работы}
+\end{center}
+Для выполнения экзаменационной работы по физике отводится 3 часа 55 минут (235 минут). Работа состоит из двух частей, включающих 26 заданий.
+
+Ответом к заданиям 1--20 является число или последовательность цифр. Ответ запишите в поле ответа в тексте работы, а затем перенесите в бланк ответов № 1. Единицы измерения физических величин писать не нужно.
+
+Ответы к заданиям 21--26 включают подробное описание всего хода выполнения задания. В бланке ответов № 2 укажите номер задания и запишите его полное решение.
+
+При вычислениях разрешается использовать непрограммируемый калькулятор. При выполнении заданий можно пользоваться черновиком. Записи в черновике не учитываются при оценивании работы.
+
+После завершения работы проверьте, чтобы ответ на каждое задание был записан под правильным номером.
+
+\begin{center}\bfseries\itshape Желаем успеха!\end{center}
+\clearpage
+%%REFERENCE%%
+\clearpage
+\begin{center}\large\bfseries Часть 1\end{center}
+\ExamNotice{Ответами к заданиям 1--20 являются число или последовательность цифр. Запишите ответ в поле после каждого задания.}
+%%PART_ONE%%
+\clearpage
+\begin{center}\large\bfseries Часть 2\end{center}
+\ExamNotice{Для записи ответов на задания 21--26 используйте бланк ответов № 2. Сначала укажите номер задания, затем запишите решение.}
+%%PART_TWO%%
+\end{document}

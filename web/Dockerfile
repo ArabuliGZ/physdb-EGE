@@ -1,5 +1,8 @@
 FROM python:3.13-slim
 ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    texlive-xetex texlive-lang-cyrillic fonts-liberation \
+    && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 COPY web ./web
 ENV PHYSEGE_HOST=0.0.0.0 PHYSEGE_PORT=8001 \
