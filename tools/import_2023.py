@@ -16,6 +16,7 @@ from pathlib import Path
 from docx import Document
 
 from import_examples import DB, ROOT, assess, upsert_problem, upsert_variant
+from curated_answers_2023 import EXTENDED_ANSWERS
 from import_2026_remaining import (add_figures, extract_blocks, formula_marker,
                                     normalize_statement, normalized_figure_png,
                                     review_sections, VERIFIED_FORMULAS,
@@ -29,6 +30,11 @@ from text_repairs import repair_text
 SOURCE_ROOT = ROOT / "Материалы" / "ЕГЭ от Демидовой" / "От Демидовой до 2023 года"
 FORMULAS = json.loads((ROOT / "tools" / "2023_formulas.json").read_text(encoding="utf-8"))
 DIAGRAM_IN_FORMULA_SLOT = "fa02b004bd83cb76a61df885b0413936ea1ee11e8b85713c59e5f71047affbd0"
+CURATED_STATEMENT_FIGURES = {
+    (2, 24): ("2023-2-24-diagram-and-grid.png", "2c04390df7670eb9bab46a516555b15ea14e86abc1515e5d39b7c64df79d8707"),
+    (2, 27): ("2023-2-27-cylinder.png", "475c15fef188b5343170df66fde04049683150364421bae5dde260c486501cfc"),
+    (3, 15): ("2023-3-15-current-graph.png", "d4302332da74eada5d16e77ee8f6369053d9a8204bc3af8878a9f405a5d833e4"),
+}
 MTEF_REPAIRS = {
     r"_{в ы x}": r"_{\text{вых}}", r"_{в ы x .}": r"_{\text{вых}}",
     r"_{з}": r"_{\text{з}}", r"_{o т н}": r"_{\text{отн}}",
@@ -140,19 +146,32 @@ def import_one(con: sqlite3.Connection, number: int) -> None:
             raise ValueError("Source layout for 2023-1 task 29 changed")
         starts[29] = 435
     answers = source_key(doc)
+    # In the printed key the two fields of task 22 are concatenated. The
+    # instrument scales on original PDF p. 12 confirm value and uncertainty.
+    paired_answers = {
+        1: ("362", r"\(36\pm2\)"),       # milliammeter, mA
+        2: ("3,60,1", r"\(3{,}6\pm0{,}1\)"),  # dynamometer, N
+        3: ("111", r"\(11\pm1\)"),       # dynamometer, N
+    }
+    raw_pair, formatted_pair = paired_answers[number]
+    if answers[22] != raw_pair:
+        raise ValueError(f"2023-{number} task 22 key changed: {answers[22]}")
     variant_id = upsert_variant(con, source, 2023, str(number),
                                 f"Демидова 2023, вариант {number}", False)
     for task in range(1, 31):
         stop = starts.get(task + 1, end)
         embedded: list[tuple[bytes, tuple[int, int]]] = []
         raw, statement_figures = extract_blocks(doc, starts[task], stop, embedded)
-        if number == 2 and task == 24:
-            # Original PDF p. 14: Word shapes form a blank graph to the right
-            # of the extracted pulley image. Preserve both as one checked crop.
-            figure = ROOT / "assets" / "curated" / "figure_repairs" / "2023-2-24-diagram-and-grid.png"
+        if (number, task) in CURATED_STATEMENT_FIGURES:
+            # Word vector shapes absent from OOXML media: original PDF pages
+            # 14, 15, and 9 respectively. The checked crops live in the repo.
+            filename, expected_sha = CURATED_STATEMENT_FIGURES[(number, task)]
+            figure = ROOT / "assets" / "curated" / "figure_repairs" / filename
             content = figure.read_bytes()
-            if hashlib.sha256(content).hexdigest() != "2c04390df7670eb9bab46a516555b15ea14e86abc1515e5d39b7c64df79d8707":
-                raise ValueError("2023-2 task 24 curated figure changed")
+            if hashlib.sha256(content).hexdigest() != expected_sha:
+                raise ValueError(f"2023-{number} task {task} curated figure changed")
+            if (number, task) != (2, 24) and statement_figures:
+                raise ValueError(f"Unexpected extra source figure in 2023-{number} task {task}")
             statement_figures = [content]
         statement = formula_tex(normalize_statement(raw), embedded, statement_figures)
         assert statement is not None
@@ -196,7 +215,9 @@ def import_one(con: sqlite3.Connection, number: int) -> None:
                  "сверка условия, рисунков, ключа, решения и критериев с исходником.")
         if task >= 24:
             notes += f" Критерии: абзацы {reviews[task]}–{reviews.get(task + 1, len(doc.paragraphs)) - 1}."
-        problem_id = upsert_problem(con, variant_id, task, 1, statement, answers.get(task),
+        answer = (EXTENDED_ANSWERS[(number, task)] if task >= 24 else
+                  formatted_pair if task == 22 else answers[task])
+        problem_id = upsert_problem(con, variant_id, task, 1, statement, answer,
                                     solution, criteria, topic, locator, notes, "needs_review",
                                     max_points=SOURCE_POINTS[task],
                                     answer_format=SOURCE_FORMAT[task])
@@ -204,6 +225,8 @@ def import_one(con: sqlite3.Connection, number: int) -> None:
         add_figures(con, problem_id, solution_figures, "solution_figure",
                     f"DOCX rubric paragraphs {reviews[task]}–{reviews.get(task + 1, len(doc.paragraphs)) - 1}"
                     if task >= 24 else locator)
+        # The candidate position can change after a specification audit.
+        con.execute("DELETE FROM relevance WHERE problem_id=? AND exam_year=2027", (problem_id,))
         target, verdict, topic_ok, format_ok, reason = assessment(number, task)
         if task == 30 and (SOURCE_POINTS[task] != 4 or
                            not all((f"Критерий {score}" in criteria or

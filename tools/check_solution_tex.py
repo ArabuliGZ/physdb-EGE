@@ -1,4 +1,4 @@
-"""Check TeX expressions in solutions or criteria with the site's bundled KaTeX."""
+"""Check TeX expressions in problem fields with the site's bundled KaTeX."""
 from __future__ import annotations
 
 import argparse
@@ -32,7 +32,7 @@ process.stdout.write(JSON.stringify(errors));
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--field", choices=("statement", "solution", "criteria"), default="solution")
+    parser.add_argument("--field", choices=("statement", "answer", "solution", "criteria"), default="solution")
     field = parser.parse_args().field
     node = shutil.which("node")
     if not node:
