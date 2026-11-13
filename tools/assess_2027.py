@@ -104,7 +104,9 @@ def main() -> None:
         for row in selected:
             assess_row(con, row)
     own = con.execute("""SELECT count(*) FROM problems p JOIN relevance r ON r.problem_id=p.id
-        WHERE r.exam_year=2027 AND r.target_problem_number=p.problem_number""").fetchone()[0]
+        JOIN variants v ON v.id=p.variant_id
+        WHERE v.exam_year>=2024 AND r.exam_year=2027
+        AND r.target_problem_number=p.problem_number""").fetchone()[0]
     assert own == 496, own
     print("assessed", len(selected), "new tasks against FIPI draft 2027")
     counts = con.execute("""SELECT verdict,count(*) FROM relevance

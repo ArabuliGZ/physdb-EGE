@@ -366,12 +366,13 @@ function renderFigureGrid(problem, role, showCopyButton = true) {
   return figureGrid;
 }
 
-function renderCard(problem, showSource) {
+function renderCard(problem, showSource, numberMode = false) {
   const card = node('article', 'problem-card panel');
-  card.id = `task-${problem.problem_number}-${problem.alternative_number}`;
+  const shownNumber = numberMode ? problem.target_problem_number : problem.problem_number;
+  card.id = `task-${shownNumber}-${problem.id}`;
   const header = node('div', 'problem-card-header');
   const heading = node('div', 'problem-heading');
-  heading.append(node('span', 'problem-number', String(problem.problem_number)));
+  heading.append(node('span', 'problem-number', String(shownNumber)));
   const title = problem.alternative_number > 1 ? `Альтернативный пример ${problem.alternative_number}` : 'Задание';
   heading.append(node('h3', '', title));
   heading.append(node('span', 'problem-meta', `${topicLabel(problem.topic)} · ${problem.max_points} ${problem.max_points === 1 ? 'балл' : 'балла'}`));
@@ -406,6 +407,9 @@ function renderCard(problem, showSource) {
     const link = node('a', 'source-link', variantDisplayTitle(problem));
     link.href = `/?view=variants&variant=${encodeURIComponent(problem.variant_id)}`;
     source.append(link);
+    if (numberMode && shownNumber !== problem.problem_number) {
+      source.append(document.createTextNode(` · исходное задание №${problem.problem_number}`));
+    }
     card.append(source);
   }
   return card;
@@ -547,7 +551,8 @@ function renderBuilder() {
     const select = node('select', 'builder-select');
     select.setAttribute('aria-label', `Задание ${number}: исходный вариант`);
     for (const option of candidates) {
-      const entry = node('option', '', `${option.is_official_demo ? option.variant_title : `Демидова ${option.exam_year}-${option.variant_number}`}${option.alternative_number > 1 ? ` · пример ${option.alternative_number}` : ''}`);
+      const sourceNumber = option.source_problem_number !== number ? ` · исходное №${option.source_problem_number}` : '';
+      const entry = node('option', '', `${option.is_official_demo ? option.variant_title : `Демидова ${option.exam_year}-${option.variant_number}`}${sourceNumber}${option.alternative_number > 1 ? ` · пример ${option.alternative_number}` : ''}`);
       entry.value = option.id;
       select.append(entry);
     }
@@ -656,8 +661,12 @@ async function update() {
   if ((state.view === 'variants' && variant) || (state.view === 'automatic' && automatic)) {
     const selected = state.view === 'automatic' ? automatic : variant;
     const suitable = selected.suitable_count;
-    const complete = suitable === 26;
-    countPill.textContent = complete ? 'Подходит для 2027 года' : `Подходит ${suitable} задач из 26`;
+    const total = state.view === 'automatic' ? 26 : selected.position_count;
+    const complete = total === 26 && suitable === 26;
+    const partial = selected.partially_suitable_count || 0;
+    countPill.textContent = complete ? 'Подходит для 2027 года' : total === 30
+      ? `Для 2027: ${suitable} полностью, ${partial} частично из 30`
+      : `Подходит ${suitable} задач из 26`;
     countPill.className = `count-pill ${complete ? 'is-suitable' : 'is-partial'}`;
   } else {
     countPill.textContent = 'Загрузка…';
@@ -678,7 +687,8 @@ async function update() {
     const problems = await response.json();
     if (state.view === 'numbers') countPill.textContent = plural(problems.length, 'задача', 'задачи', 'задач');
     if (!problems.length) list.append(node('div', 'panel problem-card', 'Задачи пока не загружены.'));
-    else for (const problem of problems) list.append(renderCard(problem, ['numbers', 'automatic'].includes(state.view)));
+    else for (const problem of problems) list.append(renderCard(problem,
+      ['numbers', 'automatic'].includes(state.view), state.view === 'numbers'));
   } catch (error) {
     if (state.view === 'numbers') countPill.textContent = '';
     byId('error-box').textContent = `Не удалось загрузить задачи: ${error.message}`;

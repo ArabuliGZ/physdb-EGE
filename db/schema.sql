@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS variant_sources (
 CREATE TABLE IF NOT EXISTS problems (
   id TEXT PRIMARY KEY,
   variant_id TEXT NOT NULL REFERENCES variants(id),
-  problem_number INTEGER NOT NULL CHECK (problem_number BETWEEN 1 AND 26),
+  problem_number INTEGER NOT NULL CHECK (problem_number BETWEEN 1 AND 30),
   alternative_number INTEGER NOT NULL DEFAULT 1,
   statement TEXT NOT NULL,
   statement_format TEXT NOT NULL DEFAULT 'plain_with_latex',

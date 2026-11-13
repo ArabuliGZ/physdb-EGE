@@ -134,18 +134,22 @@ def upsert_variant(con: sqlite3.Connection, path: Path, year: int,
 def upsert_problem(con: sqlite3.Connection, vid: str, number: int, alternative: int,
                    statement: str, answer: str | None, solution: str | None,
                    criteria: str | None, topic: str, locator: str,
-                   notes: str, status: str = "needs_review") -> str:
+                   notes: str, status: str = "needs_review",
+                   max_points: int | None = None, answer_format: str | None = None) -> str:
     pid = key("problem", vid, number, alternative)
     con.execute("""INSERT INTO problems
         (id,variant_id,problem_number,alternative_number,statement,answer,solution,
          criteria,max_points,answer_format,topic,extraction_status,review_notes,source_locator)
         VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET
         statement=excluded.statement,answer=excluded.answer,solution=excluded.solution,
-        criteria=excluded.criteria,topic=excluded.topic,extraction_status=excluded.extraction_status,
+        criteria=excluded.criteria,max_points=excluded.max_points,
+        answer_format=excluded.answer_format,topic=excluded.topic,extraction_status=excluded.extraction_status,
         review_notes=excluded.review_notes,source_locator=excluded.source_locator""",
         (pid, vid, number, alternative, statement.strip(), format_quantities(answer) if answer else None,
          solution, layout_criteria(criteria) if criteria else None,
-         POINTS[number], FORMATS[number], topic, status, notes, locator))
+         max_points if max_points is not None else POINTS[number],
+         answer_format if answer_format is not None else FORMATS[number],
+         topic, status, notes, locator))
     con.execute("DELETE FROM problem_assets WHERE problem_id=?", (pid,))
     return pid
 

@@ -37,10 +37,11 @@ def variants() -> list[dict]:
         COUNT(DISTINCT p.id) AS problem_count,
         COUNT(DISTINCT p.problem_number) AS position_count,
         COUNT(DISTINCT CASE WHEN p.alternative_number=1 AND r.verdict='yes'
-            THEN p.problem_number END) AS suitable_count
+            THEN p.id END) AS suitable_count,
+        COUNT(DISTINCT CASE WHEN p.alternative_number=1 AND r.verdict='partial'
+            THEN p.id END) AS partially_suitable_count
         FROM variants v LEFT JOIN problems p ON p.variant_id=v.id
         LEFT JOIN relevance r ON r.problem_id=p.id AND r.exam_year=2027
-            AND r.target_problem_number=p.problem_number
         GROUP BY v.id ORDER BY v.exam_year DESC,v.variant_number""")
     for item in items:
         item["download_url"] = "/api/variants/" + item["id"] + "/source"
@@ -82,14 +83,21 @@ def list_problems(query: dict[str, list[str]]) -> list[dict]:
             return []
         if not 1 <= number <= 26:
             return []
-        conditions.append("p.problem_number=?")
+        conditions.append("r.target_problem_number=? AND r.verdict IN ('yes','partial')")
         params.append(number)
+        relevance_join = "JOIN relevance r ON r.problem_id=p.id AND r.exam_year=2027"
+    else:
+        relevance_join = """LEFT JOIN relevance r ON r.rowid=(
+            SELECT candidate.rowid FROM relevance candidate
+            WHERE candidate.problem_id=p.id AND candidate.exam_year=2027
+            ORDER BY CASE candidate.verdict WHEN 'yes' THEN 0 WHEN 'partial' THEN 1 ELSE 2 END,
+                candidate.target_problem_number LIMIT 1)"""
     where = "WHERE " + " AND ".join(conditions) if conditions else ""
     items = rows(f"""SELECT p.*,v.title AS variant_title,v.exam_year,v.variant_number,v.is_official_demo,
-        v.source_path,r.verdict,r.reason AS relevance_reason,r.topic_match,r.format_match
+        v.source_path,r.verdict,r.reason AS relevance_reason,r.topic_match,r.format_match,
+        r.target_problem_number
         FROM problems p JOIN variants v ON v.id=p.variant_id
-        LEFT JOIN relevance r ON r.problem_id=p.id AND r.exam_year=2027
-            AND r.target_problem_number=p.problem_number
+        {relevance_join}
         {where} ORDER BY v.exam_year DESC,v.variant_number,p.problem_number,p.alternative_number""",
                 tuple(params))
     if items:
@@ -108,10 +116,14 @@ def list_problems(query: dict[str, list[str]]) -> list[dict]:
 
 def get_problem(problem_id: str) -> dict | None:
     result = rows("""SELECT p.*,v.title AS variant_title,v.exam_year,v.variant_number,v.is_official_demo,
-        v.source_path,r.verdict,r.reason AS relevance_reason,r.topic_match,r.format_match
+        v.source_path,r.verdict,r.reason AS relevance_reason,r.topic_match,r.format_match,
+        r.target_problem_number
         FROM problems p JOIN variants v ON v.id=p.variant_id
-        LEFT JOIN relevance r ON r.problem_id=p.id AND r.exam_year=2027
-            AND r.target_problem_number=p.problem_number
+        LEFT JOIN relevance r ON r.rowid=(
+            SELECT candidate.rowid FROM relevance candidate
+            WHERE candidate.problem_id=p.id AND candidate.exam_year=2027
+            ORDER BY CASE candidate.verdict WHEN 'yes' THEN 0 WHEN 'partial' THEN 1 ELSE 2 END,
+                candidate.target_problem_number LIMIT 1)
         WHERE p.id=?""", (problem_id,))
     if not result:
         return None
@@ -125,13 +137,14 @@ def get_problem(problem_id: str) -> dict | None:
 
 
 def variant_options() -> list[dict]:
-    return rows("""SELECT p.id,p.variant_id,p.problem_number,p.alternative_number,
+    return rows("""SELECT p.id,p.variant_id,r.target_problem_number AS problem_number,
+        p.problem_number AS source_problem_number,p.alternative_number,
         v.title AS variant_title,v.exam_year,v.variant_number,v.is_official_demo,
         r.verdict,r.reason AS relevance_reason
         FROM problems p JOIN variants v ON v.id=p.variant_id
-        LEFT JOIN relevance r ON r.problem_id=p.id AND r.exam_year=2027
-            AND r.target_problem_number=p.problem_number
-        ORDER BY p.problem_number,v.exam_year DESC,v.variant_number,p.alternative_number""")
+        JOIN relevance r ON r.problem_id=p.id AND r.exam_year=2027
+            AND r.verdict IN ('yes','partial')
+        ORDER BY r.target_problem_number,v.exam_year DESC,v.variant_number,p.alternative_number""")
 
 
 def selected_problems(variant_id: str | None, ids: list[str] | None) -> list[dict]:
@@ -140,11 +153,21 @@ def selected_problems(variant_id: str | None, ids: list[str] | None) -> list[dic
         by_number = {}
         for problem in candidates:
             by_number.setdefault(problem["problem_number"], problem)
-        return [by_number[n] for n in range(1, 27)] if len(by_number) == 26 else []
+        count = len(by_number)
+        return [by_number[n] for n in range(1, count + 1)] if count in (26, 30) and \
+            set(by_number) == set(range(1, count + 1)) else []
     if not ids or len(ids) != 26 or len(set(ids)) != 26:
         return []
     found = {problem["id"]: problem for problem in list_problems({}) if problem["id"] in ids}
-    return [found[problem_id] for problem_id in ids] if len(found) == 26 else []
+    if len(found) != 26:
+        return []
+    allowed = {(row["problem_id"], row["target_problem_number"]) for row in rows("""SELECT
+        problem_id,target_problem_number FROM relevance WHERE exam_year=2027
+        AND verdict IN ('yes','partial')""")}
+    if any((problem_id, number) not in allowed for number, problem_id in enumerate(ids, 1)):
+        return []
+    return [{**found[problem_id], "source_problem_number": found[problem_id]["problem_number"],
+             "problem_number": number} for number, problem_id in enumerate(ids, 1)]
 
 
 def automatic_problem_ids(automatic_id: str) -> list[str]:
@@ -192,8 +215,9 @@ class Handler(BaseHTTPRequestHandler):
             filename = "physege-custom-2027"
             ids = query.get("ids", [""])[0].split(",")
         problems = selected_problems(variant_id, ids)
-        if len(problems) != 26 or [p["problem_number"] for p in problems] != list(range(1, 27)):
-            self.send_json({"error": "Выберите по одной задаче для каждого номера 1–26"}, 400)
+        expected = 30 if variant_id and year == 2023 else 26
+        if len(problems) != expected or [p["problem_number"] for p in problems] != list(range(1, expected + 1)):
+            self.send_json({"error": f"Нужны задания с номерами 1–{expected}"}, 400)
             return
         try:
             content, figures = compose(problems, title, year, ASSETS, FORMULAS, document)

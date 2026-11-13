@@ -1,0 +1,1295 @@
+{
+  "6f90e234ce164f4a117d13473f48cbce3f8a7a0213c6bf70cc13a9dca8da7998": {
+    "tex": "x = A \\sin \\frac{2 \\pi}{T} t",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject2.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "16b08a771bb42a2e578486916018f6be38a3644c67c3f9cf9feba3074bd54af8": {
+    "tex": "\\overset{\\rightarrow}{\\upsilon}_{0}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject3.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "44bac0f72d350d372d5edfd880fea7b42884f65ff48cb1cac9bb7c25dc16642d": {
+    "tex": "\\alpha",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject4.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "df0b25bb870be97b452a2dcae2b136ac49a058a9731f4cd4769a023ece15366a": {
+    "tex": "1 - \\frac{T_{2}}{T_{1}}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject5.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "b68e6e5dfcdc858eb49a64478927756f75d7227eaf2a4a435bb7f5def25266a0": {
+    "tex": "\\frac{Q_{1} \\left(\\right. T_{1} - T_{2} \\left.\\right)}{T_{1}}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject6.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "e56c97734c15affa5cd0b1806fac60b461cfb8fbf35894988a8f7e7ab4ef533b": {
+    "tex": "\\frac{T_{1} - T_{2}}{T_{2}}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject7.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "552fab38b2826ca81e7f236e4473ab5d4ffcea2a1616aa846e97fa73877d7781": {
+    "tex": "\\frac{Q_{1} T_{2}}{T_{1}}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject8.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "1edf32925b639a15711728f2cd680f39ed2f8cb1e4b3593ead9db7acf6bb721f": {
+    "tex": "\\overset{\\rightarrow}{B} .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject9.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "0f5fdf166f882994c5c64e549ffbf0fffeee5d2c76142e9b1c6bb8759b979f60": {
+    "tex": "\\frac{c}{\\nu}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject10.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "df42fd9e681091fa5f15dfcc3bd2be687b596fb305fe8af0778b1dffb164e95b": {
+    "tex": "\\frac{n \\cdot c}{\\nu}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject11.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "c821360e0a81a164413df90a5466be10594a59206feecec3d24c725730f2e688": {
+    "tex": "\\frac{c}{n \\cdot \\nu}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject12.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "416271cd65063c70544afab570e05157bc9efc9ada71beea3d90fcfe306f01ec": {
+    "tex": "\\frac{c \\cdot \\nu}{n}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject13.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "37803638e4187fb48e3d3f1b5fc493528bd7dcba8ecafce20f8114cd091ae6ae": {
+    "tex": "\\_{12}^{28}\\text{M} \\text{g}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject14.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "acb7b78287d554f4574a6b35f40bc99c1cb80b323574fc0f02b17ef538004fc5": {
+    "tex": "\\eta = 15 %",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject15.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "4bd1275e00d5b7ac552921cbdf9ee83c8adf1927dd64256502613c08275ce32f": {
+    "tex": "t_{m i n} = 37",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject16.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "9c5c5f4add5a5facc0387033e86e08a5125bfe4685c4d22a45775775683f527b": {
+    "tex": "t_{m a x} = 302",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject17.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "a4555b9401b546042cf98c639407a26fce41ce8274ad41b9088a43180ba701f8": {
+    "tex": "m = 100",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject18.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "eed83d759d8a6439bd11d1b89417859bc40bf6e2976d8bc1e3b7d08addb8b6a6": {
+    "tex": "R = 0{,}1",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject19.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "fd237bcab77a008ede0a83276a2a70fe09f7261bc9fff3be6bd7f27f231042fe": {
+    "tex": "l = 10",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject20.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "b93ab82084acf4d70aef957106d937d0c664e7e1ba1ca99267b02c46fdeb61d5": {
+    "tex": "\\mu = 0{,}1 .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject21.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "3c5a62017f3cb582bf61bc7975e12d65373a4cad25989cb5b709a2a62047569f": {
+    "tex": "B = 1",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject22.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "73b917ce32ecd45a32a33ede1ae6f05404628809d9ed49f961eef056d845c15f": {
+    "tex": "m = 1",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject23.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "d2ae837e971e90909e03665bfec3899eb334089755badf22fcdbde06ce91c707": {
+    "tex": "\\alpha = 30 \\circ .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject24.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "87c8ab3bfdb9a24ff1bd0f75b5d968b89016c4d98e738d343768b7de3b033312": {
+    "tex": "\\overset{\\rightarrow}{F}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject25.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "9767acabf84d17915d38fa179cb036afd4dac1a27cb881d45435bef0abd48148": {
+    "tex": "\\mu = 0{,}2 .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject26.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "3e0fdeaf64287e550d569fc9c1333a8e48b4d0de0cbdd6b3c094e0e36598bc0f": {
+    "tex": "h \\nu = A_{в ы x} + E_{m a x}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject27.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "741a44a065a46d1f75bf4754d254e17f0709eacb89cf583fb1662b0003ed7907": {
+    "tex": "E_{m a x} = e \\left|\\right. U_{з} \\left|\\right.",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject28.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "f1e6627a1e8660cd16969a52d0d36f24ef1643e2d5b1ac6266d1fe59873e5a03": {
+    "tex": "P = N_{\\Phi} E_{\\Phi} = N_{\\Phi} h \\nu",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject29.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "b5e00bbb910014a70fb65cae58ec8a58d4f8fdfb88b60c44466793d2e39f4eea": {
+    "tex": "E_{\\Phi} = h \\nu",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject30.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "ce1fd4e71f7ac41b86366ace0c9f3a4aadf8454a93ddc458d7b7dbfdc1928a52": {
+    "tex": "N_{e} ,",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject31.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "15d6b5067c013d7e81a8e78c09ae28eb8f9250d298995c02454a8224f764a3ec": {
+    "tex": "a = \\frac{\\upsilon^{2}}{2 s} ,",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject32.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "6c6e08936d1e99c4c268e1e99af0284527132b5855b1b625e12fde1d58864b38": {
+    "tex": "\\upsilon",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject33.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "75597be9d9d44f37d3ea4ffe7ea649f6803b5655abe28671caf70885797f488e": {
+    "tex": "s = 1",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject34.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "d8facc881a34cd70713616d3363af5a5d2004cc72e4f6e242a74ebb9bec17e12": {
+    "tex": "\\Delta \\upsilon = \\upsilon = a t .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject35.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "8729f5df1f71255afd901c8a0aabb59aac0bb6d010223274a88a13929c3c98b4": {
+    "tex": "t = \\frac{2 s}{\\upsilon} = \\frac{2 \\cdot 1000}{10} = 200",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject36.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "afac82fe8231344691646c3d8d3406f6617314a1422e73907a830611cb2aecb8": {
+    "tex": "t = 200",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject37.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "0affc9b7d031df0fea404a3d7af9a9a586c313a01c0e13b6c8cb2fe6908dbd2c": {
+    "tex": "Q_{12} ,",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject41.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "0909e933bd38c2d1522bcd11e6e3c86fd1bb9cb27de56372fe5c2eab5d6eee6b": {
+    "tex": "Q_{34} .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject42.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "c136ac029ddaa7c33ada294ea23c36e647595ff2f0a2b97ccd6d65850f83b848": {
+    "tex": "A = Q_{12} - Q_{34} .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject43.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "72a083cf5cd4bcda9f8f9417c3d17b74a54160a8873b02d2a25795ba0975ec10": {
+    "tex": "\\eta = \\frac{A}{Q_{12}} = 1 - \\frac{Q_{34}}{Q_{12}}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject44.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "a21edd2fdb3f1a8ebaa4ba1e711f41d84f384533b0c948cde0da2bbf60ba053d": {
+    "tex": "Q_{12} = \\frac{Q_{34}}{1 - \\eta}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject45.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "5e2b3eb75db20798e605296861bd7f61977d7a83883179351c1d6da03683908d": {
+    "tex": "Q_{34} ,",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject47.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "c43006eb08c0810644e84704a8e7bcf2b98270cc6ac8b4392c77fb5e1843815b": {
+    "tex": "Q_{34} = \\left|\\right. \\Delta U_{34} \\left|\\right.",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject48.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "7aa5374129ea5dd0c9944a3ce8fce96d3ff3b6fac10a78e11dc2d61d27bad1a0": {
+    "tex": "U = \\frac{3}{2} R T ,",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject49.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "580a92eab5c452701d21b8cbcf1a67b951789de2f4f40f86f974ef711d95c3e4": {
+    "tex": "\\left|\\right. \\Delta U_{34} \\left|\\right. = \\frac{3}{2} R \\left(\\right. T_{3} - T_{4} \\left.\\right) = \\frac{3}{2} R \\left(\\right. t_{3} - t_{4} \\left.\\right)",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject50.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "fae7329535e4fb2776f44d24d09e49cd284a375da5fe2f06e2fb10fe1b53e604": {
+    "tex": "Q_{12} = \\frac{Q_{34}}{1 - \\eta} = \\frac{3}{2} \\frac{R \\left(\\right. t_{m a x} - t_{m i n} \\left.\\right)}{1 - \\eta}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject51.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "140bea2d2f64c4f3db45766a1ea850781c9ac4f0fa31025cfc4c2d247921c195": {
+    "tex": "Q_{12} = \\frac{3}{2} \\cdot \\frac{8{,}31 \\cdot 265}{0{,}85} \\approx 3886",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject52.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "9bbd01f4f19e9f638f8997ce66685800ba9c4263bd3d44110033dc784e7661f6": {
+    "tex": "Q_{12} \\approx 3886",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject53.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "3b47f8560e84a993a2ca31056847bbf39c5ddfd63fe6f60277a1197e2a17d48d": {
+    "tex": "\\Delta \\Phi = B l \\left(\\right. \\upsilon_{1} - \\upsilon_{2} \\left.\\right) \\Delta t = B l \\upsilon_{o т н} \\Delta t ,",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject59.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "5fe1e3dbfb75bdf8140340eab62e1931969d80242d94a8e5fb89b2c20aa3d81f": {
+    "tex": "\\mathcal{E} = - \\frac{\\Delta \\Phi}{\\Delta t} = - B l \\upsilon_{o т н} .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject60.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "6a0a836de42d2ff7fcbe1063d2d3c9018e8a0f0c1ba8840499887fbd34158d2e": {
+    "tex": "I = \\frac{\\left|\\right. \\mathcal{E} \\left|\\right.}{2 R} = \\frac{B l \\upsilon_{o т н}}{2 R} .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject61.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "8bbc68ae47369bb0056194a2c01ddfef2bbc14d33cee3032930b760693e121a1": {
+    "tex": "F_{1} = F_{2} = I B l ,",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject62.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "c619837fe6f3673803ec1b2818702fd2753ea91aeae469c632c14966f5d9bf85": {
+    "tex": "F_{т p} = \\mu m g .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject63.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "3d6af0aa3604800f5031c2e1d8778bcca8d31b3a3c80996709b5d4ab67c48398": {
+    "tex": "\\frac{\\left(\\right. B l \\left.\\right)^{2} \\upsilon_{o т н}}{2 R} = \\mu m g .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject64.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "6b68c252126cf577fa5b6b9552fb150de8bc0833ac1cd4b07169aecb7e2bd831": {
+    "tex": "\\upsilon_{o т н} = \\frac{2 \\mu m g R}{\\left(\\right. B l \\left.\\right)^{2}} = \\frac{2 \\cdot 0{,}1 \\cdot 0{,}1 \\cdot 10 \\cdot 0{,}1}{\\left(\\right. 1 \\cdot 0{,}1 \\left.\\right)^{2}} = 2",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject65.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "67971722a6345c670dbf4798cb5af38978855326afb5a8b97d31b9633b1657aa": {
+    "tex": "\\upsilon_{o т н} = 2",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject66.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "71d7c6f738dae9b290da30958254e53b12469956da6d36b632c7b3835f69c11f": {
+    "tex": "\\frac{m \\upsilon^{2}}{2} = q U ,",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject67.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "37d2e9fb74f9e9908e9e0828d33d01dc1356b7be79f523f7c36ce680baed7164": {
+    "tex": "\\upsilon",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject68.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "41b92507f8af194d724dcef4875c480f9a67bf57ec31dd72c586bf3bae80afdb": {
+    "tex": "q \\upsilon B = m \\frac{\\upsilon^{2}}{R} .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject70.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "7e4cf49b2d9fe62011f6be0d53f7108ff7e6d9074e05d4e21fc1a3db43779d92": {
+    "tex": "B = \\frac{1}{R} \\sqrt{2 U \\frac{m}{q}} = \\frac{1}{0{,}2} \\sqrt{2 \\cdot 10^{4} \\cdot 5 \\cdot 10^{- 7}} = 0{,}5",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject71.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "4653dd56c68fd0eb3e909bad8bfbfe83d80d60c1a623ebdf8a78d4c61aaf62ef": {
+    "tex": "F_{т p 1} - F = 0 .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject76.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "d44b0f63ab2e0bc9dabb800e0e5d303c3602a906712c72a4aa0319dfa1a3db36": {
+    "tex": "\\overset{\\rightarrow}{T} = \\overset{\\rightarrow}{T}_{1} + \\overset{\\rightarrow}{T}_{2}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject77.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "63711164998b26f9dc924e0fd2fcf65fd5842d6d58010a0722c022dff59174bf": {
+    "tex": "\\overset{\\rightarrow}{R} = \\overset{\\rightarrow}{N} + \\overset{\\rightarrow}{F}_{т p}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject78.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "f221273c59c43ba9d5fdda9985f8225e3a2ec1c263f7d1919a26c5dd04a5c299": {
+    "tex": "\\overset{\\rightarrow}{F}_{т p \\text{2}} = - \\overset{\\rightarrow}{F}_{т p 1}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject79.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "56f8934ee2df719106b928762a75013ac67ff2a0c1ed5e859a0e9c469d972183": {
+    "tex": "F_{т p \\text{2}} = F_{т p 1} = F .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject80.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "866ab6da8dcb42f67719fbbe0f19d5c45493685a3baa1c40dad4ddfd81f79cb4": {
+    "tex": "m g \\frac{L}{2} \\cos \\alpha - F_{т p \\text{2}} L \\sin \\alpha - N L \\cos \\alpha = 0 .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject81.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "a6137ec8de138c59cbd03ba42ef15189ad173316cea975260b8423d8cfa47d91": {
+    "tex": "F_{т p \\text{2}} = \\mu N .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject82.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "f20594586267b5e9d83a726ee173fd9c37379d23849aee052b1f0989931aa717": {
+    "tex": "m g \\cos \\alpha - 2 \\mu N \\sin \\alpha - 2 N \\cos \\alpha = 0",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject83.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "4ca3d11a8b6aa74a08194ad14a01ebdb222e35d7413e13af7b26dae3a0e2b288": {
+    "tex": "N = \\frac{m g}{2 \\left(\\right. 1 + \\mu \\tan \\alpha \\left.\\right)} .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject84.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "1e85c164ca98f5f808128db9351c0d4e3ff6f7c5b980a3454a5e64044b35f9ba": {
+    "tex": "F = F_{т p \\text{2}} = \\mu N = \\frac{\\mu m g}{2 \\left(\\right. 1 + \\mu \\tan \\alpha \\left.\\right)} = \\frac{0{,}2 \\cdot 1 \\cdot 10}{2 \\left(\\right. 1 + 0{,}2 \\cdot \\frac{\\sqrt{3}}{3} \\left.\\right)} \\approx 0{,}9",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В1.docx",
+    "ole": "embeddings/oleObject85.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "a089ba7fc9e2adb8b16e8a97096ae454c60fd0b618f411ca2665fbd4a3f58652": {
+    "tex": "t = 0",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject1.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "bc4b2892bfd43099051164a70b2721f5e7773b5f8af732ed756a566111452a4a": {
+    "tex": "\\overset{\\rightarrow}{\\upsilon}_{0} ,",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject2.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "559c5c99aedc8dffcb733df314ece30e3a38f817f7dc002c59add9d96939ec97": {
+    "tex": "\\upsilon_{x}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject3.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "a84a1969fc6f6f176e48d20bd54a0591a1898ff82714e2e202c26c2b60ea4a0b": {
+    "tex": "\\frac{p_{1}}{p_{2}}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject6.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "35eebf402e0516e1796859904f418f2b16968ffc3e52417cf29ad614246917a0": {
+    "tex": "m = 0{,}4",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject7.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "aca0c955f0fc837ecf8b126055877b035fc9e4dfaa8616e8c4690bec9d8a1f47": {
+    "tex": "\\overset{\\rightarrow}{F} .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject8.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "11f936c9f774f8ec826b237fa879d3318fc6b5359c4598e7cf992ff564a6b4d1": {
+    "tex": "\\alpha = 30 \\circ",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject9.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "098df76b3bcfdffe16c3ff79c1a33c1a7c939002c87f1916bf03067a127359a3": {
+    "tex": "0 \\leq F \\leq 10",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject10.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "55fabff9a8a99dfebcd610e22cd61a6783e857482d85bb22db9cbd33436bb879": {
+    "tex": "\\nu ,",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject11.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "ffdb9bfbac7b40d019e0d20ba13dc5258171e7cc422fc085c1ff755928d0bf05": {
+    "tex": "\\overset{\\rightarrow}{E} ,",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject12.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "03d9da812af9e8195fbef35c3aef0189633af0ddb8c15412289f1f6717642d3a": {
+    "tex": "m_{1} = 0{,}2",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject13.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "894d13ff03a1f5a4a5a05062cee0c189fa071afc0bd489bdfe872f36ae375124": {
+    "tex": "m_{2} = 0{,}3",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject14.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "36a3da5144238520f1d60aaef52bbba54ccbdfa30df4f529ba97c25c86f6d9e1": {
+    "tex": "l = 0{,}6",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject15.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "c395c9e23c2a7955bd276bcd6f41db28254c4c5b1c200b08eee833651f2c0c91": {
+    "tex": "m \\overset{\\rightarrow}{g}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject20.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "49ae673cc935463532a4805c48c762313a584f007417a4a7e6ae3e6ed04eb740": {
+    "tex": "\\overset{\\rightarrow}{T}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject21.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "2e20813001b562b84e1b89531860aaeffd6834a0bc1d06fad01cc1ef3962df40": {
+    "tex": "\\overset{\\rightarrow}{N}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject22.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "625beff1382d86cceca9a24e591d997b3e0773b9f202f3f2a08dbbd99d32a8dd": {
+    "tex": "m \\overset{\\rightarrow}{g}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject27.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "1e491085f295b69dfce1ccf03845bfc707d2e39d83dcd233508c4f6c5172424a": {
+    "tex": "N + T - m g = 0",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject30.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "f7f59d154889cf98c912386d43473e69e482f74ba62d100302aac89e01bec8c1": {
+    "tex": "N = m g - F \\geq 0",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject31.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "c5ce7e4d6c84427d693f50095e0520ea8e8cb3a13452265189212e15ed4d0031": {
+    "tex": "F \\leq m g = 4",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject32.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "652695ebfec00e221f812d2eae9ae0b155039b0ccf8ca65eb2f486a48ff34f88": {
+    "tex": "F > m g = 4",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject33.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "cb458bf019e7701320e63dcc253dfa54bf5ab3733ce6f5c74cc1726fcf972ef7": {
+    "tex": "\\overset{\\rightarrow}{T} ,",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject35.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "c2ff9fe1c5aa038a0d6ee170b8076ea4c23a69a8e72fcac589534adbaefab8d4": {
+    "tex": "N = m g - F ;",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject37.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "6f2b97d9cdd24445e475763c67f177926a1ea04394962be8f7a1c3f561ce88a4": {
+    "tex": "0{,}2 m \\cdot r = c m_{1} \\left(\\right. t_{0} - t \\left.\\right)",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject39.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "85eca9c249c3e1f4d39780f316a6c2f9f47adc190ec5139d661c0ba66f0bd7b4": {
+    "tex": "m = \\frac{c m_{1} \\left(\\right. t_{0} - t \\left.\\right)}{0{,}2 r} = \\frac{500 \\cdot 0{,}165 \\cdot 40}{0{,}2 \\cdot 3{,}3 \\cdot 10^{5}} = 0{,}05",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject40.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "a814bb3e0a8f430591fdcb9486b1c2d7f79dd3a4347d8f64717aa71d4d8d0920": {
+    "tex": "m = 0{,}05",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject41.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "df9b767e448c4b88552f65521c6b19cb7df19cae02544b2f31c182201839000b": {
+    "tex": "m g = q E .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject42.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "de508db600133bba7591caf0761b886ca6bf5991c8fe52e69721fe1d0cf81c7e": {
+    "tex": "\\frac{\\Delta \\varphi}{d}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject43.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "bf972996a7fb520fc1f8132c72e53184d8d9906cce6e7fb8679e8a1c0326e8e9": {
+    "tex": "m = \\rho V ,",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject44.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "b719bbe6574eac9810e641794bf295500529d3c792c5328b25d56f3cddb070d5": {
+    "tex": "\\rho",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject45.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "9d424d3cfedc02022040969f7420522da86368590bdc752ea31184830847ecf5": {
+    "tex": "V",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject46.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "28e1417b4911f32e271ea7050cbdb817010f85e8a7657fb6c485d44f5061f384": {
+    "tex": "\\Delta \\varphi = \\frac{\\rho V g d}{q} = \\frac{13600 \\cdot 2 \\cdot 10^{- 18} \\cdot 10 \\cdot 0{,}02}{5{,}44 \\cdot 10^{- 18}} = 1000 В = 1 к В",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject47.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "2c81a3892733e959dd9d9de264231bbf54c20b8308ebc1ae1327992a7724be13": {
+    "tex": "\\Delta \\varphi",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject48.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "f906326610bee6c4c34872c8ad3e7931efcdd0431723e93c5eb10c0d32d78772": {
+    "tex": "F_{1} - F_{0} - F_{у \\pi p} = 0",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject55.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "6711ffccc408964bb8582901d5a56c554cb439865a02478ef5bd49ea6facae52": {
+    "tex": "F_{1} = p \\left(\\right. x \\left.\\right) S = F_{0} + F_{у \\pi p} = p_{0} S + k x ,",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject56.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "f2a07d40075a18943202c4fb5932b6e66b480d74f2ece96f2f83ae120574e905": {
+    "tex": "p \\left(\\right. x \\left.\\right) = p_{0} + \\frac{k x}{S}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject57.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "906fae7af7f9031dcfacdcb8c2fa2bad39b518461d809d52985c5cb36c47172b": {
+    "tex": "\\left{\\right. p V = \\nu R T , \\\\ U = \\frac{3}{2} \\nu R T .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject58.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "d7f5089a059e5a0c48a46c2c18d8fcb85609317991269d3a99916101065a4428": {
+    "tex": "U = \\frac{3}{2} p V .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject59.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "9eea62a2a18d08d462874e952dd3c9c183681984c9d2e70b55121380df563a06": {
+    "tex": "U_{1} = \\frac{3}{2} p_{0} S L",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject60.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "a1fd44befb3ee0c3b7bee1ca9e07d44cdc6bd6a7c401d6da368a621fed674ab9": {
+    "tex": "U_{2} = \\frac{3}{2} p \\left(\\right. b \\left.\\right) \\cdot S \\left(\\right. L + b \\left.\\right) = \\frac{3}{2} \\left(\\right. p_{0} + \\frac{k b}{S} \\left.\\right) S \\left(\\right. L + b \\left.\\right)",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject61.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "fa658faac865ec1edc5adc756d2380cb3025fddcd586dac7f56af6c464182275": {
+    "tex": "Q = U_{2} - U_{1} + A_{12}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject62.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "f3a2314da54e80eff1265a4efd335bab41f3c2997f20da171325d9fa17e28fa2": {
+    "tex": "A_{12} = \\frac{1}{2} \\left[\\right. p \\left(\\right. 0 \\left.\\right) + p \\left(\\right. b \\left.\\right) \\left]\\right. S b = \\left(\\right. p_{0} S + \\frac{k b}{2} \\left.\\right) b",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject63.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "3dc22585d075d9b0924d4c00710206363bfca79bbc5a7357d53b9eb821e17bc0": {
+    "tex": "Q = \\frac{3}{2} \\left(\\right. p_{0} S + k b \\left.\\right) \\left(\\right. L + b \\left.\\right) - \\frac{3}{2} p_{0} S L + \\left(\\right. p_{0} S + \\frac{k b}{2} \\left.\\right) b = \\frac{3}{2} k b L + \\frac{5}{2} p_{0} S b + 2 k b^{2}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject64.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "ffd117b4720e31d6e94ac8950d71801c8b1726c31ab9ac8b4ed345b8fa234e77": {
+    "tex": "k = \\frac{2 Q - 5 p_{0} S b}{3 b L + 4 b^{2}}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject65.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "3d720b5744e01a387c225b8cbb6d86ff4020a34f693114dfb2100654fdd16517": {
+    "tex": "\\mathcal{E} = B V l",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject67.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "93d1556afc97996e9bb4ee62aaceb7a6f31aca600bb153da6e0b9120eb0ff41c": {
+    "tex": "B",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject68.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "8efd55317b4d06b50dfb73eb01dc67972a58513d6bd00f7ff881764be6f29353": {
+    "tex": "l",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject70.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "4410b390d5bad3ca9549d70bda2c8ffda287a127ba79e1fa2f24c11842480b1a": {
+    "tex": "I_{и н д} = \\frac{\\mathcal{E}}{R} = \\frac{B V l}{R}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject71.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "cc6d22133c87dcc891d9a3c165fd86e8e3c85ee9c490802d517af49a753d4319": {
+    "tex": "R",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject72.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "fedb86a50900edc70bbed430248872458fb557d0773cda69f7452a6940b64d1a": {
+    "tex": "F_{\\text{A}} = B I_{и н д} l =",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject73.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "d034b370886842ea822f0bd2f4fee37b338011d79daf7d7b3733cd2d241b768a": {
+    "tex": "\\frac{B^{2} l^{2} V}{R}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject74.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "0dae6972c85eeff7ee2c14fa1448bc7348c63a4115727415c021ed2f0a46c0c7": {
+    "tex": "m \\overset{\\rightarrow}{g} ,",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject75.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "9f1664bb32dc3c54dffbd570675b8b5a37ba651692d50815c82c413a01213989": {
+    "tex": "\\overset{\\rightarrow}{N} ,",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject76.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "ab1ef06dad13b6d3b8acb9030cc9f04a21948af6439cbb5f8b9562e05b9d70a5": {
+    "tex": "\\overset{\\rightarrow}{F}_{т \\text{p}} ,",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject77.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "5ddc7f0d6d73b1009b90da331f48ce34c46b3aac7732c492ff22430275bd6b4a": {
+    "tex": "\\overset{\\rightarrow}{F}_{\\text{A}}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject78.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "0f02dde08bb6f8d4c8c56de2e344b380d93f86a4943adda2f72b0d12adaf4378": {
+    "tex": "\\overset{\\rightarrow}{F} ,",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject79.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "20c66a88e49a024c3b7db88823b05f22e6bea718dd79312b302ebefa2e12090e": {
+    "tex": "O x : 0 = F - F_{т \\text{p}} - F_{\\text{A}} ;",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject80.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "7d2d67d61fa3dce6de50f7008297aae88924750e68bd7b0bf76c48fe82ede677": {
+    "tex": "O y : 0 = N - m g .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject81.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "40b30823d270a6e4bbf174603f87c39f3e63174b490b3e22f20af946bb42e8c1": {
+    "tex": "F_{т \\text{p}} = \\mu N = \\mu m g .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject82.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "b5b9b5b78655dcdca5e81650c0ed8fde5bdb31a9fe18201306b6fb3481cbad2e": {
+    "tex": "V = \\frac{\\left(\\right. F - \\mu m g \\left.\\right) R}{\\left(\\left(\\right. B l \\left.\\right)\\right)^{2}}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject83.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "ecebea25b8230eed29b0b3b1fc6d49a91f16ed73b3d4e6744954807c4598d74e": {
+    "tex": "\\frac{\\left(\\right. 1{,}13 - 0{,}25 \\cdot 0{,}092 \\cdot 10 \\left.\\right) \\cdot 0{,}1}{\\left(\\left(\\right. 0{,}15 \\cdot 1 \\left.\\right)\\right)^{2}}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject84.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "2228a7f0fd20f52c1b5de74e6fcac7909c55d277c580c8f9a6dfbf5d5c6717fe": {
+    "tex": "V = 4",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject85.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "0e82116a5b6b4090842d68f6fbcf89f2c3082257a03628ef52f8cb3fa2ec5ad0": {
+    "tex": "h \\nu = A_{в ы x .} + \\frac{m \\upsilon_{m a x}^{2}}{2} .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject88.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "7492a6add1efe336c0c391b1b82b1efcd49a40b1af0a0f4213773000aebcd423": {
+    "tex": "\\frac{m \\upsilon_{m a x}^{2}}{2} - e \\varphi_{1} = - e \\varphi_{2} ,",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject90.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "9df371717f855ec5dc7c4ef0ce1a8521665242c0dd3607f8358e98cf8428356f": {
+    "tex": "\\varphi_{2} - \\varphi_{1} = - U < 0",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject91.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "abae4439243bee90982c5620cd7bf58dbed6185653f12cf931a51ac4b40b603a": {
+    "tex": "\\frac{m \\upsilon_{m a x}^{2}}{2} = e U = e E d ,",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject92.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "ba801a6f19d20338984210facfb475747699c109baf0d5a6bc03de7722b8e607": {
+    "tex": "\\nu = \\frac{A_{в ы x .} + e E d}{h} = \\frac{1{,}89 \\cdot 1{,}6 \\cdot 10^{- 19} + 1{,}6 \\cdot 10^{- 19} \\cdot 100 \\cdot 8{,}7 \\cdot 10^{- 3}}{6{,}6 \\cdot 10^{- 34}} \\approx 6{,}7 \\cdot 10^{14} Г ц .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject93.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "b8c5b6de61fbc054701c5b8a7be0ef35e411fe060a566418c931970d3c47386f": {
+    "tex": "\\nu \\approx 6{,}7 \\cdot 10^{14} Г ц",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject94.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "adedda8889ecfba1ebb5b1c532db5a33e0c44e586333ffc5c38f975e9f4b2e52": {
+    "tex": "m_{1} \\overset{\\rightarrow}{g}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject98.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "a7b25171013c5e081c6a35416c54e541bb8a7c8932a8cce347541338dfe3ed4b": {
+    "tex": "m_{2} \\overset{\\rightarrow}{g} ,",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject99.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "31673113ed0566599ba272578947d8d166fc4903853f16fd3bebcd6bd269041b": {
+    "tex": "\\overset{\\rightarrow}{N}_{1}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject100.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "af743cf6deae415121675f9f12e6da5b9eae3b8bf3ed5ca4785aeabe87c9785e": {
+    "tex": "\\overset{\\rightarrow}{N}_{2} .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject101.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "19ae811530b65a012de2e25b9748ffb7a9df08125a830d37b4ba114ff71efd4d": {
+    "tex": "N_{2} = 2 N_{1}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject102.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "c5794af5605cff798c8fc8415bdd00f330ebdc1109766aff53a667456fb7f421": {
+    "tex": "\\left{\\right. \\begin{matrix}N_{1} + N_{2} - m_{1} g - m_{2} g = 0 - ц е н т p м a с с н е д в и ж е т с я в д o л ь o с и O y ; \\\\ N_{1} x + N_{2} \\left(\\right. l + x \\left.\\right) - m_{2} g L = 0 - н е т в p a щ е н и я в o к p у г o с и , \\pi p o x o д я щ е й\\end{matrix} \\\\ \\pi е p \\pi е н д и к у л я p н o p и с у н к у ч е p е з т o ч к у A .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject103.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "0b2522a42a7e6d6b51d4661191202e6ea30a6d12dbd851daf83e53584009bce5": {
+    "tex": "x = A C = 0{,}2",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject104.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "c572e388c6c6f7eb45ef0a31ff09fdec5c75ca64595025d5bdd60bca04a10458": {
+    "tex": "\\left{\\right. 3 N_{1} = \\left(\\right. m_{1} + m_{2} \\left.\\right) g ; \\\\ \\left(\\right. 3 x + 2 l \\left.\\right) N_{1} = m_{2} g L .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject106.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "3257a0ec1c79cc8a4dd8aa5305482f2cf7fbce7ed172acd0be3d9d27fd66b7f2": {
+    "tex": "L \\frac{m_{2}}{m_{1} + m_{2}} = x + \\frac{2}{3} l ,",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject107.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "e4b9f2e5d4c40d892d40050997079b80f2430cff060568180caa770191bc9c82": {
+    "tex": "L = \\left(\\right. 1 + \\frac{m_{1}}{m_{2}} \\left.\\right) \\cdot \\left(\\right. x + \\frac{2}{3} l \\left.\\right) = \\left(\\right. 1 + \\frac{0{,}2}{0{,}3} \\left.\\right) \\cdot \\left(\\right. 0{,}2 + \\frac{2}{3} \\cdot 0{,}6 \\left.\\right) = 1 м .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject108.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "170b96c8dee8b09927e696fb0553c71195ebb7a3d8f906bb661ed39b79aa4028": {
+    "tex": "L = 1 м",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В2.docx",
+    "ole": "embeddings/oleObject109.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "4f8650b5900923549651c3203f5d0c752982a2d6041fab0411512776ffeb8167": {
+    "tex": "\\upsilon ,",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject1.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "c6a18680dc78a66bf3688cb1607ae41583a27d1b273915be1ebc95c038293863": {
+    "tex": "\\mu g \\upsilon",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject2.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "07f3c8af22ccbdfb0b970861e1d5817be0c50e5e1b1d5c107d6c7d22cd824309": {
+    "tex": "\\frac{m \\upsilon^{2}}{2 \\mu g}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject3.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "5a4802e88e1eaa560134e8b605bdbc7ceb339ae900b5d78496157008869e9a20": {
+    "tex": "\\frac{\\upsilon}{\\mu g}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject4.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "8b724fcc837759e7fcae34aff600eb2685da4fe537c735aab77c02b363a5db12": {
+    "tex": "\\frac{m \\upsilon^{2}}{2}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject5.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "66904a79dc3370ad1911d5de21a14b7425022b8f8e42de14b4ec96ec4aa940c8": {
+    "tex": "\\frac{F_{\\text{1} }}{F_{\\text{2}}}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject6.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "7af03bc3ab1d0f24ea8ec625ce29a9db85e73d883d81114cf012c48a3ae9ed3c": {
+    "tex": "N = N_{0} \\cdot 2^{- \\lambda t} ,",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject7.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "a71bbf66fd60b0014dd8471812ca953115e1561660b980723f723c5c702c1f53": {
+    "tex": "\\mathcal{E} = 10",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject8.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "01eb015de648001d291ceb80530678f9baa12c83e8a486b4479e269d82b586f1": {
+    "tex": "r = 0{,}4",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject9.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "2209e7fcfa23712a45404c2d81ba17dedecfbe97dcae2b1ca0342d7c7cc15e84": {
+    "tex": "R_{1} = 4",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject10.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "a7f3c854572a81a5e296d56f0cae1cef861699fea36e4668e515041a018e8729": {
+    "tex": "R_{2} = 6",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject11.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "ab1c4edc3f8739a45e79becd4145fa1bc088aa655216de74e1d39e965692ed40": {
+    "tex": "W = 60",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject12.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "48cf4c11de145f6e1bf18bbff26ada936303f21ad1a5c23d5226fa22690e156a": {
+    "tex": "\\overset{\\rightarrow}{B}_{23} = \\overset{\\rightarrow}{B}_{2} + \\overset{\\rightarrow}{B}_{3}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject13.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "76c99e810ed610b9421b1a48b64b8a528203735abc11106f810e5f0ac52b2d80": {
+    "tex": "\\overset{\\rightarrow}{B}_{2}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject14.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "dfa7ab94236fa8b2739121f5ee8547d53027770346e182f70e61f48e0f5b9076": {
+    "tex": "\\overset{\\rightarrow}{B}_{3}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject15.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "3fc1204ee632ec9880c79f749aac5fbaff1b5df462a627af62ae418d27e77c31": {
+    "tex": "\\left|\\right. \\overset{\\rightarrow}{B}_{2} \\left|\\right. = \\left|\\right. \\overset{\\rightarrow}{B}_{3} \\left|\\right. = B",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject16.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "94fdc2afc1912c165d1dc2fae3e11a7116ebbb4a8d77cc54281827f16e9eba92": {
+    "tex": "\\alpha = 30^{o}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject19.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "c6d6138b9ceb2dea920df82f28e567e2aae1cac7ef8ff6eff462e0d2f32bc577": {
+    "tex": "\\overset{\\rightarrow}{B}_{23}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject20.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "46fd5c27e3f5b358d1b61ff76ee5e697b0e096d61c79f3e779b87109c02f04fa": {
+    "tex": "\\overset{\\rightarrow}{F}_{A 1}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject22.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "8c388c750ff8f52264890440d4c284b2fa02787fe89dbcd5a4e26f72f87d5777": {
+    "tex": "\\frac{k A^{2}}{2} = \\frac{m V^{2}}{2} \\\\",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject23.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "758d3bbe58641be9ef57615f0f3890ce41306141abcbae988cfd3a6d04e63495": {
+    "tex": "V = A \\sqrt{\\frac{k}{m}} = 0{,}1 \\sqrt{\\frac{200}{2}} = 1",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject24.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "db9c63aec6b564526393d326d7130a2babc13127bd8234bf6b53265c82305d29": {
+    "tex": "V = 1",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject25.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "6d2761919751a1a3b199029be66bab6265a013f5f895280e3d01c31e64715baa": {
+    "tex": "F_{1} - F_{0} - M g = 0",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject32.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "03a21c1aaee148d3e0d52facc88b4e6abb25baed8f257a3496560e8e7560dced": {
+    "tex": "p_{1} S - p_{0} S - M g = 0",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject33.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "1acd7b10edcf2c082c51e59f095e8b60d9c7dc7f1a7e42f41e4e774965c920a3": {
+    "tex": "p_{1} = p_{0} + \\frac{M g}{S}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject34.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "f772c02b87a3e59a642c97858ad8333f095b7d0564a8a15e22605fe5abd3bd82": {
+    "tex": "U = \\frac{3}{2} p V",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject36.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "84662c688c22d60b7d3a745328cf88e57dd36eca32be2c7c24c619ac3f838a19": {
+    "tex": "U_{0} = \\frac{3}{2} p_{0} S h",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject37.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "fc3bc0ec2947d0d1e42c61e118fe7a24559df272820a86249769d99c7aced4e7": {
+    "tex": "U_{1} = \\frac{3}{2} p_{1} S H = \\frac{3}{2} \\left(\\right. p_{0} S + M g \\left.\\right) H .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject38.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "5f044259d77b5db05b9b52a2e545ae81dca477b440556e3d3dddf758566b7ba1": {
+    "tex": "Q = U_{1} - U_{0} + p_{1} \\Delta V = U_{1} - U_{0} + p_{1} S \\left(\\right. H - h \\left.\\right)",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject39.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "09d2cc47036c23672f52b05605b02ba957ed3f6ac7d642cac3b9ae8eecc880b3": {
+    "tex": "Q = \\frac{3}{2} \\left(\\right. p_{0} S + M g \\left.\\right) H - \\frac{3}{2} p_{0} S h + \\left(\\right. p_{0} S + M g \\left.\\right) \\left(\\right. H - h \\left.\\right) = \\\\ = \\frac{3}{2} M g h + \\frac{5}{2} \\left(\\right. M g + p_{0} S \\left.\\right) \\cdot \\left(\\right. H - h \\left.\\right)",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject40.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "76a32777009c734248e3ab60a244dc3a8bcb97d171310328031f5f21712b11a3": {
+    "tex": "Q = \\frac{3}{2} M g h + \\frac{5}{2} \\left(\\right. M g + p_{0} S \\left.\\right) \\cdot \\left(\\right. H - h \\left.\\right)",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject41.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "6002705b3b5f9d8ed18502c2f01c4953fac8a80632cdb67bbad8040c50ff9316": {
+    "tex": "I = \\frac{\\mathcal{E}}{r + R_{0}}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject47.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "ad494167703eb15bf30a0ac3833ecaada3d0d705a7e8713af4882037166c6f8e": {
+    "tex": "R_{0} = \\frac{R_{1} R_{2}}{R_{1} + R_{2}}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject48.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "e32d48189c69cde0e9c9e4e3cd0234b95bcf332004fe977cf154b2f93e5bc7bf": {
+    "tex": "U = I R_{0} = \\frac{\\mathcal{E} R_{0}}{r + R_{0}} = \\frac{\\mathcal{E} R_{1} R_{2}}{r \\left(\\right. R_{1} + R_{2} \\left.\\right) + R_{1} R_{2}}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject49.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "719af28a67b4f8472129e683b87ce063293d46f517e27e21c8810c09debd04b2": {
+    "tex": "W = \\frac{C U^{2}}{2} = \\frac{C}{2} \\left(\\right. \\frac{\\mathcal{E} R_{1} R_{2}}{r \\left(\\right. R_{1} + R_{2} \\left.\\right) + R_{1} R_{2}} \\left.\\right)^{2}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject50.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "688a77c9acb50c6e9a54897375ef27fe5354c6aa909c8d0bed67a6710e10fd9b": {
+    "tex": "C = 2 W \\left(\\right. \\frac{r \\left(\\right. R_{1} + R_{2} \\left.\\right) + R_{1} R_{2}}{\\mathcal{E} R_{1} R_{2}} \\left.\\right)^{2} = 120 \\cdot 10^{- 6} \\cdot \\left(\\right. \\frac{0{,}4 \\cdot 10 + 24}{24 \\cdot 10} \\left.\\right)^{2} \\approx 1{,}6 \\cdot 10^{- 6}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject51.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "6e47297b8709769474d820e8a07fd5722e0fdee390ed1ffa0db27333e59d1c95": {
+    "tex": "C \\approx 1{,}6",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject52.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "98b65509adc8ffa09580666610ecb1d846149f8a6d6c405fe36684b5700131ae": {
+    "tex": "\\left|\\right. p_{\\Sigma} \\left|\\right. = \\left|\\right. \\Delta p \\left|\\right. = \\left|\\right. N \\left(\\right. \\overset{\\rightarrow}{p}^{'} - \\overset{\\rightarrow}{p} \\left.\\right) \\left|\\right. = 2 N \\frac{h}{\\lambda} ,",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject53.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "6520fd085921ef205ac5dda698e408bc47bf36a6286efa6b21c8817e94aa5394": {
+    "tex": "\\overset{\\rightarrow}{p}^{'} = - \\overset{\\rightarrow}{p}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject54.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "00e843eee794dc322fab0df3e4b62ba5d1930da068e861905066b2291e868996": {
+    "tex": "\\overset{\\rightarrow}{p} , \\overset{\\rightarrow}{p}^{'}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject55.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "3ea20eb89286ae4826a1a3d60ec0cd17db1cc32254cf900be5e6b960f2a0a245": {
+    "tex": "p = \\frac{h}{\\lambda}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject56.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "59eaa7711d0c89bf5f5a18c654f815455be30cfe490c4a37e539e8b85c62b932": {
+    "tex": "N = \\eta N_{0}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject57.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "df7728144c255632295f6bab9b80ca8c3c2009bf0aa518a7c1382c656554d339": {
+    "tex": "\\eta = 0{,}7",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject58.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "9325351b4b3ad5001752afe54f31434e18136bb0a056f51627ad3b884e2ae03e": {
+    "tex": "F = \\frac{\\left|\\right. p_{\\Sigma} \\left|\\right.}{t} ,",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject59.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "bd8fbf0aa3566f20727c887b1a4917030df1352c8536492fa14f98c5854f7c30": {
+    "tex": "P = \\frac{F}{S} ,",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject60.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "c99e143890d0625aeb584417fa22ce19ef2ab0cf9035672788c31e506e544e75": {
+    "tex": "P = \\frac{2 N_{0} \\eta h}{S t \\lambda} .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject61.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "fdee1dd24cf96d79dfef2ad01697732eecac617305f69575709ed4f6b8c525a1": {
+    "tex": "N_{0} = n S c t ,",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject62.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "d898802f516e44ba88aaf6a3b6f6704f565da04cfcac8b3b46b33b58eda344cd": {
+    "tex": "n = \\frac{P \\lambda}{2 \\eta c h} = \\frac{1{,}26 \\cdot 10^{- 6} \\cdot 1{,}1 \\cdot 10^{- 10}}{2 \\cdot 0{,}7 \\cdot 3 \\cdot 10^{8} \\cdot 6{,}6 \\cdot 10^{- 34}} = 5 \\cdot 10^{8} м^{- 3} .",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject63.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "78c2dbedcb82c5a039c104b9ffb6df66eb04864375537e2b45c8e53f4dc8060b": {
+    "tex": "n = 5 \\cdot 10^{8}",
+    "source": "Материалы\\ЕГЭ от Демидовой\\От Демидовой до 2023 года\\2023 В3.docx",
+    "ole": "embeddings/oleObject64.bin",
+    "method": "MathType MTEF conversion; source visual review pending"
+  },
+  "a2f07825780b94e7e229426e5a86457cc7a02b592335c7cb54583528ab5f2879": {
+    "tex": "\\vec B",
+    "source": "2023 В1 №28 image 6",
+    "method": "visually transcribed from source image or rendered PDF"
+  },
+  "15e9488c24a1b05f2edea06a201d746e6179f4c392cd4dec79b3e8616eeb7ba5": {
+    "tex": "\\frac{m}{q}=5\\cdot10^{-7}",
+    "source": "2023 В1 №28 image 7",
+    "method": "visually transcribed from source image or rendered PDF"
+  },
+  "525a44bbf7bba8ef09712f57359090fc88f4909413a7f507d8d097a4785600aa": {
+    "tex": "\\frac{\\mathcal E^2}{2R}",
+    "source": "2023 В2 №17 image 1",
+    "method": "visually transcribed from source image or rendered PDF"
+  },
+  "9edf271f0da9aa6d40b63ccce307173ba509d49bfdc645553f78336d0dae06db": {
+    "tex": "\\frac{\\mathcal E^2}{R}",
+    "source": "2023 В2 №17 image 2",
+    "method": "visually transcribed from source image or rendered PDF"
+  },
+  "3b4692da7b25bfa3d092bc789cff016798a3a7b54f4a04acd26b69e9fc6143b7": {
+    "tex": "\\frac{2\\mathcal E^2}{R}",
+    "source": "2023 В2 №17 image 3",
+    "method": "visually transcribed from source image or rendered PDF"
+  },
+  "b4cb426ab5cb0d5482b5f4975b1b260badd08f87c8c3ede066d8faa99b201f4c": {
+    "tex": "\\frac{\\mathcal E^2}{4R}",
+    "source": "2023 В2 №17 image 4",
+    "method": "visually transcribed from source image or rendered PDF"
+  },
+  "d13833774020a5f1739ea96b860a0f0852d9402d18dd51db6d74cbb760ac20a7": {
+    "tex": "\\vec F_1",
+    "source": "2023 В2 №27 image 1",
+    "method": "visually transcribed from source image or rendered PDF"
+  },
+  "c50909a803c900af6e6ebc2b2a9907eb18222eb45f03267c95cbce600127eb70": {
+    "tex": "\\vec F_0",
+    "source": "2023 В2 №27 image 2",
+    "method": "visually transcribed from source image or rendered PDF"
+  },
+  "d003ff803f1e0eac7a7a143cbd285b94f5307ba9d02ed966a574f5ac3e835314": {
+    "tex": "\\vec F_{\\text{упр}}",
+    "source": "2023 В2 №27 image 3",
+    "method": "visually transcribed from source image or rendered PDF"
+  },
+  "56ae7094fefc84fe0950df71a57ff7471bcd6d3baab2d08a529f2d5b49b64500": {
+    "tex": "\\frac{U^2}{R}",
+    "source": "2023 В3 №17 image 1",
+    "method": "visually transcribed from source image or rendered PDF"
+  },
+  "b6dbe8ff4ae60402ca7da260e1178149ebc4d9e7a88fd3bf77a9ee1b551c75b9": {
+    "tex": "\\vec F_0",
+    "source": "2023 В3 №27 image 2",
+    "method": "visually transcribed from source image or rendered PDF"
+  },
+  "674a65de4971a5ba45b35dcfb6c510e917a6c8e6d043659a540bc7d4faa5814c": {
+    "tex": "M\\vec g",
+    "source": "2023 В3 №27 image 3",
+    "method": "visually transcribed from source image or rendered PDF"
+  },
+  "8cd39fa4cfaa0662fd3c3f72968bb9a92422752c33bc9ca36eae41e4f4f07352": {
+    "tex": "h=4",
+    "source": "2023 В3 №30 image 1",
+    "method": "visually transcribed from source image or rendered PDF"
+  },
+  "96ba99644256c96617f2c73763d7ce5cedc8d3d460c5d0b8b78cc186b5cdb928": {
+    "tex": "H=\\sqrt{l^2-4R^2}=\\sqrt{0{,}1^2-4\\cdot0{,}04^2}=0{,}06\\,\\text{м}",
+    "source": "2023 В3 №30 image 2",
+    "method": "visually transcribed from source image or rendered PDF"
+  },
+  "6ddfe74e4e85d047d427fa0963261fc56abac704699e0e670a43caf2539922a2": {
+    "tex": "\\rho_{\\text{ж}}",
+    "source": "2023 В3 №30 image 3",
+    "method": "visually transcribed from source image or rendered PDF"
+  },
+  "65f7b30a9fdabd17e8308877fc8f2115ce9bb42f170e20c71a678503b9baa0b1": {
+    "tex": "\\vec F_1",
+    "source": "2023 В3 №30 image 4",
+    "method": "visually transcribed from source image or rendered PDF"
+  },
+  "33047735cb10e056fbd4f96d7376f41946fd12a1adf214cab54b89c0b249d1d9": {
+    "tex": "\\vec F_2",
+    "source": "2023 В3 №30 image 5",
+    "method": "visually transcribed from source image or rendered PDF"
+  },
+  "9dc3503db3d6dfacf2cbfffc0664642d5dcf1940ad129bca12ef320b2ceadda2": {
+    "tex": "\\operatorname{ctg}\\alpha=\\frac{2R}{H}",
+    "source": "2023 В3 №30 image 6",
+    "method": "visually transcribed from source image or rendered PDF"
+  },
+  "36d4095b61c0e2598b049dd8c10a55daa0b5c7de67de6f82a61e7fedc10db730": {
+    "tex": "N=mg\\frac{R}{H}-F_{\\text{Арх}}\\frac{h}{2H}\\operatorname{ctg}\\alpha=mg\\frac{R}{H}\\left(1-\\frac{\\rho_{\\text{ж}}}{\\rho}\\left(\\frac{h}{H}\\right)^2\\right)=",
+    "source": "2023 В3 №30 image 7",
+    "method": "visually transcribed from source image or rendered PDF"
+  },
+  "c594efb61a052542b05bd0405e23eb7a1a01e1784294c0b8f6dc67231032e832": {
+    "tex": "9\\cdot10^{-4}\\cdot10\\cdot\\frac{0{,}04}{0{,}06}\\left(1-0{,}75\\cdot\\frac{0{,}04^2}{0{,}06^2}\\right)=4\\cdot10^{-3}\\,\\text{Н}",
+    "source": "2023 В3 №30 image 8",
+    "method": "visually transcribed from source image or rendered PDF"
+  },
+  "b8e9c4382f3c70736a6aca42f646472d53ee29ac5edf43c4f525d09337c1a91e": {
+    "tex": "F=4\\cdot10^{-3}\\,\\text{Н}",
+    "source": "2023 В3 №30 image 9",
+    "method": "visually transcribed from source image or rendered PDF"
+  }
+}

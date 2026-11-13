@@ -32,12 +32,14 @@ def load_plan() -> dict:
 
 
 def load_tasks(con: sqlite3.Connection, target_year: int) -> list[dict]:
-    tasks = [dict(row) for row in con.execute("""SELECT p.id,p.variant_id,p.problem_number,
+    tasks = [dict(row) for row in con.execute("""SELECT p.id,p.variant_id,
+        CASE WHEN v.exam_year=2023 THEN r.target_problem_number ELSE p.problem_number END AS problem_number,
+        p.problem_number AS source_problem_number,
         p.statement,p.extraction_status,v.exam_year,v.variant_number,
         v.is_official_demo,r.verdict
         FROM problems p JOIN variants v ON v.id=p.variant_id
         LEFT JOIN relevance r ON r.problem_id=p.id AND r.exam_year=?
-            AND r.target_problem_number=p.problem_number
+            AND (v.exam_year=2023 OR r.target_problem_number=p.problem_number)
         WHERE p.alternative_number=1 ORDER BY v.exam_year DESC,v.variant_number,p.problem_number""",
         (target_year,))]
     for task in tasks:

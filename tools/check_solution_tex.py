@@ -32,7 +32,7 @@ process.stdout.write(JSON.stringify(errors));
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--field", choices=("solution", "criteria"), default="solution")
+    parser.add_argument("--field", choices=("statement", "solution", "criteria"), default="solution")
     field = parser.parse_args().field
     node = shutil.which("node")
     if not node:

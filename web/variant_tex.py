@@ -74,6 +74,15 @@ def statement_tex(value: str, figures: dict[str, Path]) -> str:
         raw_rows = [row.strip() for row in re.split(r"\\\\\s*(?:\n|$)", match.group(1)) if row.strip()]
         cells = [re.split(r"(?<!\\)&", row) for row in raw_rows]
         width = max((len(row) for row in cells), default=1)
+        if width >= 12:
+            spec = "|l|" + "c|" * (width - 1)
+            output.append(r"\par\smallskip\noindent\begingroup\scriptsize"
+                          r"\resizebox{\linewidth}{!}{\begin{tabular}{" + spec + r"}\hline")
+            for row in cells:
+                output.append(" & ".join(hybrid(cell.strip(), figures) for cell in row) + r"\\\hline")
+            output.append(r"\end{tabular}}\endgroup\par\smallskip")
+            cursor = match.end()
+            continue
         wide = width >= 8
         first = r">{\raggedright\arraybackslash}p{.14\linewidth}" if wide else "X"
         spec = "|" + "|".join([first] + ["X"] * (width - 1)) + "|"
@@ -89,12 +98,14 @@ def statement_tex(value: str, figures: dict[str, Path]) -> str:
 
 def answer_macro(problem: dict) -> str:
     number = int(problem["problem_number"])
-    if number >= 21:
-        return ""
     kind = problem["answer_format"]
+    if kind in ("qualitative", "worked_solution"):
+        return ""
     if kind == "number_pair":
         return r"\PairAnswer"
     if kind == "matching":
+        if problem.get("exam_year") == 2023 and number == 21:
+            return r"\MatchingAnswerThree"
         return r"\MatchingAnswer"
     if kind == "multiple_choice":
         return r"\AnswerBoxes{2}" if number == 20 else r"\AnswerLine"
@@ -175,8 +186,8 @@ def render_material_problem(problem: dict, document: str, figures: dict[str, Pat
 def compose(problems: list[dict], title: str, year: int, assets_root: Path,
             formulas_root: Path, document: str = "conditions") -> tuple[str, dict[str, Path]]:
     numbers = [int(problem["problem_number"]) for problem in problems]
-    if numbers != list(range(1, 27)):
-        raise ValueError("Нужны ровно 26 заданий: по одному на каждый номер от 1 до 26")
+    if numbers not in (list(range(1, 27)), list(range(1, 31))):
+        raise ValueError("Нужны задания с последовательными номерами 1–26 или 1–30")
     if document not in ("conditions", "answers", "solutions", "criteria"):
         raise ValueError("Неизвестный вид печатного материала")
     field = {"conditions": "statement", "answers": "answer", "solutions": "solution",
@@ -198,14 +209,17 @@ def compose(problems: list[dict], title: str, year: int, assets_root: Path,
                 figures[f"formula/{sha}"] = source
     if document == "conditions":
         template = (TEX_DIR / "variant.tex").read_text(encoding="utf-8")
+        if len(problems) == 30:
+            template = (template.replace("26 заданий", "30 заданий")
+                        .replace("1--20", "1--23").replace("21--26", "24--30"))
         reference = (TEX_DIR / "reference.tex").read_text(encoding="utf-8")
         rendered = [render_problem(problem, figures) for problem in problems]
         content = (template.replace("%<PHYS_EGE_META>",
                                     r"\renewcommand{\VariantTitle}{" + escape(title) + "}\n" +
                                     r"\renewcommand{\VariantYear}{" + str(year) + "}")
                    .replace(r"\input{reference.tex}", reference)
-                   .replace("%<PHYS_EGE_PART_ONE>", "\n".join(rendered[:20]))
-                   .replace("%<PHYS_EGE_PART_TWO>", "\n".join(rendered[20:])))
+                   .replace("%<PHYS_EGE_PART_ONE>", "\n".join(rendered[:23 if len(problems) == 30 else 20]))
+                   .replace("%<PHYS_EGE_PART_TWO>", "\n".join(rendered[23 if len(problems) == 30 else 20:])))
     else:
         template = (TEX_DIR / (document + ".tex")).read_text(encoding="utf-8")
         base = (TEX_DIR / "materials_base.tex").read_text(encoding="utf-8")

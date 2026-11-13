@@ -4,6 +4,6 @@ __pycache__/
 .venv/
 .env
 
-# Not used by the current database or import pipeline.
+# Historical materials remain ignored; the three imported 2023 DOCX files are tracked explicitly.
 Материалы/ЕГЭ физика 2027 ФИПИ.pdf
 Материалы/ЕГЭ от Демидовой/От Демидовой до 2023 года/
