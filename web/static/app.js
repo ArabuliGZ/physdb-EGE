@@ -548,9 +548,12 @@ function renderBuilderLinks() {
     ['solutions', 'Решения'], ['criteria', 'Критерии']
   ]) {
     const group = node('div', 'generated-download-group');
-    group.append(node('span', 'generated-download-label', title),
-      generatedLink('Скачать TeX', href(document, 'tex')),
-      generatedLink('Смотреть PDF', href(document, 'pdf'), true));
+    group.append(node('span', 'generated-download-label', title));
+    for (const format of ['pdf', 'tex']) {
+      group.append(format === 'pdf'
+        ? generatedLink('Смотреть PDF', href(document, 'pdf'), true)
+        : generatedLink('Скачать TeX', href(document, 'tex')));
+    }
     if (document === 'conditions' || document === 'solutions') {
       group.append(generatedLink('TeX с рисунками (.zip)', href(document, 'zip')));
     }
