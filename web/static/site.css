@@ -51,6 +51,20 @@ body { min-width: 0; }
 .count-pill.is-suitable { background: var(--green-50); color: var(--green-700); }
 .count-pill.is-partial { background: var(--red-50); color: var(--red-700); }
 .problem-list { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
+.correspondence-panel { margin-bottom: 12px; padding: 18px 22px; }
+.correspondence-panel h3 { margin: 0 0 5px; font-size: 15px; }
+.correspondence-intro { margin: 0 0 12px; color: var(--gray-600); font-size: 11px; line-height: 1.5; }
+.correspondence-scroll { max-height: 370px; overflow: auto; border: 1px solid var(--gray-200); border-radius: 8px; }
+.correspondence-table { width: 100%; border-collapse: collapse; font-size: 11px; line-height: 1.45; }
+.correspondence-table th { position: sticky; top: 0; z-index: 1; padding: 9px 10px; background: var(--gray-50); color: var(--gray-600); text-align: left; white-space: nowrap; }
+.correspondence-table td { padding: 8px 10px; border-top: 1px solid var(--gray-200); vertical-align: top; }
+.correspondence-table td:first-child, .correspondence-table td:nth-child(2) { white-space: nowrap; font-weight: 700; }
+.correspondence-table .problem-state { display: inline-block; white-space: nowrap; }
+.correspondence-table .candidate-position { color: var(--gray-500); }
+.correspondence-reason { min-width: 220px; color: var(--gray-600); }
+.correspondence-task-link { color: var(--orange-800); text-decoration: underline; text-underline-offset: 2px; }
+.problem-target { padding: 4px 7px; border-radius: 7px; background: var(--gray-100); color: var(--gray-700); font-size: 10px; font-weight: 700; }
+.problem-card { scroll-margin-top: 110px; }
 .problem-card { min-width: 0; padding: 19px 22px 20px; }
 .problem-card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; margin-bottom: 11px; }
 .problem-heading { display: flex; align-items: center; flex-wrap: wrap; gap: 9px; }

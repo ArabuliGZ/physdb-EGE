@@ -29,6 +29,7 @@ def main() -> None:
     """).fetchall()
     assert len(rows) == 90
     counts = Counter(row["verdict"] for row in rows)
+    by_source = {(int(row["variant_number"]), row["problem_number"]): row for row in rows}
     lines = [
         "# Сверка вариантов Демидовой 2023 с проектом ЕГЭ 2027",
         "",
@@ -53,6 +54,22 @@ def main() -> None:
         "[таблица правил](YEAR_POSITION_MAPPING.md).",
     ]
     labels = {"yes": "Да", "partial": "Частично", "no": "Нет"}
+    lines.extend([
+        "",
+        "## Сводная таблица соответствия",
+        "",
+        "В ячейке сначала указан номер позиции 2027 года, затем вердикт. "
+        "Для «Нет» это проверенный кандидат, а не допустимая позиция.",
+        "",
+        "| № 2023 | Вариант 1 | Вариант 2 | Вариант 3 |",
+        "| ---: | --- | --- | --- |",
+    ])
+    for number in range(1, 31):
+        cells = []
+        for variant in (1, 2, 3):
+            row = by_source[(variant, number)]
+            cells.append(f"{row['target_problem_number']} · {labels[row['verdict']]}")
+        lines.append(f"| {number} | " + " | ".join(cells) + " |")
     for variant in (1, 2, 3):
         lines.extend([
             "",

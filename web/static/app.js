@@ -116,6 +116,50 @@ function labelForStatus(verdict) {
          verdict === 'partial' ? 'Частично подходит' : 'Не оценено';
 }
 
+function renderCorrespondence(problems, variant) {
+  const host = byId('correspondence');
+  host.replaceChildren();
+  host.hidden = true;
+  if (state.view !== 'variants' || variant?.exam_year !== 2023 || !problems.length) return;
+
+  const panel = node('section', 'correspondence-panel panel');
+  panel.append(node('h3', '', 'Соответствие номеров: 2023 → 2027'));
+  panel.append(node('p', 'correspondence-intro',
+    'Позиция 2027 определяется по теме, формату ответа и баллам. Для неподходящих задач показан ближайший проверенный кандидат; в каталог 2027 они не включены.'));
+  const scroll = node('div', 'correspondence-scroll');
+  const table = node('table', 'correspondence-table');
+  const head = node('thead');
+  const headings = node('tr');
+  for (const label of ['№ 2023', '№ 2027 / кандидат', 'Оценка', 'Основание']) {
+    headings.append(node('th', '', label));
+  }
+  head.append(headings);
+  table.append(head);
+  const body = node('tbody');
+  for (const problem of problems) {
+    const row = node('tr');
+    const source = node('td');
+    const link = node('a', 'correspondence-task-link', String(problem.problem_number));
+    link.href = `#task-${problem.problem_number}-${problem.id}`;
+    source.append(link);
+    row.append(source);
+    row.append(node('td', problem.verdict === 'no' ? 'candidate-position' : '',
+      problem.target_problem_number ? String(problem.target_problem_number) : '—'));
+    const verdict = node('td');
+    verdict.append(node('span', `problem-state ${problem.verdict || 'unassessed'}`,
+      labelForStatus(problem.verdict)));
+    row.append(verdict);
+    row.append(node('td', 'correspondence-reason', problem.verdict === 'yes'
+      ? 'Тема, формат и баллы соответствуют.' : problem.relevance_reason || 'Основание не указано.'));
+    body.append(row);
+  }
+  table.append(body);
+  scroll.append(table);
+  panel.append(scroll);
+  host.append(panel);
+  host.hidden = false;
+}
+
 function topicLabel(topic) {
   return ({ mechanics: 'Механика', molecular: 'Молекулярная физика',
     electrodynamics: 'Электродинамика', quantum: 'Квантовая физика',
@@ -376,6 +420,9 @@ function renderCard(problem, showSource, numberMode = false) {
   const title = problem.alternative_number > 1 ? `Альтернативный пример ${problem.alternative_number}` : 'Задание';
   heading.append(node('h3', '', title));
   heading.append(node('span', 'problem-meta', `${topicLabel(problem.topic)} · ${problem.max_points} ${problem.max_points === 1 ? 'балл' : 'балла'}`));
+  if (!numberMode && problem.exam_year === 2023 && ['yes', 'partial'].includes(problem.verdict)) {
+    heading.append(node('span', 'problem-target', `№${problem.target_problem_number} в 2027`));
+  }
   header.append(heading);
   const statusClass = ['yes', 'no', 'partial'].includes(problem.verdict) ? problem.verdict : 'unassessed';
   const status = node('span', `problem-state ${statusClass}`, labelForStatus(problem.verdict));
@@ -647,6 +694,8 @@ async function update() {
   }
   const list = byId('problem-list');
   list.replaceChildren();
+  byId('correspondence').replaceChildren();
+  byId('correspondence').hidden = true;
   list.hidden = state.view === 'builder';
   byId('builder-list').hidden = state.view !== 'builder';
   if (state.view === 'builder') {
@@ -685,6 +734,7 @@ async function update() {
     const response = await fetch(url);
     if (!response.ok) throw new Error(`Ошибка HTTP ${response.status}`);
     const problems = await response.json();
+    renderCorrespondence(problems, variant);
     if (state.view === 'numbers') countPill.textContent = plural(problems.length, 'задача', 'задачи', 'задач');
     if (!problems.length) list.append(node('div', 'panel problem-card', 'Задачи пока не загружены.'));
     else for (const problem of problems) list.append(renderCard(problem,
