@@ -79,5 +79,24 @@ CREATE TABLE IF NOT EXISTS relevance (
   FOREIGN KEY (exam_year, target_problem_number) REFERENCES exam_positions(exam_year, problem_number)
 );
 
+CREATE TABLE IF NOT EXISTS automatic_variants (
+  id TEXT PRIMARY KEY,
+  title TEXT NOT NULL,
+  target_exam_year INTEGER NOT NULL,
+  base_variant_id TEXT NOT NULL UNIQUE REFERENCES variants(id),
+  generation_rule TEXT NOT NULL,
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS automatic_variant_problems (
+  automatic_variant_id TEXT NOT NULL REFERENCES automatic_variants(id) ON DELETE CASCADE,
+  problem_number INTEGER NOT NULL CHECK (problem_number BETWEEN 1 AND 26),
+  problem_id TEXT NOT NULL REFERENCES problems(id),
+  PRIMARY KEY (automatic_variant_id, problem_number),
+  UNIQUE (automatic_variant_id, problem_id)
+);
+
 CREATE INDEX IF NOT EXISTS problems_variant_idx ON problems(variant_id, problem_number);
 CREATE INDEX IF NOT EXISTS relevance_target_idx ON relevance(exam_year, target_problem_number, verdict);
+CREATE INDEX IF NOT EXISTS automatic_variant_problems_problem_idx ON automatic_variant_problems(problem_id);

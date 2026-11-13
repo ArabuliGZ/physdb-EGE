@@ -20,6 +20,7 @@
     </a>
     <nav class="view-tabs" aria-label="Разделы сайта">
       <button type="button" id="tab-variants" class="view-tab is-active" aria-current="page">Цельные варианты</button>
+      <button type="button" id="tab-automatic" class="view-tab">Автоматически собранные варианты</button>
       <button type="button" id="tab-numbers" class="view-tab">Задачи по номеру</button>
       <button type="button" id="tab-builder" class="view-tab">Собрать вариант</button>
     </nav>
@@ -36,6 +37,7 @@
       <aside class="catalog-sidebar panel" aria-label="Выбор">
         <div class="sidebar-header"><span class="eyebrow" id="sidebar-eyebrow">Варианты</span><h2 id="sidebar-title">Выберите вариант</h2></div>
         <div id="variant-list" class="variant-list"></div>
+        <div id="automatic-list" class="variant-list" hidden></div>
         <div id="number-list" class="number-list" hidden></div>
         <div id="builder-sidebar" class="builder-sidebar" hidden>Для каждого номера выберите задачу из любого варианта. В печатный файл войдут условия и пустые поля для ответов.</div>
         <div class="legend">
@@ -48,7 +50,8 @@
       <section class="catalog-main" aria-live="polite">
         <div class="section-head panel">
           <div>
-            <span class="eyebrow" id="content-eyebrow">Вариант</span><h2 id="content-title">Загрузка…</h2>
+            <span class="eyebrow" id="content-eyebrow">Вариант</span>
+            <div class="variant-title-row"><h2 id="content-title">Загрузка…</h2><a id="base-variant" class="base-variant-link" hidden></a></div>
             <div id="source-downloads" class="source-downloads" hidden>
               <a id="source-download" class="source-download">Скачать исходник</a>
             </div>

@@ -1,4 +1,5 @@
-const state = { view: 'variants', variantId: null, number: 1, variants: [], options: [], picks: {} };
+const state = { view: 'variants', variantId: null, automaticId: null, number: 1,
+  variants: [], automaticVariants: [], options: [], picks: {} };
 const byId = id => document.getElementById(id);
 const plural = (count, one, few, many) => {
   const last = count % 10, lastTwo = count % 100;
@@ -124,6 +125,11 @@ function topicLabel(topic) {
 function variantDisplayTitle(variant) {
   return variant.is_official_demo ? variant.title :
     `Демидова ${variant.exam_year}-${variant.variant_number}`;
+}
+
+function automaticBaseTitle(variant) {
+  return variant.base_is_official_demo ? variant.base_title :
+    `Демидова ${variant.base_year}-${variant.base_variant_number}`;
 }
 
 function cleanLatex(value) {
@@ -397,7 +403,7 @@ function renderCard(problem, showSource) {
   if (showSource) {
     const source = node('div', 'review-note');
     source.append(document.createTextNode('Источник: '));
-    const link = node('a', 'source-link', problem.variant_title);
+    const link = node('a', 'source-link', variantDisplayTitle(problem));
     link.href = `/?view=variants&variant=${encodeURIComponent(problem.variant_id)}`;
     source.append(link);
     card.append(source);
@@ -407,8 +413,9 @@ function renderCard(problem, showSource) {
 
 function readLocation() {
   const url = new URL(location.href);
-  state.view = ['numbers', 'builder'].includes(url.searchParams.get('view')) ? url.searchParams.get('view') : 'variants';
-  state.variantId = url.searchParams.get('variant') || state.variants[0]?.id || null;
+  state.view = ['numbers', 'builder', 'automatic'].includes(url.searchParams.get('view')) ? url.searchParams.get('view') : 'variants';
+  state.variantId = url.searchParams.get('variant') || state.variantId || state.variants[0]?.id || null;
+  state.automaticId = url.searchParams.get('auto') || state.automaticId || state.automaticVariants[0]?.id || null;
   const n = Number(url.searchParams.get('number'));
   state.number = Number.isInteger(n) && n >= 1 && n <= 26 ? n : 1;
 }
@@ -416,26 +423,35 @@ function readLocation() {
 function writeLocation() {
   const url = new URL(location.href);
   url.searchParams.set('view', state.view);
-  if (state.view !== 'numbers') {
+  if (state.view === 'automatic') {
+    if (state.automaticId) url.searchParams.set('auto', state.automaticId);
+    url.searchParams.delete('variant');
+    url.searchParams.delete('number');
+  } else if (state.view !== 'numbers') {
     url.searchParams.set('variant', state.variantId);
+    url.searchParams.delete('auto');
     url.searchParams.delete('number');
   } else {
     url.searchParams.set('number', String(state.number));
     url.searchParams.delete('variant');
+    url.searchParams.delete('auto');
   }
   history.pushState({}, '', url);
 }
 
 function renderSidebar() {
   byId('tab-variants').classList.toggle('is-active', state.view === 'variants');
+  byId('tab-automatic').classList.toggle('is-active', state.view === 'automatic');
   byId('tab-numbers').classList.toggle('is-active', state.view === 'numbers');
   byId('tab-builder').classList.toggle('is-active', state.view === 'builder');
   byId('tab-variants').setAttribute('aria-current', state.view === 'variants' ? 'page' : 'false');
+  byId('tab-automatic').setAttribute('aria-current', state.view === 'automatic' ? 'page' : 'false');
   byId('tab-numbers').setAttribute('aria-current', state.view === 'numbers' ? 'page' : 'false');
   byId('tab-builder').setAttribute('aria-current', state.view === 'builder' ? 'page' : 'false');
-  byId('sidebar-eyebrow').textContent = state.view === 'variants' ? 'Варианты' : state.view === 'numbers' ? 'Позиции ЕГЭ' : 'Сборка';
-  byId('sidebar-title').textContent = state.view === 'variants' ? 'Выберите вариант' : state.view === 'numbers' ? 'Выберите номер' : 'Выберите задачи';
+  byId('sidebar-eyebrow').textContent = state.view === 'variants' ? 'Варианты' : state.view === 'automatic' ? 'Автоварианты' : state.view === 'numbers' ? 'Позиции ЕГЭ' : 'Сборка';
+  byId('sidebar-title').textContent = ['variants', 'automatic'].includes(state.view) ? 'Выберите вариант' : state.view === 'numbers' ? 'Выберите номер' : 'Выберите задачи';
   byId('variant-list').hidden = state.view !== 'variants';
+  byId('automatic-list').hidden = state.view !== 'automatic';
   byId('number-list').hidden = state.view !== 'numbers';
   byId('builder-sidebar').hidden = state.view !== 'builder';
   const variants = byId('variant-list');
@@ -479,6 +495,47 @@ function renderSidebar() {
     variants.append(group);
   }
   variants.scrollTop = variantScrollTop;
+  const automatics = byId('automatic-list');
+  const automaticScrollTop = automatics.scrollTop;
+  const automaticExpandedYears = new Set([...automatics.querySelectorAll('.variant-year[open]')].map(group => group.dataset.year));
+  if (!automatics.children.length || automatics.dataset.selectedId !== state.automaticId) {
+    automaticExpandedYears.clear();
+    const selected = state.automaticVariants.find(item => item.id === state.automaticId);
+    if (selected) automaticExpandedYears.add(String(selected.base_year));
+  }
+  automatics.replaceChildren();
+  automatics.dataset.selectedId = state.automaticId || '';
+  const automaticByYear = new Map();
+  for (const item of state.automaticVariants) {
+    if (!automaticByYear.has(item.base_year)) automaticByYear.set(item.base_year, []);
+    automaticByYear.get(item.base_year).push(item);
+  }
+  for (const [year, items] of automaticByYear) {
+    const group = node('details', 'variant-year');
+    group.dataset.year = String(year);
+    group.open = automaticExpandedYears.has(String(year));
+    const heading = node('summary', 'variant-year-heading', String(year));
+    heading.setAttribute('aria-label', `Базовые варианты ${year} года`);
+    heading.addEventListener('click', () => {
+      if (!group.open) {
+        for (const other of automatics.querySelectorAll('.variant-year')) {
+          if (other !== group) other.open = false;
+        }
+      }
+    });
+    const options = node('div', 'variant-year-options');
+    for (const item of items) {
+      const button = node('button', `variant-option ${item.id === state.automaticId ? 'is-active' : ''}`);
+      button.type = 'button';
+      if (item.id === state.automaticId) button.setAttribute('aria-current', 'true');
+      button.append(node('strong', '', item.title), node('small', '', `Основа: ${automaticBaseTitle(item)}`));
+      button.addEventListener('click', () => { state.automaticId = item.id; writeLocation(); update(); });
+      options.append(button);
+    }
+    group.append(heading, options);
+    automatics.append(group);
+  }
+  automatics.scrollTop = automaticScrollTop;
   const numbers = byId('number-list');
   numbers.replaceChildren();
   for (let n = 1; n <= 26; n++) {
@@ -567,12 +624,14 @@ function renderBuilder() {
 function renderBuilderLinks() {
   const links = byId('generated-downloads');
   links.replaceChildren();
-  if (state.view === 'numbers') return;
+  if (state.view === 'numbers' || (state.view === 'automatic' && !state.automaticId)) return;
   const ids = state.view === 'builder'
     ? encodeURIComponent(Array.from({ length: 26 }, (_, i) => state.picks[i + 1]).join(',')) : '';
   const href = (document, format) => state.view === 'builder'
     ? `/api/assemble?ids=${ids}&document=${document}&format=${format}`
-    : `/api/variants/${encodeURIComponent(state.variantId)}/${document === 'conditions' ? '' : document + '/'}${format}`;
+    : state.view === 'automatic'
+      ? `/api/automatic-variants/${encodeURIComponent(state.automaticId)}/${document === 'conditions' ? '' : document + '/'}${format}`
+      : `/api/variants/${encodeURIComponent(state.variantId)}/${document === 'conditions' ? '' : document + '/'}${format}`;
   for (const [document, title] of [
     ['conditions', 'Условия'], ['answers', 'Ответы'],
     ['solutions', 'Решения'], ['criteria', 'Критерии']
@@ -594,8 +653,15 @@ function renderBuilderLinks() {
 async function update() {
   renderSidebar();
   const variant = state.variants.find(v => v.id === state.variantId);
-  byId('content-eyebrow').textContent = state.view === 'variants' ? 'Цельный вариант' : state.view === 'numbers' ? 'Все варианты' : 'Новый вариант';
-  byId('content-title').textContent = state.view === 'variants' ? (variant ? variantDisplayTitle(variant) : 'Вариант не найден') : state.view === 'numbers' ? `Задание №${state.number}` : 'Собрать из выбранных задач';
+  const automatic = state.automaticVariants.find(v => v.id === state.automaticId);
+  byId('content-eyebrow').textContent = state.view === 'variants' ? 'Цельный вариант' : state.view === 'automatic' ? 'Автоматически собранный вариант' : state.view === 'numbers' ? 'Все варианты' : 'Новый вариант';
+  byId('content-title').textContent = state.view === 'variants' ? (variant ? variantDisplayTitle(variant) : 'Вариант не найден') : state.view === 'automatic' ? (automatic?.title || 'Собранных вариантов пока нет') : state.view === 'numbers' ? `Задание №${state.number}` : 'Собрать из выбранных задач';
+  const baseLink = byId('base-variant');
+  baseLink.hidden = state.view !== 'automatic' || !automatic;
+  if (!baseLink.hidden) {
+    baseLink.textContent = `Основа: ${automaticBaseTitle(automatic)}`;
+    baseLink.href = `/?view=variants&variant=${encodeURIComponent(automatic.base_variant_id)}`;
+  }
   const sourceDownload = byId('source-download');
   const sourceDownloads = byId('source-downloads');
   sourceDownloads.hidden = state.view !== 'variants' || !variant?.download_url;
@@ -616,8 +682,9 @@ async function update() {
   }
   renderBuilderLinks();
   const countPill = byId('problem-count');
-  if (state.view === 'variants' && variant) {
-    const suitable = variant.suitable_count;
+  if ((state.view === 'variants' && variant) || (state.view === 'automatic' && automatic)) {
+    const selected = state.view === 'automatic' ? automatic : variant;
+    const suitable = selected.suitable_count;
     const complete = suitable === 26;
     countPill.textContent = complete ? 'Подходит для 2027 года' : `Подходит ${suitable} задач из 26`;
     countPill.className = `count-pill ${complete ? 'is-suitable' : 'is-partial'}`;
@@ -626,16 +693,23 @@ async function update() {
     countPill.className = 'count-pill';
   }
   byId('error-box').hidden = true;
+  if (state.view === 'automatic' && !automatic) {
+    list.append(node('div', 'panel problem-card', 'Собранных вариантов пока нет.'));
+    countPill.textContent = '';
+    return;
+  }
   try {
-    const query = state.view === 'variants' ? `variant_id=${encodeURIComponent(state.variantId)}` : `number=${state.number}`;
-    const response = await fetch(`/api/problems?${query}`);
+    const url = state.view === 'automatic'
+      ? `/api/automatic-variants/${encodeURIComponent(state.automaticId)}/problems`
+      : `/api/problems?${state.view === 'variants' ? `variant_id=${encodeURIComponent(state.variantId)}` : `number=${state.number}`}`;
+    const response = await fetch(url);
     if (!response.ok) throw new Error(`Ошибка HTTP ${response.status}`);
     const problems = await response.json();
-    if (state.view !== 'variants') countPill.textContent = plural(problems.length, 'задача', 'задачи', 'задач');
+    if (state.view === 'numbers') countPill.textContent = plural(problems.length, 'задача', 'задачи', 'задач');
     if (!problems.length) list.append(node('div', 'panel problem-card', 'Задачи пока не загружены.'));
-    else for (const problem of problems) list.append(renderCard(problem, state.view === 'numbers'));
+    else for (const problem of problems) list.append(renderCard(problem, ['numbers', 'automatic'].includes(state.view)));
   } catch (error) {
-    if (state.view !== 'variants') countPill.textContent = '';
+    if (state.view === 'numbers') countPill.textContent = '';
     byId('error-box').textContent = `Не удалось загрузить задачи: ${error.message}`;
     byId('error-box').hidden = false;
   }
@@ -643,9 +717,12 @@ async function update() {
 
 async function init() {
   try {
-    const response = await fetch('/api/variants');
-    if (!response.ok) throw new Error(`Ошибка HTTP ${response.status}`);
-    state.variants = await response.json();
+    const [variantsResponse, automaticResponse] = await Promise.all([
+      fetch('/api/variants'), fetch('/api/automatic-variants')
+    ]);
+    if (!variantsResponse.ok || !automaticResponse.ok) throw new Error('Не удалось загрузить варианты');
+    state.variants = await variantsResponse.json();
+    state.automaticVariants = await automaticResponse.json();
     const total = state.variants.reduce((sum, item) => sum + item.problem_count, 0);
     byId('database-summary').textContent = `${plural(state.variants.length, 'вариант', 'варианта', 'вариантов')} · ${plural(total, 'запись', 'записи', 'записей')} задач`;
     readLocation();
@@ -658,6 +735,7 @@ async function init() {
 }
 
 byId('tab-variants').addEventListener('click', () => { state.view = 'variants'; writeLocation(); update(); });
+byId('tab-automatic').addEventListener('click', () => { state.view = 'automatic'; writeLocation(); update(); });
 byId('tab-numbers').addEventListener('click', () => { state.view = 'numbers'; writeLocation(); update(); });
 byId('tab-builder').addEventListener('click', () => { state.view = 'builder'; writeLocation(); update(); });
 window.addEventListener('popstate', () => { readLocation(); update(); });

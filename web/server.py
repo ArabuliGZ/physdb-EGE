@@ -54,6 +54,21 @@ def variants() -> list[dict]:
     return items
 
 
+def automatic_variants() -> list[dict]:
+    return rows("""SELECT a.id,a.title,a.target_exam_year,a.base_variant_id,
+        v.title AS base_title,v.exam_year AS base_year,
+        v.variant_number AS base_variant_number,v.is_official_demo AS base_is_official_demo,
+        COUNT(ap.problem_id) AS problem_count,
+        SUM(CASE WHEN r.verdict='yes' THEN 1 ELSE 0 END) AS suitable_count,
+        SUM(CASE WHEN p.variant_id<>a.base_variant_id THEN 1 ELSE 0 END) AS replacement_count
+        FROM automatic_variants a JOIN variants v ON v.id=a.base_variant_id
+        JOIN automatic_variant_problems ap ON ap.automatic_variant_id=a.id
+        JOIN problems p ON p.id=ap.problem_id
+        LEFT JOIN relevance r ON r.problem_id=p.id AND r.exam_year=a.target_exam_year
+            AND r.target_problem_number=ap.problem_number
+        GROUP BY a.id ORDER BY v.exam_year DESC,v.variant_number""")
+
+
 def list_problems(query: dict[str, list[str]]) -> list[dict]:
     conditions = []
     params = []
@@ -132,6 +147,16 @@ def selected_problems(variant_id: str | None, ids: list[str] | None) -> list[dic
     return [found[problem_id] for problem_id in ids] if len(found) == 26 else []
 
 
+def automatic_problem_ids(automatic_id: str) -> list[str]:
+    return [item["problem_id"] for item in rows("""SELECT problem_id
+        FROM automatic_variant_problems WHERE automatic_variant_id=?
+        ORDER BY problem_number""", (automatic_id,))]
+
+
+def automatic_problems(automatic_id: str) -> list[dict]:
+    return selected_problems(None, automatic_problem_ids(automatic_id))
+
+
 class Handler(BaseHTTPRequestHandler):
     def send_bytes(self, payload: bytes, content_type: str, filename: str,
                    download: bool = True) -> None:
@@ -145,8 +170,16 @@ class Handler(BaseHTTPRequestHandler):
         self.wfile.write(payload)
 
     def send_exam(self, variant_id: str | None, query: dict[str, list[str]],
-                  kind: str, document: str = "conditions") -> None:
-        if variant_id:
+                  kind: str, document: str = "conditions", automatic_id: str | None = None) -> None:
+        if automatic_id:
+            automatic = rows("SELECT title,target_exam_year FROM automatic_variants WHERE id=?", (automatic_id,))
+            if not automatic:
+                self.send_error(404)
+                return
+            title, year = automatic[0]["title"], automatic[0]["target_exam_year"]
+            filename = "automatic-variant-" + automatic_id
+            ids = automatic_problem_ids(automatic_id)
+        elif variant_id:
             variant = rows("SELECT title,exam_year FROM variants WHERE id=?", (variant_id,))
             if not variant:
                 self.send_error(404)
@@ -205,8 +238,22 @@ class Handler(BaseHTTPRequestHandler):
             self.send_json({"ok": DB.is_file()})
         elif route == "/api/variants":
             self.send_json(variants())
+        elif route == "/api/automatic-variants":
+            self.send_json(automatic_variants())
         elif route == "/api/variant-options":
             self.send_json(variant_options())
+        elif route.startswith("/api/automatic-variants/"):
+            parts = route.removeprefix("/api/automatic-variants/").split("/")
+            if len(parts) == 2 and parts[1] == "problems":
+                found = rows("SELECT id FROM automatic_variants WHERE id=?", (parts[0],))
+                self.send_json(automatic_problems(parts[0])) if found else self.send_error(404)
+            elif len(parts) == 2 and parts[1] in ("tex", "pdf", "zip"):
+                self.send_exam(None, {}, parts[1], automatic_id=parts[0])
+            elif len(parts) == 3 and parts[1] in ("answers", "solutions", "criteria") \
+                    and parts[2] in ("tex", "pdf", "zip"):
+                self.send_exam(None, {}, parts[2], parts[1], automatic_id=parts[0])
+            else:
+                self.send_error(404)
         elif route.startswith("/api/variants/") and route.rsplit("/", 1)[-1] in ("tex", "pdf", "zip"):
             parts = route.removeprefix("/api/variants/").split("/")
             if len(parts) == 2:
