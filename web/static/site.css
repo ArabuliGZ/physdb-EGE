@@ -30,7 +30,7 @@ body { min-width: 0; }
 .catalog-main { min-width: 0; }
 .section-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; padding: 18px 22px; margin-bottom: 12px; }
 .section-head h2 { margin: 4px 0 3px; font-size: 19px; line-height: 1.3; }
-.source-download { display: inline-flex; margin-top: 11px; padding: 8px 11px; border: 1px solid var(--orange-500); border-radius: 8px; color: var(--orange-800); font-size: 12px; font-weight: 700; text-decoration: none; }
+.source-download { display: inline-flex; padding: 8px 11px; border: 1px solid var(--orange-500); border-radius: 8px; color: var(--orange-800); font-size: 12px; font-weight: 700; text-decoration: none; }
 .source-download:hover { background: var(--orange-50); }
 .source-download[hidden] { display: none; }
 .count-pill { flex: 0 0 auto; padding: 5px 9px; border-radius: 7px; background: var(--gray-100); color: var(--gray-600); font-size: 11px; font-weight: 700; }
@@ -112,7 +112,9 @@ body { min-width: 0; }
 .figure-thumb { width: min(220px, 100%); height: 120px; padding: 5px; border: 1px solid var(--gray-200); border-radius: 9px; background: white; cursor: zoom-in; }
 .figure-thumb img { width: 100%; height: 100%; object-fit: contain; }
 .review-note { margin-top: 12px; color: var(--gray-500); font-size: 11px; }
-.companion-downloads { display: flex; flex-wrap: wrap; gap: 12px; }
+.source-downloads { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 11px; }
+.source-downloads[hidden] { display: none; }
+.companion-downloads { display: contents; }
 .generated-downloads { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
 .generated-downloads .source-download { margin-top: 0; }
 .builder-sidebar { color: var(--gray-600); font-size: 13px; line-height: 1.5; }

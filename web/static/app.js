@@ -538,14 +538,22 @@ async function update() {
   byId('content-eyebrow').textContent = state.view === 'variants' ? 'Цельный вариант' : state.view === 'numbers' ? 'Все варианты' : 'Новый вариант';
   byId('content-title').textContent = state.view === 'variants' ? (variant ? variantDisplayTitle(variant) : 'Вариант не найден') : state.view === 'numbers' ? `Задание №${state.number}` : 'Собрать из выбранных задач';
   const sourceDownload = byId('source-download');
-  sourceDownload.hidden = state.view !== 'variants' || !variant?.download_url;
-  if (!sourceDownload.hidden) sourceDownload.href = variant.download_url;
+  const sourceDownloads = byId('source-downloads');
+  sourceDownloads.hidden = state.view !== 'variants' || !variant?.download_url;
+  if (!sourceDownloads.hidden) {
+    sourceDownload.href = variant.download_url;
+    const separateFiles = variant.companions?.some(item => item.role === 'answer_key' || item.role === 'criteria');
+    sourceDownload.textContent = separateFiles
+      ? 'Скачать цельный вариант'
+      : 'Скачать исходный вариант с ответами и решениями';
+  }
   const companions = byId('companion-downloads');
   companions.replaceChildren();
   if (state.view === 'variants' && variant?.companions) {
-    const names = { answer_key: 'Ключ ответов', criteria: 'Критерии', pdf_copy: 'PDF-копия' };
+    const names = { answer_key: 'Скачать ключи', criteria: 'Скачать решения и критерии' };
     for (const item of variant.companions) {
-      const link = node('a', 'source-download', names[item.role] || item.role);
+      if (!names[item.role]) continue;
+      const link = node('a', 'source-download', names[item.role]);
       link.href = item.download_url;
       companions.append(link);
     }
