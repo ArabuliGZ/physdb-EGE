@@ -111,8 +111,11 @@ def get_problem(problem_id: str) -> dict | None:
 
 def variant_options() -> list[dict]:
     return rows("""SELECT p.id,p.variant_id,p.problem_number,p.alternative_number,
-        v.title AS variant_title,v.exam_year,v.variant_number,v.is_official_demo
+        v.title AS variant_title,v.exam_year,v.variant_number,v.is_official_demo,
+        r.verdict,r.reason AS relevance_reason
         FROM problems p JOIN variants v ON v.id=p.variant_id
+        LEFT JOIN relevance r ON r.problem_id=p.id AND r.exam_year=2027
+            AND r.target_problem_number=p.problem_number
         ORDER BY p.problem_number,v.exam_year DESC,v.variant_number,p.alternative_number""")
 
 

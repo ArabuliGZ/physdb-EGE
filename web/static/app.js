@@ -494,10 +494,21 @@ function renderBuilder() {
       select.append(entry);
     }
     select.value = state.picks[number];
+    const status = node('span', 'problem-state');
+    function updateStatus() {
+      const selected = candidates.find(item => item.id === select.value);
+      const verdict = selected?.verdict;
+      status.className = `problem-state ${['yes', 'no', 'partial'].includes(verdict) ? verdict : 'unassessed'}`;
+      status.textContent = labelForStatus(verdict);
+      status.title = selected?.relevance_reason || '';
+    }
+    updateStatus();
     const preview = node('div', 'builder-preview statement');
     preview.hidden = true;
     const show = node('button', 'builder-preview-button', 'Показать условие');
     show.type = 'button';
+    const actions = node('div', 'builder-actions');
+    actions.append(status, show);
     async function loadPreview() {
       preview.replaceChildren(node('p', '', 'Загрузка…'));
       try {
@@ -510,13 +521,13 @@ function renderBuilder() {
         if (figures) preview.append(figures);
       } catch (error) { preview.replaceChildren(node('p', '', `Не удалось загрузить условие: ${error.message}`)); }
     }
-    select.addEventListener('change', () => { state.picks[number] = select.value; renderBuilderLinks(); if (!preview.hidden) loadPreview(); });
+    select.addEventListener('change', () => { state.picks[number] = select.value; updateStatus(); renderBuilderLinks(); if (!preview.hidden) loadPreview(); });
     show.addEventListener('click', () => {
       preview.hidden = !preview.hidden;
       show.textContent = preview.hidden ? 'Показать условие' : 'Скрыть условие';
       if (!preview.hidden) loadPreview();
     });
-    controls.append(select, show, preview);
+    controls.append(select, actions, preview);
     row.append(controls);
     list.append(row);
   }

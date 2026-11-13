@@ -125,6 +125,8 @@ body { min-width: 0; }
 .builder-row strong { font-size: 13px; }
 .builder-select { width: 100%; min-width: 0; padding: 8px 10px; border: 1px solid var(--gray-300); border-radius: 8px; background: white; color: var(--black); font: 13px Inter, system-ui, sans-serif; }
 .builder-controls { min-width: 0; }
+.builder-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 12px; margin-top: 7px; }
+.builder-actions .builder-preview-button { margin-top: 0; }
 .builder-preview-button { margin-top: 5px; padding: 4px 0; border: 0; background: transparent; color: var(--orange-800); font: 600 12px Inter, system-ui, sans-serif; text-decoration: underline; text-underline-offset: 2px; }
 .builder-preview { margin-top: 12px; padding: 12px; border: 1px solid var(--gray-200); border-radius: 8px; font-size: 14px; line-height: 1.5; }
 .builder-preview[hidden] { display: none; }
