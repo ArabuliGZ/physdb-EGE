@@ -497,43 +497,14 @@ function renderSidebar() {
   variants.scrollTop = variantScrollTop;
   const automatics = byId('automatic-list');
   const automaticScrollTop = automatics.scrollTop;
-  const automaticExpandedYears = new Set([...automatics.querySelectorAll('.variant-year[open]')].map(group => group.dataset.year));
-  if (!automatics.children.length || automatics.dataset.selectedId !== state.automaticId) {
-    automaticExpandedYears.clear();
-    const selected = state.automaticVariants.find(item => item.id === state.automaticId);
-    if (selected) automaticExpandedYears.add(String(selected.base_year));
-  }
   automatics.replaceChildren();
-  automatics.dataset.selectedId = state.automaticId || '';
-  const automaticByYear = new Map();
   for (const item of state.automaticVariants) {
-    if (!automaticByYear.has(item.base_year)) automaticByYear.set(item.base_year, []);
-    automaticByYear.get(item.base_year).push(item);
-  }
-  for (const [year, items] of automaticByYear) {
-    const group = node('details', 'variant-year');
-    group.dataset.year = String(year);
-    group.open = automaticExpandedYears.has(String(year));
-    const heading = node('summary', 'variant-year-heading', String(year));
-    heading.setAttribute('aria-label', `Базовые варианты ${year} года`);
-    heading.addEventListener('click', () => {
-      if (!group.open) {
-        for (const other of automatics.querySelectorAll('.variant-year')) {
-          if (other !== group) other.open = false;
-        }
-      }
-    });
-    const options = node('div', 'variant-year-options');
-    for (const item of items) {
-      const button = node('button', `variant-option ${item.id === state.automaticId ? 'is-active' : ''}`);
-      button.type = 'button';
-      if (item.id === state.automaticId) button.setAttribute('aria-current', 'true');
-      button.append(node('strong', '', item.title), node('small', '', `Основа: ${automaticBaseTitle(item)}`));
-      button.addEventListener('click', () => { state.automaticId = item.id; writeLocation(); update(); });
-      options.append(button);
-    }
-    group.append(heading, options);
-    automatics.append(group);
+    const button = node('button', `variant-option ${item.id === state.automaticId ? 'is-active' : ''}`);
+    button.type = 'button';
+    if (item.id === state.automaticId) button.setAttribute('aria-current', 'true');
+    button.append(node('strong', '', item.title), node('small', '', `Основа: ${automaticBaseTitle(item)}`));
+    button.addEventListener('click', () => { state.automaticId = item.id; writeLocation(); update(); });
+    automatics.append(button);
   }
   automatics.scrollTop = automaticScrollTop;
   const numbers = byId('number-list');
