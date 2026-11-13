@@ -18,6 +18,7 @@ from import_2026_remaining import (add_figures, answer_key, extract_blocks,
                                     move_preheading_figure, normalize_statement, numbered_paragraphs,
                                     review_sections, show_source_formulas)
 from verified_solutions import VERIFIED_SOLUTIONS
+from text_repairs import repair_text
 
 
 SOURCE_ROOT = ROOT / "Материалы" / "ЕГЭ от Демидовой"
@@ -214,6 +215,7 @@ def import_one(con, year: int, set_number: int, number: int,
         statement = repair_statement_for_rendered_figure(label, n, normalize_statement(raw))
         statement = show_source_formulas(statement, statement_formulas)
         statement = repair_table_transcription(label, n, statement)
+        statement = repair_text(label, n, "statement", statement)
         if not statement:
             raise ValueError(f"Empty statement: {label} task {n}")
         solution = criteria = None
@@ -228,6 +230,8 @@ def import_one(con, year: int, set_number: int, number: int,
             else:
                 solution = show_source_formulas(solution, review_formulas)
             criteria = show_source_formulas(criteria, review_formulas)
+            solution = repair_text(label, n, "solution", solution)
+            criteria = repair_text(label, n, "criteria", criteria)
             if not solution or not criteria:
                 raise ValueError(f"Missing solution/criteria: {label} task {n}")
         topic = EXTENDED_TOPICS[label].get(n, TOPICS[n])

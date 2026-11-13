@@ -16,6 +16,21 @@ UNIT = re.compile(
     r"К|л|м|г|с|ч|%|°C|°С)"
 )
 NUMBER = re.compile(r"(?<![\w\\])\d+(?:[ \u00a0]\d{3})*(?:,\d+)?(?:[–−-]\d+)*(?!\w)")
+INDEXED_SYMBOL = re.compile(r"(?<![\w\\])([A-Za-z])(\d{1,2})(?!\w)")
+
+
+def format_indexed_symbols(text: str) -> str:
+    """Preserve Word subscripts such as q1 and F2 outside existing TeX.
+
+    This handles single-letter physics symbols only; it does not touch chemical
+    formulas, words, or already formatted equations.
+    """
+    pieces = MATH.split(text)
+    for index in range(0, len(pieces), 2):
+        pieces[index] = INDEXED_SYMBOL.sub(
+            lambda match: rf"\({match.group(1)}_{{{match.group(2)}}}\)", pieces[index]
+        )
+    return "".join(pieces)
 
 
 def latex_unit(unit: str) -> str:
@@ -65,7 +80,7 @@ def format_quantities(text: str) -> str:
                     lambda m: r"\(" + m.group(1) + "^" + m.group(2) + r"\)", result)
     result = re.sub(r"([−-])\\\((\d[^\n]*?)\\\)",
                     lambda m: r"\(" + ("-" if m.group(1) == "−" else m.group(1)) + m.group(2) + r"\)", result)
-    return result
+    return format_indexed_symbols(result)
 
 
 def layout_criteria(text: str) -> str:

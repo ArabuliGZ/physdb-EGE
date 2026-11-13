@@ -21,6 +21,7 @@ from import_examples import (ASSETS, DB, ROOT, FORMATS, POINTS, TOPICS,
                              key, link_asset, store_asset, upsert_problem,
                              upsert_variant)
 from tex_format import format_quantities
+from text_repairs import repair_text
 
 
 SOURCE_DIR = ROOT / "Материалы" / "ЕГЭ от Демидовой" / "2026"
@@ -459,6 +460,9 @@ def import_variant(con: sqlite3.Connection, number: int) -> None:
         if n >= 21:
             notes += " Решение и критерии требуют предметной сверки; отдельного авторского ключа ответа нет."
         topic = "molecular" if n == 21 else "electrodynamics" if n == 23 else TOPICS[n]
+        statement = repair_text(f"2026-{number}", n, "statement", statement)
+        solution = repair_text(f"2026-{number}", n, "solution", solution)
+        criteria = repair_text(f"2026-{number}", n, "criteria", criteria)
         pid = upsert_problem(con, vid, n, 1, statement, answers.get(n), solution,
                              criteria, topic, locator, notes, "needs_review")
         add_figures(con, pid, statement_figures, "statement_figure", locator)
