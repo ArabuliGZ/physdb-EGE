@@ -550,23 +550,33 @@ async function update() {
   byId('builder-list').hidden = state.view !== 'builder';
   if (state.view === 'builder') {
     byId('problem-count').textContent = '26 заданий';
+    byId('problem-count').className = 'count-pill';
     byId('error-box').hidden = true;
     renderBuilder();
     return;
   }
   renderBuilderLinks();
-  byId('problem-count').textContent = 'Загрузка…';
+  const countPill = byId('problem-count');
+  if (state.view === 'variants' && variant) {
+    const suitable = variant.suitable_count;
+    const complete = suitable === 26;
+    countPill.textContent = complete ? 'Подходит для 2027 года' : `Подходит ${suitable} задач из 26`;
+    countPill.className = `count-pill ${complete ? 'is-suitable' : 'is-partial'}`;
+  } else {
+    countPill.textContent = 'Загрузка…';
+    countPill.className = 'count-pill';
+  }
   byId('error-box').hidden = true;
   try {
     const query = state.view === 'variants' ? `variant_id=${encodeURIComponent(state.variantId)}` : `number=${state.number}`;
     const response = await fetch(`/api/problems?${query}`);
     if (!response.ok) throw new Error(`Ошибка HTTP ${response.status}`);
     const problems = await response.json();
-    byId('problem-count').textContent = plural(problems.length, 'задача', 'задачи', 'задач');
+    if (state.view !== 'variants') countPill.textContent = plural(problems.length, 'задача', 'задачи', 'задач');
     if (!problems.length) list.append(node('div', 'panel problem-card', 'Задачи пока не загружены.'));
     else for (const problem of problems) list.append(renderCard(problem, state.view === 'numbers'));
   } catch (error) {
-    byId('problem-count').textContent = '';
+    if (state.view !== 'variants') countPill.textContent = '';
     byId('error-box').textContent = `Не удалось загрузить задачи: ${error.message}`;
     byId('error-box').hidden = false;
   }

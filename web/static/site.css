@@ -34,6 +34,8 @@ body { min-width: 0; }
 .source-download:hover { background: var(--orange-50); }
 .source-download[hidden] { display: none; }
 .count-pill { flex: 0 0 auto; padding: 5px 9px; border-radius: 7px; background: var(--gray-100); color: var(--gray-600); font-size: 11px; font-weight: 700; }
+.count-pill.is-suitable { background: var(--green-50); color: var(--green-700); }
+.count-pill.is-partial { background: var(--red-50); color: var(--red-700); }
 .problem-list { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
 .problem-card { min-width: 0; padding: 19px 22px 20px; }
 .problem-card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; margin-bottom: 11px; }
@@ -137,7 +139,7 @@ body { min-width: 0; }
 .image-dialog img { display: block; width: min(100%, 1000px); max-height: 73vh; margin: auto; object-fit: contain; }
 .image-dialog p { margin: 12px 0 0; color: var(--gray-500); text-align: center; font-size: 12px; }
 @media (max-width: 680px) { .copy-button { width: auto; padding: 5px 9px; } .copy-button span { display: inline; } }
-@media (max-width: 760px) { .site-topbar { margin: 8px 8px 0; } .topbar-summary { display: none; } .site-shell { padding: 22px 10px 40px; } .intro { align-items: flex-start; flex-direction: column; } .catalog-layout { grid-template-columns: 1fr; } .catalog-sidebar { position: static; } .number-list { grid-template-columns: repeat(7, 1fr); } .section-head, .problem-card { padding: 15px; } }
+@media (max-width: 760px) { .site-topbar { margin: 8px 8px 0; } .topbar-summary { display: none; } .site-shell { padding: 22px 10px 40px; } .intro { align-items: flex-start; flex-direction: column; } .catalog-layout { grid-template-columns: 1fr; } .catalog-sidebar { position: static; } .number-list { grid-template-columns: repeat(7, 1fr); } .section-head { flex-wrap: wrap; } .section-head, .problem-card { padding: 15px; } }
 @media (max-width: 430px) { .number-list { grid-template-columns: repeat(5, 1fr); } .view-tab { padding-left: 12px; padding-right: 12px; font-size: 12px; } .problem-card-header { flex-direction: column; } .task-figure { height: 260px; } }
 @media (max-width: 430px) { .criteria-item { grid-template-columns: 1fr; gap: 8px; } .criteria-points { width: max-content; min-width: 76px; } }
 @media (max-width: 430px) { .builder-row { grid-template-columns: 1fr; gap: 6px; } }

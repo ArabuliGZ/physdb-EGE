@@ -34,8 +34,13 @@ def rows(query: str, params: tuple = ()) -> list[dict]:
 
 def variants() -> list[dict]:
     items = rows("""SELECT v.id,v.title,v.exam_year,v.variant_number,v.is_official_demo,
-        COUNT(p.id) AS problem_count,COUNT(DISTINCT p.problem_number) AS position_count
+        COUNT(DISTINCT p.id) AS problem_count,
+        COUNT(DISTINCT p.problem_number) AS position_count,
+        COUNT(DISTINCT CASE WHEN p.alternative_number=1 AND r.verdict='yes'
+            THEN p.problem_number END) AS suitable_count
         FROM variants v LEFT JOIN problems p ON p.variant_id=v.id
+        LEFT JOIN relevance r ON r.problem_id=p.id AND r.exam_year=2027
+            AND r.target_problem_number=p.problem_number
         GROUP BY v.id ORDER BY v.exam_year DESC,v.variant_number""")
     for item in items:
         item["download_url"] = "/api/variants/" + item["id"] + "/source"
