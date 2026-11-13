@@ -331,7 +331,7 @@ function openImage(asset, caption = 'Рисунок к заданию') {
   dialog.showModal();
 }
 
-function renderFigureGrid(problem, role) {
+function renderFigureGrid(problem, role, showCopyButton = true) {
   const figures = problem.assets?.filter(a => a.role === role && a.media_type.startsWith('image/')) || [];
   if (!figures.length) return null;
   const figureGrid = node('div', 'task-figures');
@@ -349,9 +349,12 @@ function renderFigureGrid(problem, role) {
     img.alt = imageName;
     figure.append(img);
     figure.addEventListener('click', () => openImage(asset, imageName));
-    const caption = node('figcaption', 'task-figure-caption');
-    caption.append(copyButton(`Скопировать ${imageName.toLowerCase()}`, 'Копировать рисунок', asset, 'image'));
-    item.append(figure, caption);
+    item.append(figure);
+    if (showCopyButton) {
+      const caption = node('figcaption', 'task-figure-caption');
+      caption.append(copyButton(`Скопировать ${imageName.toLowerCase()}`, 'Копировать рисунок', asset, 'image'));
+      item.append(caption);
+    }
     figureGrid.append(item);
   }
   return figureGrid;
@@ -503,7 +506,7 @@ function renderBuilder() {
         const problem = await response.json();
         preview.replaceChildren();
         renderStatement(preview, problem.statement || 'Условие не извлечено.');
-        const figures = renderFigureGrid(problem, 'statement_figure');
+        const figures = renderFigureGrid(problem, 'statement_figure', false);
         if (figures) preview.append(figures);
       } catch (error) { preview.replaceChildren(node('p', '', `Не удалось загрузить условие: ${error.message}`)); }
     }
