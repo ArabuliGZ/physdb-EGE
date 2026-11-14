@@ -84,13 +84,19 @@ def task_families(con: sqlite3.Connection, tasks: list[dict]) -> dict[str, str]:
 
 
 def choose_for_number(number: int, bases: list[dict], base_tasks: list[dict[int, dict]],
-                      tasks: list[dict], families: dict[str, str]) -> list[dict]:
+                      tasks: list[dict], families: dict[str, str], *,
+                      slots: list[int] | None = None,
+                      excluded_families: set[str] | None = None) -> dict[int, dict]:
+    slots = list(range(len(bases))) if slots is None else slots
+    excluded_families = excluded_families or set()
     groups: dict[str, list[dict]] = defaultdict(list)
     for task in tasks:
-        if task["problem_number"] == number and task["verdict"] == "yes":
-            groups[families[task["id"]]].append(task)
-    if len(groups) < len(bases):
-        raise ValueError(f"Task {number}: only {len(groups)} different suitable tasks for {len(bases)} variants")
+        family = families[task["id"]]
+        if (task["problem_number"] == number and task["verdict"] == "yes" and
+                family not in excluded_families):
+            groups[family].append(task)
+    if len(groups) < len(slots):
+        raise ValueError(f"Task {number}: only {len(groups)} unused suitable tasks for {len(slots)} new variants")
 
     def candidate(members: list[dict], slot: int) -> tuple[dict, int] | None:
         base = bases[slot]
@@ -110,31 +116,31 @@ def choose_for_number(number: int, bases: list[dict], base_tasks: list[dict[int,
         chosen = max(allowed, key=weight)
         return chosen, weight(chosen)
 
-    # Dynamic programming over the six output slots solves the assignment
+    # Dynamic programming over the requested output slots solves the assignment
     # exactly for this task number. Each duplicate family is used at most once.
-    empty: tuple[dict | None, ...] = (None,) * len(bases)
+    empty: tuple[dict | None, ...] = (None,) * len(slots)
     states: dict[int, tuple[int, tuple[dict | None, ...]]] = {0: (0, empty)}
     for family in sorted(groups):
         next_states = states.copy()
         for mask, (score, picks) in states.items():
-            for slot in range(len(bases)):
-                if mask & (1 << slot):
+            for local_slot, slot in enumerate(slots):
+                if mask & (1 << local_slot):
                     continue
                 selected = candidate(groups[family], slot)
                 if selected is None:
                     continue
                 task, weight = selected
-                new_mask = mask | (1 << slot)
+                new_mask = mask | (1 << local_slot)
                 new_score = score + weight
                 if new_mask not in next_states or new_score > next_states[new_mask][0]:
                     updated = list(picks)
-                    updated[slot] = task
+                    updated[local_slot] = task
                     next_states[new_mask] = (new_score, tuple(updated))
         states = next_states
-    full = (1 << len(bases)) - 1
+    full = (1 << len(slots)) - 1
     if full not in states:
         raise ValueError(f"Task {number}: overrides prevent a disjoint assignment")
-    return list(states[full][1])
+    return dict(zip(slots, states[full][1]))
 
 
 def build(con: sqlite3.Connection, plan: dict) -> list[tuple[str, str, int]]:
@@ -154,9 +160,36 @@ def build(con: sqlite3.Connection, plan: dict) -> list[tuple[str, str, int]]:
         base_tasks.append(source)
 
     picks: list[dict[int, dict]] = [dict() for _ in bases]
+    tasks_by_id = {task["id"]: task for task in tasks}
+    locked_slots: set[int] = set()
+    for slot, entry in enumerate(bases):
+        auto_id = hashlib.sha256(f"automatic:{target_year}:{entry['key']}".encode()).hexdigest()[:24]
+        stored = con.execute("""SELECT base_variant_id,generation_rule
+            FROM automatic_variants WHERE id=?""", (auto_id,)).fetchone()
+        current = dict(con.execute("""SELECT problem_number,problem_id
+            FROM automatic_variant_problems WHERE automatic_variant_id=?""", (auto_id,)))
+        if (stored is None or stored["generation_rule"] != RULE or
+                stored["base_variant_id"] != entry["variant_id"] or
+                set(current) != set(range(1, 27))):
+            continue
+        selected = {number: tasks_by_id.get(problem_id) for number, problem_id in current.items()}
+        if any(task is None or task["verdict"] != "yes" or task["problem_number"] != number
+               for number, task in selected.items()):
+            continue
+        if any(selected[int(number)]["label"] != label
+               for number, label in entry["overrides"].items()):
+            continue
+        picks[slot] = selected
+        locked_slots.add(slot)
+
+    unlocked_slots = [slot for slot in range(len(bases)) if slot not in locked_slots]
     for number in range(1, 27):
-        chosen = choose_for_number(number, bases, base_tasks, tasks, families)
-        for slot, task in enumerate(chosen):
+        reserved = {families[picks[slot][number]["id"]] for slot in locked_slots}
+        if len(reserved) != len(locked_slots):
+            raise ValueError(f"Task {number}: stored automatic variants overlap")
+        chosen = choose_for_number(number, bases, base_tasks, tasks, families,
+                                   slots=unlocked_slots, excluded_families=reserved)
+        for slot, task in chosen.items():
             picks[slot][number] = task
 
     used: dict[str, tuple[int, int]] = {}
