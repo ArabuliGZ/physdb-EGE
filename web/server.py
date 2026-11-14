@@ -67,7 +67,8 @@ def automatic_variants() -> list[dict]:
         JOIN problems p ON p.id=ap.problem_id
         LEFT JOIN relevance r ON r.problem_id=p.id AND r.exam_year=a.target_exam_year
             AND r.target_problem_number=ap.problem_number
-        GROUP BY a.id ORDER BY v.exam_year DESC,v.variant_number""")
+        GROUP BY a.id
+        ORDER BY CAST(TRIM(SUBSTR(a.title, INSTR(a.title, '№') + 1)) AS INTEGER),a.title""")
 
 
 def list_problems(query: dict[str, list[str]]) -> list[dict]:
