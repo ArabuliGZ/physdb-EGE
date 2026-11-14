@@ -10,8 +10,10 @@ from pathlib import Path
 from urllib.parse import parse_qs, quote, urlparse
 
 if __package__:
+    from .editor import save_text_edit
     from .variant_tex import answer_field, compose, compile_pdf, project_zip, response_labels
 else:
+    from editor import save_text_edit
     from variant_tex import answer_field, compose, compile_pdf, project_zip, response_labels
 
 
@@ -21,6 +23,8 @@ DB = Path(os.environ.get("PHYSEGE_DB", ROOT / "data" / "phyege.sqlite3"))
 ASSETS = Path(os.environ.get("PHYSEGE_ASSETS", ROOT / "assets" / "objects"))
 FORMULAS = Path(os.environ.get("PHYSEGE_FORMULAS", ROOT / "assets" / "formulas"))
 MATERIALS = Path(os.environ.get("PHYSEGE_MATERIALS", ROOT / "Материалы"))
+EDITING_ENABLED = os.environ.get("PHYSEGE_EDITING") == "1"
+EDIT_LOG = Path(os.environ.get("PHYSEGE_EDIT_LOG", ROOT / "tools" / "site_edits" / "problem_text_edits.json"))
 
 
 def rows(query: str, params: tuple = ()) -> list[dict]:
@@ -265,6 +269,8 @@ class Handler(BaseHTTPRequestHandler):
         route = url.path
         if route == "/api/health":
             self.send_json({"ok": DB.is_file()})
+        elif route == "/api/config":
+            self.send_json({"editing_enabled": EDITING_ENABLED})
         elif route == "/api/variants":
             self.send_json(variants())
         elif route == "/api/automatic-variants":
@@ -358,6 +364,33 @@ class Handler(BaseHTTPRequestHandler):
                 self.send_file(path)
             else:
                 self.send_error(403)
+
+    def do_PUT(self) -> None:
+        route = urlparse(self.path).path
+        if not EDITING_ENABLED:
+            self.send_json({"error": "Редактирование отключено"}, 403)
+            return
+        if not route.startswith("/api/problems/") or not route.endswith("/text"):
+            self.send_error(404)
+            return
+        problem_id = route.removeprefix("/api/problems/").removesuffix("/text")
+        try:
+            length = int(self.headers.get("Content-Length", "0"))
+            if length <= 0 or length > 1_000_000:
+                raise ValueError("Неверный размер запроса")
+            payload = json.loads(self.rfile.read(length).decode("utf-8"))
+            if not isinstance(payload, dict):
+                raise ValueError("Неверный формат запроса")
+            result = save_text_edit(DB, EDIT_LOG, problem_id,
+                                    payload.get("field"), payload.get("value"))
+            item = get_problem(problem_id)
+            self.send_json({**result, "problem": item})
+        except LookupError as exc:
+            self.send_json({"error": str(exc)}, 404)
+        except (ValueError, UnicodeDecodeError) as exc:
+            self.send_json({"error": str(exc)}, 400)
+        except (OSError, sqlite3.Error) as exc:
+            self.send_json({"error": f"Не удалось сохранить правку: {exc}"}, 500)
 
 
 if __name__ == "__main__":

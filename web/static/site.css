@@ -71,7 +71,7 @@ body { min-width: 0; }
 .problem-state.yes { background: var(--green-50); color: var(--green-700); }
 .problem-state.partial { background: var(--orange-50); color: var(--orange-800); }
 .problem-state.no { background: var(--red-50); color: var(--red-700); }
-.statement-toolbar { display: flex; justify-content: flex-end; margin: -3px 0 7px; }
+.statement-toolbar { display: flex; justify-content: flex-end; gap: 7px; margin: -3px 0 7px; }
 .copy-button { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 30px; padding: 5px 9px; border: 1px solid var(--gray-200); border-radius: 8px; background: #fff; color: var(--gray-600); font: 650 11px/1.2 Inter, system-ui, sans-serif; white-space: nowrap; cursor: pointer; }
 .copy-button svg { display: block; width: 14px; height: 14px; flex: 0 0 14px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 .copy-button:hover { border-color: var(--orange-500); color: var(--orange-800); background: var(--orange-50); }
@@ -79,6 +79,7 @@ body { min-width: 0; }
 .copy-button:disabled { opacity: .65; cursor: wait; }
 .copy-button.is-success { border-color: var(--green-700); color: var(--green-700); background: var(--green-50); }
 .copy-button.is-error { border-color: var(--red-700); color: var(--red-700); background: var(--red-50); }
+.edit-latex-button { border-color: var(--orange-300); color: var(--orange-800); }
 .statement, .detail-content { color: var(--black); font-family: Georgia, "Times New Roman", serif; font-size: 17px; line-height: 1.75; overflow-wrap: anywhere; }
 .statement p, .detail-content p { margin: 0 0 12px; }
 .statement p:last-child, .detail-content p:last-child { margin-bottom: 0; }
@@ -133,6 +134,7 @@ body { min-width: 0; }
 .detail-panel[hidden] { display: none; }
 .detail-panel-header { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; margin: 0 -16px 8px 0; }
 .detail-panel-header h4 { margin: 0; font-size: 12px; }
+.detail-panel-actions { display: flex; flex-wrap: wrap; gap: 7px; }
 .detail-content { max-width: 100%; }
 .criteria-content { display: grid; gap: 10px; font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 14px; line-height: 1.6; overflow-wrap: break-word; }
 .criteria-content p { margin: 0; }
@@ -185,9 +187,28 @@ body { min-width: 0; }
 .image-dialog .dialog-close { width: 35px; height: 35px; font-size: 25px; }
 .image-dialog img { display: block; width: min(100%, 1000px); max-height: 73vh; margin: auto; object-fit: contain; }
 .image-dialog p { margin: 12px 0 0; color: var(--gray-500); text-align: center; font-size: 12px; }
+.latex-editor { width: min(94vw, 1180px); max-height: 92vh; padding: 0; border: 1px solid var(--gray-200); border-radius: 14px; box-shadow: var(--shadow-raised); overflow: hidden; }
+.latex-editor::backdrop { background: rgba(17,24,39,.72); }
+.latex-editor-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; padding: 18px 20px 14px; border-bottom: 1px solid var(--gray-200); }
+.latex-editor-head h2 { margin: 3px 0 0; font-size: 19px; }
+.latex-editor .dialog-close { flex: 0 0 35px; width: 35px; height: 35px; border: 0; border-radius: 8px; background: var(--gray-100); font-size: 25px; cursor: pointer; }
+.latex-editor-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); min-height: 420px; }
+.latex-editor-source, .latex-editor-preview-wrap { display: flex; min-width: 0; flex-direction: column; gap: 8px; padding: 15px 20px; color: var(--gray-600); font-size: 12px; font-weight: 700; }
+.latex-editor-source { border-right: 1px solid var(--gray-200); }
+.latex-editor-source textarea { width: 100%; min-height: 370px; flex: 1; resize: vertical; padding: 13px 14px; border: 1px solid var(--gray-300); border-radius: 9px; background: #fbfcfe; color: var(--black); font: 14px/1.55 "Cascadia Code", Consolas, monospace; tab-size: 2; }
+.latex-editor-source textarea:focus { outline: 2px solid var(--orange-300); border-color: var(--orange-500); }
+.latex-editor-preview { min-height: 370px; max-height: 52vh; padding: 13px 14px; border: 1px solid var(--gray-200); border-radius: 9px; background: #fff; overflow: auto; font-weight: 400; }
+.latex-editor-help, .latex-editor-status { margin: 0; padding: 0 20px; color: var(--gray-500); font-size: 11px; }
+.latex-editor-help code { color: var(--orange-800); }
+.latex-editor-status { min-height: 17px; margin-top: 7px; }
+.latex-editor-status.is-error { color: var(--red-700); }
+.latex-editor-actions { display: flex; justify-content: flex-end; gap: 8px; padding: 12px 20px 18px; }
+.latex-editor-actions .source-download { background: #fff; cursor: pointer; }
+.latex-editor-actions .source-download:disabled { opacity: .6; cursor: wait; }
 @media (max-width: 680px) { .copy-button { width: auto; padding: 5px 9px; } .copy-button span { display: inline; } }
 @media (max-width: 1050px) { .topbar-summary { display: none; } }
 @media (max-width: 760px) { .site-topbar { flex-wrap: wrap; gap: 0; margin: 8px 8px 0; padding: 8px 10px 0; } .site-topbar .brand { padding-bottom: 6px; } .site-topbar .view-tabs { order: 2; flex: 0 0 100%; justify-content: space-around; } .site-shell { padding: 22px 10px 40px; } .intro { align-items: flex-start; flex-direction: column; } .catalog-layout { grid-template-columns: 1fr; } .catalog-sidebar { position: static; } .number-list { grid-template-columns: repeat(7, 1fr); } .section-head, .problem-card { padding: 15px; } }
+@media (max-width: 760px) { .latex-editor-grid { grid-template-columns: 1fr; } .latex-editor-source { border-right: 0; border-bottom: 1px solid var(--gray-200); } .latex-editor-source textarea, .latex-editor-preview { min-height: 240px; } }
 @media (max-width: 430px) { .number-list { grid-template-columns: repeat(5, 1fr); } .problem-card-header { flex-direction: column; } .task-figure { height: 260px; } }
 @media (max-width: 430px) { .criteria-item { grid-template-columns: 1fr; gap: 8px; } .criteria-points { width: max-content; min-width: 76px; } }
 @media (max-width: 430px) { .builder-row { grid-template-columns: 1fr; gap: 6px; } }

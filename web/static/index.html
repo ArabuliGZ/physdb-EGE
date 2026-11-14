@@ -64,5 +64,23 @@
   </main>
 
   <dialog id="image-dialog" class="image-dialog"><form method="dialog"><button class="dialog-close" aria-label="Закрыть изображение">×</button></form><img alt="Фрагмент оригинала"><p></p></dialog>
+  <dialog id="latex-editor" class="latex-editor">
+    <div class="latex-editor-head">
+      <div><span class="eyebrow">Локальная правка</span><h2 id="latex-editor-title">Править LaTeX</h2></div>
+      <button type="button" id="latex-editor-close" class="dialog-close" aria-label="Закрыть редактор">×</button>
+    </div>
+    <div class="latex-editor-grid">
+      <label class="latex-editor-source">Исходный код
+        <textarea id="latex-editor-text" spellcheck="false" aria-describedby="latex-editor-help"></textarea>
+      </label>
+      <div class="latex-editor-preview-wrap"><span>Предпросмотр</span><div id="latex-editor-preview" class="latex-editor-preview statement"></div></div>
+    </div>
+    <p id="latex-editor-help" class="latex-editor-help">Используйте <code>\(...\)</code> для формул и сохраняйте структуру таблиц LaTeX.</p>
+    <p id="latex-editor-status" class="latex-editor-status" role="status"></p>
+    <div class="latex-editor-actions">
+      <button type="button" id="latex-editor-cancel" class="detail-button">Отмена</button>
+      <button type="button" id="latex-editor-save" class="source-download">Сохранить</button>
+    </div>
+  </dialog>
 </body>
 </html>

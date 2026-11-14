@@ -1,0 +1,8 @@
+services:
+  web:
+    environment:
+      PHYSEGE_EDITING: "1"
+      PHYSEGE_EDIT_LOG: /site-edits/problem_text_edits.json
+    volumes:
+      - ./data/phyege.sqlite3:/data/phyege.sqlite3
+      - ./tools/site_edits:/site-edits

@@ -1,5 +1,6 @@
 const state = { view: 'variants', variantId: null, automaticId: null, number: 1,
-  variants: [], automaticVariants: [], options: [], picks: {} };
+  variants: [], automaticVariants: [], options: [], picks: {}, editingEnabled: false };
+const editorState = { problem: null, field: null, anchor: null };
 const byId = id => document.getElementById(id);
 const plural = (count, one, few, many) => {
   const last = count % 10, lastTwo = count % 100;
@@ -108,6 +109,75 @@ function copyButton(label, caption, value, type = 'text') {
     }
   });
   return button;
+}
+
+function editLatexButton(problem, field) {
+  const button = node('button', 'copy-button edit-latex-button', 'Править LaTeX');
+  button.type = 'button';
+  button.title = field === 'statement' ? 'Править код условия' : 'Править код решения';
+  button.addEventListener('click', event => {
+    event.stopPropagation();
+    openLatexEditor(problem, field);
+  });
+  return button;
+}
+
+function renderLatexEditorPreview() {
+  const preview = byId('latex-editor-preview');
+  preview.replaceChildren();
+  const value = byId('latex-editor-text').value.trim();
+  if (!value) {
+    preview.append(node('p', 'criteria-note', 'Предпросмотр появится после ввода текста.'));
+    return;
+  }
+  renderStatement(preview, value,
+    editorState.field === 'statement' ? answerTableLabels(editorState.problem) : null);
+}
+
+function openLatexEditor(problem, field) {
+  editorState.problem = problem;
+  editorState.field = field;
+  editorState.anchor = problem.id;
+  const name = field === 'statement' ? 'условие' : 'решение';
+  byId('latex-editor-title').textContent = `Задание ${problem.problem_number}: ${name}`;
+  byId('latex-editor-text').value = problem[field] || '';
+  byId('latex-editor-status').textContent = '';
+  renderLatexEditorPreview();
+  const dialog = byId('latex-editor');
+  dialog.showModal();
+  byId('latex-editor-text').focus();
+}
+
+async function saveLatexEdit() {
+  const value = byId('latex-editor-text').value.trim();
+  const status = byId('latex-editor-status');
+  const save = byId('latex-editor-save');
+  if (!value) {
+    status.textContent = 'Пустой текст сохранить нельзя.';
+    status.className = 'latex-editor-status is-error';
+    return;
+  }
+  save.disabled = true;
+  status.textContent = 'Сохраняю…';
+  status.className = 'latex-editor-status';
+  try {
+    const response = await fetch(`/api/problems/${encodeURIComponent(editorState.problem.id)}/text`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ field: editorState.field, value }),
+    });
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.error || `HTTP ${response.status}`);
+    const anchor = editorState.anchor;
+    byId('latex-editor').close();
+    await update();
+    document.querySelector(`[id$="-${CSS.escape(anchor)}"]`)?.scrollIntoView({ block: 'center' });
+  } catch (error) {
+    status.textContent = `Не удалось сохранить: ${error.message}`;
+    status.className = 'latex-editor-status is-error';
+  } finally {
+    save.disabled = false;
+  }
 }
 
 function labelForStatus(verdict) {
@@ -426,7 +496,7 @@ function renderCriteria(container, text) {
   }
 }
 
-function addDisclosure(card, label, content, figures = null) {
+function addDisclosure(card, label, content, figures = null, problem = null) {
   const button = node('button', 'detail-button', label);
   button.type = 'button';
   button.setAttribute('aria-expanded', 'false');
@@ -434,10 +504,12 @@ function addDisclosure(card, label, content, figures = null) {
   panel.hidden = true;
   const header = node('div', 'detail-panel-header');
   const copySubject = ({ Ответ: 'ответа', Решение: 'решения', Критерии: 'критериев' })[label];
-  header.append(
-    node('h4', '', label),
-    copyButton(`Скопировать текст ${copySubject}`, content?.includes('[[formula:') ? 'Копировать текст' : 'Копировать TeX', content || 'В источнике не указан.')
-  );
+  const actions = node('div', 'detail-panel-actions');
+  actions.append(copyButton(`Скопировать текст ${copySubject}`, content?.includes('[[formula:') ? 'Копировать текст' : 'Копировать TeX', content || 'В источнике не указан.'));
+  if (state.editingEnabled && label === 'Решение' && problem) {
+    actions.prepend(editLatexButton(problem, 'solution'));
+  }
+  header.append(node('h4', '', label), actions);
   const body = node('div', label === 'Критерии' ? 'detail-content criteria-content' : 'detail-content');
   if (label === 'Критерии') renderCriteria(body, content || 'В источнике не указан.');
   else renderStatement(body, content || 'В источнике не указан.');
@@ -512,6 +584,7 @@ function renderCard(problem, showSource, numberMode = false) {
 
   const statementToolbar = node('div', 'statement-toolbar');
   const copyStatement = statementForCopy(problem);
+  if (state.editingEnabled) statementToolbar.append(editLatexButton(problem, 'statement'));
   statementToolbar.append(copyButton('Скопировать текст условия', copyStatement.includes('[[formula:') ? 'Копировать текст' : 'Копировать TeX', copyStatement));
   card.append(statementToolbar);
 
@@ -530,7 +603,7 @@ function renderCard(problem, showSource, numberMode = false) {
   card.append(footer);
   addDisclosure(card, 'Ответ', problem.answer);
   if (problem.solution) addDisclosure(card, 'Решение', problem.solution,
-    renderFigureGrid(problem, 'solution_figure'));
+    renderFigureGrid(problem, 'solution_figure'), problem);
   if (problem.criteria) addDisclosure(card, 'Критерии', problem.criteria);
 
   if (showSource) {
@@ -837,12 +910,13 @@ async function update() {
 
 async function init() {
   try {
-    const [variantsResponse, automaticResponse] = await Promise.all([
-      fetch('/api/variants'), fetch('/api/automatic-variants')
+    const [variantsResponse, automaticResponse, configResponse] = await Promise.all([
+      fetch('/api/variants'), fetch('/api/automatic-variants'), fetch('/api/config')
     ]);
-    if (!variantsResponse.ok || !automaticResponse.ok) throw new Error('Не удалось загрузить варианты');
+    if (!variantsResponse.ok || !automaticResponse.ok || !configResponse.ok) throw new Error('Не удалось загрузить варианты');
     state.variants = await variantsResponse.json();
     state.automaticVariants = await automaticResponse.json();
+    state.editingEnabled = Boolean((await configResponse.json()).editing_enabled);
     const total = state.variants.reduce((sum, item) => sum + item.problem_count, 0);
     byId('database-summary').textContent = `${plural(state.variants.length, 'вариант', 'варианта', 'вариантов')} · ${plural(total, 'запись', 'записи', 'записей')} задач`;
     readLocation();
@@ -860,4 +934,14 @@ byId('tab-numbers').addEventListener('click', () => { state.view = 'numbers'; wr
 byId('tab-builder').addEventListener('click', () => { state.view = 'builder'; writeLocation(); update(); });
 window.addEventListener('popstate', () => { readLocation(); update(); });
 byId('image-dialog').addEventListener('click', event => { if (event.target === event.currentTarget) event.currentTarget.close(); });
+byId('latex-editor-close').addEventListener('click', () => byId('latex-editor').close());
+byId('latex-editor-cancel').addEventListener('click', () => byId('latex-editor').close());
+byId('latex-editor-save').addEventListener('click', saveLatexEdit);
+byId('latex-editor-text').addEventListener('input', renderLatexEditorPreview);
+byId('latex-editor-text').addEventListener('keydown', event => {
+  if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') {
+    event.preventDefault();
+    saveLatexEdit();
+  }
+});
 init();
