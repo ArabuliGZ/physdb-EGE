@@ -4,7 +4,6 @@ body { min-width: 0; }
 .site-shell { max-width: 1320px; margin: 0 auto; padding: 29px 16px 64px; }
 .intro { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; margin-bottom: 23px; }
 .intro h1 { margin: 3px 0 5px; font-size: clamp(27px, 3.4vw, 38px); line-height: 1.18; letter-spacing: -0.035em; }
-.draft-badge { flex: 0 0 auto; padding: 7px 11px; border: 1px solid var(--orange-100); border-radius: 999px; background: var(--orange-50); color: var(--orange-800); font-size: 11px; font-weight: 700; }
 .view-tabs { display: flex; align-self: stretch; align-items: stretch; gap: 5px; min-width: 0; margin: 0 auto; }
 .view-tab { position: relative; padding: 9px 13px; border: 0; background: transparent; color: var(--gray-500); font-weight: 650; white-space: nowrap; }
 .view-tab:hover { color: var(--black); }
@@ -32,11 +31,6 @@ body { min-width: 0; }
 .number-list { display: grid; grid-template-columns: repeat(5, 1fr); gap: 7px; }
 .number-list[hidden], .variant-list[hidden] { display: none; }
 .number-option { height: 40px; border: 1px solid var(--gray-200); border-radius: 9px; background: white; font-weight: 700; }
-.legend { display: grid; gap: 8px; margin-top: 23px; padding-top: 18px; border-top: 1px solid var(--gray-200); color: var(--gray-500); font-size: 11px; }
-.status-dot { display: inline-block; width: 8px; height: 8px; margin-right: 5px; border-radius: 50%; }
-.status-dot.yes { background: var(--green-700); }
-.status-dot.partial { background: var(--orange-500); }
-.status-dot.no { background: var(--red-700); }
 .catalog-main { min-width: 0; }
 .section-head { display: grid; padding: 18px 22px; margin-bottom: 12px; }
 .section-head-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px 20px; }
