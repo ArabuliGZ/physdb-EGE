@@ -288,6 +288,7 @@ function renderAnswerField(problem) {
     block.append(boxes);
     return block;
   }
+  if (field.prefix) block.append(node('span', 'answer-prefix', field.prefix));
   block.append(node('span', 'answer-blank'));
   if (field.kind === 'pair') {
     block.append(node('span', 'answer-plus-minus', '±'), node('span', 'answer-blank answer-blank-pair'));

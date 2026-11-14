@@ -33,6 +33,8 @@ CREATE TABLE IF NOT EXISTS problems (
   criteria TEXT,
   max_points INTEGER NOT NULL,
   answer_format TEXT NOT NULL,
+  answer_prefix TEXT,
+  answer_unit TEXT,
   topic TEXT NOT NULL,
   extraction_status TEXT NOT NULL CHECK (extraction_status IN ('verified','needs_review')),
   review_notes TEXT,

@@ -151,6 +151,11 @@ def normalize_answer_unit(value: str) -> str:
 
 def answer_unit(problem: dict) -> str:
     """Extract only an explicitly stated unit; never infer it from the answer."""
+    # Imported Word variants retain the exact suffix printed after the blank.
+    # NULL means that the source has not supplied metadata, while an empty
+    # string means that the printed answer field was checked and has no unit.
+    if problem.get("answer_unit") is not None:
+        return problem["answer_unit"]
     statement = " ".join((problem.get("statement") or "").split())
     compact = statement.replace(r"\(^2\)", "²").replace(r"\(^3\)", "³")
     pair = re.search(
@@ -178,6 +183,11 @@ def answer_unit(problem: dict) -> str:
     return normalize_answer_unit(question_unit.group(1)) if question_unit else ""
 
 
+def answer_prefix(problem: dict) -> str:
+    """Return author text printed between «Ответ:» and the first blank."""
+    return problem.get("answer_prefix") or ""
+
+
 def answer_field(problem: dict) -> dict | None:
     """Describe the short-answer blank shared by the website and generated TeX."""
     kind = problem.get("answer_format")
@@ -192,10 +202,10 @@ def answer_field(problem: dict) -> dict | None:
                         problem.get("exam_year") == 2022 and number == 2) else 2
         return {"kind": "table", "labels": list("АБВ"[:columns])}
     if kind == "number_pair":
-        return {"kind": "pair", "unit": answer_unit(problem)}
+        return {"kind": "pair", "prefix": answer_prefix(problem), "unit": answer_unit(problem)}
     if kind == "multiple_choice":
-        return {"kind": "line", "unit": ""}
-    return {"kind": "line", "unit": answer_unit(problem)}
+        return {"kind": "line", "prefix": answer_prefix(problem), "unit": answer_unit(problem)}
+    return {"kind": "line", "prefix": answer_prefix(problem), "unit": answer_unit(problem)}
 
 
 def statement_tex(value: str, figures: dict[str, Path]) -> str:
@@ -233,8 +243,9 @@ def answer_macro(problem: dict, figures: dict[str, Path]) -> str:
     if not field:
         return ""
     if field["kind"] == "pair":
+        prefix = hybrid(field["prefix"], figures) if field["prefix"] else ""
         unit = hybrid(field["unit"], figures) if field["unit"] else ""
-        return r"\PairAnswerWithUnit{" + unit + "}"
+        return r"\PairAnswerWithAffixes{" + prefix + "}{" + unit + "}"
     if field["kind"] == "table":
         labels = field["labels"]
         if labels == ["А", "Б"]:
@@ -244,8 +255,9 @@ def answer_macro(problem: dict, figures: dict[str, Path]) -> str:
         return response_table_tex(tuple(labels), figures)
     if field["kind"] == "boxes":
         return r"\AnswerBoxes{" + str(field["count"]) + "}"
+    prefix = hybrid(field["prefix"], figures) if field["prefix"] else ""
     unit = hybrid(field["unit"], figures) if field["unit"] else ""
-    return r"\AnswerLineWithUnit{" + unit + "}"
+    return r"\AnswerLineWithAffixes{" + prefix + "}{" + unit + "}"
 
 
 def render_problem(problem: dict, figures: dict[str, Path]) -> str:

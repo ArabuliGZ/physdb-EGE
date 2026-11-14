@@ -115,10 +115,10 @@ body { min-width: 0; }
 .response-table-fields td { height: 42px; border-top: 1px solid var(--gray-300); background: #fff; }
 .answer-field { display: flex; align-items: flex-end; flex-wrap: wrap; gap: 7px; width: min(100%, 520px); margin: 18px 0 4px; color: var(--black); font-family: Georgia, "Times New Roman", serif; font-size: 17px; line-height: 1.35; }
 .answer-field-label { margin-right: 2px; font-weight: 600; }
+.answer-prefix, .answer-unit { white-space: nowrap; }
 .answer-blank { display: inline-block; flex: 0 1 190px; min-width: 110px; height: 1.15em; border-bottom: 1.5px solid var(--black); }
 .answer-field-pair .answer-blank { flex-basis: 130px; min-width: 88px; }
 .answer-plus-minus { padding: 0 2px; font-size: 19px; line-height: 1.05; }
-.answer-unit { white-space: nowrap; }
 .answer-boxes { display: inline-flex; gap: 0; }
 .answer-box { width: 31px; height: 31px; border: 1.5px solid var(--gray-600); background: #fff; }
 .answer-box + .answer-box { border-left: 0; }

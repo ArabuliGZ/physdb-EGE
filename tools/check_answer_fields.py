@@ -43,8 +43,11 @@ def main() -> None:
         if problem["answer_format"] == "matching" and kind != "table":
             raise ValueError(f"Matching field is not a table for {problem['id']}")
         unit = field.get("unit", "")
-        if len(unit) > 18 or " " in unit:
+        prefix = field.get("prefix", "")
+        if len(unit) > 32:
             raise ValueError(f"Suspicious unit {unit!r} for {problem['id']}")
+        if len(prefix) > 40:
+            raise ValueError(f"Suspicious answer prefix {prefix!r} for {problem['id']}")
         counts[kind] += 1
         if unit:
             units[unit] += 1
@@ -56,6 +59,18 @@ def main() -> None:
     for number, expected in expected_units.items():
         if not demo.get(number) or demo[number].get("unit") != expected:
             raise ValueError(f"Demo 2027 task {number}: expected unit {expected!r}, got {demo.get(number)}")
+
+    restored = {row["problem_number"]: answer_field(dict(row)) for row in rows
+                if row["exam_year"] == 2024 and row["variant_number"] == "1-3"
+                and row["alternative_number"] == 1}
+    expected_restored = {
+        1: ("", "м"), 2: ("", "см"), 3: ("", "с"),
+        12: ("в", "раз(а)"), 13: ("точка", ""), 19: ("", "гПа"),
+    }
+    for number, (prefix, unit) in expected_restored.items():
+        field = restored.get(number) or {}
+        if field.get("prefix", "") != prefix or field.get("unit", "") != unit:
+            raise ValueError(f"2024-1-3 task {number}: expected {prefix!r} ___ {unit!r}, got {field}")
 
     print("Checked answer fields: " + ", ".join(
         f"{kind} — {count}" for kind, count in sorted(counts.items())))
