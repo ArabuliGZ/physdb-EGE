@@ -1,7 +1,7 @@
 """Candidate 2027 positions for the four 30-task Demidova 2022 papers.
 
 The 2022-to-2023 line permutation is a starting point. Each exception below
-uses the actual task topic, response type, and score in the 2027 draft plan.
+uses the actual task topic, response type, and score in the 2027 approved plan.
 """
 from __future__ import annotations
 
@@ -52,7 +52,7 @@ def assessment(variant: int, number: int) -> tuple[int, str, int, int, str]:
     if number == 2:
         return target, "no", 1, 0, (
             "Общекурсовое соответствие трёх зависимостей графикам не совпадает "
-            "с форматом множественного выбора позиции 18 проекта 2027.")
+            "с форматом множественного выбора позиции 18 спецификации 2027.")
     if number == 9 and variant != 3:
         return target, "no", 0, 1, (
             "Числовая задача об уравнении состояния газа не проверяет связь "
@@ -60,11 +60,11 @@ def assessment(variant: int, number: int) -> tuple[int, str, int, int, str]:
     if number == 10 and variant != 3:
         return target, "no", 0, 1, (
             "Числовая задача о влажности либо газовом законе не соответствует "
-            "узкой теме позиции 7 и тепловой теме позиции 8 проекта 2027.")
+            "узкой теме позиции 7 и тепловой теме позиции 8 спецификации 2027.")
     if number == 18 and variant == 2:
         return target, "partial", 1, 1, (
             "Соответствие по преломлению света совпадает по формату и баллам, "
-            "но оптика не выделена среди элементов позиции 15 проекта 2027.")
+            "но оптика не выделена среди элементов позиции 15 спецификации 2027.")
     if number == 25 and variant in (3, 4):
         return target, "partial", 1, 1, (
             "Механическая задача с развёрнутым решением на 2 балла совпадает "
@@ -72,20 +72,20 @@ def assessment(variant: int, number: int) -> tuple[int, str, int, int, str]:
     if number == 26:
         return target, "no", 0, 1, (
             f"Задача с развёрнутым решением на {source_points(variant, number)} балла "
-            "относится к фотоэффекту или фотонам; позиции 22–23 проекта 2027 "
+            "относится к фотоэффекту или фотонам; позиции 22–23 спецификации 2027 "
             "отведены механике и молекулярной физике.")
     if number == 29:
         return target, "no", 0, 1, (
             "Высокоуровневая расчётная задача по геометрической оптике не входит "
-            "в перечень содержания позиции 25 проекта 2027.")
+            "в перечень содержания позиции 25 спецификации 2027.")
     if number == 30:
         return target, "yes", 1, 1, (
             "Механическая задача на 4 балла с отдельным обоснованием модели "
-            "соответствует позиции 26 проекта 2027 при сохранении двух критериев.")
+            "соответствует позиции 26 спецификации 2027 при сохранении двух критериев.")
     return target, "yes", 1, 1, (
         f"Исходная позиция 2022 №{number}: тема {SOURCE_TOPIC[number]}, "
         f"формат {SOURCE_FORMAT[number]}, {SOURCE_POINTS[number]} балл(а); "
-        f"соответствует позиции {target} проекта 2027.")
+        f"соответствует позиции {target} спецификации 2027.")
 
 
 assert set(TARGET) == set(SOURCE_POINTS) == set(SOURCE_FORMAT) == set(SOURCE_TOPIC) == set(range(1, 31))

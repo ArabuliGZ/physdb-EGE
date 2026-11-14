@@ -49,6 +49,7 @@ MISPLACED_STATEMENT_FIGURES = {
     (2, 2): {"568cb087039638376a042bd5348d972949b81b2279fc7f31a22d053df668abdf"},  # task 3 graph
     (2, 23): {"f0114b5d5b6e1c480e82b74c07df3981b1b0926a7fc00d240672e6648173ae1d"},
     (3, 2): {"65acfa56fb7baec7a6242be8b8092b3964899e6b46e108385f990a321350e0ea"},  # task 3 grid
+    (3, 15): {"f31c3844fe433ab1894146742d14a37a105e4746300adb632493689b24608935"},  # task 16 graph
     (3, 23): {"f0114b5d5b6e1c480e82b74c07df3981b1b0926a7fc00d240672e6648173ae1d"},
     (4, 23): {"f0114b5d5b6e1c480e82b74c07df3981b1b0926a7fc00d240672e6648173ae1d"},
 }
@@ -151,6 +152,8 @@ def format_2022_criteria(value: str) -> str:
     value = value.replace("недостатков.В ", "недостатков.\nВ ")
     value = re.sub(r"(?<!\n)(?=И \(ИЛИ\) )", "\n", value)
     value = re.sub(r"(?<!\n)(?=ИЛИ )", "\n", value)
+    value = value.replace(r"\(1\) балла:", r"\(1\) балл:")
+    value = value.replace(r"\(0\) балла:", r"\(0\) баллов:")
     return re.sub(r"\n{3,}", "\n\n", value).strip()
 
 
@@ -266,6 +269,9 @@ def main() -> None:
     with con:
         for variant in SOURCES:
             import_one(con, variant)
+        # A corrected figure assignment may leave an unused asset record from
+        # a previous import. The image file can stay for source traceability.
+        con.execute("DELETE FROM assets WHERE id NOT IN (SELECT asset_id FROM problem_assets)")
     if con.execute("PRAGMA foreign_key_check").fetchone():
         raise ValueError("Foreign key errors after 2022 import")
     count = con.execute("""SELECT COUNT(*) FROM problems p JOIN variants v ON v.id=p.variant_id

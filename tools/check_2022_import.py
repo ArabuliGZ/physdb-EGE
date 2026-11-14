@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import hashlib
+import re
 import sqlite3
 from collections import Counter
 
@@ -20,6 +21,15 @@ PRINTED_KEYS = {
     2: "24 144 0 50 2040 15 21 23 1 100 2 13 21 3 2 1 24 32 14 254 24 0,40,1 14",
     3: "134 324 3 0,16 0,3 125 33 34 200 500 50 15 13 40 20 2 15 21 14 40 23 451 13",
     4: "23 431 2,7 90 1,8 25 32 43 1 6 200 134 23 140 1 0,002 245 22 41 78 13 3,80,1 25",
+}
+
+# Read independently from the score columns of the author rubrics (PDF pages
+# following each variant). Task 30 has two separate criteria sections.
+PRINTED_RUBRIC_SCORES = {
+    1: {24: "32103", 25: "2102", 26: "2102", 27: "32103", 28: "32103", 29: "32103", 30: "1032104"},
+    2: {24: "32103", 25: "2102", 26: "2102", 27: "32103", 28: "32103", 29: "32103", 30: "1032104"},
+    3: {24: "32103", 25: "2102", 26: "2102", 27: "32103", 28: "3210", 29: "32103", 30: "1032104"},
+    4: {24: "32103", 25: "2102", 26: "3210", 27: "32103", 28: "32103", 29: "32103", 30: "1032104"},
 }
 
 
@@ -56,6 +66,10 @@ def main() -> None:
                 expected_answer = format_quantities(expected_answer)
             assert row["answer"] == expected_answer, (variant, number, row["answer"])
             assert bool(row["solution"]) == bool(row["criteria"]) == (number >= 24)
+            if number >= 24:
+                score_blocks = re.findall(r"(?m)^\\\((\d+)\\\) балл[аов]*:", row["criteria"])
+                assert "".join(score_blocks) == PRINTED_RUBRIC_SCORES[variant][number], (variant, number, score_blocks)
+                assert row["criteria"].count("Критерий") == (2 if number == 30 else 0), (variant, number)
             for field in ("statement", "answer", "solution", "criteria"):
                 value = row[field] or ""
                 assert "[[formula:" not in value and "[[SRCFORMULA" not in value
@@ -75,7 +89,7 @@ def main() -> None:
     expected_figures = {
         (1, 12): 1, (1, 22): 1, (1, 23): 1,
         (2, 2): 5, (2, 3): 1, (2, 23): 0,
-        (3, 2): 5, (3, 3): 1, (3, 23): 5,
+        (3, 2): 5, (3, 3): 1, (3, 15): 0, (3, 16): 1, (3, 23): 5,
         (4, 23): 0,
     }
     for (variant, number), expected in expected_figures.items():

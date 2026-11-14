@@ -48,7 +48,7 @@ FORMATS = {n: ("number_pair" if n == 19 else
                "qualitative" if n == 21 else "worked_solution")
            for n in range(1, 27)}
 
-# Suitability for the *position* in the 2027 project specification. These
+# Suitability for the *position* in the approved 2027 specification. These
 # judgments use the narrow content codes in its generalized plan, the answer
 # format, and the separate "Пояснения к типам задач" image. Text-extraction
 # quality is tracked by problems.extraction_status and does not decide this.
@@ -503,7 +503,7 @@ def main() -> None:
     with con:
         for n in range(1, 27):
             con.execute("""INSERT OR REPLACE INTO exam_positions VALUES (?,?,?,?,?,?)""",
-                        (2027, n, TOPICS[n], FORMATS[n], POINTS[n], "project"))
+                        (2027, n, TOPICS[n], FORMATS[n], POINTS[n], "approved"))
         extract_demo(con)
         extract_demidova(con)
         add_solution_figures(con)

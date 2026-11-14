@@ -385,6 +385,8 @@ function renderFigureGrid(problem, role, showCopyButton = true) {
   const figures = problem.assets?.filter(a => a.role === role && a.media_type.startsWith('image/')) || [];
   if (!figures.length) return null;
   const figureGrid = node('div', 'task-figures');
+  const numberedPhotos = role === 'statement_figure' && figures.length === 3
+    && /рис\.\s*\\\(1\\\)/i.test(problem.statement || '');
   for (const [index, asset] of figures.entries()) {
     const imageName = role === 'solution_figure'
       ? `Рисунок ${index + 1} к решению задания ${problem.problem_number}`
@@ -400,9 +402,10 @@ function renderFigureGrid(problem, role, showCopyButton = true) {
     figure.append(img);
     figure.addEventListener('click', () => openImage(asset, imageName));
     item.append(figure);
-    if (showCopyButton) {
+    if (showCopyButton || numberedPhotos) {
       const caption = node('figcaption', 'task-figure-caption');
-      caption.append(copyButton(`Скопировать ${imageName.toLowerCase()}`, 'Копировать рисунок', asset, 'image'));
+      if (numberedPhotos) caption.append(node('span', 'task-figure-number', `Рис. ${index + 1}`));
+      if (showCopyButton) caption.append(copyButton(`Скопировать ${imageName.toLowerCase()}`, 'Копировать рисунок', asset, 'image'));
       item.append(caption);
     }
     figureGrid.append(item);

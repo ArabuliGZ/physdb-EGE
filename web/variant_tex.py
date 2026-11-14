@@ -124,7 +124,21 @@ def render_problem(problem: dict, figures: dict[str, Path]) -> str:
             source = figures.get(asset["id"])
             if source and source.is_file():
                 image_paths.append(source)
-    if len(image_paths) >= 3:
+    numbered_photos = (len(image_paths) == 3 and
+                       re.search(r"рис\.\s*\\\(1\\\)", body, re.IGNORECASE))
+    if numbered_photos:
+        parts.append(r"\par\smallskip\begin{center}")
+        source = image_paths[0]
+        parts.append(r"\includegraphics[width=.75\linewidth,height=48mm,keepaspectratio]{figures/"
+                     + source.name + r"}\par\scriptsize Рис. 1\par\smallskip")
+        for index, source in enumerate(image_paths[1:], 2):
+            parts.append(r"\begin{minipage}{.46\linewidth}\centering"
+                         r"\includegraphics[width=\linewidth,height=38mm,keepaspectratio]{figures/"
+                         + source.name + r"}\par\scriptsize Рис. " + str(index) + r"\end{minipage}")
+            if index == 2:
+                parts.append(r"\hfill")
+        parts.append(r"\end{center}")
+    elif len(image_paths) >= 3:
         # Multi-figure matching tasks need compact rows to keep every graph
         # visible with its statement on one page.
         parts.append(r"\par\smallskip\begin{center}")

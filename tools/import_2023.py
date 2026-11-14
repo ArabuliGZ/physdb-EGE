@@ -233,7 +233,7 @@ def import_one(con: sqlite3.Connection, number: int) -> None:
                                     f"Критерий \\({score}\\)" in criteria)
                                    for score in (1, 2))):
             verdict = "partial"
-            reason = ("Механическая расчётная задача близка позиции 26 проекта 2027, "
+            reason = ("Механическая расчётная задача близка позиции 26 спецификации 2027, "
                       "но авторская шкала баллов или отдельный критерий обоснования модели "
                       "не совпадает с требованиями этой позиции.")
         assess(con, problem_id, target, topic_ok, format_ok, verdict, reason)
