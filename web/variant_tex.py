@@ -104,11 +104,13 @@ def answer_macro(problem: dict) -> str:
     if kind == "number_pair":
         return r"\PairAnswer"
     if kind == "matching":
-        if problem.get("exam_year") == 2023 and number == 21:
+        if (problem.get("exam_year") == 2023 and number == 21 or
+                problem.get("exam_year") == 2022 and number == 2):
             return r"\MatchingAnswerThree"
         return r"\MatchingAnswer"
     if kind == "multiple_choice":
-        return r"\AnswerBoxes{2}" if number == 20 else r"\AnswerLine"
+        return r"\AnswerBoxes{2}" if (number == 20 and problem.get("exam_year") != 2022 or
+                                       number == 23 and problem.get("exam_year") == 2022) else r"\AnswerLine"
     return r"\AnswerLine"
 
 
@@ -116,11 +118,31 @@ def render_problem(problem: dict, figures: dict[str, Path]) -> str:
     number = int(problem["problem_number"])
     body = re.sub(r"(?im)^\s*Ответ\s*:\s*[_ .]*$", "", problem["statement"] or "").strip()
     parts = [r"\begin{ExamTask}", r"\TaskStart{" + str(number) + "}", statement_tex(body, figures)]
+    image_paths: list[Path] = []
     for asset in problem.get("assets", []):
         if asset["role"] == "statement_figure" and asset["media_type"].startswith("image/"):
             source = figures.get(asset["id"])
             if source and source.is_file():
-                parts.append(r"\TaskFigure{figures/" + source.name + "}")
+                image_paths.append(source)
+    if len(image_paths) >= 3:
+        # Multi-figure matching tasks need compact rows to keep every graph
+        # visible with its statement on one page.
+        parts.append(r"\par\smallskip\begin{center}")
+        for index in range(0, len(image_paths), 2):
+            row = image_paths[index:index + 2]
+            for offset, source in enumerate(row):
+                caption = (r"\par\scriptsize(" + str(index + offset + 1) + ")"
+                           if len(image_paths) >= 5 else "")
+                parts.append(r"\begin{minipage}{.46\linewidth}\centering"
+                             r"\includegraphics[width=\linewidth,height=37mm,keepaspectratio]{figures/"
+                             + source.name + "}" + caption + r"\end{minipage}")
+                if offset == 0 and len(row) == 2:
+                    parts.append(r"\hfill")
+            parts.append(r"\par\smallskip")
+        parts.append(r"\end{center}")
+    else:
+        for source in image_paths:
+            parts.append(r"\TaskFigure{figures/" + source.name + "}")
     parts.append(answer_macro(problem))
     parts.append(r"\end{ExamTask}")
     return "\n".join(part for part in parts if part)

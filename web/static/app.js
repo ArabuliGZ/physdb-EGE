@@ -120,17 +120,17 @@ function renderCorrespondence(problems, variant) {
   const host = byId('correspondence');
   host.replaceChildren();
   host.hidden = true;
-  if (state.view !== 'variants' || variant?.exam_year !== 2023 || !problems.length) return;
+  if (state.view !== 'variants' || ![2022, 2023].includes(variant?.exam_year) || !problems.length) return;
 
   const panel = node('section', 'correspondence-panel panel');
-  panel.append(node('h3', '', 'Соответствие номеров: 2023 → 2027'));
+  panel.append(node('h3', '', `Соответствие номеров: ${variant.exam_year} → 2027`));
   panel.append(node('p', 'correspondence-intro',
     'Позиция 2027 определяется по теме, формату ответа и баллам. Для неподходящих задач показан ближайший проверенный кандидат; в каталог 2027 они не включены.'));
   const scroll = node('div', 'correspondence-scroll');
   const table = node('table', 'correspondence-table');
   const head = node('thead');
   const headings = node('tr');
-  for (const label of ['№ 2023', '№ 2027 / кандидат', 'Оценка', 'Основание']) {
+  for (const label of [`№ ${variant.exam_year}`, '№ 2027 / кандидат', 'Оценка', 'Основание']) {
     headings.append(node('th', '', label));
   }
   head.append(headings);
@@ -420,7 +420,7 @@ function renderCard(problem, showSource, numberMode = false) {
   const title = problem.alternative_number > 1 ? `Альтернативный пример ${problem.alternative_number}` : 'Задание';
   heading.append(node('h3', '', title));
   heading.append(node('span', 'problem-meta', `${topicLabel(problem.topic)} · ${problem.max_points} ${problem.max_points === 1 ? 'балл' : 'балла'}`));
-  if (!numberMode && problem.exam_year === 2023 && ['yes', 'partial'].includes(problem.verdict)) {
+  if (!numberMode && [2022, 2023].includes(problem.exam_year) && ['yes', 'partial'].includes(problem.verdict)) {
     heading.append(node('span', 'problem-target', `№${problem.target_problem_number} в 2027`));
   }
   header.append(heading);

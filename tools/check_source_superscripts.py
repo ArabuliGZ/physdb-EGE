@@ -52,7 +52,7 @@ def main() -> None:
     misses = 0
     checked = 0
     for year, variant, source in con.execute(
-        "SELECT exam_year, variant_number, source_path FROM variants WHERE exam_year BETWEEN 2023 AND 2026"
+        "SELECT exam_year, variant_number, source_path FROM variants WHERE exam_year BETWEEN 2022 AND 2026"
     ):
         path = parsed_path(year, variant, source)
         if not path.is_file():

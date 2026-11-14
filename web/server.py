@@ -215,7 +215,7 @@ class Handler(BaseHTTPRequestHandler):
             filename = "physege-custom-2027"
             ids = query.get("ids", [""])[0].split(",")
         problems = selected_problems(variant_id, ids)
-        expected = 30 if variant_id and year == 2023 else 26
+        expected = 30 if variant_id and year in (2022, 2023) else 26
         if len(problems) != expected or [p["problem_number"] for p in problems] != list(range(1, expected + 1)):
             self.send_json({"error": f"Нужны задания с номерами 1–{expected}"}, 400)
             return
