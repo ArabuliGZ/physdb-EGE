@@ -10,9 +10,9 @@ from pathlib import Path
 from urllib.parse import parse_qs, quote, urlparse
 
 if __package__:
-    from .variant_tex import compose, compile_pdf, project_zip
+    from .variant_tex import compose, compile_pdf, project_zip, response_labels
 else:
-    from variant_tex import compose, compile_pdf, project_zip
+    from variant_tex import compose, compile_pdf, project_zip, response_labels
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -112,6 +112,7 @@ def list_problems(query: dict[str, list[str]]) -> list[dict]:
             by_problem.setdefault(asset.pop("problem_id"), []).append(asset)
         for item in items:
             item["assets"] = by_problem.get(item["id"], [])
+            item["response_labels"] = list(response_labels(item) or ())
     return items
 
 
@@ -134,6 +135,7 @@ def get_problem(problem_id: str) -> dict | None:
         WHERE pa.problem_id=? ORDER BY pa.role,pa.rowid""", (problem_id,))
     for asset in item["assets"]:
         asset["url"] = "/assets/" + Path(asset["storage_path"]).name[:2] + "/" + Path(asset["storage_path"]).name
+    item["response_labels"] = list(response_labels(item) or ())
     return item
 
 

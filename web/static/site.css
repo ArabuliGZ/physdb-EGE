@@ -105,6 +105,14 @@ body { min-width: 0; }
 .latex-table.answer-grid { width: min(100%, 560px); table-layout: fixed; }
 .latex-table.answer-grid td { width: 50%; white-space: normal; overflow-wrap: break-word; }
 .latex-table-wrap { width: 100%; max-width: 100%; overflow-x: auto; }
+.response-table-block { width: min(100%, 680px); margin: 17px 0 4px; }
+.response-table-label { margin-bottom: 7px; color: var(--gray-600); font: 700 12px/1.35 Inter, system-ui, sans-serif; }
+.response-table { width: 100%; border-collapse: separate; border-spacing: 0; table-layout: fixed; overflow: hidden; border: 1px solid var(--gray-300); border-radius: 9px; background: #fff; font-family: Georgia, "Times New Roman", serif; font-size: 15px; line-height: 1.35; }
+.response-table.is-compact { width: min(100%, 210px); }
+.response-table th, .response-table td { width: 50%; border-left: 1px solid var(--gray-300); text-align: center; }
+.response-table th:first-child, .response-table td:first-child { border-left: 0; }
+.response-table th { padding: 9px 12px; background: var(--gray-50); font-weight: 600; overflow-wrap: anywhere; }
+.response-table-fields td { height: 42px; border-top: 1px solid var(--gray-300); background: #fff; }
 .source-preview { display: flex; align-items: center; gap: 11px; max-width: 340px; margin-top: 13px; padding: 7px 12px 7px 7px; border: 1px solid var(--gray-200); border-radius: 9px; background: white; color: var(--orange-800); text-align: left; font-size: 11px; font-weight: 700; cursor: zoom-in; }
 .source-preview:hover { border-color: var(--orange-500); background: var(--orange-50); }
 .source-preview img { width: 62px; height: 48px; object-fit: contain; border: 1px solid var(--gray-200); background: white; }

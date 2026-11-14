@@ -209,7 +209,7 @@ function renderMathInto(container, value) {
   if (cursor < value.length) container.append(document.createTextNode(value.slice(cursor)));
 }
 
-function renderStatement(container, text) {
+function renderStatement(container, text, responseLabels = null) {
   const rx = /\\begin\{tabular\}\{[^}]*\}([\s\S]*?)\\end\{tabular\}/g;
   let cursor = 0;
   for (const match of text.matchAll(rx)) {
@@ -219,8 +219,10 @@ function renderStatement(container, text) {
     const wrap = node('div', 'latex-table-wrap');
     const table = node('table', 'latex-table');
     const rows = match[1].split(/\\\\\s*\n/).filter(row => row.trim());
-    if (rows.length === 1 && rows[0].split(/(?<!\\)&/).length === 2) {
-      table.classList.add('answer-grid');
+    if (responseLabels?.length === 2 && rows.length === 1 &&
+        rows[0].split(/(?<!\\)&/).length === 2) {
+      cursor = match.index + match[0].length;
+      continue;
     }
     for (const row of rows) {
       if (!row.trim()) continue;
@@ -239,6 +241,51 @@ function renderStatement(container, text) {
   if (cursor < text.length) {
     renderProse(container, text.slice(cursor));
   }
+}
+
+function renderResponseTable(problem) {
+  const labels = problem.response_labels;
+  if (!Array.isArray(labels) || labels.length !== 2) return null;
+  const block = node('div', 'response-table-block');
+  block.append(node('div', 'response-table-label', 'Ответ запишите в таблицу'));
+  const table = node('table', `response-table${labels[0] === 'А' && labels[1] === 'Б' ? ' is-compact' : ''}`);
+  table.setAttribute('aria-label', 'Таблица для записи ответа');
+  const head = node('tr');
+  for (const label of labels) {
+    const th = node('th');
+    renderMathInto(th, cleanLatex(label));
+    head.append(th);
+  }
+  const fields = node('tr', 'response-table-fields');
+  for (const label of labels) {
+    const cell = node('td');
+    cell.setAttribute('aria-label', `Ответ для «${cleanLatex(label)}»`);
+    fields.append(cell);
+  }
+  table.append(head, fields);
+  block.append(table);
+  return block;
+}
+
+function statementForCopy(problem) {
+  const labels = problem.response_labels;
+  if (!Array.isArray(labels) || labels.length !== 2) return problem.statement || 'Условие не извлечено.';
+  const tableRx = /\\begin\{tabular\}\{[^}]*\}([\s\S]*?)\\end\{tabular\}/g;
+  const statement = (problem.statement || '').replace(tableRx, (whole, body) => {
+    const rows = body.split(/\\\\\s*\n/).filter(row => row.trim());
+    return rows.length === 1 && rows[0].split(/(?<!\\)&/).length === 2 ? '' : whole;
+  }).trim();
+  const rowEnd = '\\\\';
+  const table = [
+    '\\begin{tabular}{|l|l|}',
+    '\\hline',
+    `${labels[0]} & ${labels[1]} ${rowEnd}`,
+    '\\hline',
+    ` & ${rowEnd}`,
+    '\\hline',
+    '\\end{tabular}',
+  ].join('\n');
+  return `${statement}\n\n${table}`;
 }
 
 function renderProse(container, text) {
@@ -434,15 +481,18 @@ function renderCard(problem, showSource, numberMode = false) {
   card.append(header);
 
   const statementToolbar = node('div', 'statement-toolbar');
-  statementToolbar.append(copyButton('Скопировать текст условия', problem.statement?.includes('[[formula:') ? 'Копировать текст' : 'Копировать TeX', problem.statement || 'Условие не извлечено.'));
+  const copyStatement = statementForCopy(problem);
+  statementToolbar.append(copyButton('Скопировать текст условия', copyStatement.includes('[[formula:') ? 'Копировать текст' : 'Копировать TeX', copyStatement));
   card.append(statementToolbar);
 
   const statement = node('div', 'statement');
-  renderStatement(statement, problem.statement || 'Условие не извлечено.');
+  renderStatement(statement, problem.statement || 'Условие не извлечено.', problem.response_labels);
   card.append(statement);
 
   const figures = renderFigureGrid(problem, 'statement_figure');
   if (figures) card.append(figures);
+  const responseTable = renderResponseTable(problem);
+  if (responseTable) card.append(responseTable);
 
   const footer = node('div', 'problem-footer');
   card.append(footer);
@@ -629,9 +679,11 @@ function renderBuilder() {
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const problem = await response.json();
         preview.replaceChildren();
-        renderStatement(preview, problem.statement || 'Условие не извлечено.');
+        renderStatement(preview, problem.statement || 'Условие не извлечено.', problem.response_labels);
         const figures = renderFigureGrid(problem, 'statement_figure', false);
         if (figures) preview.append(figures);
+        const responseTable = renderResponseTable(problem);
+        if (responseTable) preview.append(responseTable);
       } catch (error) { preview.replaceChildren(node('p', '', `Не удалось загрузить условие: ${error.message}`)); }
     }
     select.addEventListener('change', () => { state.picks[number] = select.value; updateStatus(); renderBuilderLinks(); if (!preview.hidden) loadPreview(); });

@@ -14,6 +14,11 @@ TEX_DIR = Path(__file__).with_name("tex")
 MATH = re.compile(r"(\\\([\s\S]*?\\\)|\\\[[\s\S]*?\\\]|\[\[formula:[0-9a-f]{64}:\d+:\d+\]\])")
 TABLE = re.compile(r"\\begin\{tabular\}\{[^}]*\}([\s\S]*?)\\end\{tabular\}")
 FORMULA = re.compile(r"\[\[formula:([0-9a-f]{64}):\d+:\d+\]\]")
+ORDERED_RESPONSE = re.compile(
+    r"Запишите выбранные цифры в порядке:\s*(.+?)\s*;\s*(.+?)\.\s*Цифры могут повторяться",
+    re.IGNORECASE | re.DOTALL,
+)
+RESPONSE_POSITIONS = {6, 10, 15, 17}
 SCORE = re.compile(r"^\\\((\d+)\\\)\s+балл[аов]*[.:]\s*(.*)$")
 ROMAN = re.compile(r"^(IV|III|II|I|V)\)\s*(.*)$")
 ALTERNATIVE = re.compile(r"^(И\s*\(ИЛИ\)|ИЛИ)\s*(.*)$")
@@ -64,6 +69,51 @@ def prose(value: str, figures: dict[str, Path]) -> str:
         if current:
             output.append(hybrid(" ".join(current), figures) + "\n" + r"\par")
     return "\n".join(output)
+
+
+def table_cells(value: str) -> list[list[str]]:
+    rows = [row.strip() for row in re.split(r"\\\\\s*(?:\n|$)", value) if row.strip()]
+    return [[cell.strip() for cell in re.split(r"(?<!\\)&", row)] for row in rows]
+
+
+def response_labels(problem: dict) -> tuple[str, str] | None:
+    """Return the two author response columns for current matching positions."""
+    if problem.get("answer_format") != "matching":
+        return None
+    positions = {int(problem.get("problem_number") or 0),
+                 int(problem.get("target_problem_number") or 0)}
+    if not positions.intersection(RESPONSE_POSITIONS):
+        return None
+    statement = problem.get("statement") or ""
+    for match in reversed(list(TABLE.finditer(statement))):
+        cells = table_cells(match.group(1))
+        if len(cells) == 1 and len(cells[0]) == 2:
+            return cells[0][0], cells[0][1]
+    ordered = ORDERED_RESPONSE.search(statement)
+    if ordered:
+        return ordered.group(1).strip(), ordered.group(2).strip()
+    return "А", "Б"
+
+
+def remove_response_header(value: str, labels: tuple[str, str] | None) -> str:
+    if labels is None:
+        return value
+
+    def replace(match: re.Match) -> str:
+        cells = table_cells(match.group(1))
+        return "" if len(cells) == 1 and len(cells[0]) == 2 else match.group(0)
+
+    return TABLE.sub(replace, value).strip()
+
+
+def response_table_tex(labels: tuple[str, str], figures: dict[str, Path]) -> str:
+    if labels == ("А", "Б"):
+        return r"\MatchingAnswer"
+    left, right = (hybrid(label, figures) for label in labels)
+    return (r"\par\smallskip\noindent\textbf{Ответ:}\par\smallskip"
+            r"\begingroup\small\renewcommand{\arraystretch}{1.15}"
+            r"\begin{tabularx}{\linewidth}{|X|X|}\hline " + left + " & " + right +
+            r"\\\hline\rule{0pt}{8mm} & \\\hline\end{tabularx}\endgroup\par\smallskip")
 
 
 def statement_tex(value: str, figures: dict[str, Path]) -> str:
@@ -117,6 +167,8 @@ def answer_macro(problem: dict) -> str:
 def render_problem(problem: dict, figures: dict[str, Path]) -> str:
     number = int(problem["problem_number"])
     body = re.sub(r"(?im)^\s*Ответ\s*:\s*[_ .]*$", "", problem["statement"] or "").strip()
+    labels = response_labels(problem)
+    body = remove_response_header(body, labels)
     parts = [r"\begin{ExamTask}", r"\TaskStart{" + str(number) + "}", statement_tex(body, figures)]
     image_paths: list[Path] = []
     for asset in problem.get("assets", []):
@@ -157,7 +209,7 @@ def render_problem(problem: dict, figures: dict[str, Path]) -> str:
     else:
         for source in image_paths:
             parts.append(r"\TaskFigure{figures/" + source.name + "}")
-    parts.append(answer_macro(problem))
+    parts.append(response_table_tex(labels, figures) if labels else answer_macro(problem))
     parts.append(r"\end{ExamTask}")
     return "\n".join(part for part in parts if part)
 
