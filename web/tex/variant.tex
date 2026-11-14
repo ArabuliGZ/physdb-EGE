@@ -22,9 +22,9 @@
 \newsavebox{\ExamTaskBox}
 \newenvironment{ExamTask}{\par\medskip\noindent\begin{lrbox}{\ExamTaskBox}\begin{minipage}{\linewidth}}{\end{minipage}\end{lrbox}\adjustbox{max height=\dimexpr\textheight-12mm\relax}{\usebox{\ExamTaskBox}}\par\medskip}
 \newcommand{\TaskStart}[1]{\noindent\llap{\fbox{\makebox[9mm][c]{\bfseries #1}}\hspace{3mm}}}
-\newcommand{\AnswerLine}{\par\smallskip\noindent Ответ:~\rule{68mm}{0.4pt}.\par\smallskip}
+\newcommand{\AnswerLineWithUnit}[1]{\par\smallskip\noindent Ответ:~\rule{68mm}{0.4pt}\if\relax\detokenize{#1}\relax.\else\,#1.\fi\par\smallskip}
 \newcommand{\AnswerBoxes}[1]{\par\smallskip\noindent Ответ:~\begingroup\count0=0\loop\ifnum\count0<#1\fbox{\rule{0pt}{5mm}\makebox[6mm]{}}\advance\count0 by1\repeat\endgroup\par\smallskip}
-\newcommand{\PairAnswer}{\par\smallskip\noindent Ответ:~(\rule{26mm}{0.4pt}\,$\pm$\,\rule{22mm}{0.4pt}).\par\smallskip}
+\newcommand{\PairAnswerWithUnit}[1]{\par\smallskip\noindent Ответ:~\rule{26mm}{0.4pt}\,$\pm$\,\rule{22mm}{0.4pt}\if\relax\detokenize{#1}\relax.\else\,#1.\fi\par\smallskip}
 \newcommand{\MatchingAnswer}{\par\smallskip\noindent Ответ:~\begin{tabular}{|c|c|}\hline А & Б\\\hline\rule{0pt}{7mm}\hspace{7mm} & \hspace{7mm}\\\hline\end{tabular}\par\smallskip}
 \newcommand{\MatchingAnswerThree}{\par\smallskip\noindent Ответ:~\begin{tabular}{|c|c|c|}\hline А & Б & В\\\hline\rule{0pt}{7mm}\hspace{7mm} & \hspace{7mm} & \hspace{7mm}\\\hline\end{tabular}\par\smallskip}
 \newcommand{\TaskFigure}[1]{\par\smallskip\begin{center}\includegraphics[width=.78\linewidth,height=63mm,keepaspectratio]{#1}\end{center}\smallskip}

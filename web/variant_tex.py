@@ -19,6 +19,19 @@ ORDERED_RESPONSE = re.compile(
     re.IGNORECASE | re.DOTALL,
 )
 RESPONSE_POSITIONS = {6, 10, 15, 17}
+ANSWER_UNIT_WORDS = {
+    "метрах": "м", "сантиметрах": "см", "миллиметрах": "мм",
+    "километрах": "км", "секундах": "с", "миллисекундах": "мс",
+    "микросекундах": "мкс", "килограммах": "кг", "граммах": "г",
+    "литрах": "л", "миллилитрах": "мл", "молях": "моль",
+    "миллимолях": "ммоль", "микромолях": "мкмоль", "мкмолях": "мкмоль",
+    "ньютонах": "Н", "джоулях": "Дж", "килоджоулях": "кДж",
+    "ваттах": "Вт", "паскалях": "Па", "килопаскалях": "кПа",
+    "вольтах": "В", "амперах": "А", "миллиамперах": "мА",
+    "омах": "Ом", "герцах": "Гц", "килогерцах": "кГц",
+    "мегагерцах": "МГц", "теслах": "Тл", "веберах": "Вб",
+    "кулонах": "Кл", "градусах": "°", "процентах": "%",
+}
 SCORE = re.compile(r"^\\\((\d+)\\\)\s+балл[аов]*[.:]\s*(.*)$")
 ROMAN = re.compile(r"^(IV|III|II|I|V)\)\s*(.*)$")
 ALTERNATIVE = re.compile(r"^(И\s*\(ИЛИ\)|ИЛИ)\s*(.*)$")
@@ -116,6 +129,75 @@ def response_table_tex(labels: tuple[str, str], figures: dict[str, Path]) -> str
             r"\\\hline\rule{0pt}{8mm} & \\\hline\end{tabularx}\endgroup\par\smallskip")
 
 
+def normalize_answer_unit(value: str) -> str:
+    """Turn an author-written unit phrase into the compact label after the blank."""
+    unit = value.strip().rstrip(" .;,")
+    unit = (unit.replace(r"\(^2\)", "²").replace(r"\(^3\)", "³")
+            .replace(r"\,", "").replace("−", "-")
+            .replace(r"\text{", "").replace("}", ""))
+    unit = re.sub(r"^\(?\s*", "", unit)
+    unit = re.sub(r"\s*\)?$", "", unit)
+    lowered = unit.casefold().replace("ё", "е")
+    word_map = {key.replace("ё", "е"): result for key, result in ANSWER_UNIT_WORDS.items()}
+    if lowered in word_map:
+        return word_map[lowered]
+    direct = unit.replace("^2", "²").replace("^3", "³")
+    # Preserve already compact author notation such as Н/м, мДж or м/с².
+    if len(direct) <= 18 and not re.search(r"\s", direct) and re.fullmatch(
+            r"[A-Za-zА-Яа-яЁё°%/·⋅²³0-9-]+", direct):
+        return direct
+    return ""
+
+
+def answer_unit(problem: dict) -> str:
+    """Extract only an explicitly stated unit; never infer it from the answer."""
+    statement = " ".join((problem.get("statement") or "").split())
+    compact = statement.replace(r"\(^2\)", "²").replace(r"\(^3\)", "³")
+    pair = re.search(
+        r"Ответ\s+запишите\s+в\s+виде\s+\\\([\s\S]{0,140}?"
+        r"(?:\\text\{([^}]+)\}|\\,\s*([A-Za-zА-Яа-яЁё°%/²³]+))\\\)",
+        compact, re.IGNORECASE,
+    )
+    if pair:
+        return normalize_answer_unit(pair.group(1) or pair.group(2))
+    parenthetical = re.search(
+        r"Ответ\s+(?:дайте|выразите|запишите)[^.]{0,120}?\(в\s+([^)]+)\)\s*\.",
+        compact, re.IGNORECASE,
+    )
+    if parenthetical:
+        return normalize_answer_unit(parenthetical.group(1))
+    direct = re.search(
+        r"Ответ\s+(?:дайте|выразите)\s+в\s+([^.]+)\.",
+        compact, re.IGNORECASE,
+    )
+    if direct:
+        return normalize_answer_unit(direct.group(1))
+    # Some KIMs put the unit directly into the question instead of a separate
+    # answer instruction (for example, «Сколько моль ...?»).
+    question_unit = re.search(r"(?:^|[.!?]\s+)Сколько\s+(моль)\b", compact, re.IGNORECASE)
+    return normalize_answer_unit(question_unit.group(1)) if question_unit else ""
+
+
+def answer_field(problem: dict) -> dict | None:
+    """Describe the short-answer blank shared by the website and generated TeX."""
+    kind = problem.get("answer_format")
+    if kind in ("qualitative", "worked_solution"):
+        return None
+    labels = response_labels(problem)
+    if labels:
+        return {"kind": "table", "labels": list(labels)}
+    if kind == "matching":
+        number = int(problem.get("problem_number") or 0)
+        columns = 3 if (problem.get("exam_year") == 2023 and number == 21 or
+                        problem.get("exam_year") == 2022 and number == 2) else 2
+        return {"kind": "table", "labels": list("АБВ"[:columns])}
+    if kind == "number_pair":
+        return {"kind": "pair", "unit": answer_unit(problem)}
+    if kind == "multiple_choice":
+        return {"kind": "line", "unit": ""}
+    return {"kind": "line", "unit": answer_unit(problem)}
+
+
 def statement_tex(value: str, figures: dict[str, Path]) -> str:
     output = []
     cursor = 0
@@ -146,22 +228,24 @@ def statement_tex(value: str, figures: dict[str, Path]) -> str:
     return "\n".join(part for part in output if part)
 
 
-def answer_macro(problem: dict) -> str:
-    number = int(problem["problem_number"])
-    kind = problem["answer_format"]
-    if kind in ("qualitative", "worked_solution"):
+def answer_macro(problem: dict, figures: dict[str, Path]) -> str:
+    field = answer_field(problem)
+    if not field:
         return ""
-    if kind == "number_pair":
-        return r"\PairAnswer"
-    if kind == "matching":
-        if (problem.get("exam_year") == 2023 and number == 21 or
-                problem.get("exam_year") == 2022 and number == 2):
+    if field["kind"] == "pair":
+        unit = hybrid(field["unit"], figures) if field["unit"] else ""
+        return r"\PairAnswerWithUnit{" + unit + "}"
+    if field["kind"] == "table":
+        labels = field["labels"]
+        if labels == ["А", "Б"]:
+            return r"\MatchingAnswer"
+        if labels == ["А", "Б", "В"]:
             return r"\MatchingAnswerThree"
-        return r"\MatchingAnswer"
-    if kind == "multiple_choice":
-        return r"\AnswerBoxes{2}" if (number == 20 and problem.get("exam_year") != 2022 or
-                                       number == 23 and problem.get("exam_year") == 2022) else r"\AnswerLine"
-    return r"\AnswerLine"
+        return response_table_tex(tuple(labels), figures)
+    if field["kind"] == "boxes":
+        return r"\AnswerBoxes{" + str(field["count"]) + "}"
+    unit = hybrid(field["unit"], figures) if field["unit"] else ""
+    return r"\AnswerLineWithUnit{" + unit + "}"
 
 
 def render_problem(problem: dict, figures: dict[str, Path]) -> str:
@@ -209,7 +293,7 @@ def render_problem(problem: dict, figures: dict[str, Path]) -> str:
     else:
         for source in image_paths:
             parts.append(r"\TaskFigure{figures/" + source.name + "}")
-    parts.append(response_table_tex(labels, figures) if labels else answer_macro(problem))
+    parts.append(response_table_tex(labels, figures) if labels else answer_macro(problem, figures))
     parts.append(r"\end{ExamTask}")
     return "\n".join(part for part in parts if part)
 

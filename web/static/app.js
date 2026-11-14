@@ -243,12 +243,19 @@ function renderStatement(container, text, responseLabels = null) {
   }
 }
 
+function answerTableLabels(problem) {
+  return problem.answer_field?.kind === 'table'
+    ? problem.answer_field.labels
+    : problem.response_labels;
+}
+
 function renderResponseTable(problem) {
-  const labels = problem.response_labels;
-  if (!Array.isArray(labels) || labels.length !== 2) return null;
+  const labels = answerTableLabels(problem);
+  if (!Array.isArray(labels) || labels.length < 2) return null;
   const block = node('div', 'response-table-block');
   block.append(node('div', 'response-table-label', 'Ответ запишите в таблицу'));
-  const table = node('table', `response-table${labels[0] === 'А' && labels[1] === 'Б' ? ' is-compact' : ''}`);
+  const compact = labels.every((label, index) => label === 'АБВ'[index]);
+  const table = node('table', `response-table${compact ? ' is-compact' : ''}`);
   table.setAttribute('aria-label', 'Таблица для записи ответа');
   const head = node('tr');
   for (const label of labels) {
@@ -267,9 +274,31 @@ function renderResponseTable(problem) {
   return block;
 }
 
+function renderAnswerField(problem) {
+  const field = problem.answer_field;
+  if (!field || field.kind === 'table') return null;
+  const block = node('div', `answer-field answer-field-${field.kind}`);
+  block.setAttribute('aria-label', 'Поле для записи ответа');
+  block.append(node('span', 'answer-field-label', 'Ответ:'));
+  if (field.kind === 'boxes') {
+    const boxes = node('span', 'answer-boxes');
+    for (let index = 0; index < (field.count || 2); index++) {
+      boxes.append(node('span', 'answer-box'));
+    }
+    block.append(boxes);
+    return block;
+  }
+  block.append(node('span', 'answer-blank'));
+  if (field.kind === 'pair') {
+    block.append(node('span', 'answer-plus-minus', '±'), node('span', 'answer-blank answer-blank-pair'));
+  }
+  if (field.unit) block.append(node('span', 'answer-unit', field.unit));
+  return block;
+}
+
 function statementForCopy(problem) {
-  const labels = problem.response_labels;
-  if (!Array.isArray(labels) || labels.length !== 2) return problem.statement || 'Условие не извлечено.';
+  const labels = answerTableLabels(problem);
+  if (!Array.isArray(labels) || labels.length < 2) return problem.statement || 'Условие не извлечено.';
   const tableRx = /\\begin\{tabular\}\{[^}]*\}([\s\S]*?)\\end\{tabular\}/g;
   const statement = (problem.statement || '').replace(tableRx, (whole, body) => {
     const rows = body.split(/\\\\\s*\n/).filter(row => row.trim());
@@ -486,13 +515,15 @@ function renderCard(problem, showSource, numberMode = false) {
   card.append(statementToolbar);
 
   const statement = node('div', 'statement');
-  renderStatement(statement, problem.statement || 'Условие не извлечено.', problem.response_labels);
+  renderStatement(statement, problem.statement || 'Условие не извлечено.', answerTableLabels(problem));
   card.append(statement);
 
   const figures = renderFigureGrid(problem, 'statement_figure');
   if (figures) card.append(figures);
   const responseTable = renderResponseTable(problem);
   if (responseTable) card.append(responseTable);
+  const answerField = renderAnswerField(problem);
+  if (answerField) card.append(answerField);
 
   const footer = node('div', 'problem-footer');
   card.append(footer);
@@ -679,11 +710,13 @@ function renderBuilder() {
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const problem = await response.json();
         preview.replaceChildren();
-        renderStatement(preview, problem.statement || 'Условие не извлечено.', problem.response_labels);
+        renderStatement(preview, problem.statement || 'Условие не извлечено.', answerTableLabels(problem));
         const figures = renderFigureGrid(problem, 'statement_figure', false);
         if (figures) preview.append(figures);
         const responseTable = renderResponseTable(problem);
         if (responseTable) preview.append(responseTable);
+        const answerField = renderAnswerField(problem);
+        if (answerField) preview.append(answerField);
       } catch (error) { preview.replaceChildren(node('p', '', `Не удалось загрузить условие: ${error.message}`)); }
     }
     select.addEventListener('change', () => { state.picks[number] = select.value; updateStatus(); renderBuilderLinks(); if (!preview.hidden) loadPreview(); });
