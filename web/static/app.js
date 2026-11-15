@@ -114,7 +114,8 @@ function copyButton(label, caption, value, type = 'text') {
 function editLatexButton(problem, field) {
   const button = node('button', 'copy-button edit-latex-button', 'Править LaTeX');
   button.type = 'button';
-  button.title = field === 'statement' ? 'Править код условия' : 'Править код решения';
+  const subject = { statement: 'условия', answer: 'ответа', answer_field: 'поля ответа', solution: 'решения' }[field];
+  button.title = `Править код ${subject}`;
   button.addEventListener('click', event => {
     event.stopPropagation();
     openLatexEditor(problem, field);
@@ -130,6 +131,15 @@ function renderLatexEditorPreview() {
     preview.append(node('p', 'criteria-note', 'Предпросмотр появится после ввода текста.'));
     return;
   }
+  if (editorState.field === 'answer_field') {
+    const field = parseAnswerFieldTemplate(value, editorState.problem.answer_field?.kind);
+    if (!field) {
+      preview.append(node('p', 'criteria-note', 'Оставьте в строке место для ответа: _____'));
+      return;
+    }
+    preview.append(renderAnswerField({ answer_field: field }));
+    return;
+  }
   renderStatement(preview, value,
     editorState.field === 'statement' ? answerTableLabels(editorState.problem) : null);
 }
@@ -138,9 +148,12 @@ function openLatexEditor(problem, field) {
   editorState.problem = problem;
   editorState.field = field;
   editorState.anchor = problem.id;
-  const name = field === 'statement' ? 'условие' : 'решение';
+  const name = { statement: 'условие', answer: 'ответ', answer_field: 'поле ответа', solution: 'решение' }[field];
   byId('latex-editor-title').textContent = `Задание ${problem.problem_number}: ${name}`;
-  byId('latex-editor-text').value = problem[field] || '';
+  byId('latex-editor-text').value = field === 'answer_field' ? answerFieldTemplate(problem) : (problem[field] || '');
+  byId('latex-editor-help').textContent = field === 'answer_field'
+    ? 'Сохраните слово «Ответ:» и обозначьте каждое место для записи несколькими знаками подчёркивания. Подписи могут содержать \\(...\\).'
+    : 'Используйте \\(...\\) для формул и сохраняйте структуру таблиц LaTeX.';
   byId('latex-editor-status').textContent = '';
   renderLatexEditorPreview();
   const dialog = byId('latex-editor');
@@ -319,6 +332,29 @@ function answerTableLabels(problem) {
     : problem.response_labels;
 }
 
+function answerFieldTemplate(problem) {
+  const field = problem.answer_field;
+  if (!field || field.kind === 'table' || field.kind === 'boxes') return '';
+  const parts = ['Ответ:'];
+  if (field.prefix) parts.push(field.prefix);
+  parts.push('____________');
+  if (field.kind === 'pair') parts.push('±', '____________');
+  if (field.unit) parts.push(field.unit);
+  return parts.join(' ');
+}
+
+function parseAnswerFieldTemplate(value, kind = 'line') {
+  const payload = value.replace(/^\s*Ответ\s*:?\s*/i, '');
+  const blanks = [...payload.matchAll(/_{3,}|…{3,}/g)];
+  if (!blanks.length) return null;
+  if (kind === 'pair' && (blanks.length < 2 || !/(?:±|\\pm|\+-)/.test(payload))) return null;
+  return {
+    kind: kind === 'pair' ? 'pair' : 'line',
+    prefix: payload.slice(0, blanks[0].index).trim(),
+    unit: payload.slice(blanks.at(-1).index + blanks.at(-1)[0].length).trim().replace(/[.;]+$/, ''),
+  };
+}
+
 function renderResponseTable(problem) {
   const labels = answerTableLabels(problem);
   if (!Array.isArray(labels) || labels.length < 2) return null;
@@ -344,7 +380,7 @@ function renderResponseTable(problem) {
   return block;
 }
 
-function renderAnswerField(problem) {
+function renderAnswerField(problem, editable = false) {
   const field = problem.answer_field;
   if (!field || field.kind === 'table') return null;
   const block = node('div', `answer-field answer-field-${field.kind}`);
@@ -358,12 +394,23 @@ function renderAnswerField(problem) {
     block.append(boxes);
     return block;
   }
-  if (field.prefix) block.append(node('span', 'answer-prefix', field.prefix));
+  if (field.prefix) {
+    const prefix = node('span', 'answer-prefix');
+    renderMathInto(prefix, field.prefix);
+    block.append(prefix);
+  }
   block.append(node('span', 'answer-blank'));
   if (field.kind === 'pair') {
     block.append(node('span', 'answer-plus-minus', '±'), node('span', 'answer-blank answer-blank-pair'));
   }
-  if (field.unit) block.append(node('span', 'answer-unit', field.unit));
+  if (field.unit) {
+    const unit = node('span', 'answer-unit');
+    renderMathInto(unit, field.unit);
+    block.append(unit);
+  }
+  if (editable && state.editingEnabled && field.kind !== 'boxes') {
+    block.append(editLatexButton(problem, 'answer_field'));
+  }
   return block;
 }
 
@@ -506,8 +553,9 @@ function addDisclosure(card, label, content, figures = null, problem = null) {
   const copySubject = ({ Ответ: 'ответа', Решение: 'решения', Критерии: 'критериев' })[label];
   const actions = node('div', 'detail-panel-actions');
   actions.append(copyButton(`Скопировать текст ${copySubject}`, content?.includes('[[formula:') ? 'Копировать текст' : 'Копировать TeX', content || 'В источнике не указан.'));
-  if (state.editingEnabled && label === 'Решение' && problem) {
-    actions.prepend(editLatexButton(problem, 'solution'));
+  const editableField = { Ответ: 'answer', Решение: 'solution' }[label];
+  if (state.editingEnabled && editableField && problem) {
+    actions.prepend(editLatexButton(problem, editableField));
   }
   header.append(node('h4', '', label), actions);
   const body = node('div', label === 'Критерии' ? 'detail-content criteria-content' : 'detail-content');
@@ -596,12 +644,12 @@ function renderCard(problem, showSource, numberMode = false) {
   if (figures) card.append(figures);
   const responseTable = renderResponseTable(problem);
   if (responseTable) card.append(responseTable);
-  const answerField = renderAnswerField(problem);
+  const answerField = renderAnswerField(problem, true);
   if (answerField) card.append(answerField);
 
   const footer = node('div', 'problem-footer');
   card.append(footer);
-  addDisclosure(card, 'Ответ', problem.answer);
+  addDisclosure(card, 'Ответ', problem.answer, null, problem);
   if (problem.solution) addDisclosure(card, 'Решение', problem.solution,
     renderFigureGrid(problem, 'solution_figure'), problem);
   if (problem.criteria) addDisclosure(card, 'Критерии', problem.criteria);

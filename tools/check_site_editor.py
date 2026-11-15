@@ -23,26 +23,37 @@ def main() -> None:
         log = root / "problem_text_edits.json"
         shutil.copy2(ROOT / "data" / "phyege.sqlite3", db)
         con = sqlite3.connect(db)
-        problem_id, original = con.execute(
-            "SELECT id,statement FROM problems ORDER BY id LIMIT 1").fetchone()
+        problem_id, original_answer, original_prefix, original_unit = con.execute(
+            """SELECT id,answer,answer_prefix,answer_unit FROM problems
+            WHERE answer<>'' AND COALESCE(answer_format,'')<>'number_pair'
+            ORDER BY id LIMIT 1""").fetchone()
         con.close()
-        edited = original + "\n\nПроверка локального редактора: \\(x=x\\)."
-        result = save_text_edit(db, log, problem_id, "statement", edited)
+        edited_answer = original_answer + " \\(x=x\\)"
+        result = save_text_edit(db, log, problem_id, "answer", edited_answer)
         if not result["changed"]:
             raise ValueError("Editor did not report a change")
+        result = save_text_edit(db, log, problem_id, "answer_field",
+                                "Ответ: в ____________ \\(\\text{м/с}\\)")
+        if not result["changed"]:
+            raise ValueError("Answer-field editor did not report a change")
         con = sqlite3.connect(db)
-        stored = con.execute("SELECT statement FROM problems WHERE id=?", (problem_id,)).fetchone()[0]
-        con.execute("UPDATE problems SET statement=? WHERE id=?", (original, problem_id))
+        stored = con.execute(
+            "SELECT answer,answer_prefix,answer_unit FROM problems WHERE id=?",
+            (problem_id,)).fetchone()
+        con.execute("""UPDATE problems SET answer=?,answer_prefix=?,answer_unit=?
+            WHERE id=?""", (original_answer, original_prefix, original_unit, problem_id))
         con.commit()
         con.close()
-        if stored != edited:
-            raise ValueError("Editor did not update SQLite")
-        if apply_edits(db, log) != 1:
+        if stored != (edited_answer, "в", r"\(\text{м/с}\)"):
+            raise ValueError("Editor did not update answer fields in SQLite")
+        if apply_edits(db, log) != 3:
             raise ValueError("Edit replay count is incorrect")
         con = sqlite3.connect(db)
-        replayed = con.execute("SELECT statement FROM problems WHERE id=?", (problem_id,)).fetchone()[0]
+        replayed = con.execute(
+            "SELECT answer,answer_prefix,answer_unit FROM problems WHERE id=?",
+            (problem_id,)).fetchone()
         con.close()
-        if replayed != edited:
+        if replayed != stored:
             raise ValueError("Editor log did not replay the change")
     print("Checked local LaTeX editor and replay log")
 

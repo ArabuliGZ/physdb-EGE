@@ -10,7 +10,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_DB = ROOT / "data" / "phyege.sqlite3"
 DEFAULT_LOG = ROOT / "tools" / "site_edits" / "problem_text_edits.json"
-FIELDS = {"statement", "solution"}
+FIELDS = {"statement", "answer", "solution", "answer_prefix", "answer_unit"}
+EMPTY_FIELDS = {"answer_prefix", "answer_unit"}
 
 
 def apply_edits(db: Path, log: Path) -> int:
@@ -28,7 +29,8 @@ def apply_edits(db: Path, log: Path) -> int:
             if not isinstance(fields, dict) or not fields:
                 raise ValueError(f"Missing edited fields for {problem_id}")
             for field, value in fields.items():
-                if field not in FIELDS or not isinstance(value, str) or not value.strip():
+                if (field not in FIELDS or not isinstance(value, str) or
+                        field not in EMPTY_FIELDS and not value.strip()):
                     raise ValueError(f"Invalid {field!r} edit for {problem_id}")
                 con.execute(f"UPDATE problems SET {field}=? WHERE id=?",
                             (value.replace("\r\n", "\n").replace("\r", "\n").strip(), problem_id))

@@ -3,14 +3,16 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import sqlite3
 import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
 
 
-EDITABLE_FIELDS = {"statement", "solution"}
+EDITABLE_FIELDS = {"statement", "answer", "solution"}
 MAX_TEXT_LENGTH = 200_000
+ANSWER_BLANK = re.compile(r"_{3,}|…{3,}")
 
 
 def read_edit_log(path: Path) -> dict:
@@ -35,10 +37,30 @@ def write_edit_log(path: Path, data: dict) -> None:
         temporary.unlink(missing_ok=True)
 
 
+def parse_answer_field(value: str, pair: bool = False) -> tuple[str, str]:
+    """Split ``Ответ: prefix _____ unit`` into its stored affixes."""
+    if not isinstance(value, str):
+        raise ValueError("Поле ответа должно быть строкой")
+    value = value.replace("\r\n", "\n").replace("\r", "\n").strip()
+    if "\n" in value:
+        raise ValueError("Печатное поле ответа должно занимать одну строку")
+    payload = re.sub(r"^\s*Ответ\s*:?\s*", "", value, flags=re.IGNORECASE)
+    blanks = list(ANSWER_BLANK.finditer(payload))
+    if not blanks:
+        raise ValueError("Оставьте в строке место для ответа: _____")
+    if pair and (len(blanks) < 2 or not re.search(r"±|\\pm|\+-", payload)):
+        raise ValueError("Для парного ответа нужны два поля и знак ±")
+    prefix = payload[:blanks[0].start()].strip()
+    unit = payload[blanks[-1].end():].strip().rstrip(".;")
+    if len(prefix) > 500 or len(unit) > 500:
+        raise ValueError("Подпись поля ответа слишком длинная")
+    return prefix, unit
+
+
 def save_text_edit(db: Path, log_path: Path, problem_id: str,
                    field: str, value: str) -> dict:
-    if field not in EDITABLE_FIELDS:
-        raise ValueError("Можно редактировать только условие или решение")
+    if field not in EDITABLE_FIELDS | {"answer_field"}:
+        raise ValueError("Можно редактировать только условие, ответ, поле ответа или решение")
     if not isinstance(value, str):
         raise ValueError("Текст правки должен быть строкой")
     value = value.replace("\r\n", "\n").replace("\r", "\n").strip()
@@ -51,13 +73,21 @@ def save_text_edit(db: Path, log_path: Path, problem_id: str,
     con.row_factory = sqlite3.Row
     try:
         row = con.execute("""SELECT p.id,p.variant_id,p.problem_number,p.alternative_number,
-            p.statement,p.solution,v.exam_year,v.variant_number
+            p.statement,p.answer,p.solution,p.answer_prefix,p.answer_unit,p.answer_format,
+            v.exam_year,v.variant_number
             FROM problems p JOIN variants v ON v.id=p.variant_id WHERE p.id=?""",
                           (problem_id,)).fetchone()
         if row is None:
             raise LookupError("Задача не найдена")
-        if (row[field] or "").strip() == value:
-            return {"changed": False, "problem_id": problem_id, "field": field}
+        if field == "answer_field":
+            prefix, unit = parse_answer_field(value, row["answer_format"] == "number_pair")
+            changed_fields = {"answer_prefix": prefix, "answer_unit": unit}
+            if all((row[name] or "").strip() == content for name, content in changed_fields.items()):
+                return {"changed": False, "problem_id": problem_id, "field": field}
+        else:
+            changed_fields = {field: value}
+            if (row[field] or "").strip() == value:
+                return {"changed": False, "problem_id": problem_id, "field": field}
 
         data = read_edit_log(log_path)
         problem = data["problems"].setdefault(problem_id, {
@@ -68,11 +98,12 @@ def save_text_edit(db: Path, log_path: Path, problem_id: str,
             "alternative_number": row["alternative_number"],
             "fields": {},
         })
-        problem["fields"][field] = value
+        problem["fields"].update(changed_fields)
         problem["updated_at"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
         write_edit_log(log_path, data)
 
-        con.execute(f"UPDATE problems SET {field}=? WHERE id=?", (value, problem_id))
+        for name, content in changed_fields.items():
+            con.execute(f"UPDATE problems SET {name}=? WHERE id=?", (content, problem_id))
         con.commit()
         return {"changed": True, "problem_id": problem_id, "field": field}
     finally:
