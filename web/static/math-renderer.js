@@ -63,6 +63,15 @@
       },
       options: {
         enableMenu: false,
+        enableEnrichment: false,
+        menuOptions: {
+          settings: {
+            enrich: false,
+            speech: false,
+            braille: false,
+            collapsible: false,
+          },
+        },
       },
       startup: {
         typeset: false,

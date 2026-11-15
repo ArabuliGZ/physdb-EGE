@@ -30,6 +30,10 @@ def main() -> None:
             "Per-page KaTeX rollback is not documented in the adapter")
     require("mtextInheritFont: true" in adapter,
             "Cyrillic text in formulas does not inherit the surrounding font")
+    require("enableEnrichment: false" in adapter,
+            "The unused speech enrichment pipeline must stay disabled")
+    require("speech: false" in adapter and "braille: false" in adapter,
+            "The unused MathJax speech and braille pipelines must stay disabled")
     require("font: 'mathjax-stix2'" in adapter, "STIX Two math font is not selected")
     require("window.MathJax.typesetPromise([target])" in adapter,
             "Dynamic formulas are not typeset through MathJax's document pipeline")
