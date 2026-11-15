@@ -50,6 +50,7 @@
           mathjax: '/static/vendor/mathjax',
           fonts: '/static/vendor',
         },
+        load: ['input/tex', 'output/chtml'],
       },
       tex: {
         packages: { '[+]': ['textmacros'] },
@@ -61,24 +62,12 @@
         merrorInheritFont: true,
         displayOverflow: 'scroll',
       },
-      options: {
-        enableMenu: false,
-        enableEnrichment: false,
-        menuOptions: {
-          settings: {
-            enrich: false,
-            speech: false,
-            braille: false,
-            collapsible: false,
-          },
-        },
-      },
       startup: {
         typeset: false,
       },
     };
 
-    ready = loadScript('/static/vendor/mathjax/tex-chtml-nofont.js')
+    ready = loadScript('/static/vendor/mathjax/startup.js')
       .then(() => window.MathJax.startup.promise);
 
     render = (target, tex, display) => {

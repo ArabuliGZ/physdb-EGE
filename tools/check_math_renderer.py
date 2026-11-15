@@ -30,11 +30,9 @@ def main() -> None:
             "Per-page KaTeX rollback is not documented in the adapter")
     require("mtextInheritFont: true" in adapter,
             "Cyrillic text in formulas does not inherit the surrounding font")
-    require("enableEnrichment: false" in adapter,
-            "The unused speech enrichment pipeline must stay disabled")
-    require("speech: false" in adapter and "braille: false" in adapter,
-            "The unused MathJax speech and braille pipelines must stay disabled")
     require("font: 'mathjax-stix2'" in adapter, "STIX Two math font is not selected")
+    require("load: ['input/tex', 'output/chtml']" in adapter,
+            "MathJax must use the modular TeX/CHTML build without menu or speech")
     require("window.MathJax.typesetPromise([target])" in adapter,
             "Dynamic formulas are not typeset through MathJax's document pipeline")
     require("PhysEgeMath.render" in app, "Application does not use the renderer adapter")
@@ -55,11 +53,11 @@ def main() -> None:
     require(stix_text_package["version"] == "5.3.0", "Unexpected STIX text package version")
 
     required_assets = [
-        STATIC / "vendor" / "mathjax" / "tex-chtml-nofont.js",
-        STATIC / "vendor" / "mathjax" / "sre" / "speech-worker.js",
-        STATIC / "vendor" / "mathjax" / "sre" / "mathmaps" / "base.json",
-        STATIC / "vendor" / "mathjax" / "sre" / "mathmaps" / "en.json",
-        STATIC / "vendor" / "mathjax" / "sre" / "mathmaps" / "nemeth.json",
+        STATIC / "vendor" / "mathjax" / "startup.js",
+        STATIC / "vendor" / "mathjax" / "core.js",
+        STATIC / "vendor" / "mathjax" / "input" / "tex.js",
+        STATIC / "vendor" / "mathjax" / "input" / "tex" / "extensions" / "textmacros.js",
+        STATIC / "vendor" / "mathjax" / "output" / "chtml.js",
         STATIC / "vendor" / "mathjax-stix2-font" / "chtml.js",
         STATIC / "vendor" / "mathjax-stix2-font" / "chtml" / "dynamic" / "cyrillic.js",
         STATIC / "vendor" / "mathjax-stix2-font" / "chtml" / "woff2" / "mjx-stx-cy.woff2",
