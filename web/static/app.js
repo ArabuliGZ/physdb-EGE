@@ -281,8 +281,8 @@ function renderMathInto(container, value) {
     }
     const display = match[2] !== undefined;
     const math = node(display ? 'div' : 'span', display ? 'math-expression math-display' : 'math-expression');
-    if (window.katex) {
-      window.katex.render(match[1] ?? match[2], math, { throwOnError: false, output: 'htmlAndMathml', displayMode: display });
+    if (window.PhysEgeMath) {
+      window.PhysEgeMath.render(math, match[1] ?? match[2], display);
     } else {
       math.textContent = match[1] ?? match[2];
     }

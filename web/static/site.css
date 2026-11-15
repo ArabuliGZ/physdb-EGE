@@ -80,13 +80,16 @@ body { min-width: 0; }
 .copy-button.is-success { border-color: var(--green-700); color: var(--green-700); background: var(--green-50); }
 .copy-button.is-error { border-color: var(--red-700); color: var(--red-700); background: var(--red-50); }
 .edit-latex-button { border-color: var(--orange-300); color: var(--orange-800); }
-.statement, .detail-content { color: var(--black); font-family: Georgia, "Times New Roman", serif; font-size: 17px; line-height: 1.75; overflow-wrap: anywhere; }
+.statement, .detail-content { color: var(--black); font-family: "STIX Two Text", Georgia, "Times New Roman", serif; font-size: 17px; line-height: 1.75; overflow-wrap: anywhere; }
 .statement p, .detail-content p { margin: 0 0 12px; }
 .statement p:last-child, .detail-content p:last-child { margin-bottom: 0; }
 .statement-list { margin: 10px 0 14px; padding-left: 2.2em; list-style: none; counter-reset: choices; }
 .statement-list li { position: relative; margin: 4px 0; padding-left: 0.2em; }
 .statement-list li::before { content: attr(value) ")"; position: absolute; left: -2em; width: 1.5em; color: var(--black); text-align: right; white-space: nowrap; }
 .math-expression { white-space: nowrap; }
+.math-expression mjx-container { margin: 0; }
+.math-expression.is-math-pending { color: transparent; }
+.math-expression.math-render-error { color: var(--red-700); font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: .88em; }
 .inline-formula { display: inline-block; height: auto; max-width: 100%; vertical-align: middle; }
 .math-display { white-space: normal; margin: 12px 0; overflow-x: auto; }
 .task-figures { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 12px; margin-top: 15px; }
@@ -100,7 +103,7 @@ body { min-width: 0; }
 .original-task-image { display: block; width: 100%; max-width: 900px; padding: 0; border: 1px solid var(--gray-200); border-radius: 8px; background: white; cursor: zoom-in; overflow: hidden; }
 .original-task-image:hover { border-color: var(--orange-500); box-shadow: 0 0 0 3px rgba(233,138,58,.09); }
 .original-task-image img { display: block; width: 100%; height: auto; }
-.latex-table { width: max-content; max-width: none; border-collapse: collapse; margin: 12px 0; font-family: Georgia, "Times New Roman", serif; font-size: 17px; line-height: 1.5; }
+.latex-table { width: max-content; max-width: none; border-collapse: collapse; margin: 12px 0; font-family: "STIX Two Text", Georgia, "Times New Roman", serif; font-size: 17px; line-height: 1.5; }
 .latex-table td { padding: 7px 10px; border: 1px solid var(--gray-300); white-space: nowrap; overflow-wrap: normal; }
 .latex-table tr:first-child td { white-space: normal; min-width: 60px; max-width: 230px; }
 .latex-table.answer-grid { width: min(100%, 560px); table-layout: fixed; }
@@ -108,13 +111,14 @@ body { min-width: 0; }
 .latex-table-wrap { width: 100%; max-width: 100%; overflow-x: auto; }
 .response-table-block { width: min(100%, 680px); margin: 17px 0 4px; }
 .response-table-label { margin-bottom: 7px; color: var(--gray-600); font: 700 12px/1.35 Inter, system-ui, sans-serif; }
-.response-table { width: 100%; border-collapse: separate; border-spacing: 0; table-layout: fixed; overflow: hidden; border: 1px solid var(--gray-300); border-radius: 9px; background: #fff; font-family: Georgia, "Times New Roman", serif; font-size: 15px; line-height: 1.35; }
+.response-table { width: 100%; border-collapse: separate; border-spacing: 0; table-layout: fixed; overflow: hidden; border: 1px solid var(--gray-300); border-radius: 9px; background: #fff; font-family: "STIX Two Text", Georgia, "Times New Roman", serif; font-size: 15px; line-height: 1.35; }
 .response-table.is-compact { width: min(100%, 210px); }
 .response-table th, .response-table td { border-left: 1px solid var(--gray-300); text-align: center; }
 .response-table th:first-child, .response-table td:first-child { border-left: 0; }
 .response-table th { padding: 9px 12px; background: var(--gray-50); font-weight: 600; overflow-wrap: anywhere; }
 .response-table-fields td { height: 42px; border-top: 1px solid var(--gray-300); background: #fff; }
-.answer-field { display: flex; align-items: flex-end; flex-wrap: wrap; gap: 7px; width: min(100%, 520px); margin: 18px 0 4px; color: var(--black); font-family: Georgia, "Times New Roman", serif; font-size: 17px; line-height: 1.35; }
+.answer-field { display: flex; align-items: flex-end; flex-wrap: wrap; gap: 7px; width: min(100%, 520px); margin: 18px 0 4px; color: var(--black); font-family: "STIX Two Text", Georgia, "Times New Roman", serif; font-size: 17px; line-height: 1.35; }
+.latex-content { font-family: "STIX Two Text", Georgia, "Times New Roman", serif; }
 .answer-field-label { margin-right: 2px; font-weight: 600; }
 .answer-prefix, .answer-unit { white-space: nowrap; }
 .answer-field > .edit-latex-button { margin-left: auto; font-family: Inter, system-ui, sans-serif; }
