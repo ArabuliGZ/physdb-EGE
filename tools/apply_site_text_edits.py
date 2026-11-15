@@ -4,10 +4,15 @@ from __future__ import annotations
 import argparse
 import json
 import sqlite3
+import sys
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "web"))
+
+from answer_units import format_answer_unit_tex  # noqa: E402
+
 DEFAULT_DB = ROOT / "data" / "phyege.sqlite3"
 DEFAULT_LOG = ROOT / "tools" / "site_edits" / "problem_text_edits.json"
 FIELDS = {"statement", "answer", "solution", "answer_prefix", "answer_unit"}
@@ -32,8 +37,10 @@ def apply_edits(db: Path, log: Path) -> int:
                 if (field not in FIELDS or not isinstance(value, str) or
                         field not in EMPTY_FIELDS and not value.strip()):
                     raise ValueError(f"Invalid {field!r} edit for {problem_id}")
-                con.execute(f"UPDATE problems SET {field}=? WHERE id=?",
-                            (value.replace("\r\n", "\n").replace("\r", "\n").strip(), problem_id))
+                value = value.replace("\r\n", "\n").replace("\r", "\n").strip()
+                if field == "answer_unit":
+                    value = format_answer_unit_tex(value)
+                con.execute(f"UPDATE problems SET {field}=? WHERE id=?", (value, problem_id))
                 applied += 1
         con.commit()
     finally:

@@ -43,12 +43,13 @@ python tools\import_2022.py
 python tools\check_2022_import.py
 python tools\build_2022_audit_report.py
 python tools\sync_answer_units.py --write
+python tools\format_answer_units_tex.py --write
 python tools\apply_site_text_edits.py
 python tools\build_automatic_variants.py
 python tools\check_automatic_variants.py
 ```
 
-Повторный запуск обновляет записи, не создавая дублей. `apply_site_text_edits.py` обязательно запускайте после импортёров: он возвращает исправления, внесённые через локальную кнопку «Править LaTeX».
+Повторный запуск обновляет записи, не создавая дублей. `format_answer_units_tex.py` приводит подписи после печатного поля ответа к TeX с обязательным `\text{...}` для кириллицы. `apply_site_text_edits.py` обязательно запускайте после импортёров: он возвращает исправления, внесённые через локальную кнопку «Править LaTeX».
 Проверки: `python tools/check_2026_import.py`, `python tools/check_2024_2025_import.py`, `python tools/check_2023_import.py` и `python tools/check_2022_import.py`. Они сверяют количество задач и ответов, хеши исходников, нумерованные списки, границы числовых заданий и наличие всех связанных изображений.
 
 ## Поля и статус

@@ -19,6 +19,9 @@ from xml.etree import ElementTree as ET
 
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "web"))
+
+from answer_units import format_answer_unit_tex  # noqa: E402
 DB = ROOT / "data" / "phyege.sqlite3"
 W = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
 LOCATOR = re.compile(r"paragraphs\s+(\d+)[–-](\d+)")
@@ -154,6 +157,7 @@ def main() -> None:
             continue
         lines += 1
         prefix, unit = field_parts_from_line(line)
+        unit = format_answer_unit_tex(unit)
         label = " ".join(part for part in (prefix, "___", unit) if part)
         counts[(row["exam_year"], label or "без подписи")] += 1
         if args.write:

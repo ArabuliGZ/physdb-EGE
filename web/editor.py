@@ -9,6 +9,11 @@ import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
 
+if __package__:
+    from .answer_units import format_answer_unit_tex
+else:
+    from answer_units import format_answer_unit_tex
+
 
 EDITABLE_FIELDS = {"statement", "answer", "solution"}
 MAX_TEXT_LENGTH = 200_000
@@ -51,7 +56,7 @@ def parse_answer_field(value: str, pair: bool = False) -> tuple[str, str]:
     if pair and (len(blanks) < 2 or not re.search(r"±|\\pm|\+-", payload)):
         raise ValueError("Для парного ответа нужны два поля и знак ±")
     prefix = payload[:blanks[0].start()].strip()
-    unit = payload[blanks[-1].end():].strip().rstrip(".;")
+    unit = format_answer_unit_tex(payload[blanks[-1].end():].strip().rstrip(".;"))
     if len(prefix) > 500 or len(unit) > 500:
         raise ValueError("Подпись поля ответа слишком длинная")
     return prefix, unit

@@ -9,6 +9,11 @@ import tempfile
 import zipfile
 from pathlib import Path
 
+if __package__:
+    from .answer_units import format_answer_unit_tex
+else:
+    from answer_units import format_answer_unit_tex
+
 
 TEX_DIR = Path(__file__).with_name("tex")
 MATH = re.compile(r"(\\\([\s\S]*?\\\)|\\\[[\s\S]*?\\\]|\[\[formula:[0-9a-f]{64}:\d+:\d+\]\])")
@@ -140,12 +145,12 @@ def normalize_answer_unit(value: str) -> str:
     lowered = unit.casefold().replace("ё", "е")
     word_map = {key.replace("ё", "е"): result for key, result in ANSWER_UNIT_WORDS.items()}
     if lowered in word_map:
-        return word_map[lowered]
+        return format_answer_unit_tex(word_map[lowered])
     direct = unit.replace("^2", "²").replace("^3", "³")
     # Preserve already compact author notation such as Н/м, мДж or м/с².
     if len(direct) <= 18 and not re.search(r"\s", direct) and re.fullmatch(
             r"[A-Za-zА-Яа-яЁё°%/·⋅²³0-9-]+", direct):
-        return direct
+        return format_answer_unit_tex(direct)
     return ""
 
 
@@ -155,7 +160,7 @@ def answer_unit(problem: dict) -> str:
     # NULL means that the source has not supplied metadata, while an empty
     # string means that the printed answer field was checked and has no unit.
     if problem.get("answer_unit") is not None:
-        return problem["answer_unit"]
+        return format_answer_unit_tex(problem["answer_unit"])
     statement = " ".join((problem.get("statement") or "").split())
     compact = statement.replace(r"\(^2\)", "²").replace(r"\(^3\)", "³")
     pair = re.search(

@@ -10,6 +10,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "web"))
 
+from answer_units import format_answer_unit_tex  # noqa: E402
 from variant_tex import answer_field  # noqa: E402
 
 
@@ -44,8 +45,10 @@ def main() -> None:
             raise ValueError(f"Matching field is not a table for {problem['id']}")
         unit = field.get("unit", "")
         prefix = field.get("prefix", "")
-        if len(unit) > 32:
+        if len(unit) > 512:
             raise ValueError(f"Suspicious unit {unit!r} for {problem['id']}")
+        if unit and format_answer_unit_tex(unit) != unit:
+            raise ValueError(f"Answer unit is not canonical TeX for {problem['id']}: {unit!r}")
         if len(prefix) > 40:
             raise ValueError(f"Suspicious answer prefix {prefix!r} for {problem['id']}")
         counts[kind] += 1
@@ -54,8 +57,10 @@ def main() -> None:
 
     demo = {row["problem_number"]: answer_field(dict(row)) for row in rows
             if row["exam_year"] == 2027 and row["alternative_number"] == 1}
-    expected_units = {1: "м/с²", 2: "м/с²", 3: "м", 4: "см", 8: "кг",
-                      11: "В", 13: "°", 16: "мкмоль", 19: "В"}
+    expected_units = {number: format_answer_unit_tex(unit) for number, unit in {
+        1: "м/с²", 2: "м/с²", 3: "м", 4: "см", 8: "кг",
+        11: "В", 13: "°", 16: "мкмоль", 19: "В",
+    }.items()}
     for number, expected in expected_units.items():
         if not demo.get(number) or demo[number].get("unit") != expected:
             raise ValueError(f"Demo 2027 task {number}: expected unit {expected!r}, got {demo.get(number)}")
@@ -66,6 +71,10 @@ def main() -> None:
     expected_restored = {
         1: ("", "м"), 2: ("", "см"), 3: ("", "с"),
         12: ("в", "раз(а)"), 13: ("точка", ""), 19: ("", "гПа"),
+    }
+    expected_restored = {
+        number: (prefix, format_answer_unit_tex(unit))
+        for number, (prefix, unit) in expected_restored.items()
     }
     for number, (prefix, unit) in expected_restored.items():
         field = restored.get(number) or {}
