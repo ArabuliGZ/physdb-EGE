@@ -41,6 +41,7 @@ CURATED_STATEMENT_FIGURES = {
     (3, 3): ("2022-3-3-force-grid.png", "80fffed187a008e96e5aaecaf5f21e6e9296b103eb3179cf3d41c61a5b86f9be"),
     (3, 12): ("2022-3-12-gas-graph.png", "e3bb1e23517ffe9ffe833b4a9b93a3117253a05e605b8ab65155a55b12615dc2"),
     (3, 16): ("2022-3-16-current-graph.png", "910730943e55bfbcd0839a1e5c45b04456941eb3788872647df1304d4db58dcf"),
+    (4, 27): ("2022-4-27-piston.png", "d334916c66cc26370e240e6f9be725569042dd520c8fd2530e45797d9dea9f4e"),
 }
 MISPLACED_STATEMENT_FIGURES = {
     (1, 12): {"8149be83c2ee0975c535a00c49d7a8f325f5e047cd8c41fcdfaa9bac93f9a049"},  # labels of task 13
@@ -61,6 +62,19 @@ ORDERED_STATEMENT_FIGURES = {
         "e2d178946eb37089e69a4278c93df0336a93ff0a94bbe44cb19faabcfeeded01",
         "b6436a40fd91cdc3cff2dcbec988215e8d837460cdf81a505564fda920be6889",
     ),  # source PDF p. 5, graphs 1–5
+}
+SHIFTED_STATEMENT_FIGURES = {
+    (3, 28): {
+        "8a13e7a1e59067e18f6f85c1dc12b2d738bd9f258d72d641fb7256d5fd9dc211": 29,
+    },  # Word anchors the task 29 optical diagram inside task 28.
+    (3, 29): {
+        "0e95a95519fe78e495d807616d0555440b5188d833b082db7326fa165e3dd68b": 30,
+    },  # Word anchors the task 30 spring diagram inside task 29.
+}
+CORRECTED_STATEMENT_FIGURES = {
+    (3, 28): ("e1a2e8863db9101606fd8b9d563f082d9a4041c9f941e64af2be4bf47536417d",),
+    (3, 29): ("8a13e7a1e59067e18f6f85c1dc12b2d738bd9f258d72d641fb7256d5fd9dc211",),
+    (3, 30): ("0e95a95519fe78e495d807616d0555440b5188d833b082db7326fa165e3dd68b",),
 }
 FLOATING_STARTS = {
     1: {3: 60}, 2: {3: 72, 9: 158},
@@ -178,6 +192,7 @@ def import_one(con: sqlite3.Connection, variant: int) -> None:
     vid = upsert_variant(con, source, 2022, str(variant),
                          f"Демидова 2022, вариант {variant}", False)
     moved_circuit: bytes | None = None
+    pending_statement_figures: dict[int, list[bytes]] = {}
     for task in range(1, 31):
         stop = starts.get(task + 1, end)
         embedded: list[tuple[bytes, tuple[int, int]]] = []
@@ -185,12 +200,17 @@ def import_one(con: sqlite3.Connection, variant: int) -> None:
         cleaned_figures: list[bytes] = []
         for figure in statement_figures:
             sha = hashlib.sha256(normalized_figure_png(figure)).hexdigest()
+            shifted_to = SHIFTED_STATEMENT_FIGURES.get((variant, task), {}).get(sha)
+            if shifted_to is not None:
+                pending_statement_figures.setdefault(shifted_to, []).append(figure)
+                continue
             if sha in MISPLACED_STATEMENT_FIGURES.get((variant, task), set()):
                 if (variant, task) == (1, 22):
                     moved_circuit = figure
                 continue
             cleaned_figures.append(figure)
         statement_figures = cleaned_figures
+        statement_figures.extend(pending_statement_figures.pop(task, []))
         if (variant, task) in ORDERED_STATEMENT_FIGURES:
             by_sha = {hashlib.sha256(normalized_figure_png(figure)).hexdigest(): figure
                       for figure in statement_figures}
@@ -211,6 +231,14 @@ def import_one(con: sqlite3.Connection, variant: int) -> None:
             if statement_figures:
                 raise ValueError(f"Unexpected extra figure in 2022-{variant} task {task}")
             statement_figures = [content]
+        expected_figures = CORRECTED_STATEMENT_FIGURES.get((variant, task))
+        if expected_figures is not None:
+            actual_figures = tuple(hashlib.sha256(normalized_figure_png(figure)).hexdigest()
+                                   for figure in statement_figures)
+            if actual_figures != expected_figures:
+                raise ValueError(
+                    f"2022-{variant} task {task} corrected figure set changed: {actual_figures}"
+                )
         statement = formula_tex(normalize_statement(raw), embedded, statement_figures)
         assert statement is not None
         statement = repair_text(f"2022-{variant}", task, "statement", statement)
@@ -258,6 +286,8 @@ def import_one(con: sqlite3.Connection, variant: int) -> None:
         con.execute("DELETE FROM relevance WHERE problem_id=? AND exam_year=2027", (pid,))
         target, verdict, topic_ok, format_ok, reason = assessment(variant, task)
         assess(con, pid, target, topic_ok, format_ok, verdict, reason)
+    if pending_statement_figures:
+        raise ValueError(f"Unassigned shifted figures in 2022-{variant}: {pending_statement_figures}")
     print(f"2022-{variant}: 30 tasks, 23 printed answers, 7 solutions and criteria")
 
 

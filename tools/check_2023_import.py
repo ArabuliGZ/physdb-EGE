@@ -10,7 +10,8 @@ from pathlib import Path
 
 from docx import Document
 
-from import_2023 import SOURCE_ROOT, numbered, source_key
+from import_2023 import (CURATED_FIGURES, CURATED_STATEMENT_FIGURES, SOURCE_ROOT,
+                         numbered, source_key)
 from curated_answers_2023 import EXTENDED_ANSWERS
 from import_examples import DB, ROOT
 from mapping_2023_2027 import SOURCE_FORMAT, SOURCE_POINTS, assessment
@@ -106,9 +107,12 @@ def main() -> None:
                 path = ROOT / asset["storage_path"]
                 assert path.is_file() and hashlib.sha256(path.read_bytes()).hexdigest() == asset["sha256"]
                 figure_counts[(variant, asset["role"])] += 1
+            statement_figure_count = con.execute("""SELECT COUNT(*) FROM problem_assets
+                WHERE problem_id=? AND role='statement_figure'""", (row["id"],)).fetchone()[0]
+            if number == 23:
+                assert statement_figure_count == 0, (variant, number, statement_figure_count)
             if re.search(r"рисунк|график|диаграмм", row["statement"], re.I):
-                assert con.execute("""SELECT COUNT(*) FROM problem_assets WHERE problem_id=?
-                    AND role='statement_figure'""", (row["id"],)).fetchone()[0] >= 1, (variant, number)
+                assert statement_figure_count >= 1, (variant, number)
         assert all(r"Критерий \(1\)" in row["criteria"] and r"Критерий \(2\)" in row["criteria"]
                    for row in rows if row["problem_number"] == 30)
         print(f"2023-{variant}: 30 tasks, 23 matching author answers, 7 solutions and rubrics")
@@ -121,6 +125,15 @@ def main() -> None:
         JOIN variants v ON v.id=p.variant_id WHERE v.exam_year=2023 AND
         v.variant_number='2' AND p.problem_number=26 AND r.exam_year=2027 AND
         r.target_problem_number=25 AND r.verdict='partial'""").fetchone()[0] == 1
+    for task in (27, 28):
+        filename, expected_sha = CURATED_STATEMENT_FIGURES[(3, task)]
+        assert hashlib.sha256((CURATED_FIGURES / filename).read_bytes()).hexdigest() == expected_sha
+        linked = con.execute("""SELECT a.sha256 FROM problem_assets pa
+            JOIN assets a ON a.id=pa.asset_id JOIN problems p ON p.id=pa.problem_id
+            JOIN variants v ON v.id=p.variant_id WHERE v.exam_year=2023
+            AND v.variant_number='3' AND p.problem_number=?
+            AND pa.role='statement_figure'""", (task,)).fetchall()
+        assert [row["sha256"] for row in linked] == [expected_sha], (task, linked)
     sys.path.insert(0, str(ROOT / "web"))
     import server
     for number in range(1, 27):

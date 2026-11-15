@@ -30,17 +30,41 @@ FORMULA_MARKER = r"\[\[SRCFORMULA[A-Z]+\]\]"
 RENDERED_FIGURES = {
     ("2024-1-3", 21): "2024-1-3-21.png",
     ("2024-1-3", 22): "2024-1-3-22.png",
+    ("2024-1-4", 20): "2024-1-4-20.png",
     ("2024-1-4", 22): "2024-1-4-22.png",
     ("2024-2-1", 22): "2024-2-1-22.png",
     ("2024-2-2", 21): "2024-2-2-21.png",
     ("2024-2-2", 22): "2024-2-2-22.png",
+    ("2024-2-2", 20): "2024-2-2-20.png",
     ("2024-2-3", 9): "2024-2-3-9.png",
+    ("2024-2-3", 26): "2024-2-3-26.png",
     ("2025-1-1", 22): "2025-1-1-22.png",
     ("2025-2-1", 22): "2025-1-1-22.png",  # Same printed problem.
+    ("2025-1-2", 20): "2025-1-2-20.png",
+    ("2025-2-2", 20): "2025-1-2-20.png",  # Same printed problem.
 }
+
+CAPACITOR_DISTANCE_TASKS = {
+    ("2024-1-4", 20),
+    ("2024-2-2", 20),
+    ("2025-1-2", 20),
+    ("2025-2-2", 20),
+}
+REPLACE_SOURCE_FIGURES = CAPACITOR_DISTANCE_TASKS | {("2024-2-3", 26)}
+CAPACITOR_DISTANCE_STATEMENT = (
+    "Необходимо экспериментально изучить зависимость электроёмкости плоского "
+    "конденсатора от расстояния между его пластинами. На всех представленных ниже "
+    "рисунках \\(S\\) — площадь пластин конденсатора, \\(d\\) — расстояние между "
+    "пластинами конденсатора, \\(\\varepsilon\\) — диэлектрическая проницаемость "
+    "среды, заполняющей пространство между пластинами. Какие два конденсатора "
+    "следует использовать для проведения такого исследования?\n\n"
+    "Запишите в ответе номера выбранных конденсаторов."
+)
 
 
 def repair_statement_for_rendered_figure(label: str, number: int, statement: str) -> str:
+    if (label, number) in CAPACITOR_DISTANCE_TASKS:
+        return CAPACITOR_DISTANCE_STATEMENT
     if (label, number) == ("2024-1-3", 22):
         statement = re.sub("силы нормальной реакции " + FORMULA_MARKER,
                            lambda _: r"силы нормальной реакции \(\vec N\)", statement, count=1)
@@ -212,6 +236,10 @@ def import_one(con, year: int, set_number: int, number: int,
         stop = starts[n + 1] if n < 26 else end
         statement_formulas: list[tuple[bytes, tuple[int, int]]] = []
         raw, statement_figures = extract_blocks(doc, start, stop, statement_formulas)
+        if (label, n) in REPLACE_SOURCE_FIGURES:
+            # Word vector shapes can be absent or incomplete in OOXML media.
+            # Replace the extraction with one checked source-page crop.
+            statement_figures = []
         statement = repair_statement_for_rendered_figure(label, n, normalize_statement(raw))
         statement = show_source_formulas(statement, statement_formulas)
         statement = repair_table_transcription(label, n, statement)
@@ -248,6 +276,9 @@ def import_one(con, year: int, set_number: int, number: int,
                              criteria, topic, locator, notes, "needs_review")
         if (year, set_number, number, n) == (2024, 2, 1, 22):
             con.execute("UPDATE problems SET answer_format='qualitative' WHERE id=?", (pid,))
+        if (label, n) in REPLACE_SOURCE_FIGURES:
+            con.execute("DELETE FROM problem_assets WHERE problem_id=? AND role='statement_figure'",
+                        (pid,))
         add_figures(con, pid, statement_figures, "statement_figure", locator)
         rendered = RENDERED_FIGURES.get((label, n))
         if rendered:

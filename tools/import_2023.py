@@ -28,12 +28,15 @@ from text_repairs import repair_text
 
 
 SOURCE_ROOT = ROOT / "Материалы" / "ЕГЭ от Демидовой" / "От Демидовой до 2023 года"
+CURATED_FIGURES = ROOT / "assets" / "curated" / "figure_repairs"
 FORMULAS = json.loads((ROOT / "tools" / "2023_formulas.json").read_text(encoding="utf-8"))
 DIAGRAM_IN_FORMULA_SLOT = "fa02b004bd83cb76a61df885b0413936ea1ee11e8b85713c59e5f71047affbd0"
 CURATED_STATEMENT_FIGURES = {
     (2, 24): ("2023-2-24-diagram-and-grid.png", "2c04390df7670eb9bab46a516555b15ea14e86abc1515e5d39b7c64df79d8707"),
     (2, 27): ("2023-2-27-cylinder.png", "475c15fef188b5343170df66fde04049683150364421bae5dde260c486501cfc"),
     (3, 15): ("2023-3-15-current-graph.png", "d4302332da74eada5d16e77ee8f6369053d9a8204bc3af8878a9f405a5d833e4"),
+    (3, 27): ("2023-3-27-cylinder.png", "2554af81a2306ed75e6ce4d9ec3f1936c292919a3a20e6e99848e281e33921a0"),
+    (3, 28): ("2023-3-28-circuit.png", "febe36146d47b40ee6ba7797db5f64a25d27c952c578b13dbea2d77c36204d99"),
 }
 MTEF_REPAIRS = {
     r"_{в ы x}": r"_{\text{вых}}", r"_{в ы x .}": r"_{\text{вых}}",
@@ -162,15 +165,20 @@ def import_one(con: sqlite3.Connection, number: int) -> None:
         stop = starts.get(task + 1, end)
         embedded: list[tuple[bytes, tuple[int, int]]] = []
         raw, statement_figures = extract_blocks(doc, starts[task], stop, embedded)
+        if task == 23:
+            # Page 13 of all three papers contains no task illustration. The
+            # extracted image is the repeated end-of-part exclamation icon.
+            statement_figures = []
         if (number, task) in CURATED_STATEMENT_FIGURES:
-            # Word vector shapes absent from OOXML media: original PDF pages
-            # 14, 15, and 9 respectively. The checked crops live in the repo.
+            # Checked source-page crops replace missing vector shapes and the
+            # task-28 circuit that Word anchors inside task 27 in variant 3.
             filename, expected_sha = CURATED_STATEMENT_FIGURES[(number, task)]
-            figure = ROOT / "assets" / "curated" / "figure_repairs" / filename
+            figure = CURATED_FIGURES / filename
             content = figure.read_bytes()
             if hashlib.sha256(content).hexdigest() != expected_sha:
                 raise ValueError(f"2023-{number} task {task} curated figure changed")
-            if (number, task) != (2, 24) and statement_figures:
+            allowed_replacements = {(2, 24), (3, 27)}
+            if (number, task) not in allowed_replacements and statement_figures:
                 raise ValueError(f"Unexpected extra source figure in 2023-{number} task {task}")
             statement_figures = [content]
         statement = formula_tex(normalize_statement(raw), embedded, statement_figures)
@@ -221,6 +229,9 @@ def import_one(con: sqlite3.Connection, number: int) -> None:
                                     solution, criteria, topic, locator, notes, "needs_review",
                                     max_points=SOURCE_POINTS[task],
                                     answer_format=SOURCE_FORMAT[task])
+        if task == 23 or (number, task) in CURATED_STATEMENT_FIGURES:
+            con.execute("DELETE FROM problem_assets WHERE problem_id=? AND role='statement_figure'",
+                        (problem_id,))
         add_figures(con, problem_id, statement_figures, "statement_figure", locator)
         add_figures(con, problem_id, solution_figures, "solution_figure",
                     f"DOCX rubric paragraphs {reviews[task]}–{reviews.get(task + 1, len(doc.paragraphs)) - 1}"

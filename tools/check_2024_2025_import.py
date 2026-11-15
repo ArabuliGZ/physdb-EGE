@@ -63,6 +63,22 @@ for variant in variants:
     counts = tuple(len(re.findall(r"(?m)^\d+\)\s", tasks[n - 1]["statement"]))
                    for n in (5, 6, 9, 10, 14, 15, 17, 18))
     assert counts == EXPECTED_LISTS[(variant["exam_year"], variant["variant_number"])], counts
+    if (variant["exam_year"], variant["variant_number"]) in {
+            (2024, "1-4"), (2024, "2-2"), (2025, "1-2"), (2025, "2-2")}:
+        capacitor = tasks[19]
+        assert r"\(\varepsilon\)" in capacitor["statement"]
+        assert "1) \\(4\\))" not in capacitor["statement"]
+        figures = con.execute("""SELECT count(*) FROM problem_assets
+            WHERE problem_id=? AND role='statement_figure'""",
+                              (capacitor["id"],)).fetchone()[0]
+        assert figures == 1, (variant["variant_number"], figures)
+        expected_answer = {
+            (2024, "1-4"): r"\(35\)",
+            (2024, "2-2"): r"\(13\)",
+            (2025, "1-2"): r"\(13\)",
+            (2025, "2-2"): r"\(13\)",
+        }[(variant["exam_year"], variant["variant_number"])]
+        assert capacitor["answer"] == expected_answer
     own_relevance = con.execute("""SELECT count(*) FROM relevance r JOIN problems p ON p.id=r.problem_id
         WHERE p.variant_id=? AND r.exam_year=2027 AND r.target_problem_number=p.problem_number""",
         (variant["id"],)).fetchone()[0]

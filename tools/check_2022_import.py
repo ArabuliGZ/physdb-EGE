@@ -9,7 +9,9 @@ from collections import Counter
 from docx import Document
 
 from curated_answers_2022 import EXTENDED_ANSWERS
-from import_2022 import SOURCE_ROOT, SOURCES, PAIRED_KEYS, ORDERED_STATEMENT_FIGURES, FORMULAS, source_key
+from import_2022 import (CORRECTED_STATEMENT_FIGURES, CURATED_STATEMENT_FIGURES, FORMULAS,
+                         ORDERED_STATEMENT_FIGURES, PAIRED_KEYS, SOURCE_ROOT,
+                         SOURCES, source_key)
 from import_examples import DB, ROOT
 from mapping_2022_2027 import SOURCE_FORMAT, assessment, source_points
 from tex_format import format_quantities
@@ -90,7 +92,8 @@ def main() -> None:
         (1, 12): 1, (1, 22): 1, (1, 23): 1,
         (2, 2): 5, (2, 3): 1, (2, 23): 0,
         (3, 2): 5, (3, 3): 1, (3, 15): 0, (3, 16): 1, (3, 23): 5,
-        (4, 23): 0,
+        (3, 28): 1, (3, 29): 1, (3, 30): 1,
+        (4, 23): 0, (4, 27): 1,
     }
     for (variant, number), expected in expected_figures.items():
         count = con.execute("""SELECT COUNT(*) FROM problem_assets pa
@@ -106,6 +109,24 @@ def main() -> None:
             AND pa.role='statement_figure' ORDER BY pa.rowid""",
             (str(variant), number))]
         assert actual == list(expected), (variant, number, actual)
+    for (variant, number), expected in CORRECTED_STATEMENT_FIGURES.items():
+        actual = [row[0] for row in con.execute("""SELECT a.sha256 FROM problem_assets pa
+            JOIN problems p ON p.id=pa.problem_id JOIN variants v ON v.id=p.variant_id
+            JOIN assets a ON a.id=pa.asset_id
+            WHERE v.exam_year=2022 AND v.variant_number=? AND p.problem_number=?
+            AND pa.role='statement_figure' ORDER BY pa.rowid""",
+            (str(variant), number))]
+        assert actual == list(expected), (variant, number, actual)
+    for (variant, number), (filename, expected_sha) in CURATED_STATEMENT_FIGURES.items():
+        curated = ROOT / "assets" / "curated" / "figure_repairs" / filename
+        assert hashlib.sha256(curated.read_bytes()).hexdigest() == expected_sha
+        actual = [row[0] for row in con.execute("""SELECT a.sha256 FROM problem_assets pa
+            JOIN problems p ON p.id=pa.problem_id JOIN variants v ON v.id=p.variant_id
+            JOIN assets a ON a.id=pa.asset_id
+            WHERE v.exam_year=2022 AND v.variant_number=? AND p.problem_number=?
+            AND pa.role='statement_figure' ORDER BY pa.rowid""",
+            (str(variant), number))]
+        assert actual == [expected_sha], (variant, number, actual)
     assert con.execute("""SELECT COUNT(*) FROM problem_assets pa
         JOIN problems p ON p.id=pa.problem_id JOIN variants v ON v.id=p.variant_id
         JOIN assets a ON a.id=pa.asset_id WHERE v.exam_year=2022 AND pa.role='statement_figure'
