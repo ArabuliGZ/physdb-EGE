@@ -23,6 +23,8 @@ def main() -> None:
 
     require('/static/math-renderer.js' in index, "Renderer adapter is not loaded")
     require('/static/stix-two-text.css' in index, "STIX Two Text CSS is not loaded")
+    require(index.count('rel="preload"') >= 5,
+            "Modular MathJax components are not preloaded in parallel")
     require('/static/katex.min.js' not in index, "KaTeX must be loaded only by the adapter")
     require("const DEFAULT_RENDERER = 'mathjax'" in adapter,
             "MathJax is not the default renderer")
