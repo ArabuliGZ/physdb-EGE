@@ -13,9 +13,10 @@
   <link rel="preload" href="/static/vendor/mathjax-stix2-font/chtml.js" as="script">
   <link rel="stylesheet" href="/static/physdb.css">
   <link rel="stylesheet" href="/static/stix-two-text.css">
-  <link rel="stylesheet" href="/static/site.css">
+  <link rel="stylesheet" href="/static/site.css?v=inline-answer-edit-3">
   <script defer src="/static/math-renderer.js?v=4.1.3-5"></script>
-  <script defer src="/static/app.js"></script>
+  <script defer src="/static/matching-layouts.js?v=five-choices-1"></script>
+  <script defer src="/static/app.js?v=matching-headings-2"></script>
 </head>
 <body>
   <header class="topbar site-topbar">
@@ -68,7 +69,7 @@
     </div>
   </main>
 
-  <dialog id="image-dialog" class="image-dialog"><form method="dialog"><button class="dialog-close" aria-label="Закрыть изображение">×</button></form><img alt="Фрагмент оригинала"><p></p></dialog>
+  <dialog id="image-dialog" class="image-dialog"><form method="dialog"><a class="image-dialog-download" aria-label="Скачать рисунок" title="Скачать рисунок" download><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v3h16v-3"/></svg></a><button class="dialog-close" aria-label="Закрыть изображение">×</button></form><img alt="Фрагмент оригинала"><p></p></dialog>
   <dialog id="latex-editor" class="latex-editor">
     <div class="latex-editor-head">
       <div><span class="eyebrow">Локальная правка</span><h2 id="latex-editor-title">Править LaTeX</h2></div>

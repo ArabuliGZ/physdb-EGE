@@ -15,7 +15,7 @@ from answer_units import format_answer_unit_tex  # noqa: E402
 
 DEFAULT_DB = ROOT / "data" / "phyege.sqlite3"
 DEFAULT_LOG = ROOT / "tools" / "site_edits" / "problem_text_edits.json"
-FIELDS = {"statement", "answer", "solution", "answer_prefix", "answer_unit"}
+FIELDS = {"statement", "answer", "solution", "answer_prefix", "answer_unit", "answer_table_labels"}
 EMPTY_FIELDS = {"answer_prefix", "answer_unit"}
 
 
@@ -26,6 +26,8 @@ def apply_edits(db: Path, log: Path) -> int:
     con = sqlite3.connect(db)
     applied = 0
     try:
+        if "answer_table_labels" not in {column[1] for column in con.execute("PRAGMA table_info(problems)")}:
+            con.execute("ALTER TABLE problems ADD COLUMN answer_table_labels TEXT")
         for problem_id, edit in data["problems"].items():
             exists = con.execute("SELECT 1 FROM problems WHERE id=?", (problem_id,)).fetchone()
             if not exists:
@@ -40,6 +42,12 @@ def apply_edits(db: Path, log: Path) -> int:
                 value = value.replace("\r\n", "\n").replace("\r", "\n").strip()
                 if field == "answer_unit":
                     value = format_answer_unit_tex(value)
+                if field == "answer_table_labels":
+                    labels = json.loads(value)
+                    if (not isinstance(labels, list) or not 2 <= len(labels) <= 6 or
+                            any(not isinstance(label, str) or not label.strip() or
+                                len(label) > 500 for label in labels)):
+                        raise ValueError(f"Invalid answer table labels for {problem_id}")
                 con.execute(f"UPDATE problems SET {field}=? WHERE id=?", (value, problem_id))
                 applied += 1
         con.commit()

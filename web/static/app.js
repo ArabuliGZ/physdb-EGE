@@ -114,7 +114,8 @@ function copyButton(label, caption, value, type = 'text') {
 function editLatexButton(problem, field) {
   const button = node('button', 'copy-button edit-latex-button', 'Править LaTeX');
   button.type = 'button';
-  const subject = { statement: 'условия', answer: 'ответа', answer_field: 'поля ответа', solution: 'решения' }[field];
+  const subject = { statement: 'условия', answer: 'ответа', answer_field: 'поля ответа',
+    answer_table: 'таблицы ответа', solution: 'решения' }[field];
   button.title = `Править код ${subject}`;
   button.addEventListener('click', event => {
     event.stopPropagation();
@@ -140,20 +141,33 @@ function renderLatexEditorPreview() {
     preview.append(renderAnswerField({ answer_field: field }));
     return;
   }
+  if (editorState.field === 'answer_table') {
+    const labels = parseAnswerTableLabels(value);
+    if (!labels) {
+      preview.append(node('p', 'criteria-note', 'Укажите от двух до шести подписей, каждую с новой строки.'));
+      return;
+    }
+    preview.append(renderResponseTable({ answer_field: { kind: 'table', labels } }));
+    return;
+  }
   renderStatement(preview, value,
-    editorState.field === 'statement' ? answerTableLabels(editorState.problem) : null);
+    editorState.field === 'statement' ? editorState.problem.response_labels : null);
 }
 
 function openLatexEditor(problem, field) {
   editorState.problem = problem;
   editorState.field = field;
   editorState.anchor = problem.id;
-  const name = { statement: 'условие', answer: 'ответ', answer_field: 'поле ответа', solution: 'решение' }[field];
+  const name = { statement: 'условие', answer: 'ответ', answer_field: 'поле ответа',
+    answer_table: 'таблица ответа', solution: 'решение' }[field];
   byId('latex-editor-title').textContent = `Задание ${problem.problem_number}: ${name}`;
-  byId('latex-editor-text').value = field === 'answer_field' ? answerFieldTemplate(problem) : (problem[field] || '');
+  byId('latex-editor-text').value = field === 'answer_field' ? answerFieldTemplate(problem)
+    : field === 'answer_table' ? answerTableLabels(problem).join('\n') : (problem[field] || '');
   byId('latex-editor-help').textContent = field === 'answer_field'
     ? 'Сохраните слово «Ответ:» и обозначьте каждое место для записи несколькими знаками подчёркивания. Подписи могут содержать \\(...\\).'
-    : 'Используйте \\(...\\) для формул и сохраняйте структуру таблиц LaTeX.';
+    : field === 'answer_table'
+      ? 'Каждая строка — подпись одного столбца. Для формул используйте \\(...\\); пустая строка ответа добавляется автоматически.'
+      : 'Используйте \\(...\\) для формул и сохраняйте структуру таблиц LaTeX.';
   byId('latex-editor-status').textContent = '';
   renderLatexEditorPreview();
   const dialog = byId('latex-editor');
@@ -327,9 +341,18 @@ function renderStatement(container, text, responseLabels = null) {
 }
 
 function answerTableLabels(problem) {
+  if (!problem.answer_table_labels && matchingLayout(problem)?.answerLabels) {
+    return matchingLayout(problem).answerLabels;
+  }
   return problem.answer_field?.kind === 'table'
     ? problem.answer_field.labels
     : problem.response_labels;
+}
+
+function parseAnswerTableLabels(value) {
+  const labels = value.split(/\r?\n/).map(label => label.trim()).filter(Boolean);
+  return labels.length >= 2 && labels.length <= 6 && labels.every(label => label.length <= 500)
+    ? labels : null;
 }
 
 function answerFieldTemplate(problem) {
@@ -355,11 +378,10 @@ function parseAnswerFieldTemplate(value, kind = 'line') {
   };
 }
 
-function renderResponseTable(problem) {
+function renderResponseTable(problem, editable = false) {
   const labels = answerTableLabels(problem);
   if (!Array.isArray(labels) || labels.length < 2) return null;
   const block = node('div', 'response-table-block');
-  block.append(node('div', 'response-table-label', 'Ответ запишите в таблицу'));
   const compact = labels.every((label, index) => label === 'АБВ'[index]);
   const table = node('table', `response-table${compact ? ' is-compact' : ''}`);
   table.setAttribute('aria-label', 'Таблица для записи ответа');
@@ -377,6 +399,7 @@ function renderResponseTable(problem) {
   }
   table.append(head, fields);
   block.append(table);
+  if (editable && state.editingEnabled) block.append(editLatexButton(problem, 'answer_table'));
   return block;
 }
 
@@ -385,28 +408,30 @@ function renderAnswerField(problem, editable = false) {
   if (!field || field.kind === 'table') return null;
   const block = node('div', `answer-field answer-field-${field.kind}`);
   block.setAttribute('aria-label', 'Поле для записи ответа');
-  block.append(node('span', 'answer-field-label', 'Ответ:'));
+  const input = node('span', 'answer-field-input');
+  input.append(node('span', 'answer-field-label', 'Ответ:'));
+  block.append(input);
   if (field.kind === 'boxes') {
     const boxes = node('span', 'answer-boxes');
     for (let index = 0; index < (field.count || 2); index++) {
       boxes.append(node('span', 'answer-box'));
     }
-    block.append(boxes);
+    input.append(boxes);
     return block;
   }
   if (field.prefix) {
     const prefix = node('span', 'answer-prefix');
     renderMathInto(prefix, field.prefix);
-    block.append(prefix);
+    input.append(prefix);
   }
-  block.append(node('span', 'answer-blank'));
+  input.append(node('span', 'answer-blank'));
   if (field.kind === 'pair') {
-    block.append(node('span', 'answer-plus-minus', '±'), node('span', 'answer-blank answer-blank-pair'));
+    input.append(node('span', 'answer-plus-minus', '±'), node('span', 'answer-blank answer-blank-pair'));
   }
   if (field.unit) {
     const unit = node('span', 'answer-unit');
     renderMathInto(unit, field.unit);
-    block.append(unit);
+    input.append(unit);
   }
   if (editable && state.editingEnabled && field.kind !== 'boxes') {
     block.append(editLatexButton(problem, 'answer_field'));
@@ -417,18 +442,21 @@ function renderAnswerField(problem, editable = false) {
 function statementForCopy(problem) {
   const labels = answerTableLabels(problem);
   if (!Array.isArray(labels) || labels.length < 2) return problem.statement || 'Условие не извлечено.';
+  const sourceLabels = problem.response_labels;
   const tableRx = /\\begin\{tabular\}\{[^}]*\}([\s\S]*?)\\end\{tabular\}/g;
   const statement = (problem.statement || '').replace(tableRx, (whole, body) => {
     const rows = body.split(/\\\\\s*\n/).filter(row => row.trim());
-    return rows.length === 1 && rows[0].split(/(?<!\\)&/).length === 2 ? '' : whole;
+    return sourceLabels?.length === 2 && sourceLabels.every((label, index) => label === labels[index]) &&
+      rows.length === 1 &&
+      rows[0].split(/(?<!\\)&/).length === 2 ? '' : whole;
   }).trim();
   const rowEnd = '\\\\';
   const table = [
-    '\\begin{tabular}{|l|l|}',
+    `\\begin{tabular}{|${labels.map(() => 'c').join('|')}|}`,
     '\\hline',
-    `${labels[0]} & ${labels[1]} ${rowEnd}`,
+    `${labels.join(' & ')} ${rowEnd}`,
     '\\hline',
-    ` & ${rowEnd}`,
+    `${labels.map(() => ' ').join(' & ')} ${rowEnd}`,
     '\\hline',
     '\\end{tabular}',
   ].join('\n');
@@ -575,16 +603,50 @@ function openImage(asset, caption = 'Рисунок к заданию') {
   const dialog = byId('image-dialog');
   dialog.querySelector('img').src = asset.url;
   dialog.querySelector('p').textContent = caption;
+  const download = dialog.querySelector('.image-dialog-download');
+  download.href = asset.url;
+  download.download = asset.url.split('/').at(-1).split('?')[0];
   dialog.showModal();
 }
 
-function renderFigureGrid(problem, role, showCopyButton = true) {
+function figureDownload(asset, problem, role, index) {
+  const link = node('a', 'figure-download');
+  link.href = asset.url;
+  const extension = asset.url.split('.').at(-1).split('?')[0];
+  link.download = `${problem.exam_year}-${problem.variant_number}-${problem.problem_number}-${role}-${index + 1}.${extension}`;
+  link.title = `Скачать рисунок ${index + 1}`;
+  link.setAttribute('aria-label', link.title);
+  const icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  icon.setAttribute('viewBox', '0 0 24 24');
+  icon.setAttribute('aria-hidden', 'true');
+  for (const pathData of ['M12 3v12m0 0 4-4m-4 4-4-4', 'M4 17v3h16v-3']) {
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', pathData);
+    icon.append(path);
+  }
+  link.append(icon);
+  return link;
+}
+
+function renderFigureGrid(problem, role, selectedIndices = null) {
   const figures = problem.assets?.filter(a => a.role === role && a.media_type.startsWith('image/')) || [];
   if (!figures.length) return null;
   const figureGrid = node('div', 'task-figures');
+  if (selectedIndices) figureGrid.classList.add('matching-figures');
+  const numberedGraphGallery = role === 'statement_figure' && !selectedIndices
+    && figures.length === 5 && matchingLayout(problem)?.gallery;
+  if (numberedGraphGallery) figureGrid.classList.add('numbered-graph-gallery');
+  const allFiguresSelected = !selectedIndices || selectedIndices.length === figures.length;
+  const figureRowCount = role === 'statement_figure' && allFiguresSelected
+    ? window.PhysEgeConditionFigureRows?.[`${problem.exam_year}-${problem.variant_number}-${problem.problem_number}`]
+    : null;
+  const isConditionRow = figureRowCount === figures.length;
+  if (isConditionRow) figureGrid.classList.add('condition-figure-row', `condition-figure-row-${figureRowCount}`);
   const numberedPhotos = role === 'statement_figure' && figures.length === 3
     && /рис\.\s*\\\(1\\\)/i.test(problem.statement || '');
+  const figureCaptions = role === 'statement_figure' ? matchingLayout(problem)?.figureCaptions : null;
   for (const [index, asset] of figures.entries()) {
+    if (selectedIndices && !selectedIndices.includes(index)) continue;
     const imageName = role === 'solution_figure'
       ? `Рисунок ${index + 1} к решению задания ${problem.problem_number}`
       : `Рисунок ${index + 1} к заданию ${problem.problem_number}`;
@@ -599,15 +661,135 @@ function renderFigureGrid(problem, role, showCopyButton = true) {
     figure.append(img);
     figure.addEventListener('click', () => openImage(asset, imageName));
     item.append(figure);
-    if (showCopyButton || numberedPhotos) {
+    if (numberedGraphGallery) item.append(node('span', 'graph-choice-number', `${index + 1})`));
+    item.append(figureDownload(asset, problem, role, index));
+    if (numberedPhotos || figureCaptions?.[index]) {
       const caption = node('figcaption', 'task-figure-caption');
-      if (numberedPhotos) caption.append(node('span', 'task-figure-number', `Рис. ${index + 1}`));
-      if (showCopyButton) caption.append(copyButton(`Скопировать ${imageName.toLowerCase()}`, 'Копировать рисунок', asset, 'image'));
+      caption.append(node('span', 'task-figure-number', figureCaptions?.[index] || `Рис. ${index + 1}`));
       item.append(caption);
     }
     figureGrid.append(item);
   }
   return figureGrid;
+}
+
+function matchingLayout(problem) {
+  return window.PhysEgeMatchingLayouts?.[
+    `${problem.exam_year}-${problem.variant_number}-${problem.problem_number}`];
+}
+
+function renderStatementWithFigures(container, problem, text, gallery = false) {
+  const figures = renderFigureGrid(problem, 'statement_figure');
+  const singleFigure = figures?.children.length === 1;
+  const body = singleFigure ? node('div', 'statement-body') : container;
+  renderStatement(body, text, problem.response_labels);
+  if (gallery && figures?.children.length === 5) {
+    const graphNumberHeader = [...body.querySelectorAll('.latex-table')].find(table =>
+      table.rows.length === 1 && table.rows[0].cells.length === 5);
+    graphNumberHeader?.closest('.latex-table-wrap')?.remove();
+  }
+  if (singleFigure) {
+    container.classList.add('single-figure-layout');
+    container.append(body);
+  }
+  if (figures) container.append(figures);
+}
+
+function renderMatchingStatement(container, problem) {
+  let text = problem.statement || 'Условие не извлечено.';
+  const layout = matchingLayout(problem);
+  const allFigures = problem.assets?.filter(a => a.role === 'statement_figure' && a.media_type.startsWith('image/')) || [];
+  if (!layout || layout.gallery) {
+    renderStatementWithFigures(container, problem, text, Boolean(layout?.gallery));
+    return;
+  }
+  // Some DOCX imports keep the borderless matching columns as a TeX tabular.
+  // Flatten only this specific A/Б table into the same source lines as newer tasks.
+  text = text.replace(/\\begin\{tabular\}\{[^}]*\}([\s\S]*?)\\end\{tabular\}/g, (whole, body) => {
+    const rows = body.split(/\\\\\s*(?:\n|$)/).map(row => row.trim()).filter(Boolean);
+    if (!rows.some(row => /^[АA][.)]/.test(row))) return whole;
+    return rows.map(row => {
+      const cells = row.split(/(?<!\\)&/).map(cell => cell.trim()).filter(Boolean);
+      return cells.join('\n');
+    }).join('\n');
+  });
+  const lines = text.split('\n');
+  const firstOption = lines.findIndex(line => /^\s*1[.)]\s+/.test(line));
+  const firstLetter = lines.findIndex(line => /^\s*[АA][.)]\s+/.test(line));
+  if (firstOption < 0 || (!layout.graphFigures && !layout.responseLabels && firstLetter < 0)) {
+    renderStatementWithFigures(container, problem, text);
+    return;
+  }
+  const firstColumnLine = firstLetter >= 0 && firstLetter < firstOption ? firstLetter : firstOption;
+  const headingRx = /^\s*(?:ГРАФИКИ|ПРОЦЕССЫ?|ФИЗИЧЕСКИЕ ВЕЛИЧИНЫ|ФИЗИЧЕСКАЯ ВЕЛИЧИНА|ФОРМУЛЫ?|ЭНЕРГИЯ ФОТОНА|ЭНЕРГЕТИЧЕСКИЕ ПЕРЕХОДЫ|ХАРАКТЕРИСТИКИ ПРОЦЕССОВ|НОМЕРА ПРОЦЕССОВ|ДВИЖЕНИЕ ЧАСТИЦЫ|ТРАЕКТОРИЯ|УЧАСТКИ ГРАФИКА)(?:\s*[АA]\s*и\s*[БB])?\s*:?(?:\s*)$/i;
+  let prefixEnd = firstColumnLine;
+  while (prefixEnd > 0 && (!lines[prefixEnd - 1].trim() || headingRx.test(lines[prefixEnd - 1]))) prefixEnd--;
+  renderStatement(container, lines.slice(0, prefixEnd).join('\n').trim(), problem.response_labels);
+
+  const left = [], right = [];
+  if (layout.responseLabels && firstLetter < 0) {
+    for (const [index, label] of (answerTableLabels(problem) || []).entries()) {
+      left.push(`${'АБВ'[index] || index + 1}) ${label}`);
+    }
+  }
+  let destination = firstLetter >= 0 && firstLetter < firstOption ? left : right;
+  let leftTitle = layout.headings?.[0] || (layout.graphFigures ? 'ГРАФИКИ' : '');
+  let rightTitle = layout.headings?.[1] || (layout.graphFigures ? 'ФИЗИЧЕСКИЕ ВЕЛИЧИНЫ' : '');
+  for (const raw of lines.slice(prefixEnd)) {
+    const line = raw.trim();
+    if (!line) continue;
+    if (headingRx.test(line)) {
+      if (layout.headings) continue;
+      if (/ГРАФИКИ|ПРОЦЕСС|ФИЗИЧЕСКИЕ ВЕЛИЧИНЫ/i.test(line) && !leftTitle) leftTitle = line.replace(/:$/, '');
+      else if (/ФИЗИЧЕСКИЕ ВЕЛИЧИНЫ|ФОРМУЛЫ|ЭНЕРГИЯ ФОТОНА/i.test(line)) rightTitle = line.replace(/:$/, '');
+      continue;
+    }
+    if (/^1[.)]\s+/.test(line)) destination = right;
+    if (/^[АAБB][.)]\s+/.test(line)) destination = left;
+    destination.push(line);
+  }
+  if (!right.length || (!left.length && !layout.graphFigures)) {
+    container.replaceChildren();
+    renderStatementWithFigures(container, problem, text);
+    return;
+  }
+  const graphCount = Math.min(layout.graphFigures || 0, allFigures.length);
+  const firstGraph = allFigures.length - graphCount;
+  const preceding = renderFigureGrid(problem, 'statement_figure',
+    Array.from({ length: firstGraph }, (_, index) => index));
+  if (preceding && firstGraph === 1) {
+    const intro = node('div', 'single-figure-layout');
+    const body = node('div', 'statement-body');
+    body.append(...container.children);
+    intro.append(body, preceding);
+    container.append(intro);
+  } else if (preceding && firstGraph) {
+    container.append(preceding);
+  }
+  const table = node('div', 'matching-columns');
+  const leftColumn = node('div', 'matching-column');
+  const rightColumn = node('div', 'matching-column');
+  if (leftTitle) leftColumn.append(node('div', 'matching-heading', leftTitle));
+  if (rightTitle) rightColumn.append(node('div', 'matching-heading', rightTitle));
+  for (const item of left) {
+    const row = node('div', 'matching-left-item');
+    renderMathInto(row, item);
+    leftColumn.append(row);
+  }
+  if (graphCount) {
+    const graphGrid = renderFigureGrid(problem, 'statement_figure',
+      Array.from({ length: graphCount }, (_, index) => firstGraph + index));
+    if (graphCount === 2) {
+      for (const [index, item] of [...graphGrid.children].entries()) {
+        item.classList.add('matching-labeled-graph');
+        item.prepend(node('span', 'matching-graph-label', `${'АБ'[index]})`));
+      }
+    }
+    leftColumn.append(graphGrid);
+  }
+  renderProse(rightColumn, right.join('\n'));
+  table.append(leftColumn, rightColumn);
+  container.append(table);
 }
 
 function renderCard(problem, showSource, numberMode = false) {
@@ -637,12 +819,9 @@ function renderCard(problem, showSource, numberMode = false) {
   card.append(statementToolbar);
 
   const statement = node('div', 'statement');
-  renderStatement(statement, problem.statement || 'Условие не извлечено.', answerTableLabels(problem));
+  renderMatchingStatement(statement, problem);
   card.append(statement);
-
-  const figures = renderFigureGrid(problem, 'statement_figure');
-  if (figures) card.append(figures);
-  const responseTable = renderResponseTable(problem);
+  const responseTable = renderResponseTable(problem, true);
   if (responseTable) card.append(responseTable);
   const answerField = renderAnswerField(problem, true);
   if (answerField) card.append(answerField);
@@ -832,9 +1011,7 @@ function renderBuilder() {
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const problem = await response.json();
         preview.replaceChildren();
-        renderStatement(preview, problem.statement || 'Условие не извлечено.', answerTableLabels(problem));
-        const figures = renderFigureGrid(problem, 'statement_figure', false);
-        if (figures) preview.append(figures);
+        renderMatchingStatement(preview, problem);
         const responseTable = renderResponseTable(problem);
         if (responseTable) preview.append(responseTable);
         const answerField = renderAnswerField(problem);

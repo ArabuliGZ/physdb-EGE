@@ -62,10 +62,18 @@ def parse_answer_field(value: str, pair: bool = False) -> tuple[str, str]:
     return prefix, unit
 
 
+def parse_answer_table_labels(value: str) -> list[str]:
+    """Read one TeX-capable column heading per line; the blank row is fixed."""
+    labels = [line.strip() for line in value.splitlines() if line.strip()]
+    if not 2 <= len(labels) <= 6 or any(len(label) > 500 for label in labels):
+        raise ValueError("Укажите от двух до шести подписей, каждую с новой строки")
+    return labels
+
+
 def save_text_edit(db: Path, log_path: Path, problem_id: str,
                    field: str, value: str) -> dict:
-    if field not in EDITABLE_FIELDS | {"answer_field"}:
-        raise ValueError("Можно редактировать только условие, ответ, поле ответа или решение")
+    if field not in EDITABLE_FIELDS | {"answer_field", "answer_table"}:
+        raise ValueError("Можно редактировать только условие, ответ, поле ответа, таблицу ответа или решение")
     if not isinstance(value, str):
         raise ValueError("Текст правки должен быть строкой")
     value = value.replace("\r\n", "\n").replace("\r", "\n").strip()
@@ -77,8 +85,12 @@ def save_text_edit(db: Path, log_path: Path, problem_id: str,
     con = sqlite3.connect(db)
     con.row_factory = sqlite3.Row
     try:
+        if "answer_table_labels" not in {
+                column[1] for column in con.execute("PRAGMA table_info(problems)")}:
+            con.execute("ALTER TABLE problems ADD COLUMN answer_table_labels TEXT")
         row = con.execute("""SELECT p.id,p.variant_id,p.problem_number,p.alternative_number,
             p.statement,p.answer,p.solution,p.answer_prefix,p.answer_unit,p.answer_format,
+            p.answer_table_labels,
             v.exam_year,v.variant_number
             FROM problems p JOIN variants v ON v.id=p.variant_id WHERE p.id=?""",
                           (problem_id,)).fetchone()
@@ -88,6 +100,13 @@ def save_text_edit(db: Path, log_path: Path, problem_id: str,
             prefix, unit = parse_answer_field(value, row["answer_format"] == "number_pair")
             changed_fields = {"answer_prefix": prefix, "answer_unit": unit}
             if all((row[name] or "").strip() == content for name, content in changed_fields.items()):
+                return {"changed": False, "problem_id": problem_id, "field": field}
+        elif field == "answer_table":
+            if row["answer_format"] != "matching":
+                raise ValueError("У этого задания нет таблицы ответа")
+            labels = parse_answer_table_labels(value)
+            changed_fields = {"answer_table_labels": json.dumps(labels, ensure_ascii=False)}
+            if row["answer_table_labels"] == changed_fields["answer_table_labels"]:
                 return {"changed": False, "problem_id": problem_id, "field": field}
         else:
             changed_fields = {field: value}

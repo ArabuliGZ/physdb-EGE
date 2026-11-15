@@ -14,6 +14,7 @@ from pathlib import Path
 from docx import Document
 
 from import_examples import DB, ROOT, TOPICS, link_asset, store_asset, upsert_problem, upsert_variant
+from numbered_figure_choices import split_numbered_choices
 from import_2026_remaining import (add_figures, answer_key, extract_blocks,
                                     move_preheading_figure, normalize_statement, numbered_paragraphs,
                                     review_sections, show_source_formulas)
@@ -282,8 +283,13 @@ def import_one(con, year: int, set_number: int, number: int,
         add_figures(con, pid, statement_figures, "statement_figure", locator)
         rendered = RENDERED_FIGURES.get((label, n))
         if rendered:
-            aid = store_asset(con, (CURATED_FIGURES / rendered).read_bytes(), ".png", "image/png")
-            link_asset(con, pid, aid, "statement_figure", f"visually checked source-page crop: {rendered}")
+            content = (CURATED_FIGURES / rendered).read_bytes()
+            parts = (split_numbered_choices(content)
+                     if (label, n) in CAPACITOR_DISTANCE_TASKS else [content])
+            for choice_number, part in enumerate(parts, 1):
+                aid = store_asset(con, part, ".png", "image/png")
+                link_asset(con, pid, aid, "statement_figure",
+                           f"visually checked source-page crop: {rendered}; choice {choice_number}")
         add_figures(con, pid, solution_figures, "solution_figure", f"{label} criteria for {n}")
     figure_moves = {
         "2024-2-1": [(24, 1)],

@@ -18,6 +18,7 @@ from docx import Document
 from PIL import Image
 
 from demo_2027_transcription import FIGURE_BOXES, SOLUTION_FIGURE_BOXES, STATEMENTS as DEMO_STATEMENTS
+from numbered_figure_choices import split_numbered_choices
 from demidova_2026_1_transcription import SOLUTION_FIGURE_INDICES, STATEMENTS as DEMIDOVA_STATEMENTS
 from curated_solutions import FIPI as FIPI_SOLUTIONS, DEMIDOVA as DEMIDOVA_SOLUTIONS
 from curated_solutions import FIPI_ANSWERS, DEMIDOVA_ANSWERS
@@ -305,9 +306,12 @@ def extract_demo(con: sqlite3.Connection) -> None:
                     figure = source_image.crop(box)
                     figure_data = BytesIO()
                     figure.save(figure_data, format="PNG")
-                    figure_id = store_asset(con, figure_data.getvalue(), ".png", "image/png")
-                    link_asset(con, pid, figure_id, "statement_figure",
-                               f"{locator}, figure {figure_number}")
+                    parts = (split_numbered_choices(figure_data.getvalue())
+                             if (n, alt) == (20, 1) else [figure_data.getvalue()])
+                    for choice_number, part in enumerate(parts, 1):
+                        figure_id = store_asset(con, part, ".png", "image/png")
+                        link_asset(con, pid, figure_id, "statement_figure",
+                                   f"{locator}, figure {figure_number}, choice {choice_number}")
 
 
 def xml_text(element) -> str:
@@ -408,8 +412,12 @@ def extract_demidova(con: sqlite3.Connection) -> None:
         assess(con, pid, n, *DEMIDOVA_2027_RELEVANCE[n])
         figure = ROOT / "assets" / "curated" / "demidova_2026_1" / f"{n:02}.png"
         if figure.exists():
-            aid = store_asset(con, figure.read_bytes(), ".png", "image/png")
-            link_asset(con, pid, aid, "statement_figure", f"DOCX figure for problem {n}")
+            content = figure.read_bytes()
+            parts = split_numbered_choices(content) if n == 20 else [content]
+            for choice_number, part in enumerate(parts, 1):
+                aid = store_asset(con, part, ".png", "image/png")
+                link_asset(con, pid, aid, "statement_figure",
+                           f"DOCX figure for problem {n}, choice {choice_number}")
 
 
 def add_solution_figures(con: sqlite3.Connection) -> None:

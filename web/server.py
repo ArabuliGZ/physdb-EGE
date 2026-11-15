@@ -36,6 +36,21 @@ def rows(query: str, params: tuple = ()) -> list[dict]:
         con.close()
 
 
+def attach_answer_metadata(item: dict) -> None:
+    item["response_labels"] = list(response_labels(item) or ())
+    field = answer_field(item)
+    override = item.get("answer_table_labels")
+    if field and field["kind"] == "table" and override:
+        try:
+            labels = json.loads(override)
+        except (TypeError, ValueError):
+            labels = None
+        if isinstance(labels, list) and 2 <= len(labels) <= 6 and all(
+                isinstance(label, str) and label.strip() for label in labels):
+            field["labels"] = labels
+    item["answer_field"] = field
+
+
 def variants() -> list[dict]:
     items = rows("""SELECT v.id,v.title,v.exam_year,v.variant_number,v.is_official_demo,
         COUNT(DISTINCT p.id) AS problem_count,
@@ -116,8 +131,7 @@ def list_problems(query: dict[str, list[str]]) -> list[dict]:
             by_problem.setdefault(asset.pop("problem_id"), []).append(asset)
         for item in items:
             item["assets"] = by_problem.get(item["id"], [])
-            item["response_labels"] = list(response_labels(item) or ())
-            item["answer_field"] = answer_field(item)
+            attach_answer_metadata(item)
     return items
 
 
@@ -140,8 +154,7 @@ def get_problem(problem_id: str) -> dict | None:
         WHERE pa.problem_id=? ORDER BY pa.role,pa.rowid""", (problem_id,))
     for asset in item["assets"]:
         asset["url"] = "/assets/" + Path(asset["storage_path"]).name[:2] + "/" + Path(asset["storage_path"]).name
-    item["response_labels"] = list(response_labels(item) or ())
-    item["answer_field"] = answer_field(item)
+    attach_answer_metadata(item)
     return item
 
 

@@ -5,7 +5,23 @@ the import path so rebuilding SQLite cannot restore the broken notation.
 """
 from __future__ import annotations
 
+import re
+
 from tex_format import format_indexed_symbols
+
+
+DEGREE_COMMAND = re.compile(r"\\degree(?![A-Za-z])")
+
+
+def normalize_degree_notation(text: str) -> str:
+    """Replace unsupported degree macros with portable TeX superscripts."""
+    def replace(match: re.Match[str]) -> str:
+        before = text[:match.start()].rstrip()
+        # Unit headings and thin-space separators have no math atom to carry ^.
+        empty_base = before.endswith((r"\(", r"\[", r"\,", ",", "&", "{"))
+        return r"{}^{\circ}" if empty_base else r"^{\circ}"
+
+    return DEGREE_COMMAND.sub(replace, text)
 
 
 REPAIRS: dict[tuple[str, int, str], tuple[tuple[str, str], ...]] = {
@@ -416,4 +432,4 @@ def repair_text(label: str, number: int, field: str, text: str | None) -> str | 
             text = text.replace(old, new, 1)
         elif new not in text:
             raise ValueError(f"Source-backed repair no longer matches {label} task {number} {field}: {old}")
-    return format_indexed_symbols(text)
+    return format_indexed_symbols(normalize_degree_notation(text))

@@ -15,6 +15,7 @@ from editor import read_edit_log, write_edit_log  # noqa: E402
 from import_examples import DB, link_asset, store_asset  # noqa: E402
 from import_2024_2025 import (CAPACITOR_DISTANCE_STATEMENT, CURATED_FIGURES,
                               RENDERED_FIGURES)  # noqa: E402
+from numbered_figure_choices import split_numbered_choices  # noqa: E402
 
 
 TARGETS = (
@@ -54,9 +55,11 @@ def main() -> None:
                         (problem_id,))
             filename = RENDERED_FIGURES[(label, 20)]
             content = (CURATED_FIGURES / filename).read_bytes()
-            asset_id = store_asset(con, content, ".png", "image/png")
-            link_asset(con, problem_id, asset_id, "statement_figure",
-                       f"visually checked source-page crop: {filename}; source page {source_page}")
+            for choice_number, part in enumerate(split_numbered_choices(content), 1):
+                asset_id = store_asset(con, part, ".png", "image/png")
+                link_asset(con, problem_id, asset_id, "statement_figure",
+                           f"visually checked source-page crop: {filename}; "
+                           f"source page {source_page}; choice {choice_number}")
             repaired_ids.append(problem_id)
 
         orphaned = [ROOT / path for (path,) in con.execute("""SELECT storage_path FROM assets

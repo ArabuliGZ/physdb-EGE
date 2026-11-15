@@ -270,13 +270,23 @@ def render_problem(problem: dict, figures: dict[str, Path]) -> str:
     body = re.sub(r"(?im)^\s*Ответ\s*:\s*[_ .]*$", "", problem["statement"] or "").strip()
     labels = response_labels(problem)
     body = remove_response_header(body, labels)
-    parts = [r"\begin{ExamTask}", r"\TaskStart{" + str(number) + "}", statement_tex(body, figures)]
     image_paths: list[Path] = []
     for asset in problem.get("assets", []):
         if asset["role"] == "statement_figure" and asset["media_type"].startswith("image/"):
             source = figures.get(asset["id"])
             if source and source.is_file():
                 image_paths.append(source)
+    if len(image_paths) == 5:
+        # The old DOCX stores only (1)…(5) in this empty table; the figures
+        # themselves now carry those labels directly below the five crops.
+        def discard_placeholder(match: re.Match[str]) -> str:
+            cells = re.sub(r"\s+", "", match.group(1))
+            expected = "&".join(f"(\\({index}\\))" for index in range(1, 6))
+            return "" if cells == expected else match.group(0)
+
+        body = re.sub(r"\\begin\{tabular\}\{l\|l\|l\|l\|l\}([\s\S]*?)\\end\{tabular\}",
+                      discard_placeholder, body)
+    parts = [r"\begin{ExamTask}", r"\TaskStart{" + str(number) + "}", statement_tex(body, figures)]
     numbered_photos = (len(image_paths) == 3 and
                        re.search(r"рис\.\s*\\\(1\\\)", body, re.IGNORECASE))
     if numbered_photos:
@@ -289,6 +299,15 @@ def render_problem(problem: dict, figures: dict[str, Path]) -> str:
                          r"\includegraphics[width=\linewidth,height=38mm,keepaspectratio]{figures/"
                          + source.name + r"}\par\scriptsize Рис. " + str(index) + r"\end{minipage}")
             if index == 2:
+                parts.append(r"\hfill")
+        parts.append(r"\end{center}")
+    elif len(image_paths) == 5:
+        parts.append(r"\par\smallskip\begin{center}")
+        for index, source in enumerate(image_paths, 1):
+            parts.append(r"\begin{minipage}[t]{.19\linewidth}\centering"
+                         r"\includegraphics[width=\linewidth,height=39mm,keepaspectratio]{figures/"
+                         + source.name + r"}\par\scriptsize " + str(index) + r")\end{minipage}")
+            if index < 5:
                 parts.append(r"\hfill")
         parts.append(r"\end{center}")
     elif len(image_paths) >= 3:

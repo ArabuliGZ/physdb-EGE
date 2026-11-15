@@ -44,6 +44,9 @@ assert "Ученик выполнял лабораторную работу" in 
 missing_assets = [path for (path,) in con.execute("SELECT storage_path FROM assets") if not (ROOT / path).is_file()]
 assert not missing_assets, missing_assets
 assert not con.execute("SELECT 1 FROM assets WHERE id NOT IN (SELECT asset_id FROM problem_assets)").fetchone()
+assert con.execute("""SELECT COUNT(*) FROM problem_assets pa JOIN problems p ON p.id=pa.problem_id
+    JOIN variants v ON v.id=p.variant_id WHERE v.exam_year=2026 AND v.variant_number='1'
+    AND p.problem_number=20 AND pa.role='statement_figure'""").fetchone()[0] == 5
 for variant_number, number in [(2, 24), (4, 11)]:
     count = con.execute("""SELECT count(*) FROM problem_assets pa JOIN problems p ON p.id=pa.problem_id
         JOIN variants v ON v.id=p.variant_id WHERE v.exam_year=2026 AND v.variant_number=?
