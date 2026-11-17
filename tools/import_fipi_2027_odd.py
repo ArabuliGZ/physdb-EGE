@@ -112,6 +112,12 @@ def import_variant(con: sqlite3.Connection, pdf: pdfium.PdfDocument,
                     pid,
                 ),
             )
+            # Re-importing corrected crops must not leave stale figures attached.
+            con.execute(
+                "DELETE FROM problem_assets WHERE problem_id=? "
+                "AND role IN ('statement_figure', 'solution_figure')",
+                (pid,),
+            )
             for role, mapping in (
                 ("statement_figure", figures.STATEMENT_FIGURES),
                 ("solution_figure", figures.SOLUTION_FIGURES),
