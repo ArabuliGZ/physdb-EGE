@@ -22,6 +22,7 @@ from fipi_2027_1_transcription import (
     ANSWERS, ANSWER_PREFIX, ANSWER_TABLE_LABELS, ANSWER_UNITS,
     SOURCE_PAGES, STATEMENTS,
 )
+from import_fipi_2027_odd import source_excerpt
 from import_examples import (
     DB, FORMATS, POINTS, ROOT, TOPICS, assess, link_asset, store_asset,
     upsert_problem, upsert_variant,
@@ -63,7 +64,11 @@ def main() -> None:
         if "answer_table_labels" not in {row[1] for row in con.execute("PRAGMA table_info(problems)")}:
             con.execute("ALTER TABLE problems ADD COLUMN answer_table_labels TEXT")
         with con:
+            excerpt = source_excerpt(1, {**SOLUTION_PAGES, **CRITERIA_PAGES})
             vid = upsert_variant(con, SOURCE, 2027, "1", "Сборник ФИПИ 2027-1", False)
+            con.execute("UPDATE variants SET source_path=?, source_sha256=? WHERE id=?",
+                        (str(excerpt.relative_to(ROOT)),
+                         hashlib.sha256(excerpt.read_bytes()).hexdigest(), vid))
             for number in range(1, 27):
                 locator = (f"{SOURCE.relative_to(ROOT).as_posix()}, печатная/PDF "
                            f"стр. {SOURCE_PAGES[number]}; ключ стр. 237")
