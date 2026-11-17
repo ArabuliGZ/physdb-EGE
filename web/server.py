@@ -61,7 +61,12 @@ def variants() -> list[dict]:
             THEN p.id END) AS partially_suitable_count
         FROM variants v LEFT JOIN problems p ON p.variant_id=v.id
         LEFT JOIN relevance r ON r.problem_id=p.id AND r.exam_year=2027
-        GROUP BY v.id ORDER BY v.exam_year DESC,v.variant_number""")
+        GROUP BY v.id
+        ORDER BY v.exam_year DESC,
+            CASE WHEN v.exam_year=2027 AND v.variant_number NOT GLOB '[0-9]*'
+                THEN 1 ELSE 0 END,
+            CASE WHEN v.exam_year=2027 THEN CAST(v.variant_number AS INTEGER) END,
+            v.variant_number""")
     for item in items:
         item["download_url"] = "/api/variants/" + item["id"] + "/source"
         item["companions"] = []

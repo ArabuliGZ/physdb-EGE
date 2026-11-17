@@ -152,9 +152,10 @@ body { min-width: 0; }
 .latex-content { font-family: "STIX Two Text", Georgia, "Times New Roman", serif; }
 .answer-field-label { margin-right: 2px; font-weight: 600; }
 .answer-prefix, .answer-unit { white-space: nowrap; }
+.answer-unit { flex: 0 0 auto; min-width: max-content; }
 .answer-field > .edit-latex-button { flex: none; margin: 0; font-family: Inter, system-ui, sans-serif; }
-.answer-blank { display: inline-block; flex: 0 1 190px; min-width: 32px; height: 1.15em; border-bottom: 1.5px solid var(--black); }
-.answer-field-pair .answer-blank { flex-basis: 130px; min-width: 24px; }
+.answer-blank { display: inline-block; flex: 0 1 190px; width: 190px; min-width: 32px; height: 1.15em; border-bottom: 1.5px solid var(--black); }
+.answer-field-pair .answer-blank { flex-basis: 130px; width: 130px; min-width: 24px; }
 .answer-plus-minus { padding: 0 2px; font-size: 19px; line-height: 1.05; }
 .answer-boxes { display: inline-flex; gap: 0; }
 .answer-box { width: 31px; height: 31px; border: 1.5px solid var(--gray-600); background: #fff; }

@@ -264,8 +264,9 @@ function topicLabel(topic) {
 }
 
 function variantDisplayTitle(variant) {
-  return variant.is_official_demo ? variant.title :
-    `Демидова ${variant.exam_year}-${variant.variant_number}`;
+  return variant.is_official_demo || variant.exam_year === 2027
+    ? (variant.title || variant.variant_title)
+    : `Демидова ${variant.exam_year}-${variant.variant_number}`;
 }
 
 function automaticBaseTitle(variant) {
@@ -306,6 +307,11 @@ function renderMathInto(container, value) {
   if (cursor < value.length) container.append(document.createTextNode(value.slice(cursor)));
 }
 
+function latexTableRows(body) {
+  return body.replace(/\\hline\b/g, '')
+    .split(/\\\\\s*(?:\r?\n|$)/).map(row => row.trim()).filter(Boolean);
+}
+
 function renderStatement(container, text, responseLabels = null) {
   const rx = /\\begin\{tabular\}\{[^}]*\}([\s\S]*?)\\end\{tabular\}/g;
   let cursor = 0;
@@ -315,7 +321,7 @@ function renderStatement(container, text, responseLabels = null) {
     }
     const wrap = node('div', 'latex-table-wrap');
     const table = node('table', 'latex-table');
-    const rows = match[1].split(/\\\\\s*\n/).filter(row => row.trim());
+    const rows = latexTableRows(match[1]);
     if (responseLabels?.length === 2 && rows.length === 1 &&
         rows[0].split(/(?<!\\)&/).length === 2) {
       cursor = match.index + match[0].length;
@@ -432,6 +438,17 @@ function renderAnswerField(problem, editable = false) {
     const unit = node('span', 'answer-unit');
     renderMathInto(unit, field.unit);
     input.append(unit);
+    if (window.PhysEgeMath?.renderer === 'mathjax' && unit.querySelector('.math-expression')) {
+      // STIX Two Cyrillic mtext can paint outside a zero-width MathJax box.
+      // Reserve the painted width before placing the adjacent editor button.
+      const observer = new MutationObserver(() => {
+        if (unit.querySelector('.is-math-pending')) return;
+        observer.disconnect();
+        unit.style.minWidth = '0px';
+        unit.style.minWidth = `${Math.ceil(unit.scrollWidth) + 2}px`;
+      });
+      observer.observe(unit, { attributes: true, childList: true, subtree: true });
+    }
   }
   if (editable && state.editingEnabled && field.kind !== 'boxes') {
     block.append(editLatexButton(problem, 'answer_field'));
@@ -440,12 +457,13 @@ function renderAnswerField(problem, editable = false) {
 }
 
 function statementForCopy(problem) {
+  const source = matchingInstructionBeforeChoices(problem.statement || 'Условие не извлечено.');
   const labels = answerTableLabels(problem);
-  if (!Array.isArray(labels) || labels.length < 2) return problem.statement || 'Условие не извлечено.';
+  if (!Array.isArray(labels) || labels.length < 2) return source;
   const sourceLabels = problem.response_labels;
   const tableRx = /\\begin\{tabular\}\{[^}]*\}([\s\S]*?)\\end\{tabular\}/g;
-  const statement = (problem.statement || '').replace(tableRx, (whole, body) => {
-    const rows = body.split(/\\\\\s*\n/).filter(row => row.trim());
+  const statement = source.replace(tableRx, (whole, body) => {
+    const rows = latexTableRows(body);
     return sourceLabels?.length === 2 && sourceLabels.every((label, index) => label === labels[index]) &&
       rows.length === 1 &&
       rows[0].split(/(?<!\\)&/).length === 2 ? '' : whole;
@@ -695,8 +713,20 @@ function renderStatementWithFigures(container, problem, text, gallery = false) {
   if (figures) container.append(figures);
 }
 
+function matchingInstructionBeforeChoices(value) {
+  const instruction = value.match(/К каждой позиции первого столбца[^\n.!?]*\./i);
+  if (!instruction) return value;
+  const rest = (value.slice(0, instruction.index) + value.slice(instruction.index + instruction[0].length))
+    .replace(/[ \t]+\n/g, '\n').replace(/\n{3,}/g, '\n\n').trim();
+  const lines = rest.split('\n');
+  const firstChoice = lines.findIndex(line => /^[ \t]*(?:[АA][.)][ \t]+|1[.)][ \t]+|\\begin\{tabular\}|[А-ЯЁ][А-ЯЁ \t]{4,}:?[ \t]*$)/.test(line));
+  if (firstChoice < 0) return `${rest}\n\n${instruction[0]}`;
+  return [lines.slice(0, firstChoice).join('\n').trim(), instruction[0],
+    lines.slice(firstChoice).join('\n').trim()].filter(Boolean).join('\n\n');
+}
+
 function renderMatchingStatement(container, problem) {
-  let text = problem.statement || 'Условие не извлечено.';
+  let text = matchingInstructionBeforeChoices(problem.statement || 'Условие не извлечено.');
   const layout = matchingLayout(problem);
   const allFigures = problem.assets?.filter(a => a.role === 'statement_figure' && a.media_type.startsWith('image/')) || [];
   if (!layout || layout.gallery) {
@@ -706,7 +736,7 @@ function renderMatchingStatement(container, problem) {
   // Some DOCX imports keep the borderless matching columns as a TeX tabular.
   // Flatten only this specific A/Б table into the same source lines as newer tasks.
   text = text.replace(/\\begin\{tabular\}\{[^}]*\}([\s\S]*?)\\end\{tabular\}/g, (whole, body) => {
-    const rows = body.split(/\\\\\s*(?:\n|$)/).map(row => row.trim()).filter(Boolean);
+    const rows = latexTableRows(body);
     if (!rows.some(row => /^[АA][.)]/.test(row))) return whole;
     return rows.map(row => {
       const cells = row.split(/(?<!\\)&/).map(cell => cell.trim()).filter(Boolean);
@@ -745,7 +775,10 @@ function renderMatchingStatement(container, problem) {
       continue;
     }
     if (/^1[.)]\s+/.test(line)) destination = right;
-    if (/^[АAБB][.)]\s+/.test(line)) destination = left;
+    if (/^[АAБB][.)]\s+/.test(line)) {
+      destination = left;
+      if (layout.graphFigures && /^[АAБB][.)]\s*график\s*[АAБB]\s*$/i.test(line)) continue;
+    }
     destination.push(line);
   }
   if (!right.length || (!left.length && !layout.graphFigures)) {
@@ -984,7 +1017,7 @@ function renderBuilder() {
     select.setAttribute('aria-label', `Задание ${number}: исходный вариант`);
     for (const option of candidates) {
       const sourceNumber = option.source_problem_number !== number ? ` · исходное №${option.source_problem_number}` : '';
-      const entry = node('option', '', `${option.is_official_demo ? option.variant_title : `Демидова ${option.exam_year}-${option.variant_number}`}${sourceNumber}${option.alternative_number > 1 ? ` · пример ${option.alternative_number}` : ''}`);
+      const entry = node('option', '', `${variantDisplayTitle(option)}${sourceNumber}${option.alternative_number > 1 ? ` · пример ${option.alternative_number}` : ''}`);
       entry.value = option.id;
       select.append(entry);
     }

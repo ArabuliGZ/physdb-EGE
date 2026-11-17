@@ -4,6 +4,16 @@
  * headings fixes the printed titles above the left and right matching columns.
  */
 window.PhysEgeMatchingLayouts = Object.freeze({
+  '2027-1-6': { graphFigures: 2, headings: ['ГРАФИКИ', 'ФИЗИЧЕСКИЕ ВЕЛИЧИНЫ'] },
+  '2027-1-14': { figureCaptions: ['Рис. а', 'Рис. б'] },
+  '2027-1-20': { gallery: true },
+  '2027-3-17': { headings: ['ПРОЦЕССЫ', 'ЭНЕРГИЯ ФОТОНА'] },
+  '2027-7-21': { figureCaptions: ['Рис. а', 'Рис. б'] },
+  '2027-9-17': { headings: ['ПРОЦЕССЫ', 'ЭНЕРГЕТИЧЕСКИЕ ПЕРЕХОДЫ'] },
+  '2027-11-15': { graphFigures: 2, headings: ['ГРАФИКИ', 'ФИЗИЧЕСКИЕ ВЕЛИЧИНЫ'] },
+  '2027-13-17': { headings: ['ПРОЦЕСС', 'ЭНЕРГИЯ ФОТОНА'] },
+  '2027-15-6': { graphFigures: 2, headings: ['ГРАФИКИ', 'ФИЗИЧЕСКИЕ ВЕЛИЧИНЫ'] },
+  '2027-15-20': { gallery: true },
   '2027-ДЕМО-15': { graphFigures: 1 }, '2027-ДЕМО-17': {},
   '2026-4-6': { graphFigures: 2 },
   '2026-4-17': { headings: ['ПРОЦЕСС', 'ЭНЕРГИЯ ФОТОНА'] },
@@ -51,6 +61,10 @@ window.PhysEgeMatchingLayouts = Object.freeze({
 // Only illustrations belonging to the question itself. Graphs offered as answer
 // choices are deliberately excluded, even when stored as statement_figure assets.
 window.PhysEgeConditionFigureRows = Object.freeze({
+  '2027-1-14': 2,
+  '2027-3-14': 2,
+  '2027-7-21': 2,
+  '2027-15-14': 2, '2027-15-19': 2, '2027-15-21': 3,
   '2025-1-2-14': 2, '2025-1-2-21': 2,
   '2025-2-2-14': 2, '2025-2-2-21': 2,
   '2024-1-2-21': 2, '2024-2-3-21': 2,

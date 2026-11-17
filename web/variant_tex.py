@@ -42,6 +42,51 @@ ROMAN = re.compile(r"^(IV|III|II|I|V)\)\s*(.*)$")
 ALTERNATIVE = re.compile(r"^(И\s*\(ИЛИ\)|ИЛИ)\s*(.*)$")
 SPECIAL = {"&": r"\&", "%": r"\%", "$": r"\$", "#": r"\#", "_": r"\_",
            "{": r"\{", "}": r"\}", "~": r"\textasciitilde{}", "^": r"\textasciicircum{}"}
+CONDITION_FIGURE_CAPTIONS = {
+    (2027, "7", 21): ("Рис. а", "Рис. б"),
+    (2022, "1", 19): ("Рис. 1", "Рис. 2"),
+}
+# These trailing images are answer choices, not illustrations of the question.
+# Keep this list in sync with graphFigures in static/matching-layouts.js.
+GRAPH_CHOICE_FIGURES = {
+    (2027, "1", 6): 2, (2027, "11", 15): 2, (2027, "15", 6): 2,
+    (2027, "ДЕМО", 15): 1, (2026, "4", 6): 2,
+    (2025, "1-2", 15): 2, (2025, "2-2", 15): 2,
+    (2024, "1-1", 6): 2, (2024, "1-3", 15): 2,
+    (2024, "1-4", 6): 2, (2024, "2-2", 6): 2,
+    (2024, "2-3", 6): 2, (2024, "2-4", 6): 2,
+    (2023, "1", 6): 2, (2023, "2", 6): 2, (2023, "3", 19): 1,
+    (2022, "3", 19): 2, (2022, "4", 8): 2,
+}
+# Titles checked against the printed matching columns; some are absent from
+# extracted text but already restored in the website's matching layouts.
+MATCHING_HEADINGS = {
+    (2027, "1", 6): ("ГРАФИКИ", "ФИЗИЧЕСКИЕ ВЕЛИЧИНЫ"),
+    (2027, "3", 17): ("ПРОЦЕССЫ", "ЭНЕРГИЯ ФОТОНА"),
+    (2027, "9", 17): ("ПРОЦЕССЫ", "ЭНЕРГЕТИЧЕСКИЕ ПЕРЕХОДЫ"),
+    (2027, "11", 15): ("ГРАФИКИ", "ФИЗИЧЕСКИЕ ВЕЛИЧИНЫ"),
+    (2027, "13", 17): ("ПРОЦЕСС", "ЭНЕРГИЯ ФОТОНА"),
+    (2027, "15", 6): ("ГРАФИКИ", "ФИЗИЧЕСКИЕ ВЕЛИЧИНЫ"),
+    (2026, "4", 17): ("ПРОЦЕСС", "ЭНЕРГИЯ ФОТОНА"),
+    (2025, "1-1", 17): ("ПРОЦЕСС", "ЭНЕРГИЯ ФОТОНА"),
+    (2025, "2-1", 17): ("ПРОЦЕСС", "ЭНЕРГИЯ ФОТОНА"),
+    (2024, "1-3", 17): ("ПРОЦЕСС", "ЭНЕРГЕТИЧЕСКИЕ ПЕРЕХОДЫ"),
+    (2023, "1", 11): ("ФИЗИЧЕСКИЕ ВЕЛИЧИНЫ", "ФОРМУЛЫ"),
+    (2023, "1", 17): ("ФИЗИЧЕСКИЕ ВЕЛИЧИНЫ", "ФОРМУЛЫ"),
+    (2023, "1", 19): ("ПРОЦЕССЫ", "ЭНЕРГЕТИЧЕСКИЕ ПЕРЕХОДЫ"),
+    (2023, "2", 11): ("ПРОЦЕССЫ", "ФИЗИЧЕСКИЕ ВЕЛИЧИНЫ"),
+    (2023, "2", 17): ("ФИЗИЧЕСКИЕ ВЕЛИЧИНЫ", "ФОРМУЛЫ"),
+    (2023, "3", 11): ("ХАРАКТЕРИСТИКИ ПРОЦЕССОВ", "НОМЕРА ПРОЦЕССОВ"),
+    (2023, "3", 17): ("ФОРМУЛЫ", "ФИЗИЧЕСКИЕ ВЕЛИЧИНЫ"),
+    (2022, "1", 8): ("ФОРМУЛЫ", "ФИЗИЧЕСКИЕ ВЕЛИЧИНЫ"),
+    (2022, "1", 19): ("ДВИЖЕНИЕ ЧАСТИЦЫ", "ТРАЕКТОРИЯ"),
+    (2022, "2", 8): ("ФИЗИЧЕСКАЯ ВЕЛИЧИНА", "ФОРМУЛА"),
+    (2022, "2", 21): ("ПРОЦЕССЫ", "ЭНЕРГЕТИЧЕСКИЕ ПЕРЕХОДЫ"),
+    (2022, "3", 8): ("ФИЗИЧЕСКИЕ ВЕЛИЧИНЫ", "ФОРМУЛЫ"),
+    (2022, "3", 13): ("УЧАСТКИ ГРАФИКА", "ПРОЦЕССЫ"),
+}
+# The second stored figure of this task duplicates the next task's graph.
+MISASSIGNED_STATEMENT_FIGURES = {(2023, "3", 14): 1}
 
 
 def escape(value: str) -> str:
@@ -90,8 +135,32 @@ def prose(value: str, figures: dict[str, Path]) -> str:
 
 
 def table_cells(value: str) -> list[list[str]]:
-    rows = [row.strip() for row in re.split(r"\\\\\s*(?:\n|$)", value) if row.strip()]
+    rows = table_rows(value)
     return [[cell.strip() for cell in re.split(r"(?<!\\)&", row)] for row in rows]
+
+
+def table_rows(value: str) -> list[str]:
+    """Read data cells, not TeX rules, from an imported tabular."""
+    without_rules = re.sub(r"\\hline\b", "", value)
+    return [row.strip() for row in re.split(r"\\\\\s*(?:\n|$)", without_rules)
+            if row.strip()]
+
+
+def matching_instruction_before_choices(value: str) -> str:
+    """Keep the matching instruction as the last prose line before choices."""
+    instruction = re.search(r"К каждой позиции первого столбца[^\n.!?]*\.", value, re.I)
+    if not instruction:
+        return value
+    rest = (value[:instruction.start()] + value[instruction.end():]).strip()
+    rest = re.sub(r"[ \t]+\n", "\n", rest)
+    rest = re.sub(r"\n{3,}", "\n\n", rest)
+    lines = rest.splitlines()
+    choice = next((index for index, line in enumerate(lines) if re.match(
+        r"^[ \t]*(?:[АA][.)][ \t]+|1[.)][ \t]+|\\begin\{tabular\}|"
+        r"[А-ЯЁ][А-ЯЁ \t]{4,}:?[ \t]*$)", line)), len(lines))
+    return "\n\n".join(part for part in (
+        "\n".join(lines[:choice]).strip(), instruction.group(0),
+        "\n".join(lines[choice:]).strip()) if part)
 
 
 def response_labels(problem: dict) -> tuple[str, str] | None:
@@ -218,7 +287,7 @@ def statement_tex(value: str, figures: dict[str, Path]) -> str:
     cursor = 0
     for match in TABLE.finditer(value):
         output.append(prose(value[cursor:match.start()], figures))
-        raw_rows = [row.strip() for row in re.split(r"\\\\\s*(?:\n|$)", match.group(1)) if row.strip()]
+        raw_rows = table_rows(match.group(1))
         cells = [re.split(r"(?<!\\)&", row) for row in raw_rows]
         width = max((len(row) for row in cells), default=1)
         if width >= 12:
@@ -265,9 +334,125 @@ def answer_macro(problem: dict, figures: dict[str, Path]) -> str:
     return r"\AnswerLineWithAffixes{" + prefix + "}{" + unit + "}"
 
 
+def condition_figure_row(paths: list[Path], captions: tuple[str, ...] = ()) -> str:
+    """Place two or three condition images at one height in a single row."""
+    if len(paths) not in (2, 3):
+        raise ValueError("A condition figure row needs two or three images")
+    gap = r"@{\hspace{3mm}}"
+    columns = "@{}" + gap.join("c" for _ in paths) + "@{}"
+    height = "48mm" if len(paths) == 2 else "43mm"
+    images = " & ".join(
+        r"\includegraphics[height=" + height + r",keepaspectratio]{figures/" + path.name + "}"
+        for path in paths
+    )
+    rows = [r"\begin{tabular}{" + columns + "}", images + r"\\"]
+    if captions:
+        if len(captions) != len(paths):
+            raise ValueError("Each condition image needs its own caption")
+        rows.append(" & ".join(r"\scriptsize " + escape(caption) for caption in captions) + r"\\")
+    rows.append(r"\end{tabular}")
+    return (r"\par\smallskip\begin{center}\adjustbox{max width=\linewidth}{%" +
+            "\n" + "\n".join(rows) + "\n" + r"}\end{center}\smallskip")
+
+
+def matching_choice_parts(problem: dict, body: str, graph_count: int
+                          ) -> tuple[str, list[str], list[str], tuple[str, str]] | None:
+    """Separate the prose and the two printed choice columns of a matching task."""
+    if problem.get("answer_format") != "matching":
+        return None
+
+    def flatten_choice_table(match: re.Match[str]) -> str:
+        cells = table_cells(match.group(1))
+        if not any(re.match(r"^[АAБB][.)]\s+", cell) for row in cells for cell in row):
+            return match.group(0)
+        return "\n" + "\n".join(cell for row in cells for cell in row if cell) + "\n"
+
+    source = TABLE.sub(flatten_choice_table, body)
+    lines = source.splitlines()
+
+    def is_heading(line: str) -> bool:
+        value = line.strip().rstrip(":").strip()
+        return bool(re.search(r"[А-ЯЁ]", value) and value.isupper()
+                    and not re.match(r"^[АAБB][.)]", value))
+
+    first_choice = next((index for index, line in enumerate(lines) if
+                         is_heading(line) or re.match(r"^\s*(?:[АAБB][.)]|1[.)])\s+", line)), -1)
+    if first_choice < 0:
+        return None
+    intro = "\n".join(lines[:first_choice]).strip()
+    left: list[str] = []
+    right: list[str] = []
+    headings: list[str] = []
+    active: list[str] | None = None
+    for raw in lines[first_choice:]:
+        line = raw.strip()
+        if not line:
+            continue
+        if is_heading(line):
+            headings.append(line.rstrip(":"))
+            active = None
+        elif re.match(r"^[АAБB][.)]\s+", line):
+            left.append(line)
+            active = left
+        elif re.match(r"^\d+[.)]\s+", line):
+            right.append(line)
+            active = right
+        elif active:
+            active[-1] += " " + line
+        else:
+            intro = (intro + "\n" + line).strip()
+    if len(right) < 3 or not (left or graph_count):
+        return None
+    instruction = re.search(r"К каждой позиции первого столбца[^\n.!?]*\.", intro, re.I)
+    if instruction:
+        prose_before = (intro[:instruction.start()] + intro[instruction.end():]).strip()
+        intro = prose_before + "\n\n" + instruction.group(0)
+    key = (int(problem.get("exam_year") or 0), str(problem.get("variant_number") or ""),
+           int(problem.get("problem_number") or 0))
+    if key in MATCHING_HEADINGS:
+        titles = MATCHING_HEADINGS[key]
+    elif graph_count:
+        titles = ("ГРАФИКИ", headings[-1] if headings else "ФИЗИЧЕСКИЕ ВЕЛИЧИНЫ")
+    else:
+        titles = (headings[0] if headings else "", headings[1] if len(headings) > 1 else "")
+    return intro, left, right, titles
+
+
+def matching_column_tex(items: list[str], heading: str, graphs: list[Path],
+                        figures: dict[str, Path]) -> str:
+    """Fill one borderless matching column, including graphical choices."""
+    output = []
+    if heading:
+        output.append(r"{\centering " + hybrid(heading, figures) + r"\par}\vspace{2mm}")
+
+    def graph_tex(index: int, path: Path) -> str:
+        if len(graphs) == 1:
+            return (r"\noindent\includegraphics[width=.95\linewidth,height=60mm,keepaspectratio]{figures/" +
+                    path.name + r"}\par\smallskip")
+        return (r"\noindent\begin{minipage}[t]{5mm}\vspace{0pt}" + "АБ"[index] +
+                r")\end{minipage}\begin{minipage}[t]{.82\linewidth}\vspace{0pt}" +
+                r"\includegraphics[width=\linewidth,height=31mm,keepaspectratio]{figures/" +
+                path.name + r"}\end{minipage}\par\smallskip")
+
+    shown: set[int] = set()
+    for item in items:
+        placeholder = re.fullmatch(r"([АAБB])[.)]\s*график\s*[АAБB]\s*", item, re.I)
+        if placeholder and len(graphs) == 2:
+            index = 0 if placeholder.group(1) in "АA" else 1
+            output.append(graph_tex(index, graphs[index]))
+            shown.add(index)
+        else:
+            output.append(r"\noindent " + hybrid(item, figures) + r"\par\smallskip")
+    for index, path in enumerate(graphs):
+        if index not in shown:
+            output.append(graph_tex(index, path))
+    return "\n".join(output)
+
+
 def render_problem(problem: dict, figures: dict[str, Path]) -> str:
     number = int(problem["problem_number"])
     body = re.sub(r"(?im)^\s*Ответ\s*:\s*[_ .]*$", "", problem["statement"] or "").strip()
+    body = matching_instruction_before_choices(body)
     labels = response_labels(problem)
     body = remove_response_header(body, labels)
     image_paths: list[Path] = []
@@ -276,6 +461,13 @@ def render_problem(problem: dict, figures: dict[str, Path]) -> str:
             source = figures.get(asset["id"])
             if source and source.is_file():
                 image_paths.append(source)
+    figure_key = (int(problem.get("exam_year") or 0), str(problem.get("variant_number") or ""), number)
+    if figure_key in MISASSIGNED_STATEMENT_FIGURES:
+        image_paths = image_paths[:MISASSIGNED_STATEMENT_FIGURES[figure_key]]
+    graph_count = GRAPH_CHOICE_FIGURES.get(figure_key, 0)
+    if graph_count > len(image_paths):
+        graph_count = 0
+    condition_count = len(image_paths) - graph_count
     if len(image_paths) == 5:
         # The old DOCX stores only (1)…(5) in this empty table; the figures
         # themselves now carry those labels directly below the five crops.
@@ -286,22 +478,46 @@ def render_problem(problem: dict, figures: dict[str, Path]) -> str:
 
         body = re.sub(r"\\begin\{tabular\}\{l\|l\|l\|l\|l\}([\s\S]*?)\\end\{tabular\}",
                       discard_placeholder, body)
-    parts = [r"\begin{ExamTask}", r"\TaskStart{" + str(number) + "}", statement_tex(body, figures)]
-    numbered_photos = (len(image_paths) == 3 and
+    matching = (matching_choice_parts(problem, body, graph_count)
+                if condition_count <= 3 else None)
+    if matching:
+        intro, left_choices, right_choices, headings = matching
+        if figure_key == (2022, "1", 19):
+            # This two-cell tabular repeats the captions of the condition
+            # figures; it is not another matching-choice table.
+            intro = TABLE.sub(lambda match: "" if "Рис." in match.group(1) else match.group(0), intro)
+        parts = [r"\begin{ExamTask}"]
+        if condition_count == 1:
+            parts.append(r"\TaskWithRightFigure{" + str(number) + "}{" +
+                         statement_tex(intro, figures) + "}{figures/" + image_paths[0].name + "}")
+        else:
+            parts.extend((r"\TaskStart{" + str(number) + "}", statement_tex(intro, figures)))
+        if condition_count in (2, 3):
+            captions = CONDITION_FIGURE_CAPTIONS.get(figure_key, ())
+            if condition_count == 3 and re.search(r"рис\.\s*\\\(1\\\)", intro, re.I) and not captions:
+                captions = tuple(f"Рис. {index}" for index in range(1, 4))
+            parts.append(condition_figure_row(image_paths[:condition_count], captions))
+        left = matching_column_tex(left_choices, headings[0], image_paths[condition_count:], figures)
+        right = matching_column_tex(right_choices, headings[1], [], figures)
+        parts.append(r"\MatchingChoices{" + left + "}{" + right + "}")
+        parts.append(response_table_tex(labels, figures) if labels else answer_macro(problem, figures))
+        parts.append(r"\end{ExamTask}")
+        return "\n".join(part for part in parts if part)
+    parts = [r"\begin{ExamTask}"]
+    if len(image_paths) == 1:
+        parts.append(r"\TaskWithRightFigure{" + str(number) + "}{" +
+                     statement_tex(body, figures) + "}{figures/" + image_paths[0].name + "}")
+    else:
+        parts.extend((r"\TaskStart{" + str(number) + "}", statement_tex(body, figures)))
+    numbered_photos = (condition_count == 3 and
                        re.search(r"рис\.\s*\\\(1\\\)", body, re.IGNORECASE))
-    if numbered_photos:
-        parts.append(r"\par\smallskip\begin{center}")
-        source = image_paths[0]
-        parts.append(r"\includegraphics[width=.75\linewidth,height=48mm,keepaspectratio]{figures/"
-                     + source.name + r"}\par\scriptsize Рис. 1\par\smallskip")
-        for index, source in enumerate(image_paths[1:], 2):
-            parts.append(r"\begin{minipage}{.46\linewidth}\centering"
-                         r"\includegraphics[width=\linewidth,height=38mm,keepaspectratio]{figures/"
-                         + source.name + r"}\par\scriptsize Рис. " + str(index) + r"\end{minipage}")
-            if index == 2:
-                parts.append(r"\hfill")
-        parts.append(r"\end{center}")
-    elif len(image_paths) == 5:
+    if condition_count in (2, 3):
+        captions = CONDITION_FIGURE_CAPTIONS.get(figure_key, ())
+        if numbered_photos and not captions:
+            captions = tuple(f"Рис. {index}" for index in range(1, condition_count + 1))
+        parts.append(condition_figure_row(image_paths[:condition_count], captions))
+        image_paths = image_paths[condition_count:]
+    if len(image_paths) == 5:
         parts.append(r"\par\smallskip\begin{center}")
         for index, source in enumerate(image_paths, 1):
             parts.append(r"\begin{minipage}[t]{.19\linewidth}\centering"
@@ -326,9 +542,11 @@ def render_problem(problem: dict, figures: dict[str, Path]) -> str:
                     parts.append(r"\hfill")
             parts.append(r"\par\smallskip")
         parts.append(r"\end{center}")
-    else:
+    elif len(image_paths) == 2:
         for source in image_paths:
             parts.append(r"\TaskFigure{figures/" + source.name + "}")
+    elif len(image_paths) == 1 and condition_count in (2, 3):
+        parts.append(r"\TaskFigure{figures/" + image_paths[0].name + "}")
     parts.append(response_table_tex(labels, figures) if labels else answer_macro(problem, figures))
     parts.append(r"\end{ExamTask}")
     return "\n".join(part for part in parts if part)

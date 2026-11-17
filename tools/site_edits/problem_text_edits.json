@@ -2280,6 +2280,18 @@
       "variant_id": "ce315df43577820f292079ab",
       "variant_number": "1-3"
     },
+    "ba61c3c8dee8096a993dd906": {
+      "alternative_number": 1,
+      "exam_year": 2027,
+      "fields": {
+        "answer_prefix": "на",
+        "answer_unit": "\\(\\text{кг} \\cdot \\text{м/с}\\)"
+      },
+      "problem_number": 3,
+      "updated_at": "2026-11-17T06:39:26+00:00",
+      "variant_id": "1a2b5043e01a166e29cbe13d",
+      "variant_number": "1"
+    },
     "bade5b82ce02d35a4fd08eb6": {
       "alternative_number": 1,
       "exam_year": 2024,

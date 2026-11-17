@@ -17,7 +17,7 @@ for year, variant, number, statement in con.execute("""SELECT v.exam_year,v.vari
     for body in tabular.findall(statement):
         table_count += 1
         rows = [re.split(r"(?<!\\)&", row) for row in re.split(r"\\\\\s*\n", body)
-                if row.strip()]
+                if row.replace(r"\hline", "").strip()]
         widths = {len(row) for row in rows}
         assert len(widths) == 1, (key, widths)
         assert sum(bool(cell.strip()) for row in rows for cell in row) >= 2, key

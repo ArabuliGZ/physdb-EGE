@@ -40,7 +40,8 @@ def load_tasks(con: sqlite3.Connection, target_year: int) -> list[dict]:
         FROM problems p JOIN variants v ON v.id=p.variant_id
         LEFT JOIN relevance r ON r.problem_id=p.id AND r.exam_year=?
             AND (v.exam_year=2023 OR r.target_problem_number=p.problem_number)
-        WHERE p.alternative_number=1 ORDER BY v.exam_year DESC,v.variant_number,p.problem_number""",
+        WHERE p.alternative_number=1 AND v.exam_year<>2027
+        ORDER BY v.exam_year DESC,v.variant_number,p.problem_number""",
         (target_year,))]
     for task in tasks:
         task["label"] = f"{task['exam_year']}-{task['variant_number']}"

@@ -40,10 +40,29 @@
     if (error) target.title = error.message || String(error);
   }
 
+  // MathJax can assign 0em to inherited text while the browser paints it.
+  // Reserve the actual glyph width so the following symbols cannot overlap.
+  function reserveInheritedTextWidths(root) {
+    for (const text of root.querySelectorAll('mjx-utext')) {
+      const range = document.createRange();
+      range.selectNodeContents(text);
+      const paintedWidth = range.getBoundingClientRect().width;
+      const reservedWidth = text.getBoundingClientRect().width;
+      if (paintedWidth > reservedWidth + 0.5) {
+        text.style.width = Math.ceil(paintedWidth + 1) + 'px';
+      }
+    }
+  }
+
   let ready;
   let render;
 
   if (renderer === 'mathjax') {
+    document.addEventListener('toggle', event => {
+      if (event.target instanceof HTMLDetailsElement && event.target.open) {
+        reserveInheritedTextWidths(event.target);
+      }
+    }, true);
     window.MathJax = {
       loader: {
         paths: {
@@ -82,8 +101,10 @@
           if (target.mathRenderToken !== renderToken || !target.isConnected) return;
           return window.MathJax.typesetPromise([target]);
         })
+        .then(() => document.fonts.ready)
         .then(() => {
           if (target.mathRenderToken !== renderToken || !target.isConnected) return;
+          reserveInheritedTextWidths(target);
           target.classList.remove('is-math-pending', 'math-render-error');
           target.removeAttribute('title');
         })

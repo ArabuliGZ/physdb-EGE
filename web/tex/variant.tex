@@ -29,6 +29,16 @@
 \newcommand{\MatchingAnswer}{\par\smallskip\noindent Ответ:~\begin{tabular}{|c|c|}\hline А & Б\\\hline\rule{0pt}{7mm}\hspace{7mm} & \hspace{7mm}\\\hline\end{tabular}\par\smallskip}
 \newcommand{\MatchingAnswerThree}{\par\smallskip\noindent Ответ:~\begin{tabular}{|c|c|c|}\hline А & Б & В\\\hline\rule{0pt}{7mm}\hspace{7mm} & \hspace{7mm} & \hspace{7mm}\\\hline\end{tabular}\par\smallskip}
 \newcommand{\TaskFigure}[1]{\par\smallskip\begin{center}\includegraphics[width=.78\linewidth,height=63mm,keepaspectratio]{#1}\end{center}\smallskip}
+\newcommand{\MatchingChoices}[2]{%
+  \par\smallskip\noindent\begingroup\small
+  \begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}X@{\hspace{6mm}}>{\raggedright\arraybackslash}X@{}}
+  #1 & #2
+  \end{tabularx}\endgroup\par\smallskip}
+\newcommand{\TaskWithRightFigure}[3]{%
+  \noindent\begin{minipage}[t]{.64\linewidth}\vspace{0pt}\TaskStart{#1}#2\end{minipage}%
+  \hfill\begin{minipage}[t]{.32\linewidth}\vspace{0pt}\centering
+  \includegraphics[width=\linewidth,height=63mm,keepaspectratio]{#3}\end{minipage}%
+  \par\smallskip}
 \newcommand{\ExamNotice}[1]{\par\medskip\noindent\fbox{\begin{minipage}{.965\linewidth}\textbf{\itshape #1}\end{minipage}}\par\medskip}
 \begin{document}
 \begin{center}
@@ -50,7 +60,7 @@
 \begingroup
 \fontsize{10.5pt}{11.2pt}\selectfont
 \setlength{\tabcolsep}{3pt}
-\renewcommand{\arraystretch}{0.9}
+\renewcommand{\arraystretch}{1.05}
 \ReferenceContent
 \endgroup
 \clearpage
