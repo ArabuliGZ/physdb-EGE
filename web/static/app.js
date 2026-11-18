@@ -294,6 +294,19 @@ function variantSidebarTitle(variant) {
   return variantDisplayTitle(variant);
 }
 
+function realVariantOrder(variant) {
+  const source = `${variant.variant_number} ${variant.title}`.toLowerCase();
+  if (source.includes('досроч') || source.includes('досрок')) return 1;
+  if (source.includes('открыт')) return 2;
+  return 0;
+}
+
+function realVariantNumber(variant) {
+  const printed = (variant.title || '').match(/вариант\s+(\d+)/i);
+  const code = (variant.variant_number || '').match(/-(\d+)$/);
+  return Number(printed?.[1] || code?.[1] || 0);
+}
+
 function variantOption(variant) {
   const button = node('button', `variant-option ${variant.id === state.variantId ? 'is-active' : ''}`);
   button.type = 'button';
@@ -1000,6 +1013,8 @@ function renderSidebar() {
     for (const variant of demo) options.append(variantOption(variant));
     for (const source of variantSourceOrder) {
       const sourceVariants = yearVariants.filter(variant => !variant.is_official_demo && variantSource(variant) === source);
+      if (source === 'real') sourceVariants.sort((a, b) =>
+        realVariantOrder(a) - realVariantOrder(b) || realVariantNumber(a) - realVariantNumber(b));
       if (!sourceVariants.length) continue;
       const sourceGroup = node('details', 'variant-source');
       sourceGroup.dataset.source = `${year}-${source}`;
