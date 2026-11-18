@@ -1,4 +1,89 @@
 {
+  "2025-dosrok-11-1/images/1-grafik.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-dosrok-11-1/1-grafik.png",
+    "sha256": "e7e61804903d5143318691578d71cf5fd4a2dc9015eb9805774c9ea790d437a1",
+    "bytes": 40540
+  },
+  "2025-dosrok-11-1/images/13-linza.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-dosrok-11-1/13-linza.png",
+    "sha256": "ec0307f2b141a1214a1e4acc07ccdaa9d2ee5fc66256563d26a65dba05231021",
+    "bytes": 38189
+  },
+  "2025-dosrok-11-1/images/14-grafik.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-dosrok-11-1/14-grafik.png",
+    "sha256": "2bfe999446cab541687efaa3bd6dac7dca7c5b8545a95fc36868a3c6e0a8017f",
+    "bytes": 35592
+  },
+  "2025-dosrok-11-1/images/17-urovni.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-dosrok-11-1/17-urovni.png",
+    "sha256": "75436275a7608ce1ea48a3cb94e2925627d577daa2779663698a4b13316c8a37",
+    "bytes": 18988
+  },
+  "2025-dosrok-11-1/images/19-manometr.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-dosrok-11-1/19-manometr.png",
+    "sha256": "3bd822d7e4c939a084fc4287c87b01b3dfb6d7b0ef5a8ab0896ab168de9b521d",
+    "bytes": 149329
+  },
+  "2025-dosrok-11-1/images/20-cepi.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-dosrok-11-1/20-cepi.png",
+    "sha256": "3a9fecb2ddb508db1fcf0af475bd9c4b689c78a1342182408facb4d0dac65384",
+    "bytes": 5417
+  },
+  "2025-dosrok-11-1/images/20-tablica.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-dosrok-11-1/20-tablica.png",
+    "sha256": "740a5f455d6cb5f6f09281404cb1c5ce11c3bf197218b32ad0692827e7140ae1",
+    "bytes": 44680
+  },
+  "2025-dosrok-11-1/images/21-mayatnik.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-dosrok-11-1/21-mayatnik.png",
+    "sha256": "e40cb0362b8333b5c5c205cbd90db30d56d134f347c149003298596cb2d3c12d",
+    "bytes": 26821
+  },
+  "2025-dosrok-11-1/images/24-cikl.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-dosrok-11-1/24-cikl.png",
+    "sha256": "f57637ddfb5dc81b6b0ce2a19253d3d4d48ae22f396b6d3d977b7a729e795bc5",
+    "bytes": 25361
+  },
+  "2025-dosrok-11-1/images/26-blok.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-dosrok-11-1/26-blok.png",
+    "sha256": "50810fa4b612d8eff794e8385cfa00f83990da0f491cc7deaf905d7e29b11c96",
+    "bytes": 13870
+  },
+  "2025-dosrok-11-1/images/6-pruzhina.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-dosrok-11-1/6-pruzhina.png",
+    "sha256": "c35d04bf92cecd6e4b3be99815ce9c4697f70e68f4ccdf374dd0727af5366e20",
+    "bytes": 12678
+  },
+  "2025-dosrok-11-1/images/7-gaz.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-dosrok-11-1/7-gaz.png",
+    "sha256": "cb41ebbf69c88c5a19e5dba1bbc9014ea866f07bcc809b967634a32840807167",
+    "bytes": 16728
+  },
+  "2025-dosrok-11-1/images/9-pv.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-dosrok-11-1/9-pv.png",
+    "sha256": "fee60db973e715094d5d8a649377d1fe4a5f96bcb0a4cf5074ea199812d788e6",
+    "bytes": 30126
+  },
+  "2025-dosrok-11-1/otvety.pdf": {
+    "url": "https://botay.pro/olimpiady/ege/2025-dosrok-11-1/ege-2025-dosrok-11-1-otvety.pdf",
+    "sha256": "b3e93dc85cf63d6f8c0c960936d36e72fbd18bfc2807a7ec57d3d48cc35d3fca",
+    "bytes": 485538
+  },
+  "2025-dosrok-11-1/page.html": {
+    "url": "https://botay.pro/olimpiady/ege/2025-dosrok-11-1/",
+    "sha256": "cac1ccb961fa2d89328ed530e5dd973ea4155d4e1e1f069db350011c14fbd165",
+    "bytes": 65847
+  },
+  "2025-dosrok-11-1/resheniya.pdf": {
+    "url": "https://botay.pro/olimpiady/ege/2025-dosrok-11-1/ege-2025-dosrok-11-1-resheniya.pdf",
+    "sha256": "3d919b5cbeadf7ffd13a028e87bda2ac60de6fd41f2b0bd300e71f681bdf45f9",
+    "bytes": 485546
+  },
+  "2025-dosrok-11-1/usloviya.pdf": {
+    "url": "https://botay.pro/olimpiady/ege/2025-dosrok-11-1/ege-2025-dosrok-11-1-usloviya.pdf",
+    "sha256": "8337ad09ea6ed005082b0b20b3575d6cdba264622fb01b5849e2dad29005db72",
+    "bytes": 485525
+  },
   "2025-osnov-11-7/images/12-grafik.png": {
     "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-7/12-grafik.png",
     "sha256": "756125b832f1e35507eeb648ec59c1b4dafb3a20739dbbcef74cec2ea7fc657c",
@@ -558,5 +643,110 @@
     "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-ural-5/ege-2025-osnov-11-ural-5-usloviya.pdf",
     "sha256": "9b311bb9fa6262671a0e7e45f304ac1ea4a9f69559f3e5581858a006adf47d0d",
     "bytes": 684551
+  },
+  "2025-otkryt-11-1/images/1-grafik.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-otkryt-11-1/1-grafik.png",
+    "sha256": "23743d9c0716ea56b167f0a27976635cd110f04440dc76a5f5ebeb03e0217f6f",
+    "bytes": 18745
+  },
+  "2025-otkryt-11-1/images/10-diagramma.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-otkryt-11-1/10-diagramma.png",
+    "sha256": "4d44a67a75e89350146a4d71553d2f52aa7cac30f0d9ebe2cef42c51bee6930b",
+    "bytes": 5707
+  },
+  "2025-otkryt-11-1/images/10-tablica.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-otkryt-11-1/10-tablica.png",
+    "sha256": "26ffd3e62acbe9178413dd6e2b4f49334823468e3f03ab2fe6c7f961308bc10e",
+    "bytes": 6399
+  },
+  "2025-otkryt-11-1/images/13-linza.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-otkryt-11-1/13-linza.png",
+    "sha256": "41a584b42a480ff78df5170e4813e8de2c72743e7cc89295e54c08f1ca0b72b6",
+    "bytes": 7011
+  },
+  "2025-otkryt-11-1/images/14-grafik.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-otkryt-11-1/14-grafik.png",
+    "sha256": "f134a8f31271888a69d5e8a11f55824b6e8fc4a0a5c3f0a88dd0d9adb3357954",
+    "bytes": 15695
+  },
+  "2025-otkryt-11-1/images/15-tablica.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-otkryt-11-1/15-tablica.png",
+    "sha256": "7d5fdb59c3aa59ac9bdce3cfd3c19585f9f64899208f52d29229751e088e5c59",
+    "bytes": 7860
+  },
+  "2025-otkryt-11-1/images/17-tablica.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-otkryt-11-1/17-tablica.png",
+    "sha256": "449d70fdbb0545e311366d143c8b8cfb657d79e7e355d9304224275d2c050288",
+    "bytes": 1213
+  },
+  "2025-otkryt-11-1/images/17-urovni.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-otkryt-11-1/17-urovni.png",
+    "sha256": "fa4fda508e7ada14db48fa7b68a23545e416e580876ff49c3edc170eba9830f7",
+    "bytes": 5940
+  },
+  "2025-otkryt-11-1/images/19-manometr.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-otkryt-11-1/19-manometr.png",
+    "sha256": "8ca8925a5bc0a2790cc58a516a99eec7bd0d6940253e10d625677963a6feb296",
+    "bytes": 375039
+  },
+  "2025-otkryt-11-1/images/20-cepi.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-otkryt-11-1/20-cepi.png",
+    "sha256": "f287f9ab4c36715bd4c3972e2df048c88ab11d33e5f2b2eb66d1ae96dafaa3ec",
+    "bytes": 3833
+  },
+  "2025-otkryt-11-1/images/20-tablica.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-otkryt-11-1/20-tablica.png",
+    "sha256": "d0fcd3a3a583241f17a5e3f6bb422024544c5a4915fe72d38f94006e75866a3c",
+    "bytes": 27748
+  },
+  "2025-otkryt-11-1/images/21-sily.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-otkryt-11-1/21-sily.png",
+    "sha256": "6d25ac0785a5a9b0e7b1e995e207ec56caf41a393f9d4e8cc6f8a98bbb1f9bdc",
+    "bytes": 10845
+  },
+  "2025-otkryt-11-1/images/22-grafik.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-otkryt-11-1/22-grafik.png",
+    "sha256": "148227bc9fe1b312d5c21417667eec9badb7704eb4e4f825623256cb3ae6b620",
+    "bytes": 21583
+  },
+  "2025-otkryt-11-1/images/24-cikl.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-otkryt-11-1/24-cikl.png",
+    "sha256": "cde70fc43838acf05f3e7b8736a4ccc7f7963e09b0339decf182ab9369e9e7e7",
+    "bytes": 10278
+  },
+  "2025-otkryt-11-1/images/26-blok.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-otkryt-11-1/26-blok.png",
+    "sha256": "a5306513656829c7d7866232944baa8b70853a314db54ad5196a7a442ccef402",
+    "bytes": 18252
+  },
+  "2025-otkryt-11-1/images/6-tablica.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-otkryt-11-1/6-tablica.png",
+    "sha256": "dba7c2b0cce49acd7cd5c087e0a990e231947077989fe67f4948189e63bd3042",
+    "bytes": 7808
+  },
+  "2025-otkryt-11-1/images/7-diagramma.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-otkryt-11-1/7-diagramma.png",
+    "sha256": "b5314aba817859aaa24ffbc4e43182d18f424e62f9a629804bcca6cb7e7b34fe",
+    "bytes": 7321
+  },
+  "2025-otkryt-11-1/otvety.pdf": {
+    "url": "https://botay.pro/olimpiady/ege/2025-otkryt-11-1/ege-2025-otkryt-11-1-otvety.pdf",
+    "sha256": "b6d2fdd9e804ca639227b2ba21546d8faf83ae9c9accc12e1b6140a2c69094cc",
+    "bytes": 601130
+  },
+  "2025-otkryt-11-1/page.html": {
+    "url": "https://botay.pro/olimpiady/ege/2025-otkryt-11-1/",
+    "sha256": "e2179c8fd5d2264a7b584c60e290f0a6fad1dfc7578a8929302341edb1205899",
+    "bytes": 69882
+  },
+  "2025-otkryt-11-1/resheniya.pdf": {
+    "url": "https://botay.pro/olimpiady/ege/2025-otkryt-11-1/ege-2025-otkryt-11-1-resheniya.pdf",
+    "sha256": "9e3c3b382a05ac99409fcc7e1a9717229a285b22adb6a64cfc8ba7dad4c901be",
+    "bytes": 601131
+  },
+  "2025-otkryt-11-1/usloviya.pdf": {
+    "url": "https://botay.pro/olimpiady/ege/2025-otkryt-11-1/ege-2025-otkryt-11-1-usloviya.pdf",
+    "sha256": "a87e3a13f3acc01d4309245ec85071b96a0fc2354bb81ceb9a6d88a571b343e0",
+    "bytes": 601119
   }
 }

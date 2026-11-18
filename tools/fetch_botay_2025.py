@@ -1,4 +1,4 @@
-"""Archive the seven distinct 2025 regional EGE papers from Botay."""
+"""Archive the 2025 regional, open, and early EGE papers from Botay."""
 from __future__ import annotations
 
 import hashlib
@@ -22,6 +22,8 @@ SLUGS = (
     "2025-osnov-11-sib-3",
     "2025-osnov-11-sz-4",
     "2025-osnov-11-ural-5",
+    "2025-otkryt-11-1",
+    "2025-dosrok-11-1",
 )
 
 

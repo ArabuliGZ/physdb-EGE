@@ -1,4 +1,4 @@
-"""Import seven archived real 2025 EGE papers from Botay.
+"""Import archived real, open, and early 2025 EGE papers from Botay.
 
 Botay provides full keys and worked solutions only for the Centre 7 paper.
 The remaining answer/solution fields stay empty; hints are not solutions.
@@ -30,6 +30,8 @@ VARIANTS = {
     "2025-osnov-11-sib-3": ("БОТАЙ-СИБ-3", "ЕГЭ 2025 — Сибирь, вариант 3"),
     "2025-osnov-11-sz-4": ("БОТАЙ-СЗ-4", "ЕГЭ 2025 — Северо-Запад, вариант 4"),
     "2025-osnov-11-ural-5": ("БОТАЙ-УРАЛ-5", "ЕГЭ 2025 — Урал, вариант 5"),
+    "2025-otkryt-11-1": ("БОТАЙ-ОТКРЫТ-1", "ЕГЭ 2025 — открытый вариант"),
+    "2025-dosrok-11-1": ("БОТАЙ-ДОСРОК-1", "ЕГЭ 2025 — досрочный вариант"),
 }
 
 
@@ -136,6 +138,23 @@ def restore_tables(text: str, slug: str, number: int) -> str:
                 [r"Температура, \({}^\circ\text{C}\)", "80", "100", "60", "80", "60"],
                 [r"Масса газа, \(\text{г}\)", "10", "10", "5", "15", "5"]]
         return text.rstrip() + "\n\n" + table(rows)
+    if key in (("2025-otkryt-11-1", 20), ("2025-dosrok-11-1", 20)):
+        values = ([
+            ["1", "6", "1,0", "5"], ["2", "9", "0,5", "8"],
+            ["3", "8", "1,5", "16"], ["4", "9", "1,5", "8"],
+            ["5", "6", "0,5", "16"],
+        ] if slug.startswith("2025-otkryt") else [
+            ["1", "9", "1", "5"], ["2", "6", "2", "10"],
+            ["3", "12", "2", "15"], ["4", "6", "1", "10"],
+            ["5", "9", "1", "15"],
+        ])
+        rows = [["№ цепи", r"ЭДС источника \(\mathcal{E}\), \(\text{В}\)",
+                 r"Внутреннее сопротивление \(r\), \(\text{Ом}\)",
+                 r"Внешнее сопротивление \(R\), \(\text{Ом}\)"], *values]
+        marker = "\n\nЗапишите в ответе номера выбранных цепей."
+        if marker in text:
+            return text.replace(marker, "\n\n" + table(rows) + marker, 1)
+        return text.rstrip() + "\n\n" + table(rows)
     return text
 
 
@@ -182,6 +201,25 @@ def repair_task(data: dict, slug: str, number: int) -> dict:
             .replace(r"F_{у2}", r"F_{\text{у}2}")
             .replace(r"F_{тр1}", r"F_{\text{тр}1}")
             .replace(r"F_{тр2}", r"F_{\text{тр}2}"))
+    if slug == "2025-otkryt-11-1":
+        if number == 6:
+            data["answer_table_labels"] = ["Частота колебаний груза", "Максимальная скорость груза"]
+        elif number == 10:
+            data["answer_table_labels"] = ["Давление газа", "Внутренняя энергия газа"]
+        elif number == 15:
+            data["answer_table_labels"] = ["Модуль ускорения иона", "Период обращения иона"]
+        elif number == 16:
+            text = text.replace(r"\(^{200}_{79}\)Au", r"\({}^{200}_{79}\mathrm{Au}\)")
+        elif number == 13:
+            text = text.replace(r"(\(1\), \(2\), \(3\) или  4)", r"(\(1\), \(2\), \(3\) или \(4\))")
+        elif number == 22:
+            text = text.replace(r"\(16\,{}^\circ\)C", r"\(16{}^\circ\text{C}\)")
+    if slug == "2025-dosrok-11-1" and number == 6:
+        data["answer_table_labels"] = ["Жёсткость пружины", "Скорость груза"]
+    if slug == "2025-dosrok-11-1" and number == 22:
+        text = text.replace(r"\(20\) \(^\circ\)C", r"\(20{}^\circ\text{C}\)")
+    if slug in ("2025-otkryt-11-1", "2025-dosrok-11-1") and number == 21:
+        text = text.replace(r"^\circ\,\text{с}\)", r"^\circ\) с")
     data["statement"] = text
     return data
 
@@ -261,7 +299,14 @@ def import_variant(con: sqlite3.Connection, slug: str) -> None:
         for src in data["figures"]:
             path = directory / "images" / Path(src).name
             aid = store_asset(con, path.read_bytes(), ".png", "image/png")
-            role = "source_table" if slug == "2025-osnov-11-ural-5" and n in (5, 14, 20) else "statement_figure"
+            source_table = (
+                (slug == "2025-osnov-11-ural-5" and n in (5, 14, 20))
+                or (slug == "2025-otkryt-11-1" and src.endswith("-tablica.png"))
+                or (slug == "2025-dosrok-11-1" and src.endswith("20-tablica.png"))
+            )
+            # The schema's source_page role retains source-only imagery without
+            # rendering it a second time next to the transcribed table/field.
+            role = "source_page" if source_table else "statement_figure"
             link_asset(con, pid, aid, role, f"{locator}; {src}")
         con.execute("DELETE FROM relevance WHERE problem_id=? AND exam_year=2027", (pid,))
         verdict, topic_match, format_match, reason = assessment(slug, n)

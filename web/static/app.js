@@ -286,9 +286,10 @@ function variantSidebarTitle(variant) {
   if (variant.is_official_demo) return variantDisplayTitle(variant);
   if (variantSource(variant) === 'fipi') return `Вариант ${variant.variant_number}`;
   if (variantSource(variant) === 'real') {
-    return (variant.title || '').replace(/^ЕГЭ \d{4} —\s*/, '')
+    const label = (variant.title || '').replace(/^ЕГЭ \d{4} —\s*/, '')
       .replace('Дальний Восток, вариант ', 'ДВ, вариант ')
       .replace('Северо-Запад, вариант ', 'СЗ, вариант ');
+    return label[0]?.toUpperCase() + label.slice(1);
   }
   return variantDisplayTitle(variant);
 }

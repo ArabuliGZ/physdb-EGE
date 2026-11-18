@@ -1,4 +1,4 @@
-"""Validate the seven archived 2025 Botay papers after import."""
+"""Validate the nine archived 2025 Botay papers after import."""
 from __future__ import annotations
 
 import json
@@ -19,6 +19,13 @@ EXPECTED_IMAGES = {
     "2025-osnov-11-sib-3": 16,
     "2025-osnov-11-sz-4": 13,
     "2025-osnov-11-ural-5": 10,  # Three additional Ural images document source tables.
+    "2025-otkryt-11-1": 12,  # Five printed tables are structured on the site.
+    "2025-dosrok-11-1": 12,  # The circuit parameter table is structured on the site.
+}
+EXPECTED_SOURCE_TABLE_IMAGES = {
+    "2025-osnov-11-ural-5": 3,
+    "2025-otkryt-11-1": 5,
+    "2025-dosrok-11-1": 1,
 }
 TABLES = {
     ("2025-osnov-11-centr-6", 7): 1,
@@ -33,6 +40,8 @@ TABLES = {
     ("2025-osnov-11-ural-5", 5): 1,
     ("2025-osnov-11-ural-5", 14): 1,
     ("2025-osnov-11-ural-5", 20): 1,
+    ("2025-otkryt-11-1", 20): 1,
+    ("2025-dosrok-11-1", 20): 1,
 }
 
 
@@ -52,7 +61,7 @@ def main() -> None:
             "SELECT * FROM problems WHERE variant_id=? ORDER BY problem_number", (variant["id"],)
         ).fetchall()
         assert [row["problem_number"] for row in rows] == list(range(1, 27)), slug
-        keys = solutions = images = 0
+        keys = solutions = images = source_table_images = 0
         for row in rows:
             n = row["problem_number"]
             assert row["statement"].strip() and row["extraction_status"] == "needs_review", (slug, n)
@@ -78,11 +87,13 @@ def main() -> None:
             ):
                 assert (ROOT / asset["storage_path"]).exists(), (slug, n)
                 images += asset["role"] == "statement_figure"
+                source_table_images += asset["role"] == "source_page"
         expected_keys = 26 if slug.endswith("-7") else 0
         expected_solutions = 6 if slug.endswith("-7") else 0
         assert (keys, solutions, images) == (
             expected_keys, expected_solutions, EXPECTED_IMAGES[slug]
         ), (slug, keys, solutions, images)
+        assert source_table_images == EXPECTED_SOURCE_TABLE_IMAGES.get(slug, 0), slug
         print(f"{slug}: 26 tasks, {keys} keys, {solutions} solutions, {images} figures")
     edits = json.loads(DEFAULT_LOG.read_text(encoding="utf-8"))["problems"]
     for pid, entry in edits.items():
