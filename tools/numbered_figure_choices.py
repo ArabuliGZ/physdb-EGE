@@ -19,6 +19,12 @@ class ChoiceCrop:
 
 
 CHOICE_CROPS = {
+    # Botay 2024, real paper 24109, task 20: five capacitor diagrams
+    # printed as three choices above two choices.
+    "8e8b744f76b3fcf680be44f958d464f6af4aa266441cd921da6e73c68688b28c": ChoiceCrop(
+        (913, 410), ((130, 0, 310, 235), (130, 235, 310, 410),
+                     (390, 0, 570, 235), (410, 235, 570, 410),
+                     (675, 0, 850, 235))),
     # ФИПИ 2027, demo task 20: three circuits on the left, two on the right.
     "eeb8e40c011340c8458157ef7ba3d6d397bb3959fbc34a9e4a772ce7f5e5ac2c": ChoiceCrop(
         (589, 380), ((32, 0, 185, 126), (32, 126, 185, 253),
