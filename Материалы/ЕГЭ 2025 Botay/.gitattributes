@@ -1,0 +1,2 @@
+*.html -text -whitespace
+manifest.json -text -whitespace

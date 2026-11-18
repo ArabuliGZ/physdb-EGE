@@ -265,7 +265,7 @@ function topicLabel(topic) {
 
 function variantDisplayTitle(variant) {
   return variant.is_official_demo || variant.exam_year === 2027
-    || (variant.title || variant.variant_title || '').startsWith('ЕГЭ 2026 —')
+    || /^ЕГЭ 202[56] —/.test(variant.title || variant.variant_title || '')
     ? (variant.title || variant.variant_title)
     : `Демидова ${variant.exam_year}-${variant.variant_number}`;
 }

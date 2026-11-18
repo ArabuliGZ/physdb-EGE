@@ -54,10 +54,15 @@ def normalize_math(text: str) -> str:
 
 def render(node) -> str:
     if node.tag in ("ol", "ul"):
-        return "\n".join(
-            f"{index}) {compact(render(item))}" for index, item in
-            enumerate(node.xpath("./li"), 1)
-        )
+        lines = []
+        for index, item in enumerate(node.xpath("./li"), 1):
+            value = compact(render(item))
+            printed = re.match(r"^\[\s*([А-ЯA-Z0-9]+[.)])\s*\]\s*", value)
+            lines.append(
+                printed.group(1) + " " + value[printed.end():] if printed
+                else f"{index}) {value}"
+            )
+        return "\n".join(lines)
     if node.tag == "br":
         return "\n"
     value = node.text or ""
@@ -92,6 +97,7 @@ def answer_field(text: str, number: int) -> tuple[str, str]:
     # The source sometimes types exponents and multiplication in separate math.
     after = after.replace(r"\(^2", "²").replace(r"\(^3", "³")
     after = after.replace(r"\(\cdot", "·").replace(r"\(", "")
+    after = after.replace(r"^{\circ}", "°").replace(r"^\circ", "°")
     if number == 19:
         after = after.replace(r"\pm", "")
         after = after.replace("(", "").replace(")", "").strip()
@@ -198,7 +204,9 @@ def parse_task(task, number: int, slug: str) -> dict:
             answer = answer or parse_detail(node, "Ответ")
             solution = solution or parse_detail(node, "Решение")
             continue
-        if node.tag not in ("p", "ol", "ul"):
+        if node.tag not in ("p", "ol", "ul") and not (
+            node.tag == "div" and "k-center" in node.get("class", "").split()
+        ):
             continue
         part = clean_lines(render(node))
         if not part:
@@ -212,9 +220,12 @@ def parse_task(task, number: int, slug: str) -> dict:
         if not part:
             continue
         if number in (6, 10, 15, 17) and MATH_BLANK.search(part):
-            label = compact(part.split(":", 1)[0])
-            if label and not label.startswith(("Для каждой", "Запишите")):
-                table_labels.append(label)
+            for line in re.split(r"[;\n]", part):
+                if not MATH_BLANK.search(line):
+                    continue
+                label = compact(line.split(":", 1)[0])
+                if label and not label.startswith(("Для каждой", "Запишите")):
+                    table_labels.append(label)
             # The printed blanks are rendered from answer_table_labels.
             continue
         statements.append(part)
@@ -243,6 +254,11 @@ def parse_task(task, number: int, slug: str) -> dict:
 
 
 def relevance(number: int) -> tuple[str, int, str]:
+    if number == 7:
+        return "no", 0, (
+            "Числовая задача на газовый закон; позиция 7 КИМ 2027 — "
+            "связь температуры газа со средней кинетической энергией частиц."
+        )
     if number == 21:
         return "no", 0, (
             "Качественная задача по молекулярной физике; позиция 21 КИМ 2027 "

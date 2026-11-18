@@ -55,7 +55,7 @@ def main() -> None:
                 "SELECT verdict FROM relevance WHERE problem_id=? AND exam_year=2027 AND target_problem_number=?",
                 (row["id"], n),
             ).fetchone()
-            assert verdict and verdict["verdict"] == ("no" if n in (21, 23) else "yes")
+            assert verdict and verdict["verdict"] == ("no" if n in (7, 21, 23) else "yes")
             if n in (21, 23):
                 assert row["topic"] == ("molecular" if n == 21 else "electrodynamics")
             for asset in con.execute(

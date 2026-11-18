@@ -1,0 +1,562 @@
+{
+  "2025-osnov-11-7/images/12-grafik.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-7/12-grafik.png",
+    "sha256": "756125b832f1e35507eeb648ec59c1b4dafb3a20739dbbcef74cec2ea7fc657c",
+    "bytes": 16875
+  },
+  "2025-osnov-11-7/images/13-kontur.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-7/13-kontur.png",
+    "sha256": "147cc38b05eaa18355af64721b4143e371d11167b019b73582be930c343ee669",
+    "bytes": 6706
+  },
+  "2025-osnov-11-7/images/14-risunki.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-7/14-risunki.png",
+    "sha256": "b44615ae543476e804422ce14a72b3c0afb0d59079f1b026848dad27baf742f7",
+    "bytes": 13227
+  },
+  "2025-osnov-11-7/images/15-shema.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-7/15-shema.png",
+    "sha256": "b93b5835b596949a95b3104594c2a1c700ae06621c27bd1c55caaf3308ecfb39",
+    "bytes": 10162
+  },
+  "2025-osnov-11-7/images/20-ustanovki.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-7/20-ustanovki.png",
+    "sha256": "6a706a8533c7e53f624ca2c4fbe8db70d2c1e7af2aa4c2ab558effac45780d7f",
+    "bytes": 31547
+  },
+  "2025-osnov-11-7/images/21-piramidy.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-7/21-piramidy.png",
+    "sha256": "f02d1e9cb02a227cf3cb64bc5db73ee7cbea40f029592e980b81e844d371a7f8",
+    "bytes": 18505
+  },
+  "2025-osnov-11-7/images/24-sosud.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-7/24-sosud.png",
+    "sha256": "4783239718cfb2aa2980554cb5cea8c694f1e53b4e13ce03e0aa8fef5906ff97",
+    "bytes": 10508
+  },
+  "2025-osnov-11-7/images/25-shema.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-7/25-shema.png",
+    "sha256": "62ba6d0aa44d6b50d539bdde8c7bc791bf58e048b807fed72fcb97f1244460dd",
+    "bytes": 3662
+  },
+  "2025-osnov-11-7/images/26-sterzhen.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-7/26-sterzhen.png",
+    "sha256": "728486af5a5db16cb6ab210279e59e62b9b5fe104399127b6c76c587be428f1c",
+    "bytes": 17467
+  },
+  "2025-osnov-11-7/images/5-sosudy.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-7/5-sosudy.png",
+    "sha256": "074959cff0c31f70f3c44749dffa7efb8b87e097765c74bef6a42be1b3962e0c",
+    "bytes": 11565
+  },
+  "2025-osnov-11-7/otvety.pdf": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-7/ege-2025-osnov-11-7-otvety.pdf",
+    "sha256": "f766c2d690f684818057b18b427e282b8ff213d6692de3cda9313d556ca3908a",
+    "bytes": 247034
+  },
+  "2025-osnov-11-7/page.html": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-7/",
+    "sha256": "77862eb9c483c595fff4695491cc02744b2c974696cf5800fcfa3bf447b618d5",
+    "bytes": 93027
+  },
+  "2025-osnov-11-7/resheniya.pdf": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-7/ege-2025-osnov-11-7-resheniya.pdf",
+    "sha256": "4159049477ab1c723acd908eccc17cbb43913a26d517a2826cb726086b3a2750",
+    "bytes": 268179
+  },
+  "2025-osnov-11-7/usloviya.pdf": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-7/ege-2025-osnov-11-7-usloviya.pdf",
+    "sha256": "c13324a4dbb18bfe4098eb5d745970cf061b62114a568ee289637c5a245e21e3",
+    "bytes": 240866
+  },
+  "2025-osnov-11-centr-6/images/1-grafik.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-centr-6/1-grafik.png",
+    "sha256": "10e5790a0249d7f610509b91cc819018bfd97405018b3004926a9cfebc260243",
+    "bytes": 113660
+  },
+  "2025-osnov-11-centr-6/images/10-porshen.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-centr-6/10-porshen.png",
+    "sha256": "73bbbaeb97dc0319f87d4431e160d27aeb82dfcbaea57a5e094a5a80af08f330",
+    "bytes": 33132
+  },
+  "2025-osnov-11-centr-6/images/11-tok.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-centr-6/11-tok.png",
+    "sha256": "75ceecc49377024eedaa5882a75e9fbf20302a4b8fb50d8c7a49cc9a0a02a2d1",
+    "bytes": 41235
+  },
+  "2025-osnov-11-centr-6/images/14-kondensator.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-centr-6/14-kondensator.png",
+    "sha256": "31dcdb107a9697c9a8b30c394225762c60b178e2638ad3668c3083d60b13a5e5",
+    "bytes": 32586
+  },
+  "2025-osnov-11-centr-6/images/19-ampermetr.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-centr-6/19-ampermetr.png",
+    "sha256": "dafe1dcf4058529f3cfe2f87fccf5b8d9b58940e448e406e56552c570c96fbf6",
+    "bytes": 403089
+  },
+  "2025-osnov-11-centr-6/images/20-kondensatory.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-centr-6/20-kondensatory.png",
+    "sha256": "be2b376948f79238471824283ec0510a74ee4750676ec1e49f30815266449565",
+    "bytes": 238827
+  },
+  "2025-osnov-11-centr-6/images/22-grafik.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-centr-6/22-grafik.png",
+    "sha256": "d6495866a9728d5ab43287cad20ce83aa3044034811fd6292f7b45e079c1bde7",
+    "bytes": 94252
+  },
+  "2025-osnov-11-centr-6/images/26-sterzhen.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-centr-6/26-sterzhen.png",
+    "sha256": "6875bf5bef2c0420130b9849815171e632cf2f6ab5ddd94329877daa6043eed6",
+    "bytes": 248622
+  },
+  "2025-osnov-11-centr-6/images/5-pruzhina.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-centr-6/5-pruzhina.png",
+    "sha256": "1ff5175ce441530c08be4f18c12c38212b19c30335437dff12ce8194102ef217",
+    "bytes": 35792
+  },
+  "2025-osnov-11-centr-6/images/9-cikl.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-centr-6/9-cikl.png",
+    "sha256": "871e8e018f3621f406b45eea54a1eab7f9a0486d9d18433e882d3ce6382e944e",
+    "bytes": 40343
+  },
+  "2025-osnov-11-centr-6/otvety.pdf": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-centr-6/ege-2025-osnov-11-centr-6-otvety.pdf",
+    "sha256": "2b0fe1aff711c3c0b6955da1db89965beaea9748107cccacd7244beb089a0630",
+    "bytes": 1400830
+  },
+  "2025-osnov-11-centr-6/page.html": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-centr-6/",
+    "sha256": "f3e262237e3806dce2ade2f0af7eed15883c8a93cd407b62ed199da83b36977e",
+    "bytes": 78439
+  },
+  "2025-osnov-11-centr-6/resheniya.pdf": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-centr-6/ege-2025-osnov-11-centr-6-resheniya.pdf",
+    "sha256": "79021f751e88caba91cf2aa23e742bf515040061467704b12023a34da32c04a1",
+    "bytes": 1408934
+  },
+  "2025-osnov-11-centr-6/usloviya.pdf": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-centr-6/ege-2025-osnov-11-centr-6-usloviya.pdf",
+    "sha256": "a901c3c82ddd98881de46c9600d13eb011db499eb1871e3e8eebf8d24ba73a13",
+    "bytes": 1400821
+  },
+  "2025-osnov-11-dv-1/images/1-grafik.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-dv-1/1-grafik.png",
+    "sha256": "66288450951238a5306b9055f9c63d2ae4c3643ff7164f6b6c93a0d6b6594e80",
+    "bytes": 39654
+  },
+  "2025-osnov-11-dv-1/images/12-grafik.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-dv-1/12-grafik.png",
+    "sha256": "7de4b4a056f76398b7150f6fe491b9321393f7301bad837cb9c70171470453c3",
+    "bytes": 31229
+  },
+  "2025-osnov-11-dv-1/images/17-urovni.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-dv-1/17-urovni.png",
+    "sha256": "1c5191980f06a7b239f90888ef9c9bf7d4c46e77f55f99980b0d1d63ceebab69",
+    "bytes": 29002
+  },
+  "2025-osnov-11-dv-1/images/19-foto.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-dv-1/19-foto.png",
+    "sha256": "c01c62f7e6db46d49352c0c5ce05839652c515a0821d08340f265af03afae62b",
+    "bytes": 47148
+  },
+  "2025-osnov-11-dv-1/images/21-sxema.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-dv-1/21-sxema.png",
+    "sha256": "d14103e12f46e21bca69415f3c42510e3a06dd96672bc86eeff609925e8f2e6f",
+    "bytes": 90590
+  },
+  "2025-osnov-11-dv-1/images/23-grafik.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-dv-1/23-grafik.png",
+    "sha256": "62e8b8133130948515be647d6c461a4819ee0137683ede788630a403a43c99cf",
+    "bytes": 40723
+  },
+  "2025-osnov-11-dv-1/images/25-polya.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-dv-1/25-polya.png",
+    "sha256": "512dbb1fe7a7e578d9f47d4de8b35798fe7b59311e88af2e212a65f5810a20ae",
+    "bytes": 20115
+  },
+  "2025-osnov-11-dv-1/images/26-foto.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-dv-1/26-foto.png",
+    "sha256": "401e43654bc393316398c06207f1336acf2f7a7119db5a488f25aa461d309e12",
+    "bytes": 95000
+  },
+  "2025-osnov-11-dv-1/images/7-grafik.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-dv-1/7-grafik.png",
+    "sha256": "41d2e6b5f6d79284abee3569fd50af050edd6ebafa590421c8bc22ae615fc723",
+    "bytes": 23934
+  },
+  "2025-osnov-11-dv-1/images/8-grafik.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-dv-1/8-grafik.png",
+    "sha256": "23f49e4cd41947751a5dce683c9bb238be758e3ec574dceb6a507a4fee22b575",
+    "bytes": 69546
+  },
+  "2025-osnov-11-dv-1/images/9-sxema.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-dv-1/9-sxema.png",
+    "sha256": "3facd182a46931aa739839ea166199bfcdc2660d690297d6f8a408b860ea06e6",
+    "bytes": 136005
+  },
+  "2025-osnov-11-dv-1/otvety.pdf": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-dv-1/ege-2025-osnov-11-dv-1-otvety.pdf",
+    "sha256": "7c3b45543e8ad07ad940fbb1a9338e20224fb3422d4d046b65339b13e977f65b",
+    "bytes": 729469
+  },
+  "2025-osnov-11-dv-1/page.html": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-dv-1/",
+    "sha256": "3d280a6eb7855941d469f247148f1c6358c09fe8b4aaa5de61ea13370a65c0fa",
+    "bytes": 83079
+  },
+  "2025-osnov-11-dv-1/resheniya.pdf": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-dv-1/ege-2025-osnov-11-dv-1-resheniya.pdf",
+    "sha256": "8817777b9b9bd841b6d64ba6cfff3a1f3c666f4eb21af7ce8abf58e1da2aed2a",
+    "bytes": 740637
+  },
+  "2025-osnov-11-dv-1/usloviya.pdf": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-dv-1/ege-2025-osnov-11-dv-1-usloviya.pdf",
+    "sha256": "c990dffd0b55df1443653de697b059868ca2d02c6b81348bba83b079609e920f",
+    "bytes": 729459
+  },
+  "2025-osnov-11-dv-2/images/1-grafik.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-dv-2/1-grafik.png",
+    "sha256": "2e55215f38dfa49cf966aea3366592a6f0e6aa383b53fa5219e6a171ca800f84",
+    "bytes": 84894
+  },
+  "2025-osnov-11-dv-2/images/17-diagramma.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-dv-2/17-diagramma.png",
+    "sha256": "1c5191980f06a7b239f90888ef9c9bf7d4c46e77f55f99980b0d1d63ceebab69",
+    "bytes": 29002
+  },
+  "2025-osnov-11-dv-2/images/19-voltmetr.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-dv-2/19-voltmetr.png",
+    "sha256": "79996d74c1a500c8bad87319b8fc7844e1d7ba7b756f800c4ba28346bdc07bcf",
+    "bytes": 424376
+  },
+  "2025-osnov-11-dv-2/images/20-kondensatory.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-dv-2/20-kondensatory.png",
+    "sha256": "9671d6f16f937d793e22812b0b19481e8dc50bfa37f64d180c0379d95708d45b",
+    "bytes": 130669
+  },
+  "2025-osnov-11-dv-2/images/23-sosud.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-dv-2/23-sosud.png",
+    "sha256": "217827bc5bf8bc4ad399a8fafe1ce6d766787f2b0705ebc741641394fd118896",
+    "bytes": 42605
+  },
+  "2025-osnov-11-dv-2/images/25-mass-spektrometr.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-dv-2/25-mass-spektrometr.png",
+    "sha256": "694d655063e43bbae412b0aacca6729b46baddc14aadd0c24981658d85a160a9",
+    "bytes": 22087
+  },
+  "2025-osnov-11-dv-2/images/26-rychag.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-dv-2/26-rychag.png",
+    "sha256": "a908bad298c20c08bda9691641a959b5066f816081e7d5f981fcfae4991fae27",
+    "bytes": 99364
+  },
+  "2025-osnov-11-dv-2/images/5-grafik.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-dv-2/5-grafik.png",
+    "sha256": "f361d935e579183ab3902a53304d3aa207b2300c8be16514303d2324f9c6a38d",
+    "bytes": 23534
+  },
+  "2025-osnov-11-dv-2/images/6-shema.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-dv-2/6-shema.png",
+    "sha256": "29b5fd3d28d54fa7c9e4c8b181e26ff59529ecac5a61ebd0d9b3769c38c46d4b",
+    "bytes": 31786
+  },
+  "2025-osnov-11-dv-2/images/8-grafik.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-dv-2/8-grafik.png",
+    "sha256": "23f49e4cd41947751a5dce683c9bb238be758e3ec574dceb6a507a4fee22b575",
+    "bytes": 69546
+  },
+  "2025-osnov-11-dv-2/images/9-grafik.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-dv-2/9-grafik.png",
+    "sha256": "944b8387445da00368c4da5578f7cf68c89fa7d529bdce3cc26f6aac19ec7a97",
+    "bytes": 11566
+  },
+  "2025-osnov-11-dv-2/otvety.pdf": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-dv-2/ege-2025-osnov-11-dv-2-otvety.pdf",
+    "sha256": "eee3c1b74d456127dad71a3891940771955d789d64ae5f4e771d516fbdd1ca2f",
+    "bytes": 1023954
+  },
+  "2025-osnov-11-dv-2/page.html": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-dv-2/",
+    "sha256": "e8b072dc6345dc4f5c8d759d3a179a53cfba3e269c2d503b34229bf56159a779",
+    "bytes": 71243
+  },
+  "2025-osnov-11-dv-2/resheniya.pdf": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-dv-2/ege-2025-osnov-11-dv-2-resheniya.pdf",
+    "sha256": "2b04ca317a2621c4625a9d6cac5ef60be31da64f9c643e78b406afbb16efccbc",
+    "bytes": 1023960
+  },
+  "2025-osnov-11-dv-2/usloviya.pdf": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-dv-2/ege-2025-osnov-11-dv-2-usloviya.pdf",
+    "sha256": "711767194bee01734d0cf4b58421771a32a6cd9e645c5f6fa1220097d1b742f6",
+    "bytes": 1023944
+  },
+  "2025-osnov-11-sib-3/images/1-grafik.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-sib-3/1-grafik.png",
+    "sha256": "296040fb261c8a5af7178ef8623dabd16043eadefb93a91917b65324698f5986",
+    "bytes": 57915
+  },
+  "2025-osnov-11-sib-3/images/10-grafik.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-sib-3/10-grafik.png",
+    "sha256": "5e13d79cfa6b3e4a75fd9485a17d12938417c29689e01fd0fbea0cc883e01c16",
+    "bytes": 33181
+  },
+  "2025-osnov-11-sib-3/images/11-grafik.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-sib-3/11-grafik.png",
+    "sha256": "67379bb3629825d413d7b3533d9f37c4b3f328f031205836c75c5c8312a23941",
+    "bytes": 32254
+  },
+  "2025-osnov-11-sib-3/images/13-zerkalo.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-sib-3/13-zerkalo.png",
+    "sha256": "48a4c17223bb9e85cca8b1737a764fe13cae53c8a9b9e3ffcded52198cb51aab",
+    "bytes": 45182
+  },
+  "2025-osnov-11-sib-3/images/14-risunok.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-sib-3/14-risunok.png",
+    "sha256": "2558049d36e5ce8ce3db74c9fa353cb9bfb9b5e771057af7ec064567d4d6d06e",
+    "bytes": 31273
+  },
+  "2025-osnov-11-sib-3/images/15-grafiki.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-sib-3/15-grafiki.png",
+    "sha256": "964ca707ec04fa2d4f81f4e68cba7e0b102c6751a27be5d583c119198eb5bcea",
+    "bytes": 17586
+  },
+  "2025-osnov-11-sib-3/images/15-shema.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-sib-3/15-shema.png",
+    "sha256": "05a5de5d32198501a5276d5462c306142558d1380662f7a84608161123d0122f",
+    "bytes": 41175
+  },
+  "2025-osnov-11-sib-3/images/16-grafik.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-sib-3/16-grafik.png",
+    "sha256": "8fd2e79f28fd8eb32d8d487683ccfd70f937f949e9c0c3db614ebdbd758b5e21",
+    "bytes": 98532
+  },
+  "2025-osnov-11-sib-3/images/17-ustanovka.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-sib-3/17-ustanovka.png",
+    "sha256": "727df7151765592dc932f077d48898788c574227261e70acbfd6856790ec99ed",
+    "bytes": 45089
+  },
+  "2025-osnov-11-sib-3/images/19-barometr.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-sib-3/19-barometr.png",
+    "sha256": "fcf3345e4243e8c674871ae41ade64d64d809812cc2ad45465fc061dde2c3f5a",
+    "bytes": 1348221
+  },
+  "2025-osnov-11-sib-3/images/21-shema.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-sib-3/21-shema.png",
+    "sha256": "62a730c618b08efad71a3f4b3d83bd12a35e2d893947d9ca864006f43e2fed9d",
+    "bytes": 96867
+  },
+  "2025-osnov-11-sib-3/images/25-kontur.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-sib-3/25-kontur.png",
+    "sha256": "acb6ccb677a86340e536f68a9e39b481b27b6d1e93d635480dcc93b5feb758bb",
+    "bytes": 43419
+  },
+  "2025-osnov-11-sib-3/images/26-sterzhen.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-sib-3/26-sterzhen.png",
+    "sha256": "57a605a5982e5d8bb2b973272b8068b1d73a425e5180937d96145bc35cf10e11",
+    "bytes": 40320
+  },
+  "2025-osnov-11-sib-3/images/4-grafik.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-sib-3/4-grafik.png",
+    "sha256": "b723b0adc5c9354c1bc96d371cff0807d1a1f7b41f15351df135582093acbae1",
+    "bytes": 192456
+  },
+  "2025-osnov-11-sib-3/images/5-grafiki.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-sib-3/5-grafiki.png",
+    "sha256": "61a081be202fbb940e3a30af36c98b4fa81693d92cb117a93e75570b4c8dd169",
+    "bytes": 127334
+  },
+  "2025-osnov-11-sib-3/images/6-grafiki.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-sib-3/6-grafiki.png",
+    "sha256": "16c7d5c952d28c545496e90e112a84890b55d5e7f0481d29bb897f19c595cc97",
+    "bytes": 35061
+  },
+  "2025-osnov-11-sib-3/otvety.pdf": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-sib-3/ege-2025-osnov-11-sib-3-otvety.pdf",
+    "sha256": "2be784d23551839666d67d288854836d6ebc5f12f34bbd1b70bef8d0e83511f8",
+    "bytes": 2169771
+  },
+  "2025-osnov-11-sib-3/page.html": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-sib-3/",
+    "sha256": "4d27cb6a8f4ae1daeaa4951bf072ed0bed73ee2ebaf01fd1334999ae73cdbc09",
+    "bytes": 71403
+  },
+  "2025-osnov-11-sib-3/resheniya.pdf": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-sib-3/ege-2025-osnov-11-sib-3-resheniya.pdf",
+    "sha256": "49d9533594da587cd142790aeb31e3bf0b67f33b38216438ad06057ce5689651",
+    "bytes": 2169776
+  },
+  "2025-osnov-11-sib-3/usloviya.pdf": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-sib-3/ege-2025-osnov-11-sib-3-usloviya.pdf",
+    "sha256": "d08f41e194b07c47cb48e3cffa089be20ce6ee081c1a71231f285695478e85f4",
+    "bytes": 2169762
+  },
+  "2025-osnov-11-sz-4/images/1-grafik.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-sz-4/1-grafik.png",
+    "sha256": "296040fb261c8a5af7178ef8623dabd16043eadefb93a91917b65324698f5986",
+    "bytes": 57915
+  },
+  "2025-osnov-11-sz-4/images/10-diagramma.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-sz-4/10-diagramma.png",
+    "sha256": "45c5120babc821809e086107f514cc4d76a8217bb53e457cdb7ddd9a04c40942",
+    "bytes": 19716
+  },
+  "2025-osnov-11-sz-4/images/11-grafik.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-sz-4/11-grafik.png",
+    "sha256": "25a7b17442c1f06393d181823846c0193a66e55ef41311151c98eb7e751ac312",
+    "bytes": 36799
+  },
+  "2025-osnov-11-sz-4/images/13-linza.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-sz-4/13-linza.png",
+    "sha256": "5949f55d2dd9a357c8e848a134e1e7bbdd16c6de2660ec527acb6fa7cdd2edf5",
+    "bytes": 21755
+  },
+  "2025-osnov-11-sz-4/images/14-plastiny.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-sz-4/14-plastiny.png",
+    "sha256": "726defc4f7e55e5bb7d631b65a997e6bb368697836a43b0bbc18362c6f6e43db",
+    "bytes": 164160
+  },
+  "2025-osnov-11-sz-4/images/15-grafiki.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-sz-4/15-grafiki.png",
+    "sha256": "134b99dea319c697233d3b7841a7e69e117e9fb9aa6e74999e0d37be9b312655",
+    "bytes": 39597
+  },
+  "2025-osnov-11-sz-4/images/16-grafik.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-sz-4/16-grafik.png",
+    "sha256": "f6dfd24c7065fb0afd6149f397b0a7a0a5bc6993aa41712684d447517bd68379",
+    "bytes": 68052
+  },
+  "2025-osnov-11-sz-4/images/19-barometr.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-sz-4/19-barometr.png",
+    "sha256": "b7436bfaa6b44e1aed1edc5b4a863bc519d7f5f6bde0df54c8599af186d9c509",
+    "bytes": 437251
+  },
+  "2025-osnov-11-sz-4/images/2-shema.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-sz-4/2-shema.png",
+    "sha256": "05a7672c88390f7df959dc921943bc86073d713dbd0d3063bfe70c106268e83a",
+    "bytes": 60400
+  },
+  "2025-osnov-11-sz-4/images/24-cikl.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-sz-4/24-cikl.png",
+    "sha256": "29ca9ebe9ea1761ba4e0a62285c303897fa7856e69adf81f957baaf94c2193b8",
+    "bytes": 16130
+  },
+  "2025-osnov-11-sz-4/images/25-cepj.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-sz-4/25-cepj.png",
+    "sha256": "60570bda32632055e7f4a3123054616dd3c190469c24428ff07223abab69c782",
+    "bytes": 23698
+  },
+  "2025-osnov-11-sz-4/images/26-cilindr.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-sz-4/26-cilindr.png",
+    "sha256": "fb2f551afa5ccdc0201a577777b977082c29368ec5d302e67ade9ca5a9d42bcd",
+    "bytes": 73872
+  },
+  "2025-osnov-11-sz-4/images/9-diagramma.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-sz-4/9-diagramma.png",
+    "sha256": "0701b4c65314fe407572acd1e1006748d1af50c14f940bd70e84aad9875d3efd",
+    "bytes": 40218
+  },
+  "2025-osnov-11-sz-4/otvety.pdf": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-sz-4/ege-2025-osnov-11-sz-4-otvety.pdf",
+    "sha256": "ea9bb04fc32297cef28738cc5a9afea64482d968154bf5b688e0590a4ad9592a",
+    "bytes": 1103610
+  },
+  "2025-osnov-11-sz-4/page.html": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-sz-4/",
+    "sha256": "9101c2659daae980c9dc7d36e61c2d12b44ab49923671044cba4bda0ea8dd2b8",
+    "bytes": 84466
+  },
+  "2025-osnov-11-sz-4/resheniya.pdf": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-sz-4/ege-2025-osnov-11-sz-4-resheniya.pdf",
+    "sha256": "0a297e6797feb17b37b60c0fc46649f9f11b79a4b472b1625532ef9d9adf82ea",
+    "bytes": 1113673
+  },
+  "2025-osnov-11-sz-4/usloviya.pdf": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-sz-4/ege-2025-osnov-11-sz-4-usloviya.pdf",
+    "sha256": "05a8e6e28a2f11da113b45c49dbb5a0d33fa1ae7657e25d8e237d5239f18f00b",
+    "bytes": 1103597
+  },
+  "2025-osnov-11-ural-5/images/1-grafik.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-ural-5/1-grafik.png",
+    "sha256": "477826d476852bd0a3e5b63e9939388885c841cd51bb3fea614e31a775651984",
+    "bytes": 61978
+  },
+  "2025-osnov-11-ural-5/images/11-grafik.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-ural-5/11-grafik.png",
+    "sha256": "f18f7877e20dad587c08c39dd23d4c17e3ba11a17fecf21f5bff949167e7a614",
+    "bytes": 39068
+  },
+  "2025-osnov-11-ural-5/images/13-shema.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-ural-5/13-shema.png",
+    "sha256": "f7939e741024ea0b54c55b513cbb17a46511ff36c601a97aab73dcbd4033da63",
+    "bytes": 43968
+  },
+  "2025-osnov-11-ural-5/images/14-tablica.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-ural-5/14-tablica.png",
+    "sha256": "010bceb99e780eba8dd0da409201768d25c42b8af83531b6d5ac4861bf945d20",
+    "bytes": 13691
+  },
+  "2025-osnov-11-ural-5/images/15-grafiki.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-ural-5/15-grafiki.png",
+    "sha256": "134b99dea319c697233d3b7841a7e69e117e9fb9aa6e74999e0d37be9b312655",
+    "bytes": 39597
+  },
+  "2025-osnov-11-ural-5/images/19-ampermetr.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-ural-5/19-ampermetr.png",
+    "sha256": "9c7996d5503f3e437673aa18a3cd9833fae7b1a314d2e66b841348ef2519025a",
+    "bytes": 92202
+  },
+  "2025-osnov-11-ural-5/images/2-grafik.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-ural-5/2-grafik.png",
+    "sha256": "3935b67f60e55ae0d3b61be9a8414416114fedfca1dbab3adb1ffceb8ffcec9e",
+    "bytes": 46556
+  },
+  "2025-osnov-11-ural-5/images/20-tablica.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-ural-5/20-tablica.png",
+    "sha256": "2336961b6d74ab03d960b243ea12310cc781ade972361b6f58dcf2521f05128d",
+    "bytes": 26012
+  },
+  "2025-osnov-11-ural-5/images/25-shema.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-ural-5/25-shema.png",
+    "sha256": "214c1c98629bb722cccda083c94ea5262aa69d41e2b9c4286f49915b66030023",
+    "bytes": 27113
+  },
+  "2025-osnov-11-ural-5/images/5-tablica.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-ural-5/5-tablica.png",
+    "sha256": "ee6b786dded44e4db44d9c0a5442075b23b0cbc41ebd73f2fc9989daaa1208cd",
+    "bytes": 14847
+  },
+  "2025-osnov-11-ural-5/images/6-shema.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-ural-5/6-shema.png",
+    "sha256": "91117fcdbee02de30728d12b7b252e86512c70df5058e406aa1d692af6294209",
+    "bytes": 15675
+  },
+  "2025-osnov-11-ural-5/images/8-grafik.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-ural-5/8-grafik.png",
+    "sha256": "9d0417ab636203769dbe145028aea39bd3afbeb44c0700deb13a42f793421666",
+    "bytes": 56481
+  },
+  "2025-osnov-11-ural-5/images/9-grafik.png": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-ural-5/9-grafik.png",
+    "sha256": "fc0499967a72b9efdaf4a6ca8703f3d134c6ad3872a3fc7d79a843d41a6ff23a",
+    "bytes": 68498
+  },
+  "2025-osnov-11-ural-5/otvety.pdf": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-ural-5/ege-2025-osnov-11-ural-5-otvety.pdf",
+    "sha256": "5259125398ad0216097d4e928025734f1a0a22508d668a5baa5817d90bf22711",
+    "bytes": 684561
+  },
+  "2025-osnov-11-ural-5/page.html": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-ural-5/",
+    "sha256": "9900c76eaea115da1ae3d7233b3b142183eb13a71fac3044d70ce79030676252",
+    "bytes": 81678
+  },
+  "2025-osnov-11-ural-5/resheniya.pdf": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-ural-5/ege-2025-osnov-11-ural-5-resheniya.pdf",
+    "sha256": "db5e1b837765de00ec8a1ef75d4fd49844d28847ab7a6e638213667a970f6649",
+    "bytes": 696340
+  },
+  "2025-osnov-11-ural-5/usloviya.pdf": {
+    "url": "https://botay.pro/olimpiady/ege/2025-osnov-11-ural-5/ege-2025-osnov-11-ural-5-usloviya.pdf",
+    "sha256": "9b311bb9fa6262671a0e7e45f304ac1ea4a9f69559f3e5581858a006adf47d0d",
+    "bytes": 684551
+  }
+}
