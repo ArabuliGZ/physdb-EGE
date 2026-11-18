@@ -1,2 +1,3 @@
 *.html -text -whitespace
 manifest.json -text -whitespace
+*.pdf binary

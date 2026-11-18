@@ -325,6 +325,27 @@ def main() -> None:
     finally:
         con.close()
     print(f"Replayed {apply_edits(DB, DEFAULT_LOG)} site-editor edits")
+    from complete_botay_from_duplicates import run as complete_duplicates
+    with sqlite3.connect(DB) as completion_con:
+        print(f"Completed identical tasks: {complete_duplicates(completion_con, write=True)}")
+    from complete_botay_from_solutions import run as complete_published
+    with sqlite3.connect(DB) as completion_con:
+        print(f"Completed published keys: {complete_published(completion_con, write=True)}")
+    from curated_botay_2024_main1 import run as complete_main1_solutions
+    with sqlite3.connect(DB) as completion_con:
+        print(f"Completed main variant 1 worked solutions: {complete_main1_solutions(completion_con, write=True)}")
+    from curated_botay_2024_main23 import run as complete_main23
+    with sqlite3.connect(DB) as completion_con:
+        print(f"Completed main variants 2–3 answers and rubrics: {complete_main23(completion_con, write=True)}")
+    from complete_botay_from_sdamgia import run as complete_sdamgia
+    with sqlite3.connect(DB) as completion_con:
+        print(f"Completed matched Решу ЕГЭ keys: {complete_sdamgia(completion_con, write=True, year_filter=2024)}")
+    from curated_botay_open_rubrics import run as complete_open_rubrics
+    with sqlite3.connect(DB) as completion_con:
+        print(f"Completed open-variant rubrics: {complete_open_rubrics(completion_con, write=True, year_filter=2024)}")
+    from curated_botay_open_solutions import run as complete_open_solutions
+    with sqlite3.connect(DB) as completion_con:
+        print(f"Completed open-variant AI solutions: {complete_open_solutions(completion_con, write=True, year_filter=2024)}")
 
 
 if __name__ == "__main__":

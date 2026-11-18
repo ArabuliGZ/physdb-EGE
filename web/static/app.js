@@ -642,6 +642,14 @@ function renderCriteria(container, text) {
 
 function addDisclosure(card, label, content, figures = null, problem = null) {
   const button = node('button', 'detail-button', label);
+  const aiDraft = label === 'Ответ'
+    ? /(?:answer: (?:расчёт ИИ|вывод ИИ)|расчёт ИИ по условию)/.test(problem?.review_notes || '')
+    : /(?:Решение ИИ|редакция ИИ)/.test(content || '');
+  if (aiDraft) {
+    const badge = node('span', 'ai-draft-badge', 'ИИ');
+    badge.title = 'Ответ или решение подготовлены ИИ и требуют проверки';
+    button.append(badge);
+  }
   button.type = 'button';
   button.setAttribute('aria-expanded', 'false');
   const panel = node('div', 'detail-panel');

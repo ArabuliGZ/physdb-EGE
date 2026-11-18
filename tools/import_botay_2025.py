@@ -331,6 +331,39 @@ def main() -> None:
     finally:
         con.close()
     print(f"Replayed {apply_edits(DB, DEFAULT_LOG)} site-editor text edits")
+    from complete_botay_from_duplicates import run as complete_duplicates
+    with sqlite3.connect(DB) as completion_con:
+        print(f"Completed identical tasks: {complete_duplicates(completion_con, write=True)}")
+    from complete_botay_from_sdamgia import run as complete_sdamgia
+    with sqlite3.connect(DB) as completion_con:
+        print(f"Completed matched Решу ЕГЭ keys: {complete_sdamgia(completion_con, write=True, year_filter=2025)}")
+    from curated_botay_open_rubrics import run as complete_open_rubrics
+    with sqlite3.connect(DB) as completion_con:
+        print(f"Completed open-variant rubrics: {complete_open_rubrics(completion_con, write=True, year_filter=2025)}")
+    from complete_botay_2025_pdf import run as complete_published_2025
+    with sqlite3.connect(DB) as completion_con:
+        print(f"Completed 2025 published keys: {complete_published_2025(completion_con, write=True)}")
+    from curated_botay_open_solutions import run as complete_open_solutions
+    with sqlite3.connect(DB) as completion_con:
+        print(f"Completed open-variant AI solutions: {complete_open_solutions(completion_con, write=True, year_filter=2025)}")
+    from complete_botay_2025_dosrok import run as complete_early_2025
+    with sqlite3.connect(DB) as completion_con:
+        print(f"Completed 2025 early variant: {complete_early_2025(completion_con, write=True)}")
+    from complete_botay_2025_full_pdf import run as complete_expanded_2025
+    with sqlite3.connect(DB) as completion_con:
+        print(f"Completed expanded 2025 published keys: {complete_expanded_2025(completion_con, write=True)}")
+    from complete_botay_2025_ai_keys import run as complete_ai_keys
+    with sqlite3.connect(DB) as completion_con:
+        print(f"Completed 2025 calculated keys: {complete_ai_keys(completion_con, write=True)}")
+    from repair_botay_2025_dv1_26 import run as repair_dv1_26
+    with sqlite3.connect(DB) as completion_con:
+        print(f"Restored Far East task 26 question: {repair_dv1_26(completion_con, write=True)}")
+    from complete_botay_2025_ai_solutions import run as complete_ai_solutions
+    with sqlite3.connect(DB) as completion_con:
+        print(f"Completed 2025 AI TeX solutions: {complete_ai_solutions(completion_con, write=True)}")
+    from complete_botay_ai_criteria import run as complete_ai_criteria
+    with sqlite3.connect(DB) as completion_con:
+        print(f"Completed 2025 AI EGE-style criteria: {complete_ai_criteria(completion_con, write=True, year_filter=2025)}")
 
 
 if __name__ == "__main__":
