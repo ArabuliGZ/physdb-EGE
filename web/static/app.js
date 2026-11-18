@@ -270,6 +270,38 @@ function variantDisplayTitle(variant) {
     : `Демидова ${variant.exam_year}-${variant.variant_number}`;
 }
 
+const variantSourceOrder = ['fipi', 'demidova', 'real'];
+const variantSourceLabels = {
+  fipi: 'Сборник ФИПИ', demidova: 'Демидова', real: 'Реальный',
+};
+
+function variantSource(variant) {
+  const title = variant.title || variant.variant_title || '';
+  if (title.startsWith('Сборник ФИПИ')) return 'fipi';
+  if (title.startsWith('ЕГЭ 20') || /^(?:БОТАЙ|ДОСРОК|ОСНОВ|ОТКРЫТ)/.test(variant.variant_number)) return 'real';
+  return 'demidova';
+}
+
+function variantSidebarTitle(variant) {
+  if (variant.is_official_demo) return variantDisplayTitle(variant);
+  if (variantSource(variant) === 'fipi') return `Вариант ${variant.variant_number}`;
+  if (variantSource(variant) === 'real') {
+    return (variant.title || '').replace(/^ЕГЭ \d{4} —\s*/, '')
+      .replace('Дальний Восток, вариант ', 'ДВ, вариант ')
+      .replace('Северо-Запад, вариант ', 'СЗ, вариант ');
+  }
+  return variantDisplayTitle(variant);
+}
+
+function variantOption(variant) {
+  const button = node('button', `variant-option ${variant.id === state.variantId ? 'is-active' : ''}`);
+  button.type = 'button';
+  if (variant.id === state.variantId) button.setAttribute('aria-current', 'true');
+  button.append(node('strong', '', variantSidebarTitle(variant)));
+  button.addEventListener('click', () => { state.variantId = variant.id; writeLocation(); update(); });
+  return button;
+}
+
 function automaticBaseTitle(variant) {
   return variant.base_is_official_demo ? variant.base_title :
     `Демидова ${variant.base_year}-${variant.base_variant_number}`;
@@ -930,10 +962,17 @@ function renderSidebar() {
   const variants = byId('variant-list');
   const variantScrollTop = variants.scrollTop;
   const expandedYears = new Set([...variants.querySelectorAll('.variant-year[open]')].map(group => group.dataset.year));
+  const expandedSources = new Set([...variants.querySelectorAll('.variant-source[open]')].map(group => group.dataset.source));
   const selectedVariant = state.variants.find(variant => variant.id === state.variantId);
   if (!variants.children.length || variants.dataset.selectedId !== state.variantId) {
     expandedYears.clear();
-    if (selectedVariant) expandedYears.add(String(selectedVariant.exam_year));
+    expandedSources.clear();
+    if (selectedVariant) {
+      expandedYears.add(String(selectedVariant.exam_year));
+      if (!selectedVariant.is_official_demo) {
+        expandedSources.add(`${selectedVariant.exam_year}-${variantSource(selectedVariant)}`);
+      }
+    }
   }
   variants.replaceChildren();
   variants.dataset.selectedId = state.variantId || '';
@@ -956,13 +995,27 @@ function renderSidebar() {
       }
     });
     const options = node('div', 'variant-year-options');
-    for (const variant of yearVariants) {
-      const button = node('button', `variant-option ${variant.id === state.variantId ? 'is-active' : ''}`);
-      button.type = 'button';
-      if (variant.id === state.variantId) button.setAttribute('aria-current', 'true');
-      button.append(node('strong', '', variantDisplayTitle(variant)));
-      button.addEventListener('click', () => { state.variantId = variant.id; writeLocation(); update(); });
-      options.append(button);
+    const demo = yearVariants.filter(variant => variant.is_official_demo);
+    for (const variant of demo) options.append(variantOption(variant));
+    for (const source of variantSourceOrder) {
+      const sourceVariants = yearVariants.filter(variant => !variant.is_official_demo && variantSource(variant) === source);
+      if (!sourceVariants.length) continue;
+      const sourceGroup = node('details', 'variant-source');
+      sourceGroup.dataset.source = `${year}-${source}`;
+      sourceGroup.open = expandedSources.has(sourceGroup.dataset.source);
+      const sourceHeading = node('summary', 'variant-source-heading', variantSourceLabels[source]);
+      sourceHeading.setAttribute('aria-label', `${variantSourceLabels[source]}, варианты ${year} года`);
+      sourceHeading.addEventListener('click', () => {
+        if (!sourceGroup.open) {
+          for (const other of options.querySelectorAll('.variant-source')) {
+            if (other !== sourceGroup) other.open = false;
+          }
+        }
+      });
+      const sourceOptions = node('div', 'variant-source-options');
+      for (const variant of sourceVariants) sourceOptions.append(variantOption(variant));
+      sourceGroup.append(sourceHeading, sourceOptions);
+      options.append(sourceGroup);
     }
     group.append(heading, options);
     variants.append(group);

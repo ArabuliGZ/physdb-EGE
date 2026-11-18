@@ -23,6 +23,17 @@ body { min-width: 0; }
 .variant-year-heading:focus-visible { outline: 2px solid var(--orange-500); outline-offset: -2px; }
 .variant-year-options { display: grid; gap: 5px; padding: 0 7px 7px; }
 .variant-year:not([open]) .variant-year-options { display: none; }
+.variant-source { min-width: 0; border-left: 2px solid var(--gray-200); margin-left: 5px; }
+.variant-source-heading { display: flex; align-items: center; justify-content: space-between; padding: 8px 9px; color: var(--black); font-size: 12px; font-weight: 700; cursor: pointer; list-style: none; }
+.variant-source-heading::-webkit-details-marker { display: none; }
+.variant-source-heading::after { content: ''; width: 6px; height: 6px; margin-right: 3px; border-right: 2px solid var(--gray-500); border-bottom: 2px solid var(--gray-500); transform: rotate(45deg); transition: transform .15s ease; }
+.variant-source[open] .variant-source-heading::after { transform: rotate(225deg); }
+.variant-source-heading:hover { background: var(--orange-50); color: var(--orange-800); }
+.variant-source-heading:focus-visible { outline: 2px solid var(--orange-500); outline-offset: -2px; }
+.variant-source-options { display: grid; gap: 5px; padding: 0 0 5px 8px; }
+.variant-source:not([open]) .variant-source-options { display: none; }
+.variant-source-options .variant-option { padding: 7px 8px; }
+.variant-source-options .variant-option strong { font-size: 12px; }
 .variant-option { width: 100%; padding: 8px 10px; border: 1px solid var(--gray-200); border-radius: 9px; background: #fff; text-align: left; }
 .variant-option:hover, .number-option:hover { border-color: var(--orange-500); background: var(--orange-50); }
 .variant-option.is-active, .number-option.is-active { border-color: var(--orange-500); background: var(--orange-50); box-shadow: 0 0 0 2px rgba(233,138,58,.09); }
