@@ -752,8 +752,11 @@ function renderMatchingStatement(container, problem) {
   }
   const firstColumnLine = firstLetter >= 0 && firstLetter < firstOption ? firstLetter : firstOption;
   const headingRx = /^\s*(?:ГРАФИКИ|ПРОЦЕССЫ?|ФИЗИЧЕСКИЕ ВЕЛИЧИНЫ|ФИЗИЧЕСКАЯ ВЕЛИЧИНА|ФОРМУЛЫ?|ЭНЕРГИЯ ФОТОНА|ЭНЕРГЕТИЧЕСКИЕ ПЕРЕХОДЫ|ХАРАКТЕРИСТИКИ ПРОЦЕССОВ|НОМЕРА ПРОЦЕССОВ|ДВИЖЕНИЕ ЧАСТИЦЫ|ТРАЕКТОРИЯ|УЧАСТКИ ГРАФИКА)(?:\s*[АA]\s*и\s*[БB])?\s*:?(?:\s*)$/i;
+  const normalizeHeading = value => value.trim().replace(/:\s*$/, '').replace(/\s+/g, ' ').toUpperCase();
+  const isHeading = line => headingRx.test(line) || layout.headings?.some(
+    heading => normalizeHeading(line) === normalizeHeading(heading));
   let prefixEnd = firstColumnLine;
-  while (prefixEnd > 0 && (!lines[prefixEnd - 1].trim() || headingRx.test(lines[prefixEnd - 1]))) prefixEnd--;
+  while (prefixEnd > 0 && (!lines[prefixEnd - 1].trim() || isHeading(lines[prefixEnd - 1]))) prefixEnd--;
   renderStatement(container, lines.slice(0, prefixEnd).join('\n').trim(), problem.response_labels);
 
   const left = [], right = [];
@@ -768,7 +771,7 @@ function renderMatchingStatement(container, problem) {
   for (const raw of lines.slice(prefixEnd)) {
     const line = raw.trim();
     if (!line) continue;
-    if (headingRx.test(line)) {
+    if (isHeading(line)) {
       if (layout.headings) continue;
       if (/ГРАФИКИ|ПРОЦЕСС|ФИЗИЧЕСКИЕ ВЕЛИЧИНЫ/i.test(line) && !leftTitle) leftTitle = line.replace(/:$/, '');
       else if (/ФИЗИЧЕСКИЕ ВЕЛИЧИНЫ|ФОРМУЛЫ|ЭНЕРГИЯ ФОТОНА/i.test(line)) rightTitle = line.replace(/:$/, '');
