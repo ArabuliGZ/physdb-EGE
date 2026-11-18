@@ -55,6 +55,8 @@ def main() -> None:
         "SELECT exam_year, variant_number, source_path FROM variants WHERE exam_year BETWEEN 2022 AND 2026"
     ):
         path = parsed_path(year, variant, source)
+        if path.suffix.lower() != ".docx":
+            continue  # This checker reads OOXML runs; PDF/HTML imports have no Word vertAlign.
         if not path.is_file():
             print(f"Source unavailable: {path}")
             misses += 1
