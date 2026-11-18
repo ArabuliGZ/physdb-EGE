@@ -810,7 +810,7 @@ function renderMatchingStatement(container, problem) {
   while (prefixEnd > 0 && (!lines[prefixEnd - 1].trim() || isHeading(lines[prefixEnd - 1]))) prefixEnd--;
   renderStatement(container, lines.slice(0, prefixEnd).join('\n').trim(), problem.response_labels);
 
-  const left = [], right = [];
+  const left = [], right = [], footer = [];
   if (layout.responseLabels && firstLetter < 0) {
     for (const [index, label] of (answerTableLabels(problem) || []).entries()) {
       left.push(`${'АБВ'[index] || index + 1}) ${label}`);
@@ -822,6 +822,10 @@ function renderMatchingStatement(container, problem) {
   for (const raw of lines.slice(prefixEnd)) {
     const line = raw.trim();
     if (!line) continue;
+    if (/^Запишите в таблицу(?:\s|$)/i.test(line) || (footer.length && /^Цифры в ответе(?:\s|$)/i.test(line))) {
+      footer.push(line);
+      continue;
+    }
     if (isHeading(line)) {
       if (layout.headings) continue;
       if (/ГРАФИКИ|ПРОЦЕСС|ФИЗИЧЕСКИЕ ВЕЛИЧИНЫ/i.test(line) && !leftTitle) leftTitle = line.replace(/:$/, '');
@@ -877,6 +881,7 @@ function renderMatchingStatement(container, problem) {
   renderProse(rightColumn, right.join('\n'));
   table.append(leftColumn, rightColumn);
   container.append(table);
+  if (footer.length) renderProse(container, footer.join('\n'));
 }
 
 function renderCard(problem, showSource, numberMode = false) {
