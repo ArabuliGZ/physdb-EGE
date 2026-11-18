@@ -317,8 +317,12 @@ function variantOption(variant) {
 }
 
 function automaticBaseTitle(variant) {
-  return variant.base_is_official_demo ? variant.base_title :
-    `Демидова ${variant.base_year}-${variant.base_variant_number}`;
+  return variantDisplayTitle({
+    is_official_demo: variant.base_is_official_demo,
+    exam_year: variant.base_year,
+    variant_number: variant.base_variant_number,
+    title: variant.base_title,
+  });
 }
 
 function cleanLatex(value) {
